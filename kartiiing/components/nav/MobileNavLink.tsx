@@ -17,7 +17,7 @@ const MobileNavLink = ({ children, href, setOpen }: Props) => {
       className={`text-lg font-medium mx-auto border-2 rounded-xl p-3 w-70 text-center transition-colors duration-200
         ${
           isActive
-            ? "border-emerald-300 bg-accent"
+            ? "border-red-600 bg-accent"
             : "border-accent hover:bg-accent"
         }`}
       onClick={() => setOpen(false)}

@@ -18,7 +18,7 @@ const DesktopNavLink = ({ children, href }: Props) => {
     <NavigationMenuItem>
       <NavigationMenuLink
         asChild
-        className={isActive ? "text-emerald-500 dark:text-emerald-300" : ""}
+        className={isActive ? "text-red-600 dark:text-red-500" : ""}
       >
         <Link href={href}>{children}</Link>
       </NavigationMenuLink>

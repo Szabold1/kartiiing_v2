@@ -9,7 +9,7 @@ const HomeLink = () => {
         <span className="text-blue-500">i</span>
         <span className="text-amber-400">i</span>
         <span className="text-green-500">n</span>
-        <span className="text-orange-500">g</span>
+        <span className="text-red-600">g</span>
       </Link>
     </h1>
   );

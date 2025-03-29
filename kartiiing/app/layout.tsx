@@ -9,7 +9,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ fontSize: "17px" }} suppressHydrationWarning>
+    <html
+      lang="en"
+      style={{ fontSize: "17px", scrollBehavior: "smooth" }}
+      suppressHydrationWarning
+    >
       <body className="flex min-h-screen flex-col">
         <ThemeProvider
           attribute="class"
@@ -18,7 +22,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1 w-full px-4 lg:px-8 max-w-[90rem] mx-auto border-x">
+          <main className="flex-1 w-full px-4 lg:px-7 max-w-[90rem] mx-auto border-x border-dashed">
             {children}
           </main>
           <Footer />

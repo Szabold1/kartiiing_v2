@@ -1,4 +1,4 @@
-import { WikiContent } from "./WikiContentTypes";
+import { WikiContent } from "@/lib/types/WikiTypes";
 
 const data = {
   pageTitle: "The Basics of Karting",

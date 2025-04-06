@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { Paragraph } from "./WikiContentTypes";
+import { Paragraph } from "@/lib/types/WikiTypes";
 import RenderParagraph from "./RenderParagraph";
 
 interface Props {

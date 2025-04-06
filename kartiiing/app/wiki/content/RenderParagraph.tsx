@@ -1,4 +1,4 @@
-import { Paragraph } from "./WikiContentTypes";
+import { Paragraph } from "@/lib/types/WikiTypes";
 import TextParagraph from "./TextParagraph";
 import TextListParagraph from "./TextListParagraph";
 import ImageParagraph from "./ImageParagraph";

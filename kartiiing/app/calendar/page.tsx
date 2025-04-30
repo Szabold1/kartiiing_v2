@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { RaceEvent, RaceCardData } from "@/lib/types/RaceTypes";
 import { useRaceSearch } from "@/hooks/useRaceSearch";
 import PageHeader from "@/components/PageHeader";
+import RaceCard from "@/components/calendar/RaceCard";
 import Aside from "@/components/Aside";
+import { parseISO } from "date-fns";
 import SearchBar from "@/components/SearchBar";
 
 const currentYear = new Date().getFullYear();
@@ -52,6 +54,19 @@ export default function CalendarPage() {
     fetchRaces();
   }, []);
 
+  const upcomingDate = useMemo(() => {
+    const futureRaces = filteredRaces.filter(
+      (r) => parseISO(r.date.end) > new Date()
+    );
+    if (futureRaces.length === 0) return null;
+
+    const nextRace = futureRaces.reduce((prev, curr) =>
+      parseISO(prev.date.end) < parseISO(curr.date.end) ? prev : curr
+    );
+
+    return nextRace.date.end;
+  }, [filteredRaces]);
+
   return (
     <div className="container flex flex-1 items-stretch justify-between mx-auto lg:mx-0">
       <section className="flex-1 mx-auto lg:px-8 xl:px-4">
@@ -66,6 +81,26 @@ export default function CalendarPage() {
             onSearchChange={setSearchQuery}
             filteredCount={filteredRaces.length}
           />
+
+          <div className="my-5 py-5 border-t border-dashed">
+            {filteredRaces.length === 0 ? (
+              <p className="text-muted-foreground text-center">
+                No results found.
+              </p>
+            ) : (
+              <div className="grid justify-center gap-5 grid-cols-[repeat(auto-fit,minmax(18.5rem,1fr))]">
+                {filteredRaces.map((race) => (
+                  <RaceCard
+                    key={race.id}
+                    date={race.date}
+                    location={race.location}
+                    championship={race.championship}
+                    upcomingDate={upcomingDate}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

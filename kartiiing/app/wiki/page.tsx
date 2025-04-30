@@ -2,6 +2,7 @@ import SideBarMenu from "./sidebar/SideBarMenu";
 import data from "./content/WikiContent";
 import RenderSection from "./content/RenderSection";
 import Aside from "@/components/Aside";
+import PageHeader from "@/components/PageHeader";
 
 const WikiPage = () => {
   return (
@@ -11,10 +12,8 @@ const WikiPage = () => {
       </Aside>
 
       <section className="flex-1 max-w-[43rem] mx-auto px-1 lg:px-8 xl:px-0">
-        <div className="px-1 sm:px-5 md:px-6 py-10 lg:py-10 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight">
-            {data.pageTitle}
-          </h1>
+        <div className="px-1 sm:px-5 md:px-6 lg:px-8">
+          <PageHeader title="Wiki" />
           {data.sections.map((section, index) => (
             <RenderSection key={index} section={section} />
           ))}

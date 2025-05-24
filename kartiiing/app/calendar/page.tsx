@@ -39,9 +39,7 @@ export default function CalendarPage() {
   useEffect(() => {
     const fetchRaces = async () => {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/races?year=${currentYear}`
-        );
+        const response = await fetch(`/api/races?year=${currentYear}`);
         if (!response.ok) throw new Error("Failed to fetch races");
 
         const data: RaceEvent[] = await response.json();

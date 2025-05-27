@@ -9,7 +9,7 @@ Welcome to **Kartiiing**, a platform for karting enthusiasts to explore the worl
 
 ## 📋 Features
 
-- **Calendar** *(coming soon)* – Stay up to date with upcoming and ongoing races
+- **Calendar** *(coming soon)* – Stay up to date with this year's races
 - **Results** *(coming soon)* – Browse past races and external result links
 - **Circuits** *(coming soon)* – Discover karting tracks from around the world with past and future races
 - **Wiki** – Learn about karting categories, engine types, championships, and more
@@ -21,6 +21,6 @@ Welcome to **Kartiiing**, a platform for karting enthusiasts to explore the worl
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Next.js, Tailwind CSS, shadcn/ui, TypeScript
-- **Backend**: (Planned) Spring Boot REST API
+- **Backend**: (Planned) NestJS REST API
 - **Database**: PostgreSQL
 - **CI/CD**: (Planned) GitHub Actions or similar

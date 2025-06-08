@@ -1,51 +1,36 @@
-export type Date = {
-  start: string;
-  end: string;
+import { LiveLinkType } from "../generated/prisma";
+
+export type RaceDate = {
+  start: Date | null;
+  end: Date;
 };
 
 export type Location = {
-  name: string;
   country: {
     name: string;
     code: string;
   };
   circuit: {
     name: string;
+    nameLong: string;
     id: number;
   };
 };
 
 export type Championship = {
-  base_name: string;
-  short_name: string | null;
-  series_name: string | null;
-  engine_types: string[];
+  name: string;
+  nameLong: string | null;
+  nameSeries: string | null;
+  engineTypes: string[];
   categories: string[];
-  round_number?: number;
+  roundNumber?: number;
 };
 
-type ResultLink = {
-  url: string;
-  category: string;
-};
-
-type LiveLink = {
-  url: string;
-  type: "stream" | "time";
-};
-
-export type RaceEvent = {
-  id: number;
-  date: Date;
-  location: Location;
-  championships: Championship[];
-  results_links: ResultLink[] | null;
-  live_links: LiveLink[] | null;
-};
-
-export type RaceCardData = {
+export type RaceEventGrouped = {
   id: string;
-  date: Date;
+  date: RaceDate;
   location: Location;
   championship: Championship;
+  resultsLinks?: { url: string; category: string }[] | null;
+  liveLinks?: { url: string; type: LiveLinkType }[] | null;
 };

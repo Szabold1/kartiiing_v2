@@ -16,9 +16,9 @@ export default function SearchBar({
   const terms = searchQuery.split(" ").filter(Boolean);
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-x-4 gap-y-2 w-full mb-5">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-x-4 gap-y-2 w-full mb-5">
       {/* Input */}
-      <div className="w-full sm:max-w-md">
+      <div className="w-full md:max-w-md">
         <Input
           placeholder="Search..."
           value={searchQuery}
@@ -27,7 +27,7 @@ export default function SearchBar({
       </div>
 
       {/* Result summary */}
-      <p className="text-sm text-muted-foreground flex items-center flex-wrap gap-1 pl-2">
+      <p className="text-sm text-muted-foreground flex items-center flex-wrap gap-1 pl-2 pt-1.5 md:pt-0">
         <span className="mr-1.5">
           {filteredCount === 0
             ? "No results"

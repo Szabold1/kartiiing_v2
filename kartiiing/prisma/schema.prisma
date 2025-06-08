@@ -72,7 +72,7 @@ model Championship {
 
 model RaceWeekend {
   id        Int          @id @default(autoincrement())
-  dateStart DateTime
+  dateStart DateTime?
   dateEnd   DateTime
 
   circuitId Int
@@ -121,4 +121,34 @@ model LiveLink {
   raceEvent   RaceEvent  @relation(fields: [raceEventId], references: [id])
 
   @@map("live_links")
+}
+
+model RaceEventView {
+  id                      Int     @id
+
+  date_start              DateTime?
+  date_end                DateTime
+
+  circuit_id              Int
+  circuit_name            String
+  circuit_name_long       String
+
+  country_code            String
+  country_name            String
+
+  championship_name       String
+  championship_name_long  String
+  championship_series     String
+  round_number            Int?
+
+  category_name           String?
+  engine_type_name        String?
+
+  result_link_url         String?
+  result_link_category    String?
+
+  live_link_url           String?
+  live_link_type          LiveLinkType?
+
+  @@map("race_event_view")
 }

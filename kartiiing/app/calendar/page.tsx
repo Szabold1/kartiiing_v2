@@ -54,7 +54,7 @@ export default function CalendarPage() {
 
           <SearchBar
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            setSearchQuery={setSearchQuery}
             filteredCount={filteredRaces.length}
           />
 

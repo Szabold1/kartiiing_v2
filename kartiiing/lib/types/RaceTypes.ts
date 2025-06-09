@@ -1,41 +1,36 @@
-type LiveLink = {
-    type: "stream" | "time";
-    url: string;
-}
+import { LiveLinkType } from "../generated/prisma";
 
-type ResultLink = {
-    category: string;
-    url: string;
-}
+export type RaceDate = {
+  start: string;
+  end: string;
+};
 
-export interface RawRace {
+export type Location = {
+  country: {
+    name: string;
+    code: string;
+  };
+  circuit: {
+    name: string;
+    nameLong: string;
     id: number;
-    start_date: string; // YYYY-MM-DD format
-    end_date: string; // YYYY-MM-DD format
-    categories: string[];
-    engine_types: string[];
-    championships: string[];
-    live_links?: LiveLink[] | null;
-    results_links?: ResultLink[] | null;
-    location_name: string;
-    country_name: string;
-    country_code: string;
-  }
+  };
+};
 
-export interface Race {
-    id: number;
-    start_date: string; // YYYY-MM-DD format
-    end_date: string; // YYYY-MM-DD format
-    categories: string[];
-    engine_types: string[];
-    championships: string[];
-    live_links?: LiveLink[] | null;
-    results_links?: ResultLink[] | null;
-    location: {
-      name: string;
-      country: {
-        name: string;
-        code: string;
-      };
-    };
-  }
+export type Championship = {
+  name: string;
+  nameLong: string | null;
+  nameSeries: string | null;
+  engineTypes: string[];
+  categories: string[];
+  roundNumber?: number;
+};
+
+export type RaceEventGrouped = {
+  id: string;
+  date: RaceDate;
+  location: Location;
+  championship: Championship;
+  resultsLinks?: { url: string; category: string }[] | null;
+  liveLinks?: { url: string; type: LiveLinkType }[] | null;
+};

@@ -22,7 +22,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1 w-full px-4 lg:px-7 max-w-[90rem] mx-auto border-x border-dashed">
+          <main className="flex-1 w-full px-3 lg:px-7 max-w-[90rem] mx-auto border-x border-dashed">
             {children}
           </main>
           <Footer />

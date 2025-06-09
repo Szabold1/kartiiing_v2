@@ -9,6 +9,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
+    // "module": "commonjs", // for seeding
+    // "moduleResolution": "node", // for seeding
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,

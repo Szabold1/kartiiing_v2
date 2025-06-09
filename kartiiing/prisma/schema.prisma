@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LiveLinkType {
+  stream
+  time
+}
+
+model Country {
+  id       Int       @id @default(autoincrement())
+  name     String
+  code     String    @unique
+  circuits Circuit[]
+
+  @@map("countries")
+}
+
+model Circuit {
+  id          Int      @id @default(autoincrement())
+  nameShort   String
+  nameLong    String
+  length      Int
+  websiteLink String?
+  latitude    Float
+  longitude   Float
+
+  countryId   Int
+  country     Country  @relation(fields: [countryId], references: [id])
+
+  raceWeekends RaceWeekend[]
+
+  @@unique([nameShort, countryId])
+  @@map("circuits")
+}
+
+model EngineType {
+  id         Int        @id @default(autoincrement())
+  name       String     @unique
+  categories Category[]
+
+  @@map("engine_types")
+}
+
+model Category {
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
+  engineTypeId Int
+  engineType   EngineType   @relation(fields: [engineTypeId], references: [id])
+
+  raceEvents   RaceEvent[] @relation("RaceEventCategories")
+
+  @@map("categories")
+}
+
+model Championship {
+  id         Int          @id @default(autoincrement())
+  nameShort  String
+  nameLong   String
+  nameSeries String?
+
+  raceEvents RaceEvent[]
+
+  @@map("championships")
+}
+
+model RaceWeekend {
+  id        Int          @id @default(autoincrement())
+  dateStart DateTime
+  dateEnd   DateTime
+
+  circuitId Int
+  circuit   Circuit      @relation(fields: [circuitId], references: [id])
+
+  raceEvents RaceEvent[]
+
+  @@map("race_weekends")
+}
+
+model RaceEvent {
+  id             Int                   @id @default(autoincrement())
+  roundNumber    Int?
+
+  championshipId Int
+  championship   Championship          @relation(fields: [championshipId], references: [id])
+
+  raceWeekendId  Int
+  raceWeekend    RaceWeekend           @relation(fields: [raceWeekendId], references: [id])
+
+  categories       Category[]   @relation("RaceEventCategories")
+
+  resultLinks    ResultLink[]
+  liveLinks      LiveLink[]
+      
+  @@map("race_events")
+}
+
+model ResultLink {
+  id          Int        @id @default(autoincrement())
+  url         String
+  category    String
+
+  raceEventId Int
+  raceEvent   RaceEvent  @relation(fields: [raceEventId], references: [id])
+
+  @@map("result_links")
+}
+
+model LiveLink {
+  id          Int        @id @default(autoincrement())
+  url         String
+  type        LiveLinkType
+
+  raceEventId Int
+  raceEvent   RaceEvent  @relation(fields: [raceEventId], references: [id])
+
+  @@map("live_links")
+}
+
+model RaceEventView {
+  id                      Int     @id
+
+  date_start              DateTime
+  date_end                DateTime
+
+  circuit_id              Int
+  circuit_name            String
+  circuit_name_long       String
+
+  country_code            String
+  country_name            String
+
+  championship_name       String
+  championship_name_long  String
+  championship_series     String
+  round_number            Int?
+
+  category_name           String?
+  engine_type_name        String?
+
+  result_link_url         String?
+  result_link_category    String?
+
+  live_link_url           String?
+  live_link_type          LiveLinkType?
+
+  @@map("race_event_view")
+}

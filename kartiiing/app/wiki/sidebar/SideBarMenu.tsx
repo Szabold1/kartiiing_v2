@@ -1,7 +1,7 @@
 import SideBarLink from "./SideBarLink";
 import SideBarSubSection from "./SideBarSubSection";
 import data from "../content/WikiContent";
-import { Section, SubSection } from "../content/WikiContentTypes";
+import { Section, SubSection } from "@/lib/types/WikiTypes";
 
 const SideBarMenu = () => {
   const renderLinks = (sections: Section[] | SubSection[]) => {

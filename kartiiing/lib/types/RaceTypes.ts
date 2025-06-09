@@ -1,8 +1,8 @@
 import { LiveLinkType } from "../generated/prisma";
 
 export type RaceDate = {
-  start: Date | null;
-  end: Date;
+  start: string;
+  end: string;
 };
 
 export type Location = {

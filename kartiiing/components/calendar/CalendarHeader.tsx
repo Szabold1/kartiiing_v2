@@ -2,7 +2,7 @@ import PageHeader from "@/components/PageHeader";
 import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 
 type Props = {
-  filteredRaces: RaceEventGrouped[];
+  races: RaceEventGrouped[];
 };
 
 function buildCalendarDescription(races: RaceEventGrouped[]): string {
@@ -21,11 +21,11 @@ function buildCalendarDescription(races: RaceEventGrouped[]): string {
   } races across ${uniqueCircuits} circuits, representing ${uniqueChampionships} championships.`;
 }
 
-export default function CalendarHeader({ filteredRaces }: Props) {
+export default function CalendarHeader({ races }: Props) {
   return (
     <PageHeader
       title="Calendar"
-      description={buildCalendarDescription(filteredRaces)}
+      description={buildCalendarDescription(races)}
     />
   );
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getRaces } from "@/lib/db";
+import { getRaces, groupRaceEvents } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
@@ -7,8 +7,9 @@ export async function GET(req: NextRequest) {
     const year = searchParams.get("year");
 
     const races = await getRaces(year ?? undefined);
+    const grouped = groupRaceEvents(races);
 
-    return NextResponse.json(races);
+    return NextResponse.json(grouped);
   } catch (error) {
     console.error("Error fetching races:", error);
     return NextResponse.json(

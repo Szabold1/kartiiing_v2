@@ -5,13 +5,14 @@ import { useRaceSearch } from "@/hooks/useRaceSearch";
 import RaceCard from "@/components/calendar/RaceCard";
 import Aside from "@/components/Aside";
 import SearchBar from "@/components/SearchBar";
+import Loader from "@/components/Loader";
 import CalendarHeader from "@/components/calendar/CalendarHeader";
 import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 import { toDay } from "@/lib/utils";
 
 export default function CalendarPage() {
+  const [loading, setLoading] = useState(true);
   const [races, setRaces] = useState<RaceEventGrouped[]>([]);
-
   const { searchQuery, setSearchQuery, filteredRaces } = useRaceSearch(races);
 
   // fetch races from API
@@ -27,6 +28,8 @@ export default function CalendarPage() {
         setRaces(data);
       } catch (error) {
         console.error("Error loading races:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -59,8 +62,10 @@ export default function CalendarPage() {
           />
 
           <div className="my-5 py-5.5 border-t border-dashed">
-            {filteredRaces.length === 0 ? (
-              <p className="text-muted-foreground text-center">
+            {loading ? (
+              <Loader />
+            ) : filteredRaces.length === 0 ? (
+              <p className="text-muted-foreground text-center py-10">
                 No results found.
               </p>
             ) : (

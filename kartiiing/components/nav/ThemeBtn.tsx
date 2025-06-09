@@ -1,8 +1,9 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon, LoaderIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/Loader";
 
 const ThemeBtn = () => {
   const { setTheme, resolvedTheme } = useTheme();
@@ -25,7 +26,7 @@ const ThemeBtn = () => {
       ) : resolvedTheme === "light" ? (
         <MoonIcon className="size-4" />
       ) : (
-        <LoaderIcon className="size-4 animate-spin" />
+        <Loader />
       )}
     </Button>
   );

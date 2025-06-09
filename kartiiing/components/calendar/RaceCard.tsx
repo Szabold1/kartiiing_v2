@@ -32,7 +32,7 @@ export default function RaceCard({
       <div className="flex items-center gap-2.5">
         <Flag
           code={location.country.code}
-          className="max-w-7 max-h-5.5 rounded-[0.2rem] object-cover"
+          className="w-7 max-h-5.5 rounded-[0.2rem] object-cover"
         />
       </div>
 

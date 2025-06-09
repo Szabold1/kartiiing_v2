@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import ThemeBtn from "./ThemeBtn";
@@ -18,12 +18,12 @@ const Navbar = () => {
         <div className="flex items-center justify-end gap-4">
           <ThemeBtn />
 
-          <Button
+          {/* <Button
             size="lg"
             className="hidden md:flex border-1 bg-red-600 hover:bg-red-500 dark:bg-red-600 dark:hover:bg-red-700 dark:text-red-50"
           >
             Login
-          </Button>
+          </Button> */}
 
           <MobileNav />
         </div>

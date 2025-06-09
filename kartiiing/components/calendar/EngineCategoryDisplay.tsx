@@ -1,4 +1,4 @@
-import { ENGINE_ORDER, ENGINE_COLORS } from "@/lib/constants/categories";
+import { ENGINE_COLORS, CATEGORY_ORDER } from "@/lib/constants/categories";
 
 // Types
 type Props = {
@@ -97,8 +97,8 @@ export default function EngineCategoryDisplay({
     <div className={`flex gap-1.5 flex-wrap ${className}`}>
       {badges
         .sort((a, b) => {
-          const ai = ENGINE_ORDER.indexOf(a.engineType);
-          const bi = ENGINE_ORDER.indexOf(b.engineType);
+          const ai = CATEGORY_ORDER.indexOf(a.label);
+          const bi = CATEGORY_ORDER.indexOf(b.label);
           return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
         })
         .map(({ label, engineType }) => (

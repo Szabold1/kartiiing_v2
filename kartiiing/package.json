@@ -7,7 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node prisma/seeds/seed.ts"
+    "seed": "ts-node --require tsconfig-paths/register prisma/seeds/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
@@ -42,6 +42,7 @@
     "prisma": "^6.9.0",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
 }

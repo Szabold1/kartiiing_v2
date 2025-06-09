@@ -69,7 +69,7 @@ export async function getChampionshipByName(
 }
 
 interface RaceEventData {
-  roundNumber: number;
+  roundNumber: number | undefined;
   championshipNameShort: string;
   championshipSeries: string;
   circuitShortName: string;
@@ -106,7 +106,7 @@ export async function createRaceEvent(
 
   await prisma.raceEvent.create({
     data: {
-      roundNumber: data.roundNumber,
+      roundNumber: data.roundNumber ?? undefined,
       championshipId: championship.id,
       raceWeekendId: weekend.id,
       categories: {

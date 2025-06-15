@@ -29,12 +29,6 @@ export default function RaceCard({
           <StatusBadge status={status} />
         </div>
       )}
-      <div className="flex items-center gap-2.5">
-        <Flag
-          code={location.country.code}
-          className="w-7 max-h-5.5 rounded-[0.2rem] object-cover"
-        />
-      </div>
 
       <div className="flex flex-col gap-1">
         <div className="text-muted-foreground tracking-tighter uppercase leading-tight">
@@ -51,8 +45,12 @@ export default function RaceCard({
           {championship.nameSeries ? ` ${championship.nameSeries}` : ""}
           {championship.roundNumber ? ` #${championship.roundNumber}` : ""}
         </div>
-        <div className="text-muted-foreground text-sm">
-          {location.circuit.nameLong}
+        <div className="text-muted-foreground text-sm flex items-center gap-2">
+          <Flag
+            code={location.country.code}
+            className="w-4.5 max-h-3.5 rounded-[0.15rem] object-cover"
+          />
+          {location.circuit.name}
         </div>
       </div>
 

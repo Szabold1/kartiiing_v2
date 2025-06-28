@@ -93,7 +93,7 @@ export default function CalendarPage() {
       <AnimatePresence>
         {chosenRace && (
           <Modal onClose={() => setChosenRace(null)}>
-            <RaceDetails race={chosenRace} />
+            <RaceDetails race={chosenRace} onClose={() => setChosenRace(null)} />
           </Modal>
         )}
       </AnimatePresence>

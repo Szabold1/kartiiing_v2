@@ -1,9 +1,10 @@
-import EngineCategoryDisplay from "@/components/calendar/EngineCategoryDisplay";
+import EngineCategoryDisplay from "@/components/calendar/renderRaceData/EngineCategoryDisplay";
 import StatusBadge from "@/components/calendar/StatusBadge";
 import type { Championship, Location, RaceDate } from "@/lib/types/RaceTypes";
 import { toDay, getRaceStatus } from "@/lib/utils";
-import { format } from "date-fns";
 import Flag from "react-world-flags";
+import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
+import RenderRaceTitle from "./renderRaceData/RenderRaceTitle";
 
 type Props = {
   date: RaceDate;
@@ -20,9 +21,11 @@ export default function RaceCard({
   upcomingDate,
   onClick = () => {},
 }: Props) {
-  const startDate = toDay(date.start);
-  const endDate = toDay(date.end);
-  const status = getRaceStatus(startDate, endDate, upcomingDate);
+  const status = getRaceStatus(
+    toDay(date.start),
+    toDay(date.end),
+    upcomingDate
+  );
 
   return (
     <div
@@ -36,15 +39,11 @@ export default function RaceCard({
         </div>
       )}
 
-      <div className="text-muted-foreground tracking-tighter uppercase leading-tight">
-        {startDate.getTime() === endDate.getTime() ? (
-          <span>{format(startDate, "dd MMM")}</span>
-        ) : (
-          <span>
-            {format(startDate, "dd MMM")} - {format(endDate, "dd MMM")}
-          </span>
-        )}
-      </div>
+      <RenderRaceDate
+        startDate={toDay(date.start)}
+        endDate={toDay(date.end)}
+        className="leading-tight tracking-tighter"
+      />
 
       <div className="text-muted-foreground text-sm flex items-center gap-2 mt-1.5">
         <Flag
@@ -54,11 +53,10 @@ export default function RaceCard({
         {location.circuit.name}
       </div>
 
-      <div className="font-medium tracking-tight flex-1">
-        {championship.name ? championship.name : championship.nameLong}
-        {championship.nameSeries ? ` ${championship.nameSeries}` : ""}
-        {championship.roundNumber ? ` #${championship.roundNumber}` : ""}
-      </div>
+      <RenderRaceTitle
+        championship={championship}
+        className="font-medium tracking-tight flex-1"
+      />
 
       <EngineCategoryDisplay
         engines={championship.engineTypes}

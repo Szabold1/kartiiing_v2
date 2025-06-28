@@ -49,7 +49,7 @@ export default function Modal({ onClose = () => {}, children }: Props) {
     <Backdrop onClick={onClose}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-2xl m-2 rounded-2xl z-60 bg-background border border-zinc-500 border-dashed"
+        className="w-full max-w-xl m-2.5 rounded-2xl z-60 bg-background border border-zinc-500 border-dashed"
         variants={dropIn}
         initial="hidden"
         animate="visible"

@@ -2,9 +2,9 @@ import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import EngineCategoryDisplay from "@/components/calendar/renderRaceData/EngineCategoryDisplay";
+import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import { toDay } from "@/lib/utils";
 import { X } from "lucide-react";
-import Flag from "react-world-flags";
 
 type Props = {
   race: RaceEventGrouped;
@@ -32,13 +32,7 @@ export default function RaceDetails({ race, onClose }: Props) {
         className="tracking-tight"
       />
 
-      <div className="text-muted-foreground text-sm flex items-center gap-2.5 mt-1.5">
-        <Flag
-          code={race.location.country.code}
-          className="w-5.5 max-h-4 rounded-[0.15rem] object-cover"
-        />
-        {race.location.circuit.name} - {race.location.circuit.nameLong}
-      </div>
+      <RenderRaceLocation location={race.location} version="long" />
 
       <EngineCategoryDisplay
         engines={race.championship.engineTypes}

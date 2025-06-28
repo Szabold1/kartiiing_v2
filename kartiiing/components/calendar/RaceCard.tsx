@@ -2,9 +2,9 @@ import EngineCategoryDisplay from "@/components/calendar/renderRaceData/EngineCa
 import StatusBadge from "@/components/calendar/StatusBadge";
 import type { Championship, Location, RaceDate } from "@/lib/types/RaceTypes";
 import { toDay, getRaceStatus } from "@/lib/utils";
-import Flag from "react-world-flags";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
-import RenderRaceTitle from "./renderRaceData/RenderRaceTitle";
+import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
+import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 
 type Props = {
   date: RaceDate;
@@ -45,13 +45,7 @@ export default function RaceCard({
         className="leading-tight tracking-tighter"
       />
 
-      <div className="text-muted-foreground text-sm flex items-center gap-2 mt-1.5">
-        <Flag
-          code={location.country.code}
-          className="w-4.5 max-h-3.5 rounded-[0.15rem] object-cover"
-        />
-        {location.circuit.name}
-      </div>
+      <RenderRaceLocation location={location} />
 
       <RenderRaceTitle
         championship={championship}
@@ -61,7 +55,7 @@ export default function RaceCard({
       <EngineCategoryDisplay
         engines={championship.engineTypes}
         categories={championship.categories}
-        className="mt-2.5"
+        className="mt-2"
       />
     </div>
   );

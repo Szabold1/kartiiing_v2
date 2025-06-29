@@ -6,7 +6,7 @@ import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/Loader";
 import CalendarHeader from "@/components/calendar/CalendarHeader";
 import { RaceEventGrouped } from "@/lib/types/RaceTypes";
-import { toDay } from "@/lib/utils";
+import { getNextUpcomingRaceDate } from "@/lib/utils";
 import NextRaceBtn from "@/components/calendar/NextRaceBtn";
 import SearchHeader from "@/components/calendar/SearchHeader";
 import RaceDetails from "@/components/calendar/RaceDetails";
@@ -40,18 +40,10 @@ export default function CalendarPage() {
     fetchRaces();
   }, []);
 
-  const upcomingDate: Date | null = useMemo(() => {
-    const futureRaces = filteredRaces.filter(
-      (r) => toDay(r.date.end) > toDay(new Date())
-    );
-    if (futureRaces.length === 0) return null;
-
-    const nextRace = futureRaces.reduce((prev, curr) =>
-      toDay(prev.date.end) < toDay(curr.date.end) ? prev : curr
-    );
-
-    return toDay(nextRace.date.end);
-  }, [filteredRaces]);
+  const upcomingDate: Date | null = useMemo(
+    () => getNextUpcomingRaceDate(filteredRaces),
+    [filteredRaces]
+  );
 
   return (
     <div className="container flex flex-1 items-stretch justify-between mx-auto">
@@ -93,7 +85,10 @@ export default function CalendarPage() {
       <AnimatePresence>
         {chosenRace && (
           <Modal onClose={() => setChosenRace(null)}>
-            <RaceDetails race={chosenRace} onClose={() => setChosenRace(null)} />
+            <RaceDetails
+              race={chosenRace}
+              onClose={() => setChosenRace(null)}
+            />
           </Modal>
         )}
       </AnimatePresence>

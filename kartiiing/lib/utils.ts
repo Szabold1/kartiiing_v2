@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -36,4 +37,26 @@ export function getRaceStatus(
     return "Upcoming";
   if (endDate < today) return "Finished";
   return null;
+}
+
+/**
+ * Returns the end date of the next race from races (including today).
+ * 
+ * @param races
+ * @returns Date | null
+ */
+export function getNextUpcomingRaceDate(
+  races: RaceEventGrouped[]
+): Date | null {
+  const futureRaces = races.filter(
+    (r) => toDay(r.date.end) >= toDay(new Date())
+  );
+
+  if (futureRaces.length === 0) return null;
+
+  const nextRace = futureRaces.reduce((prev, curr) =>
+    toDay(prev.date.end) < toDay(curr.date.end) ? prev : curr
+  );
+
+  return toDay(nextRace.date.end);
 }

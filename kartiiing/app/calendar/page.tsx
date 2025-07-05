@@ -11,6 +11,7 @@ import NextRaceBtn from "@/components/calendar/NextRaceBtn";
 import SearchHeader from "@/components/calendar/SearchHeader";
 import RaceDetails from "@/components/calendar/RaceDetails";
 import Modal from "@/components/Modal";
+import BackToTopBtn from "@/components/BackToTopBtn";
 import { AnimatePresence } from "framer-motion";
 
 export default function CalendarPage() {
@@ -92,6 +93,8 @@ export default function CalendarPage() {
           </Modal>
         )}
       </AnimatePresence>
+
+      <BackToTopBtn />
     </div>
   );
 }

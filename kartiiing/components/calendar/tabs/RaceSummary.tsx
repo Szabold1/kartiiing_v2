@@ -3,7 +3,6 @@ import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEng
 import SectionTitle from "@/components/SectionTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
-import { toDay } from "@/lib/utils";
 
 interface Props {
   race: RaceEventGrouped;
@@ -18,8 +17,7 @@ export default function RaceSummary({ race, className = "" }: Props) {
       <div>
         <SectionTitle>Date</SectionTitle>
         <RenderRaceDate
-          startDate={toDay(date.start)}
-          endDate={toDay(date.end)}
+          date={date}
           className="font-medium tracking-tight"
           withYear
           showRelative

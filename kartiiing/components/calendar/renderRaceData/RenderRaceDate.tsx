@@ -1,21 +1,22 @@
 import { format } from "date-fns";
-import { getRelativeText } from "@/lib/utils";
+import { getRelativeText, toDay } from "@/lib/utils";
+import { RaceDate } from "@/lib/types/RaceTypes";
 
 type Props = {
-  startDate: Date;
-  endDate: Date;
+  date: RaceDate;
   className?: string;
   withYear?: boolean;
   showRelative?: boolean;
 };
 
 export default function RenderRaceDate({
-  startDate,
-  endDate,
+  date,
   className = "",
   withYear = false,
   showRelative = false,
 }: Props) {
+  const startDate = toDay(date.start);
+  const endDate = toDay(date.end);
   const isSameDay = startDate.getTime() === endDate.getTime();
   const isSameMonth =
     startDate.getMonth() === endDate.getMonth() &&

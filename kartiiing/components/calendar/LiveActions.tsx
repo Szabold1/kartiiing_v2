@@ -1,20 +1,18 @@
 import { RaceEventGrouped } from "@/lib/types/RaceTypes";
-import { toDay, getRaceStatus } from "@/lib/utils";
+import { useRaceStatus } from "@/hooks/useRaceStatus";
+import { useRaceContext } from "@/contexts/RaceContext";
 import StatusBadge from "./StatusBadge";
 import LiveActionButton from "./LiveActionButton";
 import { Timer, TvMinimalPlay } from "lucide-react";
 
 type Props = {
   race: RaceEventGrouped;
-  upcomingDate: Date | null;
 };
 
-export default function LiveActions({ race, upcomingDate }: Props) {
-  const status = getRaceStatus(
-    toDay(race.date.start),
-    toDay(race.date.end),
-    upcomingDate
-  );
+export default function LiveActions({ race }: Props) {
+  const { races } = useRaceContext();
+  const { getRaceStatusForRace } = useRaceStatus(races);
+  const status = getRaceStatusForRace(race);
   if (status !== "Live") return null;
 
   const raceName = `${race.championship.nameLong} ${race.championship.nameSeries}`;

@@ -1,31 +1,25 @@
 import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
 import StatusBadge from "@/components/calendar/StatusBadge";
-import type { Championship, Location, RaceDate } from "@/lib/types/RaceTypes";
-import { toDay, getRaceStatus } from "@/lib/utils";
+import type { RaceEventGrouped } from "@/lib/types/RaceTypes";
+import { useRaceStatus } from "@/hooks/useRaceStatus";
+import { useRaceContext } from "@/contexts/RaceContext";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 
 type Props = {
-  date: RaceDate;
-  location: Location;
-  championship: Championship;
-  upcomingDate: Date | null;
+  race: RaceEventGrouped;
   onClick?: () => void;
 };
 
 export default function RaceCard({
-  date,
-  location,
-  championship,
-  upcomingDate,
+  race,
   onClick = () => {},
 }: Props) {
-  const status = getRaceStatus(
-    toDay(date.start),
-    toDay(date.end),
-    upcomingDate
-  );
+  const { races } = useRaceContext();
+  const { date, location, championship } = race;
+  const { getRaceStatusForRace } = useRaceStatus(races);
+  const status = getRaceStatusForRace(race);
 
   return (
     <div
@@ -43,8 +37,7 @@ export default function RaceCard({
       )}
 
       <RenderRaceDate
-        startDate={toDay(date.start)}
-        endDate={toDay(date.end)}
+        date={date}
         className="leading-tight tracking-tighter text-muted-foreground"
       />
 

@@ -7,11 +7,10 @@ import LiveActions from "./LiveActions";
 
 type Props = {
   race: RaceEventGrouped;
-  upcomingDate: Date | null;
   onClose?: () => void;
 };
 
-export default function RaceDetails({ race, upcomingDate, onClose }: Props) {
+export default function RaceDetails({ race, onClose }: Props) {
   const tabs = [
     {
       id: "summary",
@@ -40,7 +39,7 @@ export default function RaceDetails({ race, upcomingDate, onClose }: Props) {
           championship={race.championship}
           className="text-lg font-semibold tracking-tight"
         />
-        <LiveActions race={race} upcomingDate={upcomingDate} />
+        <LiveActions race={race} />
         <X
           className="w-8 h-8 p-2 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent ml-auto flex-shrink-0"
           onClick={onClose}

@@ -1,8 +1,5 @@
-import {
-  ENGINE_COLORS,
-  CATEGORY_ORDER,
-  ENGINE_CATEGORIES,
-} from "@/lib/constants/categories";
+import { ENGINE_COLORS, ENGINE_CATEGORIES } from "@/lib/constants/categories";
+import { sortCategoriesByOrder } from "@/lib/utils";
 
 // Types
 type Props = {
@@ -62,26 +59,21 @@ export default function RenderEngineCategory({
   showAll = false,
 }: Props) {
   const badges = getBadgesToShow(engines, categories, showAll);
+  const sortedBadges = sortCategoriesByOrder(badges, (badge) => badge.label);
 
   return (
     <div className={`flex gap-1.5 flex-wrap ${className}`}>
-      {badges
-        .sort((a, b) => {
-          const ai = CATEGORY_ORDER.indexOf(a.label);
-          const bi = CATEGORY_ORDER.indexOf(b.label);
-          return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-        })
-        .map(({ label, engineType }) => (
-          <span
-            key={label}
-            className={`text-xs px-2 py-1 rounded-md ${
-              ENGINE_COLORS[engineType] ||
-              "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
-            }`}
-          >
-            {label}
-          </span>
-        ))}
+      {sortedBadges.map(({ label, engineType }) => (
+        <span
+          key={label}
+          className={`text-xs px-2 py-1 rounded-md ${
+            ENGINE_COLORS[engineType] ||
+            "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
+          }`}
+        >
+          {label}
+        </span>
+      ))}
     </div>
   );
 }

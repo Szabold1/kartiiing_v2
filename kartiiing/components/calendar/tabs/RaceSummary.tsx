@@ -28,7 +28,7 @@ export default function RaceSummary({ race, className = "" }: Props) {
         <SectionTitle>Location</SectionTitle>
         <RenderRaceLocation
           location={location}
-          className="font-medium"
+          className="font-medium tracking- sm:tracking-normal"
           version="long"
           isClickable
         />

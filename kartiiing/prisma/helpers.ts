@@ -104,7 +104,7 @@ export async function createRaceEvent(
     throw new Error("One or more categories not found");
   }
 
-  await prisma.raceEvent.create({
+  const raceEvent = await prisma.raceEvent.create({
     data: {
       roundNumber: data.roundNumber ?? undefined,
       championshipId: championship.id,
@@ -112,22 +112,26 @@ export async function createRaceEvent(
       categories: {
         connect: categories.map((cat) => ({ id: cat.id })),
       },
-      resultLinks: data.resultLinks
-        ? {
-            create: data.resultLinks.map((link) => ({
-              url: link.url,
-              category: link.category,
-            })),
-          }
-        : undefined,
-      liveLinks: data.liveLinks
-        ? {
-            create: data.liveLinks.map((link) => ({
-              url: link.url,
-              type: link.type,
-            })),
-          }
-        : undefined,
     },
   });
+
+  if (data.resultLinks) {
+    await prisma.resultLink.createMany({
+      data: data.resultLinks.map((link) => ({
+        raceEventId: raceEvent.id,
+        url: link.url,
+        category: link.category,
+      })),
+    });
+  }
+
+  if (data.liveLinks) {
+    await prisma.liveLink.createMany({
+      data: data.liveLinks.map((link) => ({
+        raceEventId: raceEvent.id,
+        url: link.url,
+        type: link.type,
+      })),
+    });
+  }
 }

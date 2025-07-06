@@ -7,6 +7,7 @@ type Tab = {
   id: string;
   label: string;
   content: ReactNode;
+  onClick?: () => void;
 };
 
 type Props = {
@@ -25,9 +26,14 @@ export default function Tabs({ tabs, defaultTab }: Props) {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 cursor-pointer hover:text-red-500 dark:hover:text-red-400 
-              ${activeTab === tab.id && "text-red-600 dark:text-red-500"}`}
+            onClick={() => {
+              if (tab.onClick) tab.onClick();
+              else setActiveTab(tab.id);
+            }}
+            className={`relative px-3 py-2 font-medium transition-all duration-200 cursor-pointer hover:text-red-500 dark:hover:text-red-400 flex items-center gap-1
+                ${
+                  activeTab === tab.id ? "text-red-600 dark:text-red-500" : ""
+                }`}
           >
             {tab.label}
           </button>

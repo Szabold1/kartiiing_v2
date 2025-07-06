@@ -3,6 +3,7 @@ import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitl
 import Tabs from "@/components/Tabs";
 import { X } from "lucide-react";
 import RaceSummary from "@/components/calendar/tabs/RaceSummary";
+import Results from "@/components/calendar/tabs/Results";
 import LiveActions from "./LiveActions";
 
 type Props = {
@@ -11,33 +12,38 @@ type Props = {
 };
 
 export default function RaceDetails({ race, onClose }: Props) {
+  const resultsLinks = race.resultsLinks || [];
+
   const tabs = [
     {
       id: "summary",
       label: "Summary",
       content: <RaceSummary race={race} />,
     },
-    ...(race.resultsLinks && race.resultsLinks.length > 0
+    ...(resultsLinks && resultsLinks.length > 0
       ? [
-          {
-            id: "results",
-            label: "Results",
-            content: (
-              <div className="flex items-center justify-center text-muted-foreground">
-                Results content coming soon...
-              </div>
-            ),
-          },
+          resultsLinks.length === 1
+            ? {
+                id: "results",
+                label: "Results",
+                content: null,
+                onClick: () => window.open(resultsLinks[0].url, "_blank"),
+              }
+            : {
+                id: "results",
+                label: "Results",
+                content: <Results race={race} />,
+              },
         ]
       : []),
   ];
 
   return (
-    <div className="p-4 h-full relative min-h-90">
+    <div className="p-4 sm:p-5 h-full relative min-h-90">
       <div className="flex items-center mb-4 gap-2">
         <RenderRaceTitle
           championship={race.championship}
-          className="text-lg font-semibold tracking-tight"
+          className="text-xl font-semibold tracking-tight"
         />
         <LiveActions race={race} />
         <X

@@ -3,7 +3,9 @@ import { createRaceEvent } from "../helpers";
 import { getAllRaceEvents } from "../data/DataRaceEvents";
 
 export async function seedRaceEvents(prisma: PrismaClient) {
-  getAllRaceEvents().forEach(async (r) => {
+  const allRaceEvents = getAllRaceEvents();
+
+  for (const r of allRaceEvents) {
     await createRaceEvent(prisma, {
       roundNumber: r.roundNumber,
       championshipNameShort: r.championshipNameShort,
@@ -11,6 +13,7 @@ export async function seedRaceEvents(prisma: PrismaClient) {
       circuitShortName: r.circuitShortName,
       dateEnd: r.dateEnd,
       categoryNames: r.categoryNames,
+      resultLinks: r.resultLinks,
     });
-  });
+  }
 }

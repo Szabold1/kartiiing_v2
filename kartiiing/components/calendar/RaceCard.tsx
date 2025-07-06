@@ -1,4 +1,4 @@
-import EngineCategoryDisplay from "@/components/calendar/renderRaceData/EngineCategoryDisplay";
+import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
 import StatusBadge from "@/components/calendar/StatusBadge";
 import type { Championship, Location, RaceDate } from "@/lib/types/RaceTypes";
 import { toDay, getRaceStatus } from "@/lib/utils";
@@ -35,24 +35,30 @@ export default function RaceCard({
     >
       {status && (
         <div className="absolute top-0 right-0">
-          <StatusBadge status={status} />
+          <StatusBadge
+            status={status}
+            className="pl-3.5 pr-2.5 py-2 rounded-bl-xl"
+          />
         </div>
       )}
 
       <RenderRaceDate
         startDate={toDay(date.start)}
         endDate={toDay(date.end)}
-        className="leading-tight tracking-tighter"
+        className="leading-tight tracking-tighter text-muted-foreground"
       />
 
-      <RenderRaceLocation location={location} />
+      <RenderRaceLocation
+        location={location}
+        className="text-muted-foreground text-sm mt-1.5"
+      />
 
       <RenderRaceTitle
         championship={championship}
         className="font-medium tracking-tight flex-1"
       />
 
-      <EngineCategoryDisplay
+      <RenderEngineCategory
         engines={championship.engineTypes}
         categories={championship.categories}
         className="mt-2"

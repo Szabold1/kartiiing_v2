@@ -88,6 +88,7 @@ export default function CalendarPage() {
           <Modal onClose={() => setChosenRace(null)}>
             <RaceDetails
               race={chosenRace}
+              upcomingDate={upcomingDate}
               onClose={() => setChosenRace(null)}
             />
           </Modal>

@@ -1,18 +1,19 @@
 type Props = {
   status: "Live" | "Upcoming" | "Finished";
+  className?: string;
 };
 
-export default function StatusBadge({ status }: Props) {
+export default function StatusBadge({ status, className = "" }: Props) {
   if (!status) return null;
 
   const baseClasses =
-    "relative text-xs tracking-wider uppercase pl-3.5 pr-2.5 py-2 rounded-bl-xl overflow-hidden ";
+    "relative text-xs tracking-wider uppercase overflow-hidden ";
 
   const colorClasses = {
-    Live: "bg-red-600 text-white dark:bg-red-700",
-    Upcoming: "bg-red-600 text-white dark:bg-red-700",
-    Finished: "bg-zinc-800 text-white",
+    Live: "bg-red-600 text-white dark:bg-red-700 ",
+    Upcoming: "bg-red-600 text-white dark:bg-red-700 ",
+    Finished: "bg-zinc-800 text-white ",
   };
 
-  return <span className={baseClasses + colorClasses[status]}>{status}</span>;
+  return <span className={baseClasses + colorClasses[status] + className}>{status}</span>;
 }

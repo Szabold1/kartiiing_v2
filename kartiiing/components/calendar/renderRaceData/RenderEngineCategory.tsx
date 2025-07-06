@@ -55,7 +55,7 @@ function getBadgesToShow(
 }
 
 // --- Component ---
-export default function EngineCategoryDisplay({
+export default function RenderEngineCategory({
   engines,
   categories,
   className = "",

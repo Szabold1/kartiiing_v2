@@ -27,7 +27,7 @@ export default function RenderRaceLocation({
   return (
     <div
       className={`flex items-center gap-2 w-fit ${
-        isClickable && "cursor-pointer hover:opacity-75 transition-opacity"
+        isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
       } ${className}`}
       onClick={handleClick}
     >
@@ -40,10 +40,8 @@ export default function RenderRaceLocation({
 
       {version === "short" && location.circuit.name}
       {version === "long" && location.circuit.nameLong}
-      
-      {isClickable && (
-        <ExternalLink className="w-3 h-3 opacity-75" />
-      )}
+
+      {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
     </div>
   );
 }

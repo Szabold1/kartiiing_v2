@@ -38,7 +38,6 @@ export async function getRaces(year?: string) {
 
 export function groupRaceEvents(races: RaceEventView[]): RaceEventGrouped[] {
   const map = new Map<number, RaceEventGrouped>();
-  console.log(races);
 
   for (const row of races) {
     const existing = map.get(row.id);

@@ -3,6 +3,7 @@ import { ChevronsDown } from "lucide-react";
 import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 import { Button } from "@/components/ui/button";
 import { useRaceStatus } from "@/hooks/useRaceStatus";
+import { toDay } from "@/lib/utils";
 
 type Props = {
   races: RaceEventGrouped[];
@@ -23,7 +24,9 @@ export default function NextRaceBtn({ races }: Props) {
     if (upcomingRaces.length > 0) {
       document
         .getElementById(
-          `${upcomingRaces[0].date.end}-${upcomingRaces[0].location.circuit.name}-${upcomingRaces[0].championship.name}`
+          `${toDay(upcomingRaces[0].date.end)}-${
+            upcomingRaces[0].location.circuit.name
+          }-${upcomingRaces[0].championship.name}`
         )
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
     }

@@ -54,7 +54,6 @@ function getRaceStatus(
  */
 export function useRaceStatus(races: RaceEventGrouped[]) {
   const nextRaceDate = useMemo(() => getNextRaceDate(races), [races]);
-  console.log("Next race date:", nextRaceDate);
 
   const getRaceStatusForRace = useMemo(
     () => (race: RaceEventGrouped) => getRaceStatus(race.date, nextRaceDate),

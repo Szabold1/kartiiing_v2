@@ -25,7 +25,7 @@ export default function RenderRaceDate({
   return (
     <div
       className={`uppercase ${className} ${
-        showRelative && "flex flex-wrap items-center gap-x-2"
+        showRelative ? "flex flex-wrap items-center gap-x-2" : ""
       }`}
     >
       {isSameDay ? (

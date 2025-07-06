@@ -6,16 +6,14 @@ import { useRaceContext } from "@/contexts/RaceContext";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
+import { toDay } from "@/lib/utils";
 
 type Props = {
   race: RaceEventGrouped;
   onClick?: () => void;
 };
 
-export default function RaceCard({
-  race,
-  onClick = () => {},
-}: Props) {
+export default function RaceCard({ race, onClick = () => {} }: Props) {
   const { races } = useRaceContext();
   const { date, location, championship } = race;
   const { getRaceStatusForRace } = useRaceStatus(races);
@@ -25,7 +23,7 @@ export default function RaceCard({
     <div
       className="relative border rounded-xl p-3.5 sm:p-3 flex flex-col bg-background w-full md:max-w-md shadow-md hover:shadow-lg dark:shadow-zinc-700/20 hover:dark:shadow-zinc-600/20 hover:border-dashed transition duration-300 cursor-pointer overflow-hidden"
       onClick={onClick}
-      id={`${date.end}-${location.circuit.name}-${championship.name}`}
+      id={`${toDay(date.end)}-${location.circuit.name}-${championship.name}`}
     >
       {status && (
         <div className="absolute top-0 right-0">

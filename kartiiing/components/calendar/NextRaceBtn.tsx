@@ -21,15 +21,22 @@ export default function NextRaceBtn({ races }: Props) {
   }, [liveRaces, upcomingRaces]);
 
   function handleClick() {
-    if (upcomingRaces.length > 0) {
-      document
-        .getElementById(
-          `${toDay(upcomingRaces[0].date.end)}-${
-            upcomingRaces[0].location.circuit.name
-          }-${upcomingRaces[0].championship.name}`
-        )
-        ?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    const targetRace =
+      liveRaces.length > 0
+        ? liveRaces[0]
+        : upcomingRaces.length > 0
+        ? upcomingRaces[0]
+        : null;
+
+    if (!targetRace) return;
+
+    const id = `${toDay(targetRace.date.end)}-${
+      targetRace.location.circuit.name
+    }-${targetRace.championship.name}`;
+
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   return (

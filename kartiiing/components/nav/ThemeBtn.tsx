@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/Loader";
+import { lightDarkGlassHover } from "@/lib/classNames";
 
 const ThemeBtn = () => {
   const { setTheme, resolvedTheme } = useTheme();
@@ -20,6 +21,7 @@ const ThemeBtn = () => {
       onClick={handleThemeToggle}
       aria-label="Toggle Theme"
       id="theme-btn"
+      className={`w-9.5 h-9.5 ${lightDarkGlassHover}`}
     >
       {resolvedTheme === "dark" ? (
         <SunIcon className="size-4" />

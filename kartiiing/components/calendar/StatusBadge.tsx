@@ -1,3 +1,5 @@
+import { grayGlassBase, redGlassBase } from "@/lib/classNames";
+
 type Props = {
   status: "Live" | "Upcoming" | "Finished";
   className?: string;
@@ -10,9 +12,9 @@ export default function StatusBadge({ status, className = "" }: Props) {
     "relative text-xs tracking-wider uppercase overflow-hidden ";
 
   const colorClasses = {
-    Live: "bg-red-600 text-white dark:bg-red-700 ",
-    Upcoming: "bg-red-600 text-white dark:bg-red-700 ",
-    Finished: "bg-zinc-800 text-white ",
+    Live: `${redGlassBase} `,
+    Upcoming: `${redGlassBase} `,
+    Finished: `${grayGlassBase} `,
   };
 
   return <span className={baseClasses + colorClasses[status] + className}>{status}</span>;

@@ -33,7 +33,7 @@ export default function BackToTopBTn() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 z-40 p-3 backdrop-blur-[1px] bg-primary/75 text-primary-foreground cursor-pointer rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200 hover:bg-primary/85 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          className={`fixed bottom-5 right-5 z-40 p-3 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 border shadow backdrop-blur-md border-gray-500/10 dark:border-gray-50/20 bg-accent-foreground/20 hover:shadow-md hover:border-gray-500/50 hover:dark:border-gray-50/50 transition`}
           aria-label="Back to top"
         >
           <ChevronUp className="h-5 w-5" />

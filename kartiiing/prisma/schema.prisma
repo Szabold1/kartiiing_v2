@@ -13,90 +13,105 @@ enum LiveLinkType {
   time
 }
 
+enum SessionType {
+  PRACTICE
+  QUALIFYING
+  WARM_UP
+  HEAT
+  PRE_FINAL
+  FINAL
+  OTHER
+}
+
 model Country {
-  id       Int       @id @default(autoincrement())
-  name     String
-  code     String    @unique
-  circuits Circuit[]
+  id        Int         @id @default(autoincrement())
+  name      String
+  code      String      @unique
+  circuits  Circuit[]
+  drivers   Driver[]
 
   @@map("countries")
 }
 
 model Circuit {
-  id          Int      @id @default(autoincrement())
-  nameShort   String
-  nameLong    String
-  length      Int
-  websiteLink String?
-  latitude    Float
-  longitude   Float
+  id            Int           @id @default(autoincrement())
+  nameShort     String
+  nameLong      String
+  length        Int
+  websiteLink   String?
+  latitude      Float
+  longitude     Float
 
-  countryId   Int
-  country     Country  @relation(fields: [countryId], references: [id])
+  countryId     Int
+  country       Country       @relation(fields: [countryId], references: [id])
 
-  raceWeekends RaceWeekend[]
+  raceWeekends  RaceWeekend[]
+  fastestLaps   FastestLap[]
 
   @@unique([nameShort, countryId])
   @@map("circuits")
 }
 
 model EngineType {
-  id         Int        @id @default(autoincrement())
-  name       String     @unique
-  categories Category[]
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  categories  Category[]
 
   @@map("engine_types")
 }
 
 model Category {
-  id           Int          @id @default(autoincrement())
-  name         String       @unique
-  engineTypeId Int
-  engineType   EngineType   @relation(fields: [engineTypeId], references: [id])
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
 
-  raceEvents   RaceEvent[] @relation("RaceEventCategories")
+  engineTypeId  Int
+  engineType    EngineType    @relation(fields: [engineTypeId], references: [id])
+
+  raceEvents    RaceEvent[]   @relation("RaceEventCategories")
+  fastestLaps   FastestLap[]
 
   @@map("categories")
 }
 
 model Championship {
-  id         Int          @id @default(autoincrement())
-  nameShort  String
-  nameLong   String
-  nameSeries String?
+  id          Int          @id @default(autoincrement())
+  nameShort   String
+  nameLong    String
+  nameSeries  String?
 
-  raceEvents RaceEvent[]
+  raceEvents  RaceEvent[]
 
   @@map("championships")
 }
 
 model RaceWeekend {
-  id        Int          @id @default(autoincrement())
-  dateStart DateTime
-  dateEnd   DateTime
+  id          Int          @id @default(autoincrement())
+  dateStart   DateTime
+  dateEnd     DateTime
 
-  circuitId Int
-  circuit   Circuit      @relation(fields: [circuitId], references: [id])
+  circuitId   Int
+  circuit     Circuit      @relation(fields: [circuitId], references: [id])
 
-  raceEvents RaceEvent[]
+  raceEvents  RaceEvent[]
 
   @@map("race_weekends")
 }
 
 model RaceEvent {
-  id             Int                   @id @default(autoincrement())
-  roundNumber    Int?
+  id              Int               @id @default(autoincrement())
+  roundNumber     Int?
 
-  championshipId Int
-  championship   Championship          @relation(fields: [championshipId], references: [id])
+  championshipId  Int
+  championship    Championship      @relation(fields: [championshipId], references: [id])
 
-  raceWeekendId  Int
-  raceWeekend    RaceWeekend           @relation(fields: [raceWeekendId], references: [id])
+  raceWeekendId   Int
+  raceWeekend     RaceWeekend       @relation(fields: [raceWeekendId], references: [id])
 
-  categories       Category[]   @relation("RaceEventCategories")
+  categories      Category[]        @relation("RaceEventCategories")
 
-  resultLinks    ResultLink[]
-  liveLinks      LiveLink[]
+  resultLinks     ResultLink[]
+  liveLinks       LiveLink[]
+  fastestLaps     FastestLap[]
       
   @@map("race_events")
 }
@@ -113,14 +128,48 @@ model ResultLink {
 }
 
 model LiveLink {
-  id          Int        @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   url         String
   type        LiveLinkType
 
   raceEventId Int
-  raceEvent   RaceEvent  @relation(fields: [raceEventId], references: [id])
+  raceEvent   RaceEvent     @relation(fields: [raceEventId], references: [id])
 
   @@map("live_links")
+}
+
+model Driver {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+
+  countryId   Int
+  country     Country  @relation(fields: [countryId], references: [id])
+
+  fastestLaps FastestLap[]
+
+  @@map("drivers")
+}
+
+model FastestLap {
+  id            Int           @id @default(autoincrement())
+  lapTime       Int           // in milliseconds
+  date          DateTime
+  sessionType   SessionType?
+
+  circuitId     Int
+  circuit       Circuit       @relation(fields: [circuitId], references: [id])
+
+  driverId      Int
+  driver        Driver        @relation(fields: [driverId], references: [id])
+
+  categoryId    Int
+  category      Category      @relation(fields: [categoryId], references: [id])
+
+  raceEventId   Int?
+  raceEvent     RaceEvent?     @relation(fields: [raceEventId], references: [id])
+
+  @@map("fastest_laps")
 }
 
 model RaceEventView {

@@ -1,0 +1,32 @@
+export const glassBase = "border shadow backdrop-blur-md";
+
+export const redGlassBase = `${glassBase} border-red-500/15 text-red-600 dark:text-red-400 bg-red-100/90 dark:bg-red-900/45`;
+export const redGlassHover = `${redGlassBase} hover:bg-red-200/70 hover:border-red-500/30 hover:dark:bg-red-900/70 hover:shadow-md transition`;
+
+export const lightDarkGlassBase = `${glassBase} border-gray-500/20 dark:border-gray-50/10 bg-accent/15`;
+export const lightDarkGlassHover = `${lightDarkGlassBase} hover:shadow-md hover:border-gray-500/50 hover:dark:border-gray-50/35 transition`;
+
+export const grayGlassBase = `${glassBase} border-gray-500/15 text-gray-600 dark:text-gray-400 bg-gray-200/60 dark:bg-gray-800/50`;
+
+export const tealGlassBase = `${glassBase} border-teal-400/15 text-teal-600 dark:text-teal-400 bg-teal-100/80 dark:bg-teal-900/60`;
+
+export const cyanGlassBase = `${glassBase} border-cyan-500/15 text-cyan-600 dark:text-cyan-400 bg-cyan-100/80 dark:bg-cyan-900/60`;
+
+export const skyGlassBase = `${glassBase} border-sky-500/15 text-sky-600 dark:text-sky-400 bg-sky-100/80 dark:bg-sky-900/50`;
+
+export const blueGlassBase = `${glassBase} border-blue-500/15 text-blue-600 dark:text-blue-400 bg-blue-100/80 dark:bg-blue-900/50`;
+
+export const limeGlassBase = `${glassBase} border-lime-500/15 text-lime-700 dark:text-lime-400 bg-lime-100/80 dark:bg-lime-900/60`;
+
+export const greenGlassBase = `${glassBase} border-green-500/15 text-green-600 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50`;
+export const greenGlassHover = `${greenGlassBase} hover:bg-green-200/70 hover:border-green-500/30 hover:dark:bg-green-900/70 hover:shadow-md transition`;
+
+export const emeraldGlassBase = `${glassBase} border-emerald-500/15 text-emerald-600 dark:text-emerald-400 bg-emerald-100/80 dark:bg-emerald-900/50`;
+
+export const orangeGlassBase = `${glassBase} border-orange-500/15 text-orange-600 dark:text-orange-400 bg-orange-100/80 dark:bg-orange-900/50`;
+
+export const purpleGlassBase = `${glassBase} border-purple-500/15 text-purple-600 dark:text-purple-400 bg-purple-100/80 dark:bg-purple-900/50`;
+
+export const pinkGlassBase = `${glassBase} border-pink-500/15 text-pink-600 dark:text-pink-400 bg-pink-100/80 dark:bg-pink-900/50`;
+
+export const yellowGlassBase = `${glassBase} border-yellow-500/15 text-yellow-600 dark:text-yellow-400 bg-yellow-100/70 dark:bg-yellow-900/50`;

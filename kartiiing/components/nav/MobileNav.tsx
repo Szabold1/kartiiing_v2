@@ -8,6 +8,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import MobileNavLink from "./MobileNavLink";
+import { lightDarkGlassBase, lightDarkGlassHover } from "@/lib/classNames";
+// import LoginBtn from "@/components/nav/LoginBtn";
 
 const MobileNav = () => {
   const [open, setOpen] = useState(false);
@@ -21,12 +23,17 @@ const MobileNav = () => {
             variant="outline"
             size="icon"
             aria-label={open ? "Close Menu" : "Open Menu"}
+            className={`w-9.5 h-9.5 ${lightDarkGlassHover}`}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
         </SheetTrigger>
-        <SheetContentHamburgerMenu side="top">
-          <nav className="flex flex-col gap-2 px-4 py-12">
+        <SheetContentHamburgerMenu
+          side="right"
+          className={`h-fit w-44 mt-17 mx-2 rounded-xl ${lightDarkGlassBase}`}
+        >
+          <nav className="flex flex-col gap-1.5 p-1.5">
+            {/* <LoginBtn className="mb-2 h-10.5" /> */}
             <MobileNavLink href="/" setOpen={setOpen}>
               Home
             </MobileNavLink>

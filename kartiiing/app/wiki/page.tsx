@@ -3,6 +3,7 @@ import data from "./content/WikiContent";
 import RenderSection from "./content/RenderSection";
 import Aside from "@/components/Aside";
 import PageHeader from "@/components/PageHeader";
+import BackToTopBTn from "@/components/BackToTopBtn";
 
 const WikiPage = () => {
   return (
@@ -21,6 +22,7 @@ const WikiPage = () => {
       </section>
 
       <Aside position="right" visibilityFrom="xl"></Aside>
+      <BackToTopBTn />
     </div>
   );
 };

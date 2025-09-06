@@ -66,7 +66,7 @@ export default function RenderEngineCategory({
       {sortedBadges.map(({ label, engineType }) => (
         <span
           key={label}
-          className={`text-xs px-2 py-1 rounded-md ${
+          className={`text-xs px-2 py-1 rounded-md uppercase font-medium ${
             ENGINE_COLORS[engineType] ||
             "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
           }`}

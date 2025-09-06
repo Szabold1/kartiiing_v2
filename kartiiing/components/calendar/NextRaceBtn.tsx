@@ -4,6 +4,7 @@ import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 import { Button } from "@/components/ui/button";
 import { useRaceStatus } from "@/hooks/useRaceStatus";
 import { toDay } from "@/lib/utils";
+import { redGlassHover } from "@/lib/classNames";
 
 type Props = {
   races: RaceEventGrouped[];
@@ -41,7 +42,7 @@ export default function NextRaceBtn({ races }: Props) {
 
   return (
     <Button
-      className="uppercase text-xs text-white bg-red-600 hover:bg-red-500 dark:bg-red-700 dark:hover:bg-red-600"
+      className={`uppercase text-xs h-9.5 font-medium text-center tracking-wide ${redGlassHover}`}
       onClick={handleClick}
     >
       <span className="pl-1.5">{label}</span>

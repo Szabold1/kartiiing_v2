@@ -7,6 +7,7 @@ import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate"
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import { toDay } from "@/lib/utils";
+import { lightDarkGlassHover } from "@/lib/classNames";
 
 type Props = {
   race: RaceEventGrouped;
@@ -21,15 +22,15 @@ export default function RaceCard({ race, onClick = () => {} }: Props) {
 
   return (
     <div
-      className="relative border rounded-xl p-3.5 sm:p-3 flex flex-col bg-background w-full md:max-w-md shadow-md hover:shadow-lg dark:shadow-zinc-700/20 hover:dark:shadow-zinc-600/20 hover:border-dashed transition duration-300 cursor-pointer overflow-hidden"
+      className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover}`}
       onClick={onClick}
       id={`${toDay(date.end)}-${location.circuit.name}-${championship.name}`}
     >
       {status && (
-        <div className="absolute top-0 right-0">
+        <div className="absolute top-0 -right-0.5">
           <StatusBadge
             status={status}
-            className="pl-3.5 pr-2.5 py-2 rounded-bl-xl"
+            className="pl-3.5 pr-3 py-2 rounded-bl-xl"
           />
         </div>
       )}
@@ -41,12 +42,12 @@ export default function RaceCard({ race, onClick = () => {} }: Props) {
 
       <RenderRaceLocation
         location={location}
-        className="text-muted-foreground text-sm mt-1.5"
+        className="text-muted-foreground text-sm mt-1.5 font-medium"
       />
 
       <RenderRaceTitle
         championship={championship}
-        className="font-medium tracking-tight flex-1"
+        className="font-semibold tracking-tight flex-1"
       />
 
       <RenderEngineCategory

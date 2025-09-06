@@ -34,7 +34,7 @@ export default function RenderRaceLocation({
       {showFlag && (
         <Flag
           code={location.country.code}
-          className="w-5 max-h-4 rounded-[0.15rem] object-cover"
+          className="w-5 max-h-4 rounded-[0.15rem] object-cover shadow"
         />
       )}
 

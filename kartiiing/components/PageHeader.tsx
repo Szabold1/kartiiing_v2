@@ -5,7 +5,7 @@ type Props = {
 
 const PageHeader = ({ title, description }: Props) => {
   return (
-    <div className="space-y-2 my-10">
+    <div className="space-y-2 my-9">
       <h1 className="text-4xl font-bold">{title}</h1>
       {description && <p className="text-muted-foreground">{description}</p>}
     </div>

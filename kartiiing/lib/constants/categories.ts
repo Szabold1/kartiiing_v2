@@ -1,20 +1,20 @@
 import {
-  cyanGlassBase,
   skyGlassBase,
   limeGlassBase,
-  emeraldGlassBase,
-  yellowGlassBase,
   purpleGlassBase,
   orangeGlassBase,
+  tealGlassBase,
+  blueGlassBase,
+  amberGlassBase,
 } from "@/lib/classNames";
 
 export const ENGINE_COLORS: Record<string, string> = {
-  "Mini 60": `${emeraldGlassBase}`,
-  OK: `${skyGlassBase}`,
-  Academy: `${cyanGlassBase}`,
+  "Mini 60": `${tealGlassBase}`,
+  OK: `${blueGlassBase}`,
+  Academy: `${skyGlassBase}`,
   KZ: `${purpleGlassBase}`,
   Rotax: `${orangeGlassBase}`,
-  IAME: `${yellowGlassBase}`,
+  IAME: `${amberGlassBase}`,
   Vortex: `${limeGlassBase}`,
 };
 

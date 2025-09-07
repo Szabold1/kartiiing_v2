@@ -4,6 +4,7 @@ import { useRaceContext } from "@/contexts/RaceContext";
 import StatusBadge from "./StatusBadge";
 import LiveActionButton from "./LiveActionButton";
 import { Timer, TvMinimalPlay } from "lucide-react";
+import { RaceStatus } from "@/lib/constants/raceStatus";
 
 type Props = {
   race: RaceEventGrouped;
@@ -13,7 +14,7 @@ export default function LiveActions({ race }: Props) {
   const { races } = useRaceContext();
   const { getRaceStatusForRace } = useRaceStatus(races);
   const status = getRaceStatusForRace(race);
-  if (status !== "Live") return null;
+  if (status !== RaceStatus.LIVE) return null;
 
   const raceName = `${race.championship.nameLong} ${race.championship.nameSeries}`;
 

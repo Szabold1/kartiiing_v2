@@ -34,22 +34,31 @@ const buttonVariants = cva(
   }
 );
 
+type ButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+    noHover?: boolean;
+  };
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  noHover = false,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
-
+  let computedClassName = buttonVariants({ variant, size, className });
+  if (noHover) {
+    computedClassName = computedClassName
+      .replace(/hover:[^\s]+/g, "")
+      .replace(/focus-visible:[^\s]+/g, "");
+  }
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(computedClassName, noHover && "no-hover")}
       {...props}
     />
   );

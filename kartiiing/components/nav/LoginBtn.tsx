@@ -11,7 +11,7 @@ const LoginBtn = ({ className }: Props) => {
   return (
     <Button
       size="lg"
-      className={`flex font-medium text-center uppercase tracking-wide ${greenGlassHover} ${className}`}
+      className={`flex h-9.5 font-medium text-center uppercase tracking-wide ${greenGlassHover} ${className}`}
     >
       Login
     </Button>

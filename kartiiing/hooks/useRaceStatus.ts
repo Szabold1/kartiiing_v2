@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { RaceEventGrouped, RaceDate } from "@/lib/types/RaceTypes";
 import { toDay } from "@/lib/utils";
+import { RaceStatus } from "@/lib/constants/raceStatus";
 
 /**
  * Returns the end date of the next race from races (including today).
@@ -25,25 +26,25 @@ function getNextRaceDate(races: RaceEventGrouped[]): Date | null {
  *
  * @param date The date of the race, which contains start and end dates
  * @param nextRaceDate The end date of the next race
- * @returns "Live" | "Upcoming" | "Finished" | null
+ * @returns RaceStatus | null
  */
 function getRaceStatus(
   date: RaceDate,
   nextRaceDate: Date | null
-): "Live" | "Upcoming" | "Finished" | null {
+): RaceStatus | null {
   const today = toDay(new Date());
   const startDate = toDay(date.start);
   const endDate = toDay(date.end);
 
   if (!startDate) {
-    if (today.getTime() === endDate.getTime()) return "Live";
+  if (today.getTime() === endDate.getTime()) return RaceStatus.LIVE
     return null;
   }
 
-  if (today >= startDate && today <= endDate) return "Live";
+  if (today >= startDate && today <= endDate) return RaceStatus.LIVE;
   if (today < startDate && endDate.getTime() === nextRaceDate?.getTime())
-    return "Upcoming";
-  if (endDate < today) return "Finished";
+  return RaceStatus.UPCOMING;
+  if (endDate < today) return RaceStatus.FINISHED;
   return null;
 }
 
@@ -64,7 +65,7 @@ export function useRaceStatus(races: RaceEventGrouped[]) {
     () =>
       races.filter((race) => {
         const status = getRaceStatusForRace(race);
-        return status === "Live";
+  return status === RaceStatus.LIVE;
       }),
     [races, getRaceStatusForRace]
   );
@@ -73,7 +74,7 @@ export function useRaceStatus(races: RaceEventGrouped[]) {
     () =>
       races.filter((race) => {
         const status = getRaceStatusForRace(race);
-        return status === "Upcoming";
+  return status === RaceStatus.UPCOMING;
       }),
     [races, getRaceStatusForRace]
   );
@@ -82,7 +83,7 @@ export function useRaceStatus(races: RaceEventGrouped[]) {
     () =>
       races.filter((race) => {
         const status = getRaceStatusForRace(race);
-        return status === "Finished";
+  return status === RaceStatus.FINISHED;
       }),
     [races, getRaceStatusForRace]
   );

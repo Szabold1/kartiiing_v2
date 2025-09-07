@@ -1,7 +1,8 @@
 import { grayGlassBase, redGlassBase } from "@/lib/classNames";
+import { RaceStatus } from "@/lib/constants/raceStatus";
 
 type Props = {
-  status: "Live" | "Upcoming" | "Finished";
+  status: RaceStatus;
   className?: string;
 };
 
@@ -12,9 +13,9 @@ export default function StatusBadge({ status, className = "" }: Props) {
     "relative text-xs tracking-wider uppercase overflow-hidden ";
 
   const colorClasses = {
-    Live: `${redGlassBase} `,
-    Upcoming: `${redGlassBase} `,
-    Finished: `${grayGlassBase} `,
+  [RaceStatus.LIVE]: `${redGlassBase} `,
+  [RaceStatus.UPCOMING]: `${redGlassBase} `,
+  [RaceStatus.FINISHED]: `${grayGlassBase} `,
   };
 
   return <span className={baseClasses + colorClasses[status] + className}>{status}</span>;

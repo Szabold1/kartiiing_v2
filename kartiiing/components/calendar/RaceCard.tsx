@@ -27,15 +27,15 @@ export default function RaceCard({
   const status = getRaceStatusForRace(race);
   const id = `${toDay(date.end)}-${location.circuit.name}-${championship.name}`;
   const liveContainerStyle =
-    "border-red-500/40 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25 hover:border-red-500/70 hover:dark:border-red-900";
+    "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25 hover:border-red-500/70 hover:dark:border-red-900";
 
   if (variant === "row") {
     return (
       <div
-        className={`p-2 flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
+        className={`p-[0.7rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
           status === RaceStatus.LIVE || status === RaceStatus.UPCOMING
             ? `${liveContainerStyle}`
-            : ""
+            : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
         }`}
         onClick={onClick}
         id={id}
@@ -46,7 +46,7 @@ export default function RaceCard({
           )}
           <RenderRaceDate
             date={date}
-            className="text-sm text-muted-foreground min-w-[6.5rem] tracking-tight"
+            className="text-sm text-muted-foreground min-w-[7rem] tracking-tight"
           />
           <RenderRaceLocation
             location={location}

@@ -19,6 +19,7 @@ import {
   CALENDAR_VIEW_MODE_KEY,
 } from "@/lib/constants/calendar";
 import { AnimatePresence } from "framer-motion";
+import { lightDarkGlassBase } from "@/lib/classNames";
 
 export default function CalendarPage() {
   const [loading, setLoading] = useState(true);
@@ -128,7 +129,7 @@ export default function CalendarPage() {
                 <div
                   className={`${
                     showListView
-                      ? "flex flex-col gap-3"
+                      ? `flex flex-col ${lightDarkGlassBase} p-1.5 rounded-[1.1rem] dark:bg-neutral-900`
                       : "grid justify-center gap-5 grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]"
                   }`}
                 >

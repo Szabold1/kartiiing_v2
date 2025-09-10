@@ -33,7 +33,7 @@ export default function RaceCard({
     return (
       <div
         className={`p-[0.7rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
-          status === RaceStatus.LIVE || status === RaceStatus.UPCOMING
+          status === RaceStatus.LIVE || status === RaceStatus.UPNEXT
             ? `${liveContainerStyle}`
             : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
         }`}
@@ -69,7 +69,7 @@ export default function RaceCard({
   return (
     <div
       className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
-        status === RaceStatus.LIVE || status === RaceStatus.UPCOMING
+        status === RaceStatus.LIVE || status === RaceStatus.UPNEXT
           ? liveContainerStyle
           : ""
       }`}

@@ -29,7 +29,7 @@ export default function GridListViewToggle({
 
   return (
     <div
-      className={`hidden lg:flex items-center p-0.5 rounded-lg h-9.5 ${lightDarkGlassBase} ${className}`}
+      className={`hidden lg:flex items-center p-0.5 rounded-lg h-9 ${lightDarkGlassBase} ${className}`}
     >
       {options.map((opt) => (
         <Button
@@ -37,7 +37,7 @@ export default function GridListViewToggle({
           variant="outline"
           aria-label={opt.label}
           noHover
-          className={`w-8 h-8 border-transparent shadow-none ${
+          className={`w-7.5 h-7.5 border-transparent shadow-none ${
             viewMode === opt.value ? grayGlassBase : "opacity-60"
           }`}
           onClick={() => setViewMode(opt.value)}

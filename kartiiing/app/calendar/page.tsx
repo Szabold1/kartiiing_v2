@@ -17,14 +17,20 @@ import BackToTopBtn from "@/components/BackToTopBtn";
 import {
   CalendarViewMode,
   CALENDAR_VIEW_MODE_KEY,
+  SortOrder,
 } from "@/lib/constants/calendar";
 import { AnimatePresence } from "framer-motion";
 import { lightDarkGlassBase } from "@/lib/classNames";
+import SortOrderToggle from "@/components/calendar/SortOrderToggle";
 
 export default function CalendarPage() {
   const [loading, setLoading] = useState(true);
   const [races, setRaces] = useState<RaceEventGrouped[]>([]);
   const [chosenRace, setChosenRace] = useState<RaceEventGrouped | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | string>(
+    new Date().getFullYear()
+  );
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
   const { searchQuery, setSearchQuery, filteredRaces } = useRaceSearch(races);
   const { nextRaceDate } = useRaceStatus(filteredRaces);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -64,15 +70,15 @@ export default function CalendarPage() {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // fetch races from API
+  // fetch races from API when selectedYear or sortOrder changes
   useEffect(() => {
+    setLoading(true);
     const fetchRaces = async () => {
       try {
         const response = await fetch(
-          `/api/races?year=${new Date().getFullYear()}`
+          `/api/races?year=${selectedYear}&sort=${sortOrder}`
         );
         if (!response.ok) throw new Error("Failed to fetch races");
-
         const data: RaceEventGrouped[] = await response.json();
         setRaces(data);
       } catch (error) {
@@ -81,9 +87,38 @@ export default function CalendarPage() {
         setLoading(false);
       }
     };
-
     fetchRaces();
-  }, []);
+  }, [selectedYear, sortOrder]);
+
+  // Render calendar actions (view toggle, sort toggle, next race button)
+  function renderCalendarActions(small = false) {
+    const alwaysDisplay = () => {
+      return (
+        <>
+          <SortOrderToggle
+            sortOrder={sortOrder}
+            onToggle={() =>
+              setSortOrder(
+                sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC
+              )
+            }
+          />
+          {nextRaceDate && <NextRaceBtn races={filteredRaces} />}
+        </>
+      );
+    };
+
+    if (small) {
+      return <div className="flex items-center gap-2">{alwaysDisplay()}</div>;
+    }
+
+    return (
+      <div className={`flex items-center gap-2 ${small ? "h-8" : "h-9.5"}`}>
+        <GridListViewToggle viewMode={viewMode} setViewMode={setViewMode} />
+        {alwaysDisplay()}
+      </div>
+    );
+  }
 
   return (
     <RaceProvider races={filteredRaces}>
@@ -93,9 +128,13 @@ export default function CalendarPage() {
       >
         <section className="flex-1 mx-auto lg:px-8">
           <div className="px-1 sm:px-5 md:px-6 lg:px-2">
-            <CalendarHeader races={races} />
+            <CalendarHeader
+              races={races}
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+            />
 
-            <div className="flex flex-col md:flex-row gap-2 mb-4 items-center">
+            <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
               <SearchHeader
                 useRaceSearchData={{
                   searchQuery,
@@ -103,19 +142,10 @@ export default function CalendarPage() {
                   filteredRaces,
                 }}
               >
-                {sectionWidth < 768 && nextRaceDate && (
-                  <NextRaceBtn races={filteredRaces} />
-                )}
+                {sectionWidth < 768 && renderCalendarActions(true)}
               </SearchHeader>
-              {sectionWidth >= 768 && (
-                <div className="flex items-center gap-2 h-9.5">
-                  <GridListViewToggle
-                    viewMode={viewMode}
-                    setViewMode={setViewMode}
-                  />
-                  {nextRaceDate && <NextRaceBtn races={filteredRaces} />}
-                </div>
-              )}
+
+              {sectionWidth >= 768 && renderCalendarActions()}
             </div>
 
             <div className="my-5 py-5.5 border-t border-dashed">

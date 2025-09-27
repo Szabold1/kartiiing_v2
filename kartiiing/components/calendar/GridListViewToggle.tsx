@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
-import { grayGlassBase, lightDarkGlassBase } from "@/lib/classNames";
+import { lightDarkGlassActive, lightDarkGlassBase } from "@/lib/classNames";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 
 interface Props {
@@ -29,16 +29,16 @@ export default function GridListViewToggle({
 
   return (
     <div
-      className={`hidden lg:flex items-center p-0.5 rounded-lg h-9 ${lightDarkGlassBase} ${className}`}
+      className={`hidden lg:flex rounded-lg h-9 p-[0.09rem] ${lightDarkGlassBase} ${className}`}
     >
       {options.map((opt) => (
         <Button
           key={opt.value}
           variant="outline"
           aria-label={opt.label}
-          noHover
-          className={`w-7.5 h-7.5 border-transparent shadow-none ${
-            viewMode === opt.value ? grayGlassBase : "opacity-60"
+          // noHover
+          className={`w-[1.95rem] h-[1.95rem] border-transparent shadow-none dark:bg-transparent ${
+            viewMode === opt.value ? lightDarkGlassActive : "opacity-60 hover:opacity-100"
           }`}
           onClick={() => setViewMode(opt.value)}
         >

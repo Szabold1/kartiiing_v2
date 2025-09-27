@@ -17,7 +17,7 @@ export default function SearchHeader({ useRaceSearchData, children }: Props) {
     <div className="flex flex-col gap-2.5 w-full md:flex-row">
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <p className="text-sm text-muted-foreground pl-1.5 flex items-center w-full justify-between">
+      <div className="text-sm text-muted-foreground pl-1.5 flex items-center w-full justify-between">
         <span className="mr-1.5">
           {filteredRaces.length === 0
             ? "No results"
@@ -27,7 +27,7 @@ export default function SearchHeader({ useRaceSearchData, children }: Props) {
         </span>
 
         {children}
-      </p>
+      </div>
     </div>
   );
 }

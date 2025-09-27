@@ -5,6 +5,7 @@ export const redGlassHover = `${redGlassBase} hover:bg-red-200/90 hover:border-r
 
 export const lightDarkGlassBase = `${glassBase} border-gray-500/20 dark:border-gray-50/10 bg-accent/15`;
 export const lightDarkGlassHover = `${lightDarkGlassBase} hover:shadow-md hover:border-gray-500/50 hover:dark:border-gray-50/35 transition`;
+export const lightDarkGlassActive = `${lightDarkGlassBase} border-gray-500/50 dark:border-gray-50/35 transition`;
 
 export const grayGlassBase = `${glassBase} border-gray-500/15 text-gray-600 dark:text-gray-400 bg-gray-200/60 dark:bg-gray-800/50`;
 

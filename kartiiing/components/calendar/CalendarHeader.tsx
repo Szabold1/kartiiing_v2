@@ -46,9 +46,9 @@ export default function CalendarHeader({
             <SelectValue placeholder="Year" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all" className="cursor-pointer">
+            {/* <SelectItem value="all" className="cursor-pointer">
               All
-            </SelectItem>
+            </SelectItem> */}
             <SelectItem value="2025" className="cursor-pointer">
               2025
             </SelectItem>

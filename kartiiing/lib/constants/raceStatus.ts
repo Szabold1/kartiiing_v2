@@ -1,5 +1,5 @@
 export enum RaceStatus {
   LIVE = "Live",
-  UPCOMING = "Upcoming",
+  UPNEXT = "Up Next",
   FINISHED = "Finished",
 }

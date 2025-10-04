@@ -21,7 +21,7 @@ const ThemeBtn = () => {
       onClick={handleThemeToggle}
       aria-label="Toggle Theme"
       id="theme-btn"
-      className={`w-9.5 h-9.5 ${lightDarkGlassHover}`}
+      className={`w-9 h-9 ${lightDarkGlassHover}`}
     >
       {resolvedTheme === "dark" ? (
         <SunIcon className="size-4" />

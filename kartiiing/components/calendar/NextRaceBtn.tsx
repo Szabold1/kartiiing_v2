@@ -12,21 +12,21 @@ type Props = {
 
 export default function NextRaceBtn({ races }: Props) {
   const [label, setLabel] = useState("Next race");
-  const { liveRaces, upcomingRaces } = useRaceStatus(races);
+  const { liveRaces, nextRaces } = useRaceStatus(races);
 
   useEffect(() => {
     if (liveRaces.length === 1) setLabel("Race now");
     else if (liveRaces.length > 1) setLabel("Races now");
-    else if (upcomingRaces.length > 1) setLabel("Next races");
+    else if (nextRaces.length > 1) setLabel("Next races");
     else setLabel("Next race");
-  }, [liveRaces, upcomingRaces]);
+  }, [liveRaces, nextRaces]);
 
   function handleClick() {
     const targetRace =
       liveRaces.length > 0
         ? liveRaces[0]
-        : upcomingRaces.length > 0
-        ? upcomingRaces[0]
+        : nextRaces.length > 0
+        ? nextRaces[0]
         : null;
 
     if (!targetRace) return;
@@ -42,7 +42,7 @@ export default function NextRaceBtn({ races }: Props) {
 
   return (
     <Button
-      className={`uppercase text-xs h-9.5 font-medium text-center tracking-wide ${redGlassHover}`}
+      className={`uppercase text-xs h-9 font-medium text-center tracking-wide ${redGlassHover}`}
       onClick={handleClick}
     >
       <span className="pl-1.5">{label}</span>

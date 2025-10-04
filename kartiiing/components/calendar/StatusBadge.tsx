@@ -14,7 +14,7 @@ export default function StatusBadge({ status, className = "" }: Props) {
 
   const colorClasses = {
   [RaceStatus.LIVE]: `${redGlassBase} `,
-  [RaceStatus.UPCOMING]: `${redGlassBase} `,
+  [RaceStatus.UPNEXT]: `${redGlassBase} `,
   [RaceStatus.FINISHED]: `${grayGlassBase} `,
   };
 

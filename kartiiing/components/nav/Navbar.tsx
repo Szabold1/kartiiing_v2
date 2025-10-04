@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className="flex items-center gap-1.5">
           <ThemeBtn />
           <MobileNav />
-          {/* <LoginBtn className="hidden md:flex h-9.5" /> */}
+          {/* <LoginBtn className="hidden md:flex" /> */}
         </div>
       </div>
     </header>

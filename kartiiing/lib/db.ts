@@ -5,7 +5,7 @@ import { RaceEventGrouped } from "./types/RaceTypes";
 
 dotenv.config();
 
-export async function getRaces(year?: string) {
+export async function getRaces(year?: string, sort: "asc" | "desc" = "asc") {
   const yearNum = year ? parseInt(year) : undefined;
   const whereCondition = yearNum
     ? {
@@ -29,7 +29,7 @@ export async function getRaces(year?: string) {
   const races = await prisma.raceEventView.findMany({
     where: whereCondition,
     orderBy: {
-      date_start: "asc",
+      date_start: sort,
     },
   });
 

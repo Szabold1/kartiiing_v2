@@ -5,8 +5,9 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const year = searchParams.get("year");
+    const sort = searchParams.get("sort") || "asc";
 
-    const races = await getRaces(year ?? undefined);
+    const races = await getRaces(year ?? undefined, sort as "asc" | "desc");
     const grouped = groupRaceEvents(races);
 
     return NextResponse.json(grouped);

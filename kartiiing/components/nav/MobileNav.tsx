@@ -23,7 +23,7 @@ const MobileNav = () => {
             variant="outline"
             size="icon"
             aria-label={open ? "Close Menu" : "Open Menu"}
-            className={`w-9.5 h-9.5 ${lightDarkGlassHover}`}
+            className={`w-9 h-9 ${lightDarkGlassHover}`}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
@@ -33,7 +33,7 @@ const MobileNav = () => {
           className={`h-fit w-44 mt-17 mx-2 rounded-xl ${lightDarkGlassBase}`}
         >
           <nav className="flex flex-col gap-1.5 p-1.5">
-            {/* <LoginBtn className="mb-2 h-10.5" /> */}
+            {/* <LoginBtn className="mb-2 h-10" /> */}
             <MobileNavLink href="/" setOpen={setOpen}>
               Home
             </MobileNavLink>

@@ -6,11 +6,19 @@ interface Props {
   children: React.ReactNode;
   href: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  match?: "exact" | "startsWith";
+  matchPath?: string;
 }
 
-const MobileNavLink = ({ children, href, setOpen }: Props) => {
+const MobileNavLink = ({ children, href, setOpen, match = "exact", matchPath }: Props) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+
+  let isActive = false;
+  if (match === "startsWith" && matchPath) {
+    isActive = pathname.startsWith(matchPath);
+  } else {
+    isActive = pathname === href;
+  }
 
   return (
     <Link

@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: kartiiing_db
+    restart: always
+    environment:
+      POSTGRES_DB: kartiiing_db
+      POSTGRES_USER: kartiiing_user
+      POSTGRES_PASSWORD: kartiiing_password
+    ports:
+      - "55432:5432" # computer port : container port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kartiiing_user -d kartiiing_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

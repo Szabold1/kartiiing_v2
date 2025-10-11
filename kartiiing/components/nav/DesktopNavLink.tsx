@@ -8,11 +8,19 @@ import { usePathname } from "next/navigation";
 interface Props {
   children: React.ReactNode;
   href: string;
+  match?: "exact" | "startsWith";
+  matchPath?: string;
 }
 
-const DesktopNavLink = ({ children, href }: Props) => {
+const DesktopNavLink = ({ children, href, match = "exact", matchPath }: Props) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+
+  let isActive = false;
+  if (match === "startsWith" && matchPath) {
+    isActive = pathname.startsWith(matchPath);
+  } else {
+    isActive = pathname === href;
+  }
 
   return (
     <NavigationMenuItem>

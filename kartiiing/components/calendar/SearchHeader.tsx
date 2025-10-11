@@ -23,7 +23,7 @@ export default function SearchHeader({ useRaceSearchData, children }: Props) {
             ? "No results"
             : `${filteredRaces.length} ${
                 filteredRaces.length === 1 ? "result" : "results"
-              } found`}
+              }`}
         </span>
 
         {children}

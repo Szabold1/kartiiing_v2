@@ -1,0 +1,47 @@
+{
+  "Mini 60": [
+    { "name": "Mini 60", "order": 1 }
+  ],
+  "OK": [
+    { "name": "OK", "order": 11 },
+    { "name": "OK-J", "order": 12 },
+    { "name": "OK-N", "order": 13 },
+    { "name": "OK-NJ", "order": 14 }
+  ],
+  "KZ": [
+    { "name": "KZ", "order": 21 },
+    { "name": "KZ2", "order": 22 },
+    { "name": "KZ2-Masters", "order": 23 }
+  ],
+  "Academy": [
+    { "name": "Academy", "order": 31 },
+    { "name": "Academy-Junior", "order": 32 },
+    { "name": "Academy-Senior", "order": 33 }
+  ],
+  "Rotax": [
+    { "name": "Micro", "order": 41 },
+    { "name": "Mini", "order": 42 },
+    { "name": "Junior", "order": 43 },
+    { "name": "Senior", "order": 44 },
+    { "name": "DD2", "order": 45 },
+    { "name": "DD2-Masters", "order": 46 },
+    { "name": "E20-Senior", "order": 47 },
+    { "name": "E20-Masters", "order": 48 }
+  ],
+  "IAME": [
+    { "name": "X30 Mini", "order": 51 },
+    { "name": "X30 Junior", "order": 52 },
+    { "name": "X30 Senior", "order": 53 }
+  ],
+  "Vortex": [
+    { "name": "Rok Mini", "order": 61 },
+    { "name": "Rok Junior", "order": 62 },
+    { "name": "Rok Senior", "order": 63 },
+    { "name": "Rok Expert", "order": 64 },
+    { "name": "Rok Super", "order": 65 },
+    { "name": "Rok Shifter", "order": 66 }
+  ],
+  "Other": [
+    { "name": "All", "order": 71 }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "2024": [
+    {
+      "circuitName": "Valencia",
+      "dateStart": "2024-03-21",
+      "dateEnd": "2024-03-24"
+    },
+    {
+      "circuitName": "Val d'Argenton",
+      "dateStart": "2024-04-25",
+      "dateEnd": "2024-04-28"
+    },
+    {
+      "circuitName": "Sarno",
+      "dateStart": "2024-10-19",
+      "dateEnd": "2024-10-26"
+    }
+  ],
+  "2025": [
+    {
+      "circuitName": "La Conca",
+      "dateStart": "2025-01-22",
+      "dateEnd": "2025-01-26"
+    },
+    {
+      "circuitName": "Sarno",
+      "dateStart": "2025-02-05",
+      "dateEnd": "2025-02-09"
+    },
+    {
+      "circuitName": "Lonato",
+      "dateStart": "2025-02-08",
+      "dateEnd": "2025-02-09"
+    },
+    {
+      "circuitName": "Valencia",
+      "dateStart": "2025-02-12",
+      "dateEnd": "2025-02-16"
+    },
+    {
+      "circuitName": "Cremona",
+      "dateStart": "2025-02-14",
+      "dateEnd": "2025-02-16"
+    },
+    {
+      "circuitName": "Lonato",
+      "dateStart": "2025-02-19",
+      "dateEnd": "2025-02-23"
+    },
+    {
+      "circuitName": "Franciacorta",
+      "dateStart": "2025-03-05",
+      "dateEnd": "2025-03-09"
+    },
+    {
+      "circuitName": "Viterbo",
+      "dateStart": "2025-03-12",
+      "dateEnd": "2025-03-16"
+    },
+    {
+      "circuitName": "Cremona",
+      "dateStart": "2025-03-19",
+      "dateEnd": "2025-03-23"
+    },
+    {
+      "circuitName": "Franciacorta",
+      "dateStart": "2025-03-23",
+      "dateEnd": "2025-03-23"
+    },
+    {
+      "circuitName": "Viterbo",
+      "dateStart": "2025-03-28",
+      "dateEnd": "2025-03-30"
+    },
+    {
+      "circuitName": "Campillos",
+      "dateStart": "2025-04-03",
+      "dateEnd": "2025-04-06"
+    },
+    {
+      "circuitName": "Wohlen",
+      "dateStart": "2025-04-21",
+      "dateEnd": "2025-04-21"
+    },
+    {
+      "circuitName": "Wackersdorf",
+      "dateStart": "2025-04-25",
+      "dateEnd": "2025-04-27"
+    },
+    {
+      "circuitName": "Portimão",
+      "dateStart": "2025-05-01",
+      "dateEnd": "2025-05-04"
+    },
+    {
+      "circuitName": "Viterbo",
+      "dateStart": "2025-05-13",
+      "dateEnd": "2025-05-17"
+    },
+    {
+      "circuitName": "Valencia",
+      "dateStart": "2025-05-15",
+      "dateEnd": "2025-05-18"
+    },
+    {
+      "circuitName": "Castelletto di Branduzzo",
+      "dateStart": "2025-05-18",
+      "dateEnd": "2025-05-18"
+    },
+    {
+      "circuitName": "Zuera",
+      "dateStart": "2025-05-21",
+      "dateEnd": "2025-05-25"
+    },
+    {
+      "circuitName": "Viterbo",
+      "dateStart": "2025-06-05",
+      "dateEnd": "2025-06-08"
+    },
+    {
+      "circuitName": "Třinec",
+      "dateStart": "2025-06-06",
+      "dateEnd": "2025-06-08"
+    },
+    {
+      "circuitName": "Sarno",
+      "dateStart": "2025-06-19",
+      "dateEnd": "2025-06-22"
+    },
+    {
+      "circuitName": "Vesoul",
+      "dateStart": "2025-06-22",
+      "dateEnd": "2025-06-22"
+    },
+    {
+      "circuitName": "Wackersdorf",
+      "dateStart": "2025-06-25",
+      "dateEnd": "2025-06-29"
+    },
+    {
+      "circuitName": "Genk",
+      "dateStart": "2025-06-27",
+      "dateEnd": "2025-06-29"
+    },
+    {
+      "circuitName": "Cremona",
+      "dateStart": "2025-07-01",
+      "dateEnd": "2025-07-05"
+    },
+    {
+      "circuitName": "Mülsen",
+      "dateStart": "2025-07-17",
+      "dateEnd": "2025-07-20"
+    },
+    {
+      "circuitName": "Rødby",
+      "dateStart": "2025-07-31",
+      "dateEnd": "2025-08-03"
+    },
+    {
+      "circuitName": "Lévier",
+      "dateStart": "2025-08-10",
+      "dateEnd": "2025-08-10"
+    },
+    {
+      "circuitName": "Mariembourg",
+      "dateStart": "2025-08-27",
+      "dateEnd": "2025-08-31"
+    },
+    {
+      "circuitName": "Sarno",
+      "dateStart": "2025-09-05",
+      "dateEnd": "2025-09-07"
+    },
+    {
+      "circuitName": "Kristianstad",
+      "dateStart": "2025-09-11",
+      "dateEnd": "2025-09-14"
+    },
+    {
+      "circuitName": "Cremona",
+      "dateStart": "2025-09-25",
+      "dateEnd": "2025-09-28"
+    },
+    {
+      "circuitName": "Wohlen",
+      "dateStart": "2025-10-11",
+      "dateEnd": "2025-10-11"
+    },
+    {
+      "circuitName": "Franciacorta",
+      "dateStart": "2025-10-09",
+      "dateEnd": "2025-10-12"
+    },
+    {
+      "circuitName": "Lonato",
+      "dateStart": "2025-10-14",
+      "dateEnd": "2025-10-18"
+    },
+    {
+      "circuitName": "Franciacorta",
+      "dateStart": "2025-10-22",
+      "dateEnd": "2025-10-26"
+    },
+    {
+      "circuitName": "Cremona",
+      "dateStart": "2025-11-05",
+      "dateEnd": "2025-11-09"
+    },
+    {
+      "circuitName": "Lonato",
+      "dateStart": "2025-11-19",
+      "dateEnd": "2025-11-23"
+    },
+    {
+      "circuitName": "Franciacorta",
+      "dateStart": "2025-11-30",
+      "dateEnd": "2025-12-01"
+    },
+    {
+      "circuitName": "Bahrain",
+      "dateStart": "2025-11-29",
+      "dateEnd": "2025-12-06"
+    }
+  ]
+}

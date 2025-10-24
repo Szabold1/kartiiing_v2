@@ -1,0 +1,119 @@
+{
+  "FIA": [
+    {
+      "nameLong": "FIA Karting",
+      "nameSeries": "World Championship",
+      "order": 1
+    },
+    {
+      "nameLong": "FIA Karting",
+      "nameSeries": "World Cup",
+      "order": 2
+    },
+    {
+      "nameLong": "FIA Karting",
+      "nameSeries": "International Masters Super Cup",
+      "order": 3
+    },
+    {
+      "nameLong": "FIA Karting",
+      "nameSeries": "European Championship",
+      "order": 4
+    },
+    {
+      "nameLong": "FIA Karting",
+      "nameSeries": "Academy Trophy",
+      "order": 5
+    }
+  ],
+  "WSK": [
+    {
+      "nameLong": "WSK",
+      "nameSeries": "Super Master Series",
+      "order": 11
+    },
+    {
+      "nameLong": "WSK",
+      "nameSeries": "Euro Series",
+      "order": 11
+    },
+    {
+      "nameLong": "WSK",
+      "nameSeries": "Final Cup",
+      "order": 11
+    }
+  ],
+  "RMC": [
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Grand Finals",
+      "order": 21
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Euro Trophy",
+      "order": 22
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Euro Trophy Winter Series",
+      "order": 22
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "CEE",
+      "order": 23
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "CEE Bonus Cup",
+      "order": 23
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "CEE Mojo Trophy",
+      "order": 23
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Switzerland",
+      "order": 23
+    }
+  ],
+  "IAME": [
+    {
+      "nameLong": "IAME",
+      "nameSeries": "Euro Series",
+      "order": 31
+    },
+    {
+      "nameLong": "IAME",
+      "nameSeries": "Winter Cup",
+      "order": 31
+    }
+  ],
+  "Vortex": [
+    {
+      "nameLong": "Vortex",
+      "nameSeries": "Rok Festival",
+      "order": 41
+    },
+    {
+      "nameLong": "Vortex",
+      "nameSeries": "Rok Superfinal",
+      "order": 41
+    },
+    {
+      "nameLong": "Vortex",
+      "nameSeries": "Rok Winter Trophy",
+      "order": 41
+    }
+  ],
+  "COTF": [
+    {
+      "nameLong": "Champions of the Future",
+      "nameSeries": "Euro Series",
+      "order": 51
+    }
+  ]
+}

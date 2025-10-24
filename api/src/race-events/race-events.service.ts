@@ -11,6 +11,7 @@ import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
 import { RaceStatus } from '@kartiiing/shared-types';
+import { SEASON_TO_MONTHS, MONTH_NAMES } from './season-month.constants';
 
 @Injectable()
 export class RaceEventsService {
@@ -69,22 +70,25 @@ export class RaceEventsService {
     if (year) {
       qb.andWhere('EXTRACT(YEAR FROM raceEvent.dateStart) = :year', { year });
     }
+
+    const allEvents = await qb.getMany();
+
+    // Apply search filtering at the application level
+    let filteredEvents = allEvents;
     if (search) {
-      console.log('Search term:', search);
-      this.addSearchFilter(qb, search);
+      filteredEvents = this.filterEventsBySearch(allEvents, search);
     }
 
-    const totalItems = await qb.getCount();
-    qb.skip(skip).take(pageSize);
-    const events = await qb.getMany();
+    const totalItems = filteredEvents.length;
+    const paginatedEvents = filteredEvents.slice(skip, skip + pageSize);
 
-    if (events.length === 0) {
+    if (paginatedEvents.length === 0) {
       throw new NotFoundException(
         year ? `No race events found for year ${year}` : `No race events found`,
       );
     }
 
-    const data = this.transformEvents(events, includeStatus);
+    const data = this.transformEvents(paginatedEvents, includeStatus);
     const totalPages = Math.ceil(totalItems / pageSize);
 
     return {
@@ -128,58 +132,107 @@ export class RaceEventsService {
   }
 
   /**
-   * Add search filters to the query builder
+   * Filter events by search terms at the application level
    */
-  private addSearchFilter(
-    qb: SelectQueryBuilder<RaceEvent>,
+  private filterEventsBySearch(
+    events: RaceEvent[],
     search: string,
-  ): void {
-    const searchTerms = search
-      .toLowerCase()
-      .trim()
+  ): RaceEvent[] {
+    const normalizedSearchTerms = search
       .split(/\s+/)
-      .filter((term) => term.length > 0);
+      .map((term) => this.normalizeString(term));
 
-    if (searchTerms.length === 0) return;
+    if (normalizedSearchTerms.length === 0) return events;
 
-    const seasonToMonths: Record<string, number[]> = {
-      spring: [3, 4, 5],
-      summer: [6, 7, 8],
-      autumn: [9, 10, 11],
-      fall: [9, 10, 11],
-      winter: [12, 1, 2],
-    };
+    // Separate season/month terms from other search terms
+    const seasonMonthTerms = this.extractSeasonMonthTerms(
+      normalizedSearchTerms,
+    );
+    const otherTerms = normalizedSearchTerms.filter(
+      (term) => !seasonMonthTerms.includes(term),
+    );
 
-    const conditions: string[] = [];
-    const parameters: Record<string, string | number[]> = {};
-
-    searchTerms.forEach((term, index) => {
-      if (seasonToMonths[term]) {
-        const months = seasonToMonths[term];
-        const monthParam = `months${index}`;
-        conditions.push(
-          `EXTRACT(MONTH FROM raceEvent.dateStart) IN (:...${monthParam})`,
-        );
-        parameters[monthParam] = months;
-      } else {
-        const paramName = `search${index}`;
-        conditions.push(`(
-          circuit.nameShort ILIKE :${paramName} OR 
-          circuit.nameLong ILIKE :${paramName} OR
-          country.name ILIKE :${paramName} OR
-          championships.nameShort ILIKE :${paramName} OR
-          championships.nameLong ILIKE :${paramName} OR
-          championships.nameSeries ILIKE :${paramName} OR
-          categories.name ILIKE :${paramName} OR
-          categories.engineType ILIKE :${paramName} OR
-          EXTRACT(YEAR FROM raceEvent.dateStart)::text ILIKE :${paramName}
-        )`);
-        parameters[paramName] = `%${term}%`;
+    return events.filter((event) => {
+      if (!this.matchesSeasonOrMonth(event.dateStart || '', seasonMonthTerms)) {
+        return false;
       }
-    });
 
-    qb.andWhere(conditions.join(' AND '));
-    qb.setParameters(parameters);
+      if (otherTerms.length === 0) return true;
+
+      // ALL other search terms must match at least one field
+      return otherTerms.every((term) => {
+        const championshipMatch = event.championships?.some(
+          (champ) =>
+            this.normalizeString(champ.nameShort || '').includes(term) ||
+            this.normalizeString(champ.nameLong || '').includes(term) ||
+            this.normalizeString(champ.nameSeries || '').includes(term),
+        );
+
+        const categoryMatch = event.categories?.some(
+          (cat) =>
+            this.normalizeString(cat.name || '').includes(term) ||
+            this.normalizeString(cat.engineType || '').includes(term),
+        );
+
+        const circuitMatch =
+          this.normalizeString(event.circuit?.nameShort || '').includes(term) ||
+          this.normalizeString(event.circuit?.nameLong || '').includes(term) ||
+          this.normalizeString(event.circuit?.country?.name || '').includes(
+            term,
+          );
+
+        const yearMatch = new Date(event.dateStart || '')
+          .getFullYear()
+          .toString()
+          .includes(term);
+
+        return championshipMatch || categoryMatch || circuitMatch || yearMatch;
+      });
+    });
+  }
+
+  /**
+   * Extract season and month terms from search terms
+   * Full or partial matches are allowed
+   */
+  private extractSeasonMonthTerms(normalizedTerms: string[]): string[] {
+    return normalizedTerms.filter((term) => {
+      if (Object.keys(SEASON_TO_MONTHS).some((season) => season.includes(term)))
+        return true;
+      return Object.values(MONTH_NAMES).some((month) => month.includes(term));
+    });
+  }
+
+  /**
+   * Check if an event matches season/month terms, full or partial matches allowed
+   */
+  private matchesSeasonOrMonth(
+    eventDate: string,
+    seasonMonthTerms: string[],
+  ): boolean {
+    if (seasonMonthTerms.length === 0) return true;
+
+    const eventMonth = new Date(eventDate || '').getMonth() + 1;
+    const eventMonthName = MONTH_NAMES[eventMonth];
+
+    return seasonMonthTerms.some((term) => {
+      for (const [season, months] of Object.entries(SEASON_TO_MONTHS)) {
+        if (season.includes(term) && months.includes(eventMonth)) {
+          return true;
+        }
+      }
+      return eventMonthName?.includes(term);
+    });
+  }
+
+  /**
+   * Normalize a string by removing diacritics and converting to lowercase
+   */
+  private normalizeString(str: string): string {
+    return str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 
   /**

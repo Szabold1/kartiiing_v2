@@ -1,6 +1,7 @@
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { Category } from '../entities/category.entity';
-import { IRaceEvent, RaceStatus } from '@kartiiing/shared-types';
+import { RaceEventResult } from '../entities/raceEventResult.entity';
+import { IRaceEvent, RaceStatus, IResultsLink } from '@kartiiing/shared-types';
 import { Championship } from 'src/entities/championship.entity';
 
 export function toIRaceEvent(
@@ -35,10 +36,7 @@ export function toIRaceEvent(
   // Add result links if available
   if (Array.isArray(entity?.results) && entity?.results.length > 0) {
     raceEvent.links = {
-      results: entity.results.map((result) => ({
-        name: result.category?.name || 'All',
-        url: result.url,
-      })),
+      results: sortResultLinks(entity.results),
     };
   }
 
@@ -89,5 +87,19 @@ function sortChampionships(
       nameLong: champ.nameLong,
       nameSeries: champ.nameSeries,
       order: champ.order,
+    }));
+}
+
+/**
+ * Sort result links by their category's order field
+ */
+function sortResultLinks(
+  results: RaceEventResult[] | undefined,
+): IResultsLink[] {
+  return (results || [])
+    .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
+    .map((result) => ({
+      category: result.category?.name || 'All',
+      url: result.url,
     }));
 }

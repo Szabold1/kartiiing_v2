@@ -30,6 +30,7 @@ export interface IChampionship {
   nameShort: string;
   nameLong: string;
   nameSeries: string;
+  order: number;
 }
 
 export enum RaceStatus {
@@ -39,7 +40,7 @@ export enum RaceStatus {
 }
 
 export interface IResultsLink {
-  name: string;
+  category: string;
   url: string;
 }
 
@@ -48,7 +49,7 @@ export interface IRaceEvent {
   roundNumber?: number;
   date: IRaceEventDate;
   circuit: ICircuit;
-  championship: IChampionship;
+  championships: IChampionship[];
   categories: Record<string, string[]>;
   status?: RaceStatus;
   links?: {

@@ -1,22 +1,17 @@
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
+import { IRaceEvent } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
-import { sortCategoriesByOrder } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-  race: RaceEventGrouped;
+  race: IRaceEvent;
 };
 
 export default function Results({ race }: Props) {
-  const resultsLinks = race.resultsLinks || [];
-  const sortedResultsLinks = sortCategoriesByOrder(
-    resultsLinks,
-    (result) => result.category
-  );
+  const resultsLinks = race.links?.results || [];
 
   return (
     <div className="flex flex-wrap gap-2.5">
-      {sortedResultsLinks.map((result, index) => (
+      {resultsLinks.map((result, index) => (
         <Button
           key={index}
           className="uppercase"

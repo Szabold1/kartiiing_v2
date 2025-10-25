@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
+import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import { Button } from "@/components/ui/button";
-import { useRaceStatus } from "@/hooks/useRaceStatus";
 import { toDay } from "@/lib/utils";
 import { redGlassHover } from "@/lib/classNames";
 
 type Props = {
-  races: RaceEventGrouped[];
+  races: IRaceEvent[];
 };
 
 export default function NextRaceBtn({ races }: Props) {
   const [label, setLabel] = useState("Next race");
-  const { liveRaces, nextRaces } = useRaceStatus(races);
+  const liveRaces = races.filter((r) => r.status === RaceStatus.LIVE);
+  const nextRaces = races.filter((r) => r.status === RaceStatus.UPNEXT);
 
   useEffect(() => {
     if (liveRaces.length === 1) setLabel("Race now");
@@ -31,9 +31,9 @@ export default function NextRaceBtn({ races }: Props) {
 
     if (!targetRace) return;
 
-    const id = `${toDay(targetRace.date.end)}-${
-      targetRace.location.circuit.name
-    }-${targetRace.championship.name}`;
+    const id = `${toDay(targetRace.date.end)}-${targetRace.circuit.nameShort}-${
+      targetRace.championships[0].nameShort
+    }`;
 
     document
       .getElementById(id)

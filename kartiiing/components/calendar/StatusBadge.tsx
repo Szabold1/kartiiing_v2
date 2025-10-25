@@ -1,5 +1,5 @@
 import { grayGlassBase, redGlassBase } from "@/lib/classNames";
-import { RaceStatus } from "@/lib/constants/raceStatus";
+import { RaceStatus } from "@kartiiing/shared-types";
 
 type Props = {
   status: RaceStatus;

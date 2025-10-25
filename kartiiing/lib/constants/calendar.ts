@@ -3,8 +3,3 @@ export enum CalendarViewMode {
   LIST = "list",
 }
 export const CALENDAR_VIEW_MODE_KEY = "calendarViewMode";
-
-export enum SortOrder {
-  ASC = "asc",
-  DESC = "desc",
-}

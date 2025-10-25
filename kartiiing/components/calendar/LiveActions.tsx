@@ -1,22 +1,18 @@
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
-import { useRaceStatus } from "@/hooks/useRaceStatus";
-import { useRaceContext } from "@/contexts/RaceContext";
+import { IRaceEvent } from "@kartiiing/shared-types";
 import StatusBadge from "./StatusBadge";
 import LiveActionButton from "./LiveActionButton";
 import { Timer, TvMinimalPlay } from "lucide-react";
-import { RaceStatus } from "@/lib/constants/raceStatus";
+import { RaceStatus } from "@kartiiing/shared-types";
 
 type Props = {
-  race: RaceEventGrouped;
+  race: IRaceEvent;
 };
 
 export default function LiveActions({ race }: Props) {
-  const { races } = useRaceContext();
-  const { getRaceStatusForRace } = useRaceStatus(races);
-  const status = getRaceStatusForRace(race);
-  if (status !== RaceStatus.LIVE) return null;
+  if (race.status !== RaceStatus.LIVE) return null;
 
-  const raceName = `${race.championship.nameLong} ${race.championship.nameSeries}`;
+  const championship = race.championships[0];
+  const raceName = `${championship.nameLong} ${championship.nameSeries}`;
 
   const handleClick = (type: "timing" | "streaming") => {
     const searchQuery = encodeURIComponent(`${raceName} live ${type}`);
@@ -27,7 +23,7 @@ export default function LiveActions({ race }: Props) {
   return (
     <div className="absolute -top-5.5 left-5.5 flex items-center gap-1">
       <StatusBadge
-        status={status}
+        status={race.status}
         className="px-3.5 py-2 rounded-lg font-medium border border-dashed"
       />
 

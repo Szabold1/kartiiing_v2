@@ -1,16 +1,21 @@
-import { Championship } from "@/lib/types/RaceTypes";
+import { IChampionship } from "@kartiiing/shared-types";
 
 type Props = {
-  championship: Championship;
+  championship: IChampionship;
+  roundNumber?: number;
   className?: string;
 };
 
-export default function RenderRaceTitle({ championship, className }: Props) {
+export default function RenderRaceTitle({
+  championship,
+  roundNumber,
+  className,
+}: Props) {
   return (
     <div className={className}>
-      {championship.name ? championship.name : championship.nameLong}
+      {championship.nameShort ? championship.nameShort : championship.nameLong}
       {championship.nameSeries ? ` ${championship.nameSeries}` : ""}
-      {championship.roundNumber ? ` #${championship.roundNumber}` : ""}
+      {roundNumber ? ` #${roundNumber}` : ""}
     </div>
   );
 }

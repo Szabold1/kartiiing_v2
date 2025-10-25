@@ -1,16 +1,16 @@
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
+import { IRaceEvent } from "@kartiiing/shared-types";
 import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
 import SectionTitle from "@/components/SectionTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
 
 interface Props {
-  race: RaceEventGrouped;
+  race: IRaceEvent;
   className?: string;
 }
 
 export default function RaceSummary({ race, className = "" }: Props) {
-  const { date, location, championship } = race;
+  const { date, circuit, categories } = race;
 
   return (
     <div className={`space-y-3.5 ${className}`}>
@@ -25,34 +25,32 @@ export default function RaceSummary({ race, className = "" }: Props) {
       </div>
 
       <div>
-        <SectionTitle>Location</SectionTitle>
+        <SectionTitle>Circuit</SectionTitle>
         <RenderRaceLocation
-          location={location}
-          className="font-medium tracking- sm:tracking-normal"
+          circuit={circuit}
+          className="font-medium tracking-tight"
           version="long"
           isClickable
         />
       </div>
 
-      {championship.engineTypes.length > 0 && (
+      {Object.keys(categories).length > 0 && (
         <div>
           <SectionTitle>
-            Engine type{championship.engineTypes.length > 1 && "s"}
+            Engine type{Object.keys(categories).length > 1 && "s"}
           </SectionTitle>
           <RenderEngineCategory
-            engines={championship.engineTypes}
-            categories={championship.categories}
+            engineCategoryPairs={categories}
             className="mt-1"
           />
         </div>
       )}
 
-      {championship.categories.length > 0 && (
+      {Object.values(categories).flat().length > 0 && (
         <div>
           <SectionTitle>Categories</SectionTitle>
           <RenderEngineCategory
-            engines={championship.engineTypes}
-            categories={championship.categories}
+            engineCategoryPairs={categories}
             className="mt-1"
             showAll
           />

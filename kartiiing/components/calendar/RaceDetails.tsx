@@ -1,4 +1,4 @@
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
+import { IRaceEvent } from "@kartiiing/shared-types";
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import Tabs from "@/components/Tabs";
 import { X } from "lucide-react";
@@ -7,12 +7,12 @@ import Results from "@/components/calendar/tabs/Results";
 import LiveActions from "./LiveActions";
 
 type Props = {
-  race: RaceEventGrouped;
+  race: IRaceEvent;
   onClose?: () => void;
 };
 
 export default function RaceDetails({ race, onClose }: Props) {
-  const resultsLinks = race.resultsLinks || [];
+  const resultsLinks = race.links?.results || [];
 
   const tabs = [
     {
@@ -42,7 +42,7 @@ export default function RaceDetails({ race, onClose }: Props) {
     <div className="p-4 sm:p-5 h-full relative min-h-90">
       <div className="flex items-center mb-4 gap-2">
         <RenderRaceTitle
-          championship={race.championship}
+          championship={race.championships[0]}
           className="text-xl font-semibold tracking-tight"
         />
         <LiveActions race={race} />

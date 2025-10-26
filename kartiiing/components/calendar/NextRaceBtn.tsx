@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import { Button } from "@/components/ui/button";
-import { toDay } from "@/lib/utils";
 import { redGlassHover } from "@/lib/classNames";
 
 type Props = {
@@ -31,12 +30,8 @@ export default function NextRaceBtn({ races }: Props) {
 
     if (!targetRace) return;
 
-    const id = `${toDay(targetRace.date.end)}-${targetRace.circuit.nameShort}-${
-      targetRace.championships[0].title
-    }`;
-
     document
-      .getElementById(id)
+      .getElementById(`${targetRace.id}`)
       ?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 

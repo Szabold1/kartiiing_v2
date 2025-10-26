@@ -1,5 +1,5 @@
 import { IRaceEvent } from "@kartiiing/shared-types";
-import StatusBadge from "./StatusBadge";
+import StatusResultsBadge from "./StatusResultsBadge";
 import LiveActionButton from "./LiveActionButton";
 import { Timer, TvMinimalPlay } from "lucide-react";
 import { RaceStatus } from "@kartiiing/shared-types";
@@ -21,8 +21,8 @@ export default function LiveActions({ race }: Props) {
 
   return (
     <div className="absolute -top-5.5 left-5.5 flex items-center gap-1">
-      <StatusBadge
-        status={race.status}
+      <StatusResultsBadge
+        race={race}
         className="px-3.5 py-2 rounded-lg font-medium border border-dashed"
       />
 

@@ -4,6 +4,7 @@ type Props = {
   engineCategoryPairs: Record<string, string[]>;
   className?: string;
   showAll?: boolean;
+  badgeClassName?: string;
 };
 
 type Badge = {
@@ -15,6 +16,7 @@ export default function RenderEngineCategory({
   engineCategoryPairs,
   className = "",
   showAll = false,
+  badgeClassName = "",
 }: Props) {
   const badges: Badge[] = [];
 
@@ -36,7 +38,7 @@ export default function RenderEngineCategory({
           className={`text-xs px-2 py-1 rounded-md uppercase font-medium ${
             ENGINE_COLORS[engineType] ||
             "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
-          }`}
+          } ${badgeClassName}`}
         >
           {label}
         </span>

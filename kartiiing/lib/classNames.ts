@@ -8,6 +8,7 @@ export const lightDarkGlassHover = `${lightDarkGlassBase} hover:shadow-md hover:
 export const lightDarkGlassActive = `${lightDarkGlassBase} border-gray-500/50 dark:border-gray-50/35 transition`;
 
 export const grayGlassBase = `${glassBase} border-gray-500/15 text-gray-600 dark:text-gray-400 bg-gray-200/60 dark:bg-gray-800/50`;
+export const grayGlassHover = `${grayGlassBase} hover:bg-gray-100/50 hover:border-gray-500/25 hover:dark:bg-gray-700/50 hover:text-gray-700 hover:dark:text-gray-300 hover:shadow-md transition`;
 
 export const tealGlassBase = `${glassBase} border-teal-400/15 text-teal-600 dark:text-teal-400 bg-teal-100/80 dark:bg-teal-900/60`;
 

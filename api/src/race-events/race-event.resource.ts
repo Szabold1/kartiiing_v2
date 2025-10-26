@@ -1,16 +1,18 @@
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { Category } from '../entities/category.entity';
 import { RaceEventResult } from '../entities/raceEventResult.entity';
+import { RaceEventChampionship } from '../entities/raceEventChampionship.entity';
 import { IRaceEvent, RaceStatus, IResultsLink } from '@kartiiing/shared-types';
-import { Championship } from 'src/entities/championship.entity';
 
 export function toIRaceEvent(
   entity: RaceEvent,
   status?: RaceStatus | null,
 ): IRaceEvent {
+  const sortedChampionships = sortChampionships(entity.championshipDetails);
+
   const raceEvent: IRaceEvent = {
     id: entity.id,
-    roundNumber: entity.roundNumber,
+    title: buildRaceTitle(sortedChampionships),
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
@@ -29,7 +31,7 @@ export function toIRaceEvent(
         code: entity.circuit.country.code,
       },
     },
-    championships: sortChampionships(entity.championships),
+    championships: sortedChampionships,
     categories: groupCategoriesByEngineType(entity.categories),
   };
 
@@ -46,6 +48,14 @@ export function toIRaceEvent(
   }
 
   return raceEvent;
+}
+
+/**
+ * Build the race event title from the first championship and its round number
+ */
+function buildRaceTitle(championships: IRaceEvent['championships']): string {
+  if (championships.length === 0) return '';
+  return championships[0].title || '';
 }
 
 /**
@@ -74,20 +84,32 @@ function groupCategoriesByEngineType(
 }
 
 /**
- * Sort championships by their order field
+ * Sort championships by their order field and build their titles with round numbers
  */
 function sortChampionships(
-  championships: Championship[],
+  championshipDetails: RaceEventChampionship[],
 ): IRaceEvent['championships'] {
-  return (championships || [])
-    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
-    .map((champ) => ({
-      id: champ.id,
-      nameShort: champ.nameShort,
-      nameLong: champ.nameLong,
-      nameSeries: champ.nameSeries,
-      order: champ.order,
-    }));
+  return (championshipDetails || [])
+    .sort(
+      (a, b) => (a.championship?.order ?? 999) - (b.championship?.order ?? 999),
+    )
+    .map((detail) => {
+      const champ = detail.championship;
+      let title = champ.nameShort || champ.nameLong;
+
+      if (champ.nameSeries) {
+        title += ` ${champ.nameSeries}`;
+      }
+
+      if (detail.roundNumber) {
+        title += ` #${detail.roundNumber}`;
+      }
+
+      return {
+        id: champ.id,
+        title,
+      };
+    });
 }
 
 /**

@@ -32,7 +32,7 @@ export default function NextRaceBtn({ races }: Props) {
     if (!targetRace) return;
 
     const id = `${toDay(targetRace.date.end)}-${targetRace.circuit.nameShort}-${
-      targetRace.championships[0].nameShort
+      targetRace.championships[0].title
     }`;
 
     document

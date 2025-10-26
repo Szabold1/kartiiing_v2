@@ -18,9 +18,9 @@ export default function RaceCard({
   onClick = () => {},
   variant = "card",
 }: Props) {
-  const { date, circuit, championships, categories, roundNumber } = race;
+  const { date, circuit, championships, categories } = race;
   const championship = championships[0];
-  const id = `${toDay(date.end)}-${circuit.nameShort}-${championship.nameShort}`;
+  const id = `${toDay(date.end)}-${circuit.nameShort}-${championship.title}`;
   const liveContainerStyle =
     "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25 hover:border-red-500/70 hover:dark:border-red-900";
 
@@ -49,7 +49,6 @@ export default function RaceCard({
           />
           <RenderRaceTitle
             championship={championship}
-            roundNumber={roundNumber}
             className="font-semibold truncate flex-1"
           />
           <RenderEngineCategory
@@ -89,7 +88,6 @@ export default function RaceCard({
       />
       <RenderRaceTitle
         championship={championship}
-        roundNumber={roundNumber}
         className="font-semibold tracking-tight flex-1"
       />
       <RenderEngineCategory

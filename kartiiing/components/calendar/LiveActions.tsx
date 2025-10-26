@@ -12,10 +12,9 @@ export default function LiveActions({ race }: Props) {
   if (race.status !== RaceStatus.LIVE) return null;
 
   const championship = race.championships[0];
-  const raceName = `${championship.nameLong} ${championship.nameSeries}`;
 
   const handleClick = (type: "timing" | "streaming") => {
-    const searchQuery = encodeURIComponent(`${raceName} live ${type}`);
+    const searchQuery = encodeURIComponent(`${championship.title} live ${type}`);
     const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
     window.open(searchUrl, "_blank");
   };

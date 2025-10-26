@@ -29,7 +29,7 @@ export default function CalendarHeader({
     const uniqueChampionships = Array.from(
       new Set(
         races.flatMap((r) => 
-          r.championships.map((c) => `${c.nameShort} ${c.nameSeries}`)
+          r.championships.map((c) => c.title)
         )
       )
     ).length;

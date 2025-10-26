@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../../../app.module';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, Repository, In } from 'typeorm';
 import { Championship } from '../../../entities/championship.entity';
 import { RaceEvent } from '../../../entities/raceEvent.entity';
 import { RaceEventResult } from '../../../entities/raceEventResult.entity';
@@ -8,6 +8,7 @@ import { Driver } from '../../../entities/driver.entity';
 import { FastestLap } from '../../../entities/fastestLap.entity';
 import { Category } from '../../../entities/category.entity';
 import { Circuit } from '../../../entities/circuit.entity';
+import { RaceEventChampionship } from '../../../entities/raceEventChampionship.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -65,13 +66,12 @@ export class RaceEventSeeder {
       string,
       {
         eventData: RaceEventData;
-        championships: Championship[];
+        championshipRounds: Map<number, number>;
       }
     >();
 
     // First pass: collect all championships for each circuit + dateEnd combination
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const [_year, yearData] of Object.entries(raceEventsData)) {
+    for (const [, yearData] of Object.entries(raceEventsData)) {
       for (const [championshipName, events] of Object.entries(yearData)) {
         const [nameShort, ...nameSeries] = championshipName.split(' ');
         const series = nameSeries.join(' ');
@@ -93,15 +93,16 @@ export class RaceEventSeeder {
           if (!groupedEvents.has(groupKey)) {
             groupedEvents.set(groupKey, {
               eventData,
-              championships: [],
+              championshipRounds: new Map(),
             });
           }
 
           const grouped = groupedEvents.get(groupKey)!;
-          // Add championship if not already present
-          if (!grouped.championships.some((c) => c.id === championship.id)) {
-            grouped.championships.push(championship);
-          }
+          // Track the round number for this championship
+          grouped.championshipRounds.set(
+            championship.id,
+            eventData.roundNumber || 0,
+          );
           // Merge categories and other data
           if (eventData.categoryNames) {
             grouped.eventData.categoryNames = [
@@ -142,13 +143,19 @@ export class RaceEventSeeder {
     }
 
     // Second pass: create race events with many-to-many championships
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const [_groupKey, { eventData, championships }] of groupedEvents) {
+    for (const [, { eventData, championshipRounds }] of groupedEvents) {
       try {
+        // Get all championships from the map
+        const champIds = Array.from(championshipRounds.keys());
+        const championships = await championshipRepository.find({
+          where: { id: In(champIds) },
+        });
+
         const raceEventResult = await RaceEventSeeder.findOrCreateRaceEvent(
           dataSource,
           eventData,
           championships,
+          championshipRounds,
         );
 
         if (!raceEventResult.raceEvent || !raceEventResult.isNew) {
@@ -208,8 +215,12 @@ export class RaceEventSeeder {
     dataSource: DataSource,
     eventData: RaceEventData,
     championships: Championship[],
+    championshipRounds: Map<number, number>,
   ): Promise<{ raceEvent: RaceEvent | null; isNew: boolean }> {
     const raceEventRepository = dataSource.getRepository(RaceEvent);
+    const raceEventChampionshipRepository = dataSource.getRepository(
+      RaceEventChampionship,
+    );
     const circuitRepository = dataSource.getRepository(Circuit);
 
     const circuit = await circuitRepository.findOne({
@@ -230,35 +241,47 @@ export class RaceEventSeeder {
         circuit: { id: circuit.id },
         dateEnd: eventData.dateEnd,
         dateStart,
-        roundNumber: eventData.roundNumber || undefined,
       },
-      relations: ['championships', 'circuit'],
+      relations: ['championshipDetails', 'circuit'],
     });
 
     if (existingEvent) {
       // Add any missing championships to existing event
       const existingChampIds = new Set(
-        existingEvent.championships.map((c) => c.id),
+        existingEvent.championshipDetails.map((cd) => cd.championship.id),
       );
       const newChampionships = championships.filter(
         (c) => !existingChampIds.has(c.id),
       );
 
       if (newChampionships.length > 0) {
-        existingEvent.championships.push(...newChampionships);
-        await raceEventRepository.save(existingEvent);
+        // Create new RaceEventChampionship entries with correct round numbers
+        const newChampDetails = newChampionships.map((champ) => ({
+          championship: champ,
+          raceEvent: existingEvent,
+          roundNumber: championshipRounds.get(champ.id) || undefined,
+        }));
+
+        await raceEventChampionshipRepository.save(newChampDetails);
       }
 
       return { raceEvent: existingEvent, isNew: false };
     }
 
     const raceEvent = await raceEventRepository.save({
-      championships,
       circuit,
       dateStart,
       dateEnd: eventData.dateEnd,
-      roundNumber: eventData.roundNumber || undefined,
     });
+
+    // Create RaceEventChampionship entries for each championship with their round numbers
+    const champDetails = championships.map((champ) => ({
+      championship: champ,
+      raceEvent,
+      roundNumber: championshipRounds.get(champ.id) || undefined,
+    }));
+
+    await raceEventChampionshipRepository.save(champDetails);
 
     return { raceEvent, isNew: true };
   }

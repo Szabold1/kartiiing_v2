@@ -225,6 +225,50 @@
       "longitude": 8.297224
     }
   ],
+  "HU": [
+    {
+      "nameShort": "Kecskemét",
+      "nameLong": "BirizdoKart Kecskemét",
+      "length": 1070,
+      "websiteLink": "https://www.birizdokart.hu",
+      "latitude": 46.884157,
+      "longitude": 19.695403,
+      "layouts": [
+        {
+          "name": "2017",
+          "length": 1070
+        },
+        {
+          "name": "Before 2017",
+          "length": 930
+        }
+      ]
+    }
+  ],
+  "AT": [
+    {
+      "nameShort": "Pacfurth",
+      "nameLong": "Speedworld Pacfurth",
+      "length": 1160,
+      "websiteLink": "https://www.speedworld-kart.at",
+      "latitude": 48.032990,
+      "longitude": 16.826995,
+      "layouts": [
+        {
+          "name": "Layout 1",
+          "length": 1120
+        },
+        {
+          "name": "Layout 2",
+          "length": 1160
+        },
+        {
+          "name": "Layout 3",
+          "length": 1180
+        }
+      ]
+    }
+  ],
   "FR": [
     {
       "nameShort": "Vesoul",

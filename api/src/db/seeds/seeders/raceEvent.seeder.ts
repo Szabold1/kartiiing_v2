@@ -8,6 +8,7 @@ import { Driver } from '../../../entities/driver.entity';
 import { FastestLap } from '../../../entities/fastestLap.entity';
 import { Category } from '../../../entities/category.entity';
 import { Circuit } from '../../../entities/circuit.entity';
+import { CircuitLayout } from '../../../entities/circuitLayout.entity';
 import { RaceEventChampionship } from '../../../entities/raceEventChampionship.entity';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -28,6 +29,7 @@ interface ResultLinkData {
 interface RaceEventData {
   roundNumber?: number;
   circuitShortName: string;
+  circuitLayout?: string;
   dateStart?: string;
   dateEnd: string;
   categoryNames?: string[];
@@ -222,15 +224,33 @@ export class RaceEventSeeder {
       RaceEventChampionship,
     );
     const circuitRepository = dataSource.getRepository(Circuit);
+    const layoutRepository = dataSource.getRepository(CircuitLayout);
 
     const circuit = await circuitRepository.findOne({
       where: { nameShort: eventData.circuitShortName },
+      relations: ['layouts'],
     });
     if (!circuit) {
       console.warn(
         `⚠️ Circuit '${eventData.circuitShortName}' not found. Skipping event.`,
       );
       return { raceEvent: null, isNew: false };
+    }
+
+    // Find the specific layout if provided
+    let circuitLayout: CircuitLayout | null = null;
+    if (eventData.circuitLayout) {
+      circuitLayout = await layoutRepository.findOne({
+        where: {
+          circuit: { id: circuit.id },
+          name: eventData.circuitLayout,
+        },
+      });
+      if (!circuitLayout) {
+        console.warn(
+          `⚠️ Layout '${eventData.circuitLayout}' for circuit '${eventData.circuitShortName}' not found. Will use default circuit length.`,
+        );
+      }
     }
 
     // Use dateStart or default to dateEnd if not provided
@@ -242,10 +262,19 @@ export class RaceEventSeeder {
         dateEnd: eventData.dateEnd,
         dateStart,
       },
-      relations: ['championshipDetails', 'circuit'],
+      relations: ['championshipDetails', 'circuit', 'circuitLayout'],
     });
 
     if (existingEvent) {
+      // Update layout if provided
+      if (
+        circuitLayout &&
+        existingEvent.circuitLayout?.id !== circuitLayout.id
+      ) {
+        existingEvent.circuitLayout = circuitLayout;
+        await raceEventRepository.save(existingEvent);
+      }
+
       // Add any missing championships to existing event
       const existingChampIds = new Set(
         existingEvent.championshipDetails.map((cd) => cd.championship.id),
@@ -272,6 +301,7 @@ export class RaceEventSeeder {
       circuit,
       dateStart,
       dateEnd: eventData.dateEnd,
+      ...(circuitLayout && { circuitLayout }),
     });
 
     // Create RaceEventChampionship entries for each championship with their round numbers

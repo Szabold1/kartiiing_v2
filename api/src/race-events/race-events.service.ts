@@ -112,7 +112,8 @@ export class RaceEventsService {
       .createQueryBuilder('raceEvent')
       .leftJoinAndSelect('raceEvent.circuit', 'circuit')
       .leftJoinAndSelect('circuit.country', 'country')
-      .leftJoinAndSelect('raceEvent.championships', 'championships')
+      .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
+      .leftJoinAndSelect('championshipDetails.championship', 'championship')
       .leftJoinAndSelect('raceEvent.categories', 'categories')
       .leftJoinAndSelect('raceEvent.results', 'results')
       .leftJoinAndSelect('results.category', 'resultCategory');
@@ -161,11 +162,17 @@ export class RaceEventsService {
 
       // ALL other search terms must match at least one field
       return otherTerms.every((term) => {
-        const championshipMatch = event.championships?.some(
-          (champ) =>
-            this.normalizeString(champ.nameShort || '').includes(term) ||
-            this.normalizeString(champ.nameLong || '').includes(term) ||
-            this.normalizeString(champ.nameSeries || '').includes(term),
+        const championshipMatch = event.championshipDetails?.some(
+          (detail) =>
+            this.normalizeString(detail.championship.nameShort || '').includes(
+              term,
+            ) ||
+            this.normalizeString(detail.championship.nameLong || '').includes(
+              term,
+            ) ||
+            this.normalizeString(detail.championship.nameSeries || '').includes(
+              term,
+            ),
         );
 
         const categoryMatch = event.categories?.some(

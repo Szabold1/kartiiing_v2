@@ -1301,6 +1301,110 @@
         ]
       }
     ],
+    "RMC CEE": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Jesolo",
+        "dateStart": "2025-02-28",
+        "dateEnd": "2025-03-02",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/2926524",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Slovakia Ring",
+        "dateStart": "2025-04-11",
+        "dateEnd": "2025-04-13",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/2970789",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Třinec",
+        "dateStart": "2025-05-23",
+        "dateEnd": "2025-05-25",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/3033033",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Pacfurth",
+        "circuitLayout": "Layout 2",
+        "dateStart": "2025-07-11",
+        "dateEnd": "2025-07-13",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/3112942",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 5,
+        "circuitShortName": "Kecskemét",
+        "circuitLayout": "2017",
+        "dateStart": "2025-08-22",
+        "dateEnd": "2025-08-24",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/events/3179593",
+            "category": "All"
+          }
+        ]
+      }
+    ],
     "RMC Switzerland": [
       {
         "roundNumber": 1,

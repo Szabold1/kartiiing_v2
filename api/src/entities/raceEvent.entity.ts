@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Circuit } from './circuit.entity';
+import { CircuitLayout } from './circuitLayout.entity';
 import { Category } from './category.entity';
 import { RaceEventResult } from './raceEventResult.entity';
 import { FastestLap } from './fastestLap.entity';
@@ -28,8 +29,11 @@ export class RaceEvent {
   @Column({ type: 'date' })
   dateEnd?: string;
 
-  @ManyToOne(() => Circuit)
+  @ManyToOne(() => Circuit, { eager: true })
   circuit!: Circuit;
+
+  @ManyToOne(() => CircuitLayout, { eager: true, nullable: true })
+  circuitLayout?: CircuitLayout;
 
   @OneToMany(
     () => RaceEventChampionship,

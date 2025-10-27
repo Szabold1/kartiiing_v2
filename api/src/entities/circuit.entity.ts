@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  OneToMany,
   Index,
 } from 'typeorm';
 import { Country } from './country.entity';
+import { CircuitLayout } from './circuitLayout.entity';
 
 @Entity('circuits')
 @Index(['nameShort', 'country'], { unique: true })
@@ -33,4 +35,10 @@ export class Circuit {
 
   @ManyToOne(() => Country, (country) => country.circuits)
   country!: Country;
+
+  @OneToMany(() => CircuitLayout, (layout) => layout.circuit, {
+    eager: true,
+    cascade: true,
+  })
+  layouts!: CircuitLayout[];
 }

@@ -14,6 +14,12 @@ export interface ICountry {
   code: string;
 }
 
+export interface ICircuitLayout {
+  id: number;
+  name?: string;
+  length: number;
+}
+
 export interface ICircuit {
   id: number;
   nameShort: string;
@@ -23,6 +29,7 @@ export interface ICircuit {
   latitude: number;
   longitude: number;
   country: ICountry;
+  layout: ICircuitLayout;
 }
 
 export interface IChampionship {

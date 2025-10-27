@@ -30,6 +30,11 @@ export function toIRaceEvent(
         name: entity.circuit.country.name,
         code: entity.circuit.country.code,
       },
+      layout: {
+        id: entity.circuitLayout?.id || 0,
+        name: entity.circuitLayout?.name || undefined,
+        length: entity.circuitLayout?.length || 0,
+      },
     },
     championships: sortedChampionships,
     categories: groupCategoriesByEngineType(entity.categories),

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import {
   Select,
@@ -6,7 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEvent, IYearStats } from "@kartiiing/shared-types";
+import { getYearStats } from "@/lib/api";
 
 type Props = {
   races: IRaceEvent[];
@@ -21,20 +25,52 @@ export default function CalendarHeader({
   setSelectedYear,
   years,
 }: Props) {
+  const [stats, setStats] = useState<IYearStats | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const yearStats = await getYearStats(selectedYear);
+        setStats(yearStats);
+      } catch (error) {
+        console.error("Error fetching year stats:", error);
+        setStats(null);
+      }
+    };
+
+    fetchStats();
+  }, [selectedYear]);
+
   const buildCalendarDescription = () => {
-    const uniqueCircuits = Array.from(
-      new Set(races.map((r) => r.circuit.id))
-    ).length;
+    let statsData = {
+      nbOfRaces: 0,
+      nbOfCircuits: 0,
+      nbOfChampionships: 0,
+    };
 
-    const uniqueChampionships = Array.from(
-      new Set(
-        races.flatMap((r) => 
-          r.championships.map((c) => c.title)
-        )
-      )
-    ).length;
+    if (stats) {
+      statsData = {
+        nbOfRaces: stats.races,
+        nbOfCircuits: stats.circuits,
+        nbOfChampionships: stats.championships,
+      };
+    } else {
+      const uniqueCircuits = Array.from(
+        new Set(races.map((r) => r.circuit.id))
+      ).length;
 
-    return `Discover our ${selectedYear} karting calendar, featuring ${races.length} races across ${uniqueCircuits} circuits, representing ${uniqueChampionships} championships.`;
+      const uniqueChampionships = Array.from(
+        new Set(races.flatMap((r) => r.championships.map((c) => c.id)))
+      ).length;
+
+      statsData = {
+        nbOfRaces: races.length,
+        nbOfCircuits: uniqueCircuits,
+        nbOfChampionships: uniqueChampionships,
+      };
+    }
+
+    return `Discover our ${selectedYear} karting calendar, featuring ${statsData.nbOfRaces} races across ${statsData.nbOfCircuits} circuits, representing ${statsData.nbOfChampionships} championships.`;
   };
 
   return (

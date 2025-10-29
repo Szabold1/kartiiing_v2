@@ -1,7 +1,11 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { RaceEventsService } from './race-events.service';
-import { FindByYearParams, FindRaceEventsQuery } from './dtos';
-import { IRaceEvent, IPaginatedResponse } from '@kartiiing/shared-types';
+import { YearParams, FindRaceEventsQuery } from './dtos';
+import {
+  IRaceEvent,
+  IPaginatedResponse,
+  IYearStats,
+} from '@kartiiing/shared-types';
 
 @Controller('race-events')
 export class RaceEventsController {
@@ -21,9 +25,18 @@ export class RaceEventsController {
     return years;
   }
 
+  @Get('stats/:year')
+  async getYearStats(@Param() params: YearParams): Promise<IYearStats> {
+    const stats = await this.raceEventsService.getYearStats(params.year);
+    return {
+      year: params.year,
+      ...stats,
+    };
+  }
+
   @Get(':year')
   findByYear(
-    @Param() params: FindByYearParams,
+    @Param() params: YearParams,
     @Query() query: FindRaceEventsQuery,
   ): Promise<IPaginatedResponse<IRaceEvent>> {
     const raceEvents = this.raceEventsService.findByYear(params.year, query);

@@ -2,6 +2,7 @@ import {
   RaceEventSortOptions,
   IRaceEvent,
   IPaginatedResponse,
+  IYearStats,
 } from "@kartiiing/shared-types";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
@@ -14,6 +15,21 @@ export async function getAvailableYears(): Promise<number[]> {
 
   if (!res.ok) {
     throw new Error(`Failed to fetch available years: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
+ * Fetch year statistics (races, circuits, championships count)
+ */
+export async function getYearStats(
+  year: number | string
+): Promise<IYearStats> {
+  const res = await fetch(`${apiUrl}/api/race-events/stats/${year}`);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch year stats: ${res.status}`);
   }
 
   return res.json();

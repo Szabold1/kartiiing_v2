@@ -43,6 +43,32 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
+  async getYearStats(
+    year: number,
+  ): Promise<{ races: number; circuits: number; championships: number }> {
+    const races = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getCount();
+
+    const circuitsResult = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getRawOne<{ circuitCount: string }>();
+    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
+
+    const championshipsResult = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .innerJoin('re.championshipDetails', 'champ')
+      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getRawOne<{ champCount: string }>();
+    const championships = parseInt(championshipsResult?.champCount || '0', 10);
+
+    return { races, circuits, championships };
+  }
+
   // ------------------------------------------------------------- //
   // ----- Private Helper Methods -------------------------------- //
 

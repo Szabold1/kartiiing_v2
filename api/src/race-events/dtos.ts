@@ -35,7 +35,7 @@ export class FindRaceEventsQuery {
   includeStatus?: boolean = true;
 }
 
-export class FindByYearParams {
+export class YearParams {
   @IsInt()
   @Min(1950)
   @Max(new Date().getFullYear() + 3)

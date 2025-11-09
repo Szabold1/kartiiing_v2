@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { openLinkInNewTab } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 
 type Props = {
@@ -35,7 +36,7 @@ export default function StatusResultsBadge({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            window.open(resultLinks[0].url, "_blank");
+            openLinkInNewTab(resultLinks[0].url);
           }}
           className={`${resultsClasses}`}
           style={heightStyle}
@@ -46,7 +47,7 @@ export default function StatusResultsBadge({
     }
 
     return (
-      <Select value="" onValueChange={(url) => window.open(url, "_blank")}>
+      <Select value="" onValueChange={(url) => openLinkInNewTab(url)}>
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
           className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 hover:!text-gray-700 hover:dark:!text-gray-300`}

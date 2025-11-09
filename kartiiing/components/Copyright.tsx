@@ -1,5 +1,7 @@
 "use client";
 
+import { openLinkInNewTab } from "@/lib/utils";
+
 interface Props {
   year?: number;
   text?: string;
@@ -24,17 +26,16 @@ export default function Copyright({
       <p>
         {year} {text} (Photo © {year}{" "}
         {links.map((link, index) => (
-          <span key={link.label}>
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-gray-100 transition-colors"
+          <>
+            <span
+              key={link.label}
+              className="hover:text-gray-100 hover:underline transition-colors cursor-pointer"
+              onClick={() => openLinkInNewTab(link.url)}
             >
               {link.label}
-            </a>
+            </span>
             {index < links.length - 1 && " / "}
-          </span>
+          </>
         ))}
         )
       </p>

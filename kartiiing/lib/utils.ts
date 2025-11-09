@@ -82,3 +82,12 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
     return "live now";
   }
 }
+
+/**
+ * Opens a given URL in a new browser tab with security features.
+ *
+ * @param url - The URL to be opened in a new tab.
+ */
+export function openLinkInNewTab(url: string) {
+  window.open(url, "_blank", "noopener noreferrer");
+}

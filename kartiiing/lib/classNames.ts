@@ -12,7 +12,8 @@ export const grayGlassHover = `${grayGlassBase} hover:bg-gray-100/50 hover:borde
 
 export const tealGlassBase = `${glassBase} border-teal-400/15 text-teal-600 dark:text-teal-400 bg-teal-100/80 dark:bg-teal-900/60`;
 
-export const cyanGlassBase = `${glassBase} border-cyan-500/15 text-cyan-600 dark:text-cyan-400 bg-cyan-100/80 dark:bg-cyan-900/60`;
+export const cyanGlassBase = `${glassBase} border-cyan-500/15 text-cyan-700 dark:text-cyan-400 bg-cyan-100/75 dark:bg-cyan-900/55`;
+export const cyanGlassHover = `${cyanGlassBase} hover:bg-cyan-100/90 hover:border-cyan-500/30 hover:dark:bg-cyan-900/95 hover:shadow-md transition`;
 
 export const skyGlassBase = `${glassBase} border-sky-500/15 text-sky-600 dark:text-sky-400 bg-sky-100/80 dark:bg-sky-900/50`;
 
@@ -20,8 +21,8 @@ export const blueGlassBase = `${glassBase} border-blue-500/15 text-blue-600 dark
 
 export const limeGlassBase = `${glassBase} border-lime-500/15 text-lime-700 dark:text-lime-400 bg-lime-100/80 dark:bg-lime-900/60`;
 
-export const greenGlassBase = `${glassBase} border-green-500/15 text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50`;
-export const greenGlassHover = `${greenGlassBase} hover:bg-green-200/70 hover:border-green-500/30 hover:dark:bg-green-900/70 hover:shadow-md transition`;
+export const greenGlassBase = `${glassBase} border-green-500/15 text-green-700 dark:text-green-400 bg-green-100/75 dark:bg-green-900/50`;
+export const greenGlassHover = `${greenGlassBase} hover:bg-green-100/90 hover:border-green-500/50 hover:dark:bg-green-900/90 hover:shadow-md transition`;
 
 export const emeraldGlassBase = `${glassBase} border-emerald-500/15 text-emerald-600 dark:text-emerald-400 bg-emerald-100/80 dark:bg-emerald-900/50`;
 

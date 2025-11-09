@@ -5,13 +5,27 @@ import {
   IYearStats,
 } from "@kartiiing/shared-types";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+/**
+ * Get the base URL for API requests based on the environment, supporting both client and server contexts.
+ */
+export function getApiBase(): string {
+  const isClient = typeof window !== "undefined";
+  let base: string;
+  
+  if (isClient) {
+    base = process.env.NEXT_PUBLIC_API_URL || "/api";
+  } else {
+    base = process.env.API_URL_INTERNAL || "/api";
+  }
+
+  return base.replace(/\/$/, "");
+}
 
 /**
  * Fetch available years that have race events
  */
 export async function getAvailableYears(): Promise<number[]> {
-  const res = await fetch(`${apiUrl}/api/race-events/years`);
+  const res = await fetch(`${getApiBase()}/race-events/years`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch available years: ${res.status}`);
@@ -26,7 +40,7 @@ export async function getAvailableYears(): Promise<number[]> {
 export async function getYearStats(
   year: number | string
 ): Promise<IYearStats> {
-  const res = await fetch(`${apiUrl}/api/race-events/stats/${year}`);
+  const res = await fetch(`${getApiBase()}/race-events/stats/${year}`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch year stats: ${res.status}`);
@@ -47,7 +61,8 @@ export async function getRaceEvents(
     throw new Error("Invalid year parameter");
   }
 
-  let url = `${apiUrl}/api/race-events/${year || ""}?sort=${sort}&limit=100`;
+  const yearPath = year && year !== "all" ? `/${year}` : "";
+  let url = `${getApiBase()}/race-events${yearPath}?sort=${sort}&limit=100`;
   if (search) {
     url += `&search=${encodeURIComponent(search)}`;
   }

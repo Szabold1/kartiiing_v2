@@ -20,7 +20,7 @@ const navLinks: NavLink[] = [
 const DesktopNav = () => {
   return (
     <NavigationMenu className="mr-1.5">
-      <NavigationMenuList className="hidden md:flex gap-2 mx-auto font-medium">
+      <NavigationMenuList className="hidden md:flex gap-2 mx-auto font-semibold">
         {navLinks.map((link) => (
           <DesktopNavLink
             key={link.label}

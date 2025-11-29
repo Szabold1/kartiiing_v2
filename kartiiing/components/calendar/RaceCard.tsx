@@ -26,7 +26,7 @@ export default function RaceCard({
   if (variant === "row") {
     return (
       <div
-        className={`p-[0.52rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
+        className={`p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
           race.status === RaceStatus.LIVE || race.status === RaceStatus.UPNEXT
             ? `${liveContainerStyle}`
             : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
@@ -40,7 +40,7 @@ export default function RaceCard({
               <StatusResultsBadge
                 race={race}
                 className="px-3 rounded-md "
-                heightPx="34"
+                heightPx="40"
               />
             </span>
           ) : null}
@@ -80,8 +80,8 @@ export default function RaceCard({
         <div className="absolute -top-0.5 -right-0.5">
           <StatusResultsBadge
             race={race}
-            className="pl-3.5 pr-3 rounded-bl-xl"
-            heightPx="36"
+            className="pl-4 pr-3.5 rounded-bl-xl"
+            heightPx="42"
           />
         </div>
       ) : null}

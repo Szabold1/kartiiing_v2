@@ -7,7 +7,6 @@ import {
   addYears,
   addMonths,
 } from "date-fns";
-import { CATEGORY_ORDER } from "@/lib/constants/categories";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -85,18 +84,10 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
 }
 
 /**
- * Sorts categories based on the predefined CATEGORY_ORDER
- * Categories not in the order list are placed at the end
+ * Opens a given URL in a new browser tab with security features.
+ *
+ * @param url - The URL to be opened in a new tab.
  */
-export function sortCategoriesByOrder<T>(
-  items: T[],
-  getCategoryName: (item: T) => string
-): T[] {
-  return items.sort((a, b) => {
-    const aCategory = getCategoryName(a);
-    const bCategory = getCategoryName(b);
-    const ai = CATEGORY_ORDER.indexOf(aCategory);
-    const bi = CATEGORY_ORDER.indexOf(bCategory);
-    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-  });
+export function openLinkInNewTab(url: string) {
+  window.open(url, "_blank", "noopener noreferrer");
 }

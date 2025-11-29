@@ -131,8 +131,8 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "data-[active=true]:focus:text-red-600 data-[active=true]:hover:text-red-500 data-[active=true]:text-red-600 hover:text-red-500 focus:text-red-600 text-sm p-2 transition-all duration-200",
-        "dark:data-[active=true]:focus:text-red-500 dark:data-[active=true]:hover:text-red-400 dark:data-[active=true]:text-red-500 dark:hover:text-red-400 dark:focus:text-red-500",
+        "data-[active=true]:focus:text-green-600 data-[active=true]:hover:text-green-500 data-[active=true]:text-green-600 hover:text-green-500 focus:text-green-600 text-sm p-2 transition-all duration-200",
+        "dark:data-[active=true]:focus:text-green-500 dark:data-[active=true]:hover:text-green-400 dark:data-[active=true]:text-green-500 dark:hover:text-green-400 dark:focus:text-green-500",
         className
       )}
       {...props}

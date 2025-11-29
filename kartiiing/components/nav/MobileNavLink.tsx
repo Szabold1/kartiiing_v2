@@ -1,4 +1,4 @@
-import { lightDarkGlassHover, redGlassHover } from "@/lib/classNames";
+import { greenGlassHover, lightDarkGlassHover } from "@/lib/classNames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -24,7 +24,7 @@ const MobileNavLink = ({ children, href, setOpen, match = "exact", matchPath }: 
     <Link
       href={href}
       className={`font-medium text-[0.93rem] rounded-lg p-3 w-full text-center uppercase tracking-wide ${lightDarkGlassHover}
-        ${isActive ? `${redGlassHover}` : ""}`}
+        ${isActive ? `${greenGlassHover}` : ""}`}
       onClick={() => setOpen(false)}
     >
       {children}

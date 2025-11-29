@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import { getRelativeText, toDay } from "@/lib/utils";
-import { RaceDate } from "@/lib/types/RaceTypes";
+import { IRaceEventDate } from "@kartiiing/shared-types";
 
 type Props = {
-  date: RaceDate;
+  date: IRaceEventDate;
   className?: string;
   withYear?: boolean;
   showRelative?: boolean;

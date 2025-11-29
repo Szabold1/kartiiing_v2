@@ -1,0 +1,1522 @@
+{
+  "2024": {
+    "FIA European Championship": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Valencia",
+        "dateStart": "2024-03-21",
+        "dateEnd": "2024-03-24",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2024-valencia/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2024-valencia/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 53100,
+            "date": "2024-03-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Tiziano|Monza",
+            "category": "OK"
+          },
+          {
+            "lapTime": 54630,
+            "date": "2024-03-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Dries|Van Langendonck",
+            "category": "OK-J"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Val d'Argenton",
+        "dateStart": "2024-04-25",
+        "dateEnd": "2024-04-28",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2024-val-dargenton/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2024-val-dargenton/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 48811,
+            "date": "2024-04-26",
+            "sessionType": "PRACTICE",
+            "driverName": "David|Cosma Cristofor",
+            "category": "OK"
+          },
+          {
+            "lapTime": 50827,
+            "date": "2024-04-26",
+            "sessionType": "PRACTICE",
+            "driverName": "Arjen|Kräling",
+            "category": "OK-J"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Slovakia Ring",
+        "dateStart": "2024-06-20",
+        "dateEnd": "2024-06-23",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2024-slovak-karting-center/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2024-slovak-karting-center/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 49826,
+            "date": "2024-06-21",
+            "sessionType": "PRACTICE",
+            "driverName": "Matheus|Morgatto",
+            "category": "OK"
+          },
+          {
+            "lapTime": 51392,
+            "date": "2024-06-21",
+            "sessionType": "PRACTICE",
+            "driverName": "Ilie|Tristan Crisan",
+            "category": "OK-J"
+          }
+        ]
+      }
+    ],
+    "FIA Academy Trophy": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Val d'Argenton",
+        "dateStart": "2024-04-25",
+        "dateEnd": "2024-04-28",
+        "categoryNames": ["Academy"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2024-val-dargenton/Academy/results",
+            "category": "Academy"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 51872,
+            "date": "2024-04-25",
+            "sessionType": "PRACTICE",
+            "driverName": "Martim|Barros Meneses",
+            "category": "Academy"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Slovakia Ring",
+        "dateStart": "2024-06-20",
+        "dateEnd": "2024-06-23",
+        "categoryNames": ["Academy"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2024-slovak-karting-center/Academy/results",
+            "category": "Academy"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 52485,
+            "date": "2024-06-21",
+            "sessionType": "PRACTICE",
+            "driverName": "Turner|Brown",
+            "category": "Academy"
+          }
+        ]
+      }
+    ],
+    "RMC Grand Finals": [
+      {
+        "circuitShortName": "Sarno",
+        "dateStart": "2024-10-19",
+        "dateEnd": "2024-10-26",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters",
+          "E20-Senior",
+          "E20-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://www.apex-timing.com/goracing/results.php?path=/korridas/2024/rgf2024&group=15",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 69093,
+            "date": "2024-10-26",
+            "sessionType": "FINAL",
+            "driverName": "Timon|Grgic",
+            "category": "Micro"
+          },
+          {
+            "lapTime": 65860,
+            "date": "2024-10-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Nikita|Ljubimov",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 61469,
+            "date": "2024-10-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Antoine|Lemieux",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 60199,
+            "date": "2024-10-25",
+            "sessionType": "PREFINAL",
+            "driverName": "Mehdi|Lassoued",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 59540,
+            "date": "2024-10-26",
+            "sessionType": "FINAL",
+            "driverName": "Dawid|Maslakiewicz",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 60265,
+            "date": "2024-10-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Matias|Rodriguez",
+            "category": "DD2-Masters"
+          },
+          {
+            "lapTime": 60824,
+            "date": "2024-10-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Armand|Hamilton",
+            "category": "E20-Senior"
+          },
+          {
+            "lapTime": 61938,
+            "date": "2024-10-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Jonatan|Morin",
+            "category": "E20-Masters"
+          }
+        ]
+      }
+    ]
+  },
+  "2025": {
+    "FIA European Championship": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Campillos",
+        "dateStart": "2025-04-03",
+        "dateEnd": "2025-04-06",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-campillos/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-campillos/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 61707,
+            "date": "2025-04-04",
+            "sessionType": "PRACTICE",
+            "driverName": "Dean|Hoogendoorn",
+            "category": "OK-J"
+          },
+          {
+            "lapTime": 59575,
+            "date": "2025-04-06",
+            "sessionType": "WARM_UP",
+            "driverName": "Filippo|Sala",
+            "category": "OK"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Portimão",
+        "dateStart": "2025-05-01",
+        "dateEnd": "2025-05-04",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-portimao/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-portimao/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 58504,
+            "date": "2025-05-04",
+            "sessionType": "FINAL",
+            "driverName": "Will|Green",
+            "category": "OK-J"
+          },
+          {
+            "lapTime": 56430,
+            "date": "2025-05-04",
+            "sessionType": "FINAL",
+            "driverName": "Roman|Kamyab",
+            "category": "OK"
+          }
+        ]
+      },
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Valencia",
+        "dateStart": "2025-05-15",
+        "dateEnd": "2025-05-18",
+        "categoryNames": ["KZ", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-valencia/KZ/results",
+            "category": "KZ"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-valencia/KZ2/results",
+            "category": "KZ2"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 54028,
+            "date": "2025-05-16",
+            "sessionType": "QUALIFYING",
+            "driverName": "Pedro|Hiltbrand",
+            "category": "KZ"
+          },
+          {
+            "lapTime": 54387,
+            "date": "2025-05-16",
+            "sessionType": "QUALIFYING",
+            "driverName": "Maksim|Orlov",
+            "category": "KZ2"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Viterbo",
+        "dateStart": "2025-06-05",
+        "dateEnd": "2025-06-08",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-viterbo/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-viterbo/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 52467,
+            "date": "2025-06-06",
+            "sessionType": "QUALIFYING",
+            "driverName": "Noah|Baglin",
+            "category": "OK-J"
+          },
+          {
+            "lapTime": 50913,
+            "date": "2025-06-06",
+            "sessionType": "QUALIFYING",
+            "driverName": "Christian|Costoya",
+            "category": "OK"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Sarno",
+        "dateStart": "2025-06-19",
+        "dateEnd": "2025-06-22",
+        "categoryNames": ["KZ", "KZ2", "KZ2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-sarno-napoli/KZ/results",
+            "category": "KZ"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-sarno-napoli/KZ2/results",
+            "category": "KZ2"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-sarno-napoli/KZ2-Masters/results",
+            "category": "KZ2-Masters"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 57472,
+            "date": "2025-06-21",
+            "sessionType": "WARM_UP",
+            "driverName": "Pedro|Hiltbrand",
+            "category": "KZ"
+          },
+          {
+            "lapTime": 57553,
+            "date": "2025-06-20",
+            "sessionType": "PRACTICE",
+            "driverName": "Maximilian|Schleimer",
+            "category": "KZ2"
+          },
+          {
+            "lapTime": 58125,
+            "date": "2025-06-20",
+            "sessionType": "PRACTICE",
+            "driverName": "Davide|Fore",
+            "category": "KZ2-Masters"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Mülsen",
+        "dateStart": "2025-07-17",
+        "dateEnd": "2025-07-20",
+        "categoryNames": ["KZ", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-mulsen/KZ/results",
+            "category": "KZ"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-mulsen/KZ2/results",
+            "category": "KZ2"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 45771,
+            "date": "2025-07-18",
+            "sessionType": "PRACTICE",
+            "driverName": "Senna|Van Walstijn",
+            "category": "KZ"
+          },
+          {
+            "lapTime": 45852,
+            "date": "2025-07-19",
+            "sessionType": "WARM_UP",
+            "driverName": "Jayden|Thien",
+            "category": "KZ2"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Rødby",
+        "dateStart": "2025-07-31",
+        "dateEnd": "2025-08-03",
+        "categoryNames": ["OK", "OK-J"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-rodby/OK/results",
+            "category": "OK"
+          },
+          {
+            "url": "https://www.fiakarting.com/event/2025-rodby/OK-Junior/results",
+            "category": "OK-J"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 50972,
+            "date": "2025-08-01",
+            "sessionType": "PRACTICE",
+            "driverName": "Dan|Allemann",
+            "category": "OK-J"
+          },
+          {
+            "lapTime": 49498,
+            "date": "2025-08-01",
+            "sessionType": "PRACTICE",
+            "driverName": "Christian|Costoya",
+            "category": "OK"
+          }
+        ]
+      }
+    ],
+    "FIA Academy Trophy": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Portimão",
+        "dateStart": "2025-05-01",
+        "dateEnd": "2025-05-04",
+        "categoryNames": ["Academy-Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-portimao/Academy-Senior/results",
+            "category": "Academy-Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 59673,
+            "date": "2025-05-02",
+            "sessionType": "PRACTICE",
+            "driverName": "Mircea Marco|Patru",
+            "category": "Academy-Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Valencia",
+        "dateStart": "2025-05-15",
+        "dateEnd": "2025-05-18",
+        "categoryNames": ["Academy-Junior"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-valencia/Academy-Junior/results",
+            "category": "Academy-Junior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 57519,
+            "date": "2025-05-16",
+            "sessionType": "PRACTICE",
+            "driverName": "Hernan|Rodriguez de la Fuente",
+            "category": "Academy-Junior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Viterbo",
+        "dateStart": "2025-06-05",
+        "dateEnd": "2025-06-08",
+        "categoryNames": ["Academy-Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-viterbo/Academy-Senior/results",
+            "category": "Academy-Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 53734,
+            "date": "2025-06-06",
+            "sessionType": "PRACTICE",
+            "driverName": "Jules|Avril",
+            "category": "Academy-Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Mülsen",
+        "dateStart": "2025-07-17",
+        "dateEnd": "2025-07-20",
+        "categoryNames": ["Academy-Junior"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-mulsen/Academy-Junior/results",
+            "category": "Academy-Junior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 50327,
+            "date": "2025-07-19",
+            "sessionType": "WARM_UP",
+            "driverName": "Oiva|Vettenranta",
+            "category": "Academy-Junior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Rødby",
+        "dateStart": "2025-07-31",
+        "dateEnd": "2025-08-03",
+        "categoryNames": ["Academy-Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.fiakarting.com/event/2025-rodby/Academy-Senior/results",
+            "category": "Academy-Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 52500,
+            "date": "2025-08-01",
+            "sessionType": "QUALIFYING",
+            "driverName": "Riccardo|Ferrari",
+            "category": "Academy-Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Cremona",
+        "dateEnd": "2025-09-28",
+        "categoryNames": ["Academy-Junior"]
+      }
+    ],
+    "FIA World Championship": [
+      {
+        "circuitShortName": "Kristianstad",
+        "dateStart": "2025-09-11",
+        "dateEnd": "2025-09-14",
+        "categoryNames": ["OK", "OK-J"]
+      },
+      {
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-10-09",
+        "dateEnd": "2025-10-12",
+        "categoryNames": ["KZ"]
+      }
+    ],
+    "FIA World Cup": [
+      {
+        "circuitShortName": "Cremona",
+        "dateStart": "2025-09-25",
+        "dateEnd": "2025-09-28",
+        "categoryNames": ["OK-N", "OK-NJ"]
+      },
+      {
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-10-09",
+        "dateEnd": "2025-10-12",
+        "categoryNames": ["KZ2"]
+      }
+    ],
+    "FIA International Masters Super Cup": [
+      {
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-10-09",
+        "dateEnd": "2025-10-12",
+        "categoryNames": ["KZ2-Masters"]
+      }
+    ],
+    "WSK Super Master Series": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "La Conca",
+        "dateStart": "2025-01-22",
+        "dateEnd": "2025-01-26",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=1&c=2&s=wsk_supermaster",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Sarno",
+        "dateStart": "2025-02-05",
+        "dateEnd": "2025-02-09",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=2&c=1&s=wsk_supermaster",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Lonato",
+        "dateStart": "2025-02-19",
+        "dateEnd": "2025-02-23",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=3&c=12&s=wsk_supermaster",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-03-05",
+        "dateEnd": "2025-03-09",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=4&c=16&s=wsk_supermaster",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 5,
+        "circuitShortName": "Viterbo",
+        "dateStart": "2025-03-12",
+        "dateEnd": "2025-03-16",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK", "KZ2"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=5&c=18&s=wsk_supermaster",
+            "category": "All"
+          }
+        ]
+      }
+    ],
+    "WSK Euro Series": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Viterbo",
+        "dateStart": "2025-05-13",
+        "dateEnd": "2025-05-17",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK-N", "OK"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=1&c=18&s=wsk_euro",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Cremona",
+        "dateStart": "2025-07-01",
+        "dateEnd": "2025-07-05",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-J", "OK-N", "OK"],
+        "resultLinks": [
+          {
+            "url": "https://www.wskarting.it/results.asp?yy=2025&r=2&c=17&s=wsk_euro",
+            "category": "All"
+          }
+        ]
+      }
+    ],
+    "WSK Final Cup": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-10-22",
+        "dateEnd": "2025-10-26",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-N", "OK-J", "OK", "KZ2"]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Cremona",
+        "dateStart": "2025-11-05",
+        "dateEnd": "2025-11-09",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-N", "OK-J", "OK", "KZ2"]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Lonato",
+        "dateStart": "2025-11-19",
+        "dateEnd": "2025-11-23",
+        "categoryNames": ["Mini 60", "OK-NJ", "OK-N", "OK-J", "OK", "KZ2"]
+      }
+    ],
+    "RMC Euro Trophy Winter Series": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Cremona",
+        "dateStart": "2025-02-12",
+        "dateEnd": "2025-02-16",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://wskarting.it/results/rotax_winter/2025/rotax_winter_results_round1.asp",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 53906,
+            "date": "2025-02-16",
+            "sessionType": "PREFINAL",
+            "driverName": "Alfie|Ward",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 51015,
+            "date": "2025-02-16",
+            "sessionType": "PREFINAL",
+            "driverName": "Rayan|Ghandour",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 49581,
+            "date": "2025-02-16",
+            "sessionType": "WARM_UP",
+            "driverName": "Knud Eske|Nielsen",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 49532,
+            "date": "2025-02-16",
+            "sessionType": "PREFINAL",
+            "driverName": "Bende|Szabo",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 49741,
+            "date": "2025-02-16",
+            "sessionType": "PREFINAL",
+            "driverName": "Xen|De Ruwe",
+            "category": "DD2-Masters"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Viterbo",
+        "dateStart": "2025-03-28",
+        "dateEnd": "2025-03-30",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://wskarting.it/results/rotax_winter/2025/rotax_winter_results_round2.asp",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 58665,
+            "date": "2025-03-29",
+            "sessionType": "HEAT",
+            "driverName": "Alfie|Mair",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 55452,
+            "date": "2025-03-29",
+            "sessionType": "HEAT",
+            "driverName": "Mate|Kobakhidze",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 54506,
+            "date": "2025-03-30",
+            "sessionType": "WARM_UP",
+            "driverName": "Sean|Butcher",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 53675,
+            "date": "2025-03-29",
+            "sessionType": "WARM_UP",
+            "driverName": "Ragnar|Veerus",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 54277,
+            "date": "2025-03-29",
+            "sessionType": "WARM_UP",
+            "driverName": "Nicolas|Picot",
+            "category": "DD2-Masters"
+          }
+        ]
+      }
+    ],
+    "RMC Euro Trophy": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Wackersdorf",
+        "dateStart": "2025-04-25",
+        "dateEnd": "2025-04-27",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://wskarting.it/results/rotax_euro/2025/rotax_euro_results_round1.asp",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 53426,
+            "date": "2025-04-27",
+            "sessionType": "FINAL",
+            "driverName": "Austin|Oman",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 50387,
+            "date": "2025-04-27",
+            "sessionType": "WARM_UP",
+            "driverName": "Vince|Vanderhallen",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 49516,
+            "date": "2025-04-27",
+            "sessionType": "WARM_UP",
+            "driverName": "Tino|Sidler",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 49065,
+            "date": "2025-04-27",
+            "sessionType": "WARM_UP",
+            "driverName": "Sem|Knopjes",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 49330,
+            "date": "2025-04-27",
+            "sessionType": "WARM_UP",
+            "driverName": "Nicolas|Picot",
+            "category": "DD2-Masters"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Třinec",
+        "dateStart": "2025-06-06",
+        "dateEnd": "2025-06-08",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://wskarting.it/results/rotax_euro/2025/rotax_euro_results_round2.asp",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 57850,
+            "date": "2025-06-06",
+            "sessionType": "PRACTICE",
+            "driverName": "Alfie|Mair",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 55129,
+            "date": "2025-06-06",
+            "sessionType": "PRACTICE",
+            "driverName": "Branislav|Rentka",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 54187,
+            "date": "2025-06-06",
+            "sessionType": "PRACTICE",
+            "driverName": "Martin|Lichner",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 53783,
+            "date": "2025-06-06",
+            "sessionType": "PRACTICE",
+            "driverName": "Bende|Szabo",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 54377,
+            "date": "2025-06-06",
+            "sessionType": "QUALIFYING",
+            "driverName": "Xen|De Ruwe",
+            "category": "DD2-Masters"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Genk",
+        "dateStart": "2025-06-27",
+        "dateEnd": "2025-06-29",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"],
+        "resultLinks": [
+          {
+            "url": "https://wskarting.it/results/rotax_euro/2025/rotax_euro_results_round3.asp",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 58489,
+            "date": "2025-06-27",
+            "sessionType": "QUALIFYING",
+            "driverName": "Alfie|Mair",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 55087,
+            "date": "2025-06-27",
+            "sessionType": "QUALIFYING",
+            "driverName": "Jacob|Ashcroft",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 53998,
+            "date": "2025-06-27",
+            "sessionType": "QUALIFYING",
+            "driverName": "Macauley|Bishop",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 53312,
+            "date": "2025-06-27",
+            "sessionType": "PRACTICE",
+            "driverName": "Enzo|Bol",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 53703,
+            "date": "2025-06-27",
+            "sessionType": "PRACTICE",
+            "driverName": "Nicolas|Picot",
+            "category": "DD2-Masters"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Sarno",
+        "dateStart": "2025-09-05",
+        "dateEnd": "2025-09-07",
+        "categoryNames": ["Mini", "Junior", "Senior", "DD2", "DD2-Masters"]
+      }
+    ],
+    "IAME Winter Cup": [
+      {
+        "circuitShortName": "Valencia",
+        "dateStart": "2025-02-12",
+        "dateEnd": "2025-02-16",
+        "categoryNames": ["X30 Mini", "X30 Junior", "X30 Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.iameeuroseries.com/resultats/2025/iame_winter_valencia/results.html",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 63062,
+            "date": "2025-02-14",
+            "sessionType": "PRACTICE",
+            "driverName": "Francisco|Correia",
+            "category": "X30 Mini"
+          },
+          {
+            "lapTime": 56566,
+            "date": "2025-02-14",
+            "sessionType": "PRACTICE",
+            "driverName": "Jesse|Phillips",
+            "category": "X30 Junior"
+          },
+          {
+            "lapTime": 55410,
+            "date": "2025-02-14",
+            "sessionType": "QUALIFYING",
+            "driverName": "Thibaut|Ramaekers",
+            "category": "X30 Senior"
+          }
+        ]
+      }
+    ],
+    "IAME Euro Series": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Cremona",
+        "dateStart": "2025-03-19",
+        "dateEnd": "2025-03-23",
+        "categoryNames": ["X30 Mini", "X30 Junior", "X30 Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/03/Booklet-X30-MINI.pdf",
+            "category": "X30 Mini"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/03/Booklet-X30-JUNIOR.pdf",
+            "category": "X30 Junior"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/03/Booklet-X30-SENIOR.pdf",
+            "category": "X30 Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 55186,
+            "date": "2025-03-21",
+            "sessionType": "QUALIFYING",
+            "driverName": "Mattis|Brageot",
+            "category": "X30 Mini"
+          },
+          {
+            "lapTime": 49986,
+            "date": "2025-03-20",
+            "sessionType": "PRACTICE",
+            "driverName": "Archie|Owen",
+            "category": "X30 Junior"
+          },
+          {
+            "lapTime": 49113,
+            "date": "2025-03-20",
+            "sessionType": "PRACTICE",
+            "driverName": "Meryl|Peldes",
+            "category": "X30 Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Zuera",
+        "dateStart": "2025-05-21",
+        "dateEnd": "2025-05-25",
+        "categoryNames": ["X30 Mini", "X30 Junior", "X30 Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/05/Booklet-X30-MINI.pdf",
+            "category": "X30 Mini"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/05/Booklet-X30-JUNIOR.pdf",
+            "category": "X30 Junior"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/05/Booklet-X30-SENIOR.pdf",
+            "category": "X30 Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 71176,
+            "date": "2025-05-23",
+            "sessionType": "QUALIFYING",
+            "driverName": "Charles|Ural",
+            "category": "X30 Mini"
+          },
+          {
+            "lapTime": 64077,
+            "date": "2025-05-23",
+            "sessionType": "QUALIFYING",
+            "driverName": "Lias|Erbersdobler",
+            "category": "X30 Junior"
+          },
+          {
+            "lapTime": 62416,
+            "date": "2025-05-23",
+            "sessionType": "QUALIFYING",
+            "driverName": "Patrick|Ogrodowczyk",
+            "category": "X30 Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Wackersdorf",
+        "dateStart": "2025-06-25",
+        "dateEnd": "2025-06-29",
+        "categoryNames": ["X30 Mini", "X30 Junior", "X30 Senior"],
+        "resultLinks": [
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/06/Booklet-X30-MINI.pdf",
+            "category": "X30 Mini"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/06/Booklet-X30-JUNIOR.pdf",
+            "category": "X30 Junior"
+          },
+          {
+            "url": "https://www.iameeuroseries.com/wp-content/uploads/2025/06/Booklet-X30-SENIOR.pdf",
+            "category": "X30 Senior"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 56131,
+            "date": "2025-06-26",
+            "sessionType": "PRACTICE",
+            "driverName": "Colbe|Pattison",
+            "category": "X30 Mini"
+          },
+          {
+            "lapTime": 50473,
+            "date": "2025-06-26",
+            "sessionType": "PRACTICE",
+            "driverName": "Alex|Martinez Escrihuela",
+            "category": "X30 Junior"
+          },
+          {
+            "lapTime": 49333,
+            "date": "2025-06-26",
+            "sessionType": "PRACTICE",
+            "driverName": "Aaron|Garcia Lopez",
+            "category": "X30 Senior"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Mariembourg",
+        "dateStart": "2025-08-27",
+        "dateEnd": "2025-08-31",
+        "categoryNames": ["X30 Mini", "X30 Junior", "X30 Senior"]
+      }
+    ],
+    "Vortex Rok Winter Trophy": [
+      {
+        "circuitShortName": "Lonato",
+        "dateStart": "2025-02-08",
+        "dateEnd": "2025-02-09",
+        "categoryNames": [
+          "Rok Mini",
+          "Rok Junior",
+          "Rok Senior",
+          "Rok Expert",
+          "Rok Super",
+          "Rok Shifter"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://wintertrophy.rokcup.com/risultati_en.php",
+            "category": "All"
+          }
+        ]
+      }
+    ],
+    "Vortex Rok Superfinal": [
+      {
+        "circuitShortName": "Lonato",
+        "dateStart": "2025-10-14",
+        "dateEnd": "2025-10-18",
+        "categoryNames": [
+          "Rok Mini",
+          "Rok Junior",
+          "Rok Senior",
+          "Rok Expert",
+          "Rok Super",
+          "Rok Shifter"
+        ]
+      }
+    ],
+    "Vortex Rok Festival": [
+      {
+        "circuitShortName": "Franciacorta",
+        "dateStart": "2025-11-30",
+        "dateEnd": "2025-12-01",
+        "categoryNames": [
+          "Rok Mini",
+          "Rok Junior",
+          "Rok Senior",
+          "Rok Expert",
+          "Rok Super",
+          "Rok Shifter"
+        ]
+      }
+    ],
+    "RMC CEE Bonus Cup": [
+      {
+        "circuitShortName": "Jesolo",
+        "dateStart": "2025-02-21",
+        "dateEnd": "2025-02-23",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/2921691",
+            "category": "All"
+          }
+        ],
+        "fastestLaps": [
+          {
+            "lapTime": 51654,
+            "date": "2025-02-22",
+            "sessionType": "QUALIFYING",
+            "driverName": "Pieta|Tymoteusz",
+            "category": "Micro"
+          },
+          {
+            "lapTime": 49433,
+            "date": "2025-02-22",
+            "sessionType": "PRACTICE",
+            "driverName": "Giovanni|Pistore",
+            "category": "Mini"
+          },
+          {
+            "lapTime": 47429,
+            "date": "2025-02-22",
+            "sessionType": "QUALIFYING",
+            "driverName": "Eason|Tseng",
+            "category": "Junior"
+          },
+          {
+            "lapTime": 46320,
+            "date": "2025-02-22",
+            "sessionType": "QUALIFYING",
+            "driverName": "Danny|Carenini",
+            "category": "Senior"
+          },
+          {
+            "lapTime": 46023,
+            "date": "2025-02-22",
+            "sessionType": "QUALIFYING",
+            "driverName": "Dawid|Maślakiewicz",
+            "category": "DD2"
+          },
+          {
+            "lapTime": 46568,
+            "date": "2025-02-22",
+            "sessionType": "WARM_UP",
+            "driverName": "Martynas|Tankevicius",
+            "category": "DD2-Masters"
+          }
+        ]
+      }
+    ],
+    "RMC CEE": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Jesolo",
+        "dateStart": "2025-02-28",
+        "dateEnd": "2025-03-02",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/2926524",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Slovakia Ring",
+        "dateStart": "2025-04-11",
+        "dateEnd": "2025-04-13",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/2970789",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Třinec",
+        "dateStart": "2025-05-23",
+        "dateEnd": "2025-05-25",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/3033033",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Pacfurth",
+        "circuitLayout": "Layout 2",
+        "dateStart": "2025-07-11",
+        "dateEnd": "2025-07-13",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/Events/3112942",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 5,
+        "circuitShortName": "Kecskemét",
+        "circuitLayout": "2017",
+        "dateStart": "2025-08-22",
+        "dateEnd": "2025-08-24",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://speedhive.mylaps.com/events/3179593",
+            "category": "All"
+          }
+        ]
+      }
+    ],
+    "RMC Switzerland": [
+      {
+        "roundNumber": 1,
+        "circuitShortName": "Franciacorta",
+        "dateEnd": "2025-03-23",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://www.rotaxmax.ch/resultate-2025",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 2,
+        "circuitShortName": "Wohlen",
+        "dateEnd": "2025-04-21",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://www.rotaxmax.ch/resultate-2025",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 3,
+        "circuitShortName": "Castelletto di Branduzzo",
+        "dateEnd": "2025-05-18",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ],
+        "resultLinks": [
+          {
+            "url": "https://www.rotaxmax.ch/resultate-2025",
+            "category": "All"
+          }
+        ]
+      },
+      {
+        "roundNumber": 4,
+        "circuitShortName": "Vesoul",
+        "dateEnd": "2025-06-22",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ]
+      },
+      {
+        "roundNumber": 5,
+        "circuitShortName": "Lévier",
+        "dateEnd": "2025-08-10",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ]
+      },
+      {
+        "roundNumber": 6,
+        "circuitShortName": "Wohlen",
+        "dateEnd": "2025-10-11",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ]
+      }
+    ],
+    "RMC Grand Finals": [
+      {
+        "circuitShortName": "Bahrain",
+        "dateStart": "2025-11-29",
+        "dateEnd": "2025-12-06",
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters"
+        ]
+      }
+    ]
+  }
+}

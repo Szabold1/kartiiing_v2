@@ -1,0 +1,132 @@
+{
+  "NL": [
+    { "firstName": "Stan", "lastName": "Pex" },
+    { "firstName": "Marjin", "lastName": "Kremers" },
+    { "firstName": "Senna", "lastName": "Van Walstijn" },
+    { "firstName": "Dean", "lastName": "Hoogendoorn" },
+    { "firstName": "Jayden", "lastName": "Thien" },
+    { "firstName": "Sem", "lastName": "Knopjes" },
+    { "firstName": "Enzo", "lastName": "Bol" }
+  ],
+  "IT": [
+    { "firstName": "Giuseppe", "lastName": "Palomba" },
+    { "firstName": "Danilo", "lastName": "Albanese" },
+    { "firstName": "Francesco", "lastName": "Celenta" },
+    { "firstName": "Cristian", "lastName": "Bertuca" },
+    { "firstName": "Lorenzo", "lastName": "Camplese" },
+    { "firstName": "Giorgio", "lastName": "Basoli" },
+    { "firstName": "Filippo", "lastName": "Sala" },
+    { "firstName": "Davide", "lastName": "Fore" },
+    { "firstName": "Riccardo", "lastName": "Ferrari" },
+    { "firstName": "Giovanni", "lastName": "Pistore" },
+    { "firstName": "Danny", "lastName": "Carenini" }
+  ],
+  "DE": [
+    { "firstName": "David", "lastName": "Trefilov" },
+    { "firstName": "Maximilian", "lastName": "Schleimer" },
+    { "firstName": "Arjen", "lastName": "Kräling" },
+    { "firstName": "Lias", "lastName": "Erbersdobler" }
+  ],
+  "FR": [
+    { "firstName": "Matteo", "lastName": "Spirgel" },
+    { "firstName": "Jean", "lastName": "Nomblot" },
+    { "firstName": "Tom", "lastName": "Leuillet" },
+    { "firstName": "Emilien", "lastName": "Denner" },
+    { "firstName": "Louis", "lastName": "Cochet" },
+    { "firstName": "Samuel", "lastName": "Hugon" },
+    { "firstName": "Jules", "lastName": "Avril" },
+    { "firstName": "Nicolas", "lastName": "Picot" },
+    { "firstName": "Mattis", "lastName": "Brageot" },
+    { "firstName": "Charles", "lastName": "Ural" },
+    { "firstName": "Mehdi", "lastName": "Lassoued" }
+  ],
+  "ES": [
+    { "firstName": "Pedro", "lastName": "Hiltbrand" },
+    { "firstName": "Christian", "lastName": "Costoya" },
+    { "firstName": "Hernan", "lastName": "Rodriguez de la Fuente" },
+    { "firstName": "Patrick", "lastName": "Ogrodowczyk" },
+    { "firstName": "Alex", "lastName": "Martinez Escrihuela" },
+    { "firstName": "Aaron", "lastName": "Garcia Lopez" }
+  ],
+  "RO": [
+    { "firstName": "Daniel", "lastName": "Vasile" },
+    { "firstName": "Mircea Marco", "lastName": "Patru" },
+    { "firstName": "David", "lastName": "Cosma Cristofor" }
+  ],
+  "CH": [
+    { "firstName": "Quentin", "lastName": "Voria" },
+    { "firstName": "Chiara", "lastName": "Battig" },
+    { "firstName": "Dan", "lastName": "Allemann" },
+    { "firstName": "Tino", "lastName": "Sidler" }
+  ],
+  "SE": [
+    { "firstName": "Viktor", "lastName": "Gustafsson" },
+    { "firstName": "Mio", "lastName": "Olert" },
+    { "firstName": "Jonatan", "lastName": "Morin" }
+  ],
+  "RU": [
+    { "firstName": "Vladimir", "lastName": "Ivannikov" },
+    { "firstName": "Maksim", "lastName": "Orlov" }
+  ],
+  "GB": [
+    { "firstName": "Noah", "lastName": "Baglin" },
+    { "firstName": "Roman", "lastName": "Kamyab" },
+    { "firstName": "Will", "lastName": "Green" },
+    { "firstName": "Alfie", "lastName": "Mair" },
+    { "firstName": "Sean", "lastName": "Butcher" },
+    { "firstName": "Austin", "lastName": "Oman" },
+    { "firstName": "Jacob", "lastName": "Ashcroft" },
+    { "firstName": "Macauley", "lastName": "Bishop" },
+    { "firstName": "Jesse", "lastName": "Phillips" },
+    { "firstName": "Archie", "lastName": "Owen" },
+    { "firstName": "Colbe", "lastName": "Pattison" }
+  ],
+  "CA": [
+    { "firstName": "Ilie", "lastName": "Tristan Crisan" },
+    { "firstName": "Rayan", "lastName": "Ghandour" },
+    { "firstName": "Antoine", "lastName": "Lemieux" }
+  ],
+  "MX": [{ "firstName": "Luis Fer", "lastName": "Nunez" }],
+  "SG": [{ "firstName": "Tiziano", "lastName": "Monza" }],
+  "BE": [
+    { "firstName": "Dries", "lastName": "Van Langendonck" },
+    { "firstName": "Vince", "lastName": "Vanderhallen" },
+    { "firstName": "Thibaut", "lastName": "Ramaekers" }
+  ],
+  "FI": [{ "firstName": "Oiva", "lastName": "Vettenranta" }],
+  "AE": [{ "firstName": "Alfie", "lastName": "Ward" }],
+  "DK": [{ "firstName": "Knud Eske", "lastName": "Nielsen" }],
+  "HU": [
+    { "firstName": "Bende", "lastName": "Szabo" },
+    { "firstName": "Armand", "lastName": "Hamilton" }
+  ],
+  "SI": [
+    { "firstName": "Xen", "lastName": "De Ruwe" },
+    { "firstName": "Timon", "lastName": "Grgic" }
+  ],
+  "GE": [{ "firstName": "Mate", "lastName": "Kobakhidze" }],
+  "EE": [
+    { "firstName": "Ragnar", "lastName": "Veerus" },
+    { "firstName": "Kevin", "lastName": "Kivistik" },
+    { "firstName": "Nikita", "lastName": "Ljubimov" }
+  ],
+  "SK": [
+    { "firstName": "Branislav", "lastName": "Rentka" },
+    { "firstName": "Meryl", "lastName": "Peldes" },
+    { "firstName": "Martin", "lastName": "Lichner" }
+  ],
+  "PT": [
+    { "firstName": "Francisco", "lastName": "Correia" },
+    { "firstName": "Martim", "lastName": "Barros Meneses" }
+  ],
+  "PL": [
+    { "firstName": "Dawid", "lastName": "Maslakiewicz" },
+    { "firstName": "Pieta", "lastName": "Tymoteusz" },
+    { "firstName": "Dawid", "lastName": "Maślakiewicz" }
+  ],
+  "AR": [{ "firstName": "Matias", "lastName": "Rodriguez" }],
+  "BR": [{ "firstName": "Matheus", "lastName": "Morgatto" }],
+  "US": [{ "firstName": "Turner", "lastName": "Brown" }],
+  "TH": [{ "firstName": "Eason", "lastName": "Tseng" }],
+  "LT": [{ "firstName": "Martynas", "lastName": "Tankevicius" }]
+}

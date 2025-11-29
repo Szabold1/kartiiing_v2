@@ -1,7 +1,10 @@
-const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
+import Hero from '@/components/hero/Hero';
 
-export default HomePage;
+export default function HomePage() {
+  return (
+    <Hero
+      title="Welcome to Kartiiing"
+      subtitle="Your ultimate guide to the world of kart racing. Discover championships, circuits, drivers, and everything you need to know about karting."
+    />
+  );
+}

@@ -1,9 +1,9 @@
 import Flag from "react-world-flags";
-import { Location } from "@/lib/types/RaceTypes";
+import { ICircuit } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
 
 type Props = {
-  location: Location;
+  circuit: ICircuit;
   showFlag?: boolean;
   version?: "short" | "long";
   className?: string;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function RenderRaceLocation({
-  location,
+  circuit,
   showFlag = true,
   version = "short",
   className = "",
@@ -19,7 +19,7 @@ export default function RenderRaceLocation({
 }: Props) {
   const handleClick = () => {
     if (!isClickable) return;
-    const searchQuery = encodeURIComponent(location.circuit.nameLong);
+    const searchQuery = encodeURIComponent(circuit.nameLong);
     const mapUrl = `https://www.google.com/maps/search/${searchQuery}`;
     window.open(mapUrl, "_blank");
   };
@@ -33,13 +33,13 @@ export default function RenderRaceLocation({
     >
       {showFlag && (
         <Flag
-          code={location.country.code}
+          code={circuit.country.code}
           className="w-5 max-h-4 rounded-[0.15rem] object-cover shadow"
         />
       )}
 
-      {version === "short" && location.circuit.name}
-      {version === "long" && location.circuit.nameLong}
+      {version === "short" && circuit.nameShort}
+      {version === "long" && circuit.nameLong}
 
       {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
     </div>

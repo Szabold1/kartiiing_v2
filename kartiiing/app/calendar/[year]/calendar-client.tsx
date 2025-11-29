@@ -2,13 +2,9 @@
 
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useRaceSearch } from "@/hooks/useRaceSearch";
-import { useRaceStatus } from "@/hooks/useRaceStatus";
-import { RaceProvider } from "@/contexts/RaceContext";
 import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/Loader";
 import CalendarHeader from "@/components/calendar/CalendarHeader";
-import { RaceEventGrouped } from "@/lib/types/RaceTypes";
 import NextRaceBtn from "@/components/calendar/NextRaceBtn";
 import SearchHeader from "@/components/calendar/SearchHeader";
 import GridListViewToggle from "@/components/calendar/GridListViewToggle";
@@ -18,33 +14,41 @@ import BackToTopBtn from "@/components/BackToTopBtn";
 import {
   CalendarViewMode,
   CALENDAR_VIEW_MODE_KEY,
-  SortOrder,
 } from "@/lib/constants/calendar";
 import { AnimatePresence } from "framer-motion";
 import { lightDarkGlassBase } from "@/lib/classNames";
 import SortOrderToggle from "@/components/calendar/SortOrderToggle";
+import {
+  IRaceEvent,
+  RaceEventSortOptions,
+  RaceStatus,
+} from "@kartiiing/shared-types";
+import { getRaceEvents } from "@/lib/api";
 
 interface Props {
-  initialRaces: RaceEventGrouped[];
+  initialRaces: IRaceEvent[];
   year: string;
-  initialSort: "asc" | "desc";
+  initialSort: RaceEventSortOptions;
+  years: number[];
 }
 
 export default function CalendarClient({
   initialRaces,
   year,
   initialSort,
+  years,
 }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [races, setRaces] = useState<RaceEventGrouped[]>(initialRaces);
-  const [chosenRace, setChosenRace] = useState<RaceEventGrouped | null>(null);
+  const [races, setRaces] = useState<IRaceEvent[]>(initialRaces);
+  const [chosenRace, setChosenRace] = useState<IRaceEvent | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | string>(year);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(
-    initialSort === "desc" ? SortOrder.DESC : SortOrder.ASC
+  const [sortOrder, setSortOrder] = useState<RaceEventSortOptions>(
+    initialSort === RaceEventSortOptions.DESC
+      ? RaceEventSortOptions.DESC
+      : RaceEventSortOptions.ASC
   );
-  const { searchQuery, setSearchQuery, filteredRaces } = useRaceSearch(races);
-  const { nextRaceDate } = useRaceStatus(filteredRaces);
+  const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
   const [sectionWidth, setSectionWidth] = useState(0);
   const [viewMode, setViewModeState] = useState<CalendarViewMode>(
@@ -52,12 +56,43 @@ export default function CalendarClient({
   );
   const showListView =
     viewMode === CalendarViewMode.LIST && sectionWidth >= 850;
+  const hasLiveOrNextRace = races.some(
+    (r) => r.status === RaceStatus.LIVE || r.status === RaceStatus.UPNEXT
+  );
 
   // Update races and selectedYear when year prop changes
   useEffect(() => {
     setRaces(initialRaces);
     setSelectedYear(year);
   }, [initialRaces, year]);
+
+  // Handle search by calling API with search parameter
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setRaces(initialRaces);
+      return;
+    }
+
+    const performSearch = async () => {
+      setLoading(true);
+      try {
+        const response = await getRaceEvents(
+          selectedYear === "all" ? undefined : selectedYear.toString(),
+          sortOrder,
+          searchQuery.trim()
+        );
+        setRaces(response.data);
+      } catch (error) {
+        console.error("Error searching races:", error);
+        setRaces([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(performSearch, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery, initialRaces, sortOrder, selectedYear]);
 
   // Persist viewMode in localStorage
   useEffect(() => {
@@ -95,7 +130,7 @@ export default function CalendarClient({
       setLoading(true);
       router.push(
         `/calendar/${yearString}?sort=${
-          sortOrder === SortOrder.DESC ? "desc" : "asc"
+          sortOrder === RaceEventSortOptions.DESC ? "desc" : "asc"
         }`
       );
     }
@@ -104,8 +139,11 @@ export default function CalendarClient({
   // Handle sort order change by navigating to new URL
   const handleSortChange = () => {
     const newSortOrder =
-      sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
-    const sortParam = newSortOrder === SortOrder.DESC ? "desc" : "asc";
+      sortOrder === RaceEventSortOptions.ASC
+        ? RaceEventSortOptions.DESC
+        : RaceEventSortOptions.ASC;
+    const sortParam =
+      newSortOrder === RaceEventSortOptions.DESC ? "desc" : "asc";
     setSortOrder(newSortOrder);
 
     const currentUrl = new URL(window.location.href);
@@ -115,19 +153,22 @@ export default function CalendarClient({
 
   // Fetch races from API when sortOrder changes (but not year, as that's handled by navigation)
   useEffect(() => {
-    if (sortOrder === (initialSort === "desc" ? SortOrder.DESC : SortOrder.ASC))
+    if (
+      sortOrder ===
+      (initialSort === RaceEventSortOptions.DESC
+        ? RaceEventSortOptions.DESC
+        : RaceEventSortOptions.ASC)
+    )
       return;
 
     setLoading(true);
     const fetchRaces = async () => {
       try {
-        const sortParam = sortOrder === SortOrder.DESC ? "desc" : "asc";
-        const response = await fetch(
-          `/api/races?year=${selectedYear}&sort=${sortParam}`
+        const response = await getRaceEvents(
+          selectedYear === "all" ? undefined : selectedYear.toString(),
+          sortOrder
         );
-        if (!response.ok) throw new Error("Failed to fetch races");
-        const data: RaceEventGrouped[] = await response.json();
-        setRaces(data);
+        setRaces(response.data);
       } catch (error) {
         console.error("Error loading races:", error);
       } finally {
@@ -143,7 +184,7 @@ export default function CalendarClient({
       return (
         <>
           <SortOrderToggle sortOrder={sortOrder} onToggle={handleSortChange} />
-          {nextRaceDate && <NextRaceBtn races={filteredRaces} />}
+          {hasLiveOrNextRace && <NextRaceBtn races={races} />}
         </>
       );
     };
@@ -161,7 +202,7 @@ export default function CalendarClient({
   }
 
   return (
-    <RaceProvider races={filteredRaces}>
+    <>
       <div
         ref={sectionRef}
         className="container flex flex-1 items-stretch justify-between mx-auto"
@@ -172,15 +213,14 @@ export default function CalendarClient({
               races={races}
               selectedYear={selectedYear}
               setSelectedYear={handleYearChange}
+              years={years}
             />
 
             <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
               <SearchHeader
-                useRaceSearchData={{
-                  searchQuery,
-                  setSearchQuery,
-                  filteredRaces,
-                }}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                races={races}
               >
                 {sectionWidth < 768 && renderCalendarActions(true)}
               </SearchHeader>
@@ -188,10 +228,10 @@ export default function CalendarClient({
               {sectionWidth >= 768 && renderCalendarActions()}
             </div>
 
-            <div className="my-5 py-5.5 border-t border-dashed">
+            <div className="my-4 py-4 border-t border-dashed">
               {loading ? (
                 <Loader />
-              ) : filteredRaces.length === 0 ? (
+              ) : races.length === 0 ? (
                 <p className="text-muted-foreground text-center py-10">
                   No results found.
                 </p>
@@ -203,7 +243,7 @@ export default function CalendarClient({
                       : "grid justify-center gap-5 grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]"
                   }`}
                 >
-                  {filteredRaces.map((race) => (
+                  {races.map((race) => (
                     <RaceCard
                       key={race.id}
                       race={race}
@@ -230,6 +270,6 @@ export default function CalendarClient({
 
         <BackToTopBtn />
       </div>
-    </RaceProvider>
+    </>
   );
 }

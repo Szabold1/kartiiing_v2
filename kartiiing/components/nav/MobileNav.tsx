@@ -37,14 +37,14 @@ const MobileNav = () => {
             variant="outline"
             size="icon"
             aria-label={open ? "Close Menu" : "Open Menu"}
-            className={`w-10 h-10 rounded-lg ${lightDarkGlassHover}`}
+            className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover}`}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
         </SheetTrigger>
         <SheetContentHamburgerMenu
           side="right"
-          className={`h-fit w-44 mt-15.5 mx-2 rounded-xl ${lightDarkGlassBase}`}
+          className={`h-fit w-44 mt-17 mx-2 rounded-xl ${lightDarkGlassBase}`}
         >
           <nav className="flex flex-col gap-1.5 p-1.5">
             {/* <LoginBtn className="mb-2 h-12" /> */}

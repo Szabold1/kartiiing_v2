@@ -19,7 +19,7 @@ export default function Hero({ title, subtitle }: Props) {
       ></div>
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col items-center w-full h-full px-3.5 pt-[21.5vh] text-gray-200 dark:text-gray-200/90">
+      <div className="relative z-10 flex flex-col items-center w-full h-full px-3.5 pt-[16dvh] md:pt-[21.5dvh] text-gray-200 dark:text-gray-200/90">
         <div className="text-center max-w-2xl">
           <h1 className="text-[2rem] sm:text-[2.2rem] md:text-[2.6rem] lg:text-[2.6rem] font-bold mb-5">
             {title}
@@ -29,7 +29,7 @@ export default function Hero({ title, subtitle }: Props) {
 
         {/* Buttons */}
         <div
-          className={`flex gap-2 sm:gap-3.5 justify-center flex-wrap mt-auto md:mt-2 mb-13.5 pb-safe`}
+          className={`flex gap-2 sm:gap-3.5 justify-center flex-wrap mb-13.5`}
         >
           <HeroLink href="/circuits" variant="light">
             Explore Circuits
@@ -43,7 +43,7 @@ export default function Hero({ title, subtitle }: Props) {
         </div>
 
         {/* Copyright text at bottom */}
-        <Copyright className="absolute bottom-3 left-0 right-0 px-4 pb-safe" />
+        <Copyright className="absolute bottom-3 left-0 right-0 px-4" />
       </div>
     </div>
   );

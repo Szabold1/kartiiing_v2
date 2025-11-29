@@ -20,18 +20,18 @@ export default function LiveActions({ race }: Props) {
   };
 
   return (
-    <div className="absolute -top-5.5 left-5.5 flex items-center gap-1">
+    <div className="absolute -top-6 left-5.5 flex items-center gap-1">
       <StatusResultsBadge
         race={race}
         className="px-3.5 py-2 rounded-lg font-medium border border-dashed"
       />
 
       <LiveActionButton onClick={() => handleClick("timing")}>
-        <Timer className="w-4 h-4" />
+        <Timer className="w-5.5 h-5.5" />
       </LiveActionButton>
 
       <LiveActionButton onClick={() => handleClick("streaming")}>
-        <TvMinimalPlay className="w-4 h-4" />
+        <TvMinimalPlay className="w-5.5 h-5.5" />
       </LiveActionButton>
     </div>
   );

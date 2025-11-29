@@ -148,6 +148,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    font-size: 17px;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }

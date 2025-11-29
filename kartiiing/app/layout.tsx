@@ -11,7 +11,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      style={{ fontSize: "17px", scrollBehavior: "smooth" }}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col">

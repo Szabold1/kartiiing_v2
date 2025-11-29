@@ -1,7 +1,10 @@
-const ResultsPage = () => {
-  return (
-    <div>ResultsPage</div>
-  )
-}
+import WorkInProgress from "@/components/WorkInProgress";
 
-export default ResultsPage;
+export default function ResultsPage() {
+  return (
+    <WorkInProgress
+      title="Results"
+      message="The results page is currently under development. Soon you'll be able to browse race results and statistics."
+    />
+  );
+}

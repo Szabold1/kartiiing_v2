@@ -21,7 +21,7 @@ export default function SortOrderToggle({
       aria-label={`Sort by date ${
         sortOrder === RaceEventSortOptions.ASC ? "ascending" : "descending"
       }`}
-      className={`w-9 h-9 ${lightDarkGlassHover} ${className}`}
+      className={`w-10.5 h-10.5 ${lightDarkGlassHover} ${className}`}
       onClick={onToggle}
       title={`Sort by date ${
         sortOrder === RaceEventSortOptions.ASC ? "ascending" : "descending"

@@ -37,7 +37,7 @@ export default function NextRaceBtn({ races }: Props) {
 
   return (
     <Button
-      className={`uppercase text-xs h-9 font-medium text-center tracking-wide ${redGlassHover}`}
+      className={`uppercase text-xs h-10.5 font-medium text-center tracking-wide ${redGlassHover}`}
       onClick={handleClick}
     >
       <span className="pl-1.5">{label}</span>

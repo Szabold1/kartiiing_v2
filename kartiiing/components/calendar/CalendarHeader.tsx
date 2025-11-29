@@ -82,7 +82,7 @@ export default function CalendarHeader({
           value={selectedYear.toString()}
           onValueChange={(val: string) => setSelectedYear(val)}
         >
-          <SelectTrigger className="w-22 cursor-pointer font-semibold">
+          <SelectTrigger className="w-24 h-10! cursor-pointer font-semibold text-[1rem]">
             <SelectValue placeholder="Year" />
           </SelectTrigger>
           <SelectContent>
@@ -90,7 +90,7 @@ export default function CalendarHeader({
               <SelectItem
                 key={year}
                 value={year.toString()}
-                className="cursor-pointer"
+                className="cursor-pointer h-9.5"
               >
                 {year}
               </SelectItem>

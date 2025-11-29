@@ -3,7 +3,7 @@ import Link from "next/link";
 const HomeLink = () => {
   return (
     <h1 className="cursor-pointer text-lg font-bold uppercase tracking-wider">
-      <Link href="/" className="p-2">
+      <Link href="/" className="pl-2.5">
         Kart
         <span className="text-red-600">i</span>
         <span className="text-blue-500">i</span>

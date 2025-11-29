@@ -162,4 +162,9 @@
   html::-webkit-scrollbar {
     display: none;
   }
+
+  /* Safe area padding for iOS notches and Safari UI */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }

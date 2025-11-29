@@ -24,12 +24,12 @@ export default function SearchBar({ searchQuery, setSearchQuery }: Props) {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         ref={inputRef}
-        className="w-full md:w-sm"
+        className="w-full md:w-sm h-10.5"
       />
 
       {searchQuery && (
         <X
-          className="w-6.5 h-6.5 p-1 absolute right-1.5 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent "
+          className="w-8.5 h-8.5 p-1 absolute right-1 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent "
           onClick={clearSearch}
         />
       )}

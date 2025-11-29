@@ -19,7 +19,7 @@ type Props = {
 export default function StatusResultsBadge({
   race,
   className = "",
-  heightPx = "36",
+  heightPx = "42",
 }: Props) {
   const resultLinks = race.links?.results || [];
   const status = race.status;
@@ -41,7 +41,7 @@ export default function StatusResultsBadge({
           className={`${resultsClasses}`}
           style={heightStyle}
         >
-          Results <ExternalLink className="w-2.5 h-2.5 mr-0.5" />
+          Results <ExternalLink className="w-3 h-3 mx-0.5" />
         </button>
       );
     }
@@ -55,12 +55,15 @@ export default function StatusResultsBadge({
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>
-        <SelectContent className={`${grayGlassBase}`}>
+        <SelectContent
+          className={`${grayGlassBase}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           {resultLinks.map((link: IResultsLink) => (
             <SelectItem
               key={link.url}
               value={link.url}
-              className="cursor-pointer transition"
+              className="cursor-pointer transition h-9.5"
             >
               {link.category}
             </SelectItem>

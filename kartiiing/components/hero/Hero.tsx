@@ -10,7 +10,7 @@ interface Props {
 
 export default function Hero({ title, subtitle }: Props) {
   return (
-    <div className="fixed inset-0 w-full h-screen flex flex-col justify-center items-center bg-cover bg-center bg-fixed bg-[url('/images/hero-mobile.jpg')] lg:bg-[url('/images/hero.jpg')]">
+    <div className="fixed inset-0 w-full h-[100dvh] flex flex-col justify-center items-center bg-cover bg-center bg-fixed bg-[url('/images/hero-mobile.jpg')] lg:bg-[url('/images/hero.jpg')]">
       {/* Gradient overlay */}
       <div
         className="absolute inset-0 
@@ -29,7 +29,7 @@ export default function Hero({ title, subtitle }: Props) {
 
         {/* Buttons */}
         <div
-          className={`flex gap-2 sm:gap-3.5 justify-center flex-wrap mt-auto md:mt-2 mb-13.5`}
+          className={`flex gap-2 sm:gap-3.5 justify-center flex-wrap mt-auto md:mt-2 mb-13.5 pb-safe`}
         >
           <HeroLink href="/circuits" variant="light">
             Explore Circuits
@@ -43,7 +43,7 @@ export default function Hero({ title, subtitle }: Props) {
         </div>
 
         {/* Copyright text at bottom */}
-        <Copyright className="absolute bottom-3 left-0 right-0 px-4" />
+        <Copyright className="absolute bottom-3 left-0 right-0 px-4 pb-safe" />
       </div>
     </div>
   );

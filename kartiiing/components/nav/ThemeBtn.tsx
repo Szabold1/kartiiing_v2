@@ -21,12 +21,12 @@ const ThemeBtn = () => {
       onClick={handleThemeToggle}
       aria-label="Toggle Theme"
       id="theme-btn"
-      className={`w-9 h-9 ${lightDarkGlassHover}`}
+      className={`w-10 h-10 rounded-lg ${lightDarkGlassHover}`}
     >
       {resolvedTheme === "dark" ? (
-        <SunIcon className="size-4" />
+        <SunIcon className="size-4.5" />
       ) : resolvedTheme === "light" ? (
-        <MoonIcon className="size-4" />
+        <MoonIcon className="size-4.5" />
       ) : (
         <Loader />
       )}

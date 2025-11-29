@@ -24,6 +24,10 @@ import { RaceEventsModule } from './race-events/race-events.module';
         // logging: configService.get('NODE_ENV') === 'development',
         migrations: [__dirname + '/db/migrations/*{.ts,.js}'],
         migrationsTableName: 'migrations',
+        ssl:
+          configService.get('NODE_ENV') === 'production'
+            ? { rejectUnauthorized: false }
+            : false,
       }),
     }),
     RaceEventsModule,

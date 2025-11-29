@@ -1,11 +1,11 @@
 services:
   # NestJS API Backend
   - type: web
-    name: kartiiing-api
+    name: kartiiing_api
     runtime: node
     region: frankfurt
     rootDir: api
-    buildCommand: npm install && npm run build
+    buildCommand: cd .. && chmod +x scripts/copy-shared-types.sh && ./scripts/copy-shared-types.sh && cd api && npm install && npm run build
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV

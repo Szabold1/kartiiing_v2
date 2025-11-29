@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+# Generated shared types (copied during build)
+/src/@kartiiing
+
 # Logs
 logs
 *.log

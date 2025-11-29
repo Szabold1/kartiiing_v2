@@ -26,16 +26,15 @@ export default function Copyright({
       <p>
         {year} {text} (Photo © {year}{" "}
         {links.map((link, index) => (
-          <>
+          <span key={link.label}>
             <span
-              key={link.label}
               className="hover:text-gray-100 hover:underline transition-colors cursor-pointer"
               onClick={() => openLinkInNewTab(link.url)}
             >
               {link.label}
             </span>
             {index < links.length - 1 && " / "}
-          </>
+          </span>
         ))}
         )
       </p>

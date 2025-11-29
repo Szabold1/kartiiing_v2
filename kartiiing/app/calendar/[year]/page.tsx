@@ -2,6 +2,8 @@ import { getAvailableYears, getRaceEvents } from "@/lib/api";
 import CalendarClient from "./calendar-client";
 import { RaceEventSortOptions } from "@kartiiing/shared-types";
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{
     year: string;
@@ -9,14 +11,6 @@ interface Props {
   searchParams: Promise<{
     sort?: string;
   }>;
-}
-
-/**
- * Next.js will pre-render these pages at build time
- */
-export async function generateStaticParams() {
-  const availableYears = await getAvailableYears();
-  return [...availableYears.map((year) => ({ year: year.toString() }))];
 }
 
 /**

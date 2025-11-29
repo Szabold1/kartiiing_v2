@@ -13,6 +13,10 @@ export const dataSource = new DataSource({
   database: process.env.DB_NAME || 'kartiiing_dev',
   entities: [path.join(__dirname, 'entities', '*.entity.ts')],
   migrations: [path.join(__dirname, 'db', 'migrations', '*.ts')],
+  migrationsTableName: 'migrations',
   synchronize: false,
   logging: false,
+  ssl: process.env.DB_HOST?.includes('neon.tech')
+    ? { rejectUnauthorized: false }
+    : false,
 });

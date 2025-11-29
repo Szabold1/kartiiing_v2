@@ -6,18 +6,10 @@ import {
 } from "@kartiiing/shared-types";
 
 /**
- * Get the base URL for API requests based on the environment, supporting both client and server contexts.
+ * Get the base URL for API requests
  */
 export function getApiBase(): string {
-  const isClient = typeof window !== "undefined";
-  let base: string;
-  
-  if (isClient) {
-    base = process.env.NEXT_PUBLIC_API_URL || "/api";
-  } else {
-    base = process.env.API_URL_INTERNAL || "/api";
-  }
-
+  const base = process.env.NEXT_PUBLIC_API_URL || "/api";
   return base.replace(/\/$/, "");
 }
 

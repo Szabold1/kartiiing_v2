@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 export default async function CalendarPage() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL || ""}/api/race-events/years`

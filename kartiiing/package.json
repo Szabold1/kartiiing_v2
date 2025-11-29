@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "chmod +x ../scripts/copy-shared-types-frontend.sh && ../scripts/copy-shared-types-frontend.sh && next build",
     "start": "next start",
     "lint": "next lint"
   },

@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd kartiiing && npm install && npm run build",
+  "outputDirectory": "kartiiing/.next",
+  "devCommand": "cd kartiiing && npm run dev",
+  "installCommand": "cd kartiiing && npm install",
+  "framework": "nextjs",
+  "regions": ["fra1"]
+}

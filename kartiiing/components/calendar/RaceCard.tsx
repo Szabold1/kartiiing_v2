@@ -40,7 +40,7 @@ export default function RaceCard({
               <StatusResultsBadge
                 race={race}
                 className="px-3 rounded-md "
-                heightPx="40"
+                heightValue="9.5"
               />
             </span>
           ) : null}
@@ -81,7 +81,6 @@ export default function RaceCard({
           <StatusResultsBadge
             race={race}
             className="pl-4 pr-3.5 rounded-bl-xl"
-            heightPx="42"
           />
         </div>
       ) : null}

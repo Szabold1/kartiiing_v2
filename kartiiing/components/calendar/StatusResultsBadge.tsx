@@ -13,19 +13,18 @@ import { ExternalLink } from "lucide-react";
 type Props = {
   race: IRaceEvent;
   className?: string;
-  heightPx?: string;
+  heightValue?: string;
 };
 
 export default function StatusResultsBadge({
   race,
   className = "",
-  heightPx = "42",
+  heightValue = "10",
 }: Props) {
   const resultLinks = race.links?.results || [];
   const status = race.status;
 
-  const heightStyle = { height: `${heightPx}px` };
-  const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 `;
+  const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 h-${heightValue} `;
 
   // If results are available, show results button instead of status
   if (resultLinks.length > 0) {
@@ -39,7 +38,6 @@ export default function StatusResultsBadge({
             openLinkInNewTab(resultLinks[0].url);
           }}
           className={`${resultsClasses}`}
-          style={heightStyle}
         >
           Results <ExternalLink className="w-3 h-3 mx-0.5" />
         </button>
@@ -51,7 +49,6 @@ export default function StatusResultsBadge({
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
           className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 hover:!text-gray-700 hover:dark:!text-gray-300`}
-          style={heightStyle}
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>
@@ -63,7 +60,7 @@ export default function StatusResultsBadge({
             <SelectItem
               key={link.url}
               value={link.url}
-              className="cursor-pointer transition h-9.5"
+              className="cursor-pointer transition h-10"
             >
               {link.category}
             </SelectItem>
@@ -85,7 +82,6 @@ export default function StatusResultsBadge({
   return (
     <span
       className={`${baseClasses} ${colorClasses[status]} ${className}`}
-      style={heightStyle}
     >
       {status}
     </span>

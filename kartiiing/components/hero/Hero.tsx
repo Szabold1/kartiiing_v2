@@ -2,6 +2,7 @@
 
 import HeroLink from "@/components/hero/HeroLink";
 import Copyright from "@/components/Copyright";
+import { useCurrentYear } from "@/contexts/GlobalContext";
 
 interface Props {
   title: string;
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default function Hero({ title, subtitle }: Props) {
+  const currentYear = useCurrentYear();
+  
   return (
     <div className="fixed inset-0 w-full h-[100dvh] flex flex-col justify-center items-center bg-cover bg-center bg-fixed bg-[url('/images/hero-mobile.jpg')] lg:bg-[url('/images/hero.jpg')]">
       {/* Gradient overlay */}
@@ -35,7 +38,7 @@ export default function Hero({ title, subtitle }: Props) {
             Explore Circuits
           </HeroLink>
           <HeroLink
-            href={`/calendar/${new Date().getFullYear()}`}
+            href={`/calendar/${currentYear}`}
             variant="green"
           >
             View Calendar

@@ -154,6 +154,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-roboto), sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-roboto {
+    font-family: var(--font-roboto), sans-serif;
   }
 }
 

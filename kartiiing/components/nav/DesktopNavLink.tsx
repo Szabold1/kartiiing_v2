@@ -26,7 +26,7 @@ const DesktopNavLink = ({ children, href, match = "exact", matchPath }: Props) =
     <NavigationMenuItem>
       <NavigationMenuLink
         asChild
-        className={isActive ? "text-green-600 dark:text-green-500" : ""}
+        className={`tracking-wide ${isActive} ? "text-green-600 dark:text-green-500" : ""`}
       >
         <Link href={href}>{children}</Link>
       </NavigationMenuLink>

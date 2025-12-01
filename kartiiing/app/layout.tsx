@@ -3,6 +3,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/nav/Footer";
 import { GlobalProvider } from "@/contexts/GlobalContext";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-roboto",
+});
 
 export default function RootLayout({
   children,
@@ -12,7 +18,7 @@ export default function RootLayout({
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${roboto.variable}`}>
       <body className="flex min-h-screen flex-col">
         <GlobalProvider value={{ currentYear }}>
           <ThemeProvider

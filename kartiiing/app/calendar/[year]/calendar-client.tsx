@@ -8,14 +8,12 @@ import CalendarHeader from "@/components/calendar/CalendarHeader";
 import NextRaceBtn from "@/components/calendar/NextRaceBtn";
 import SearchHeader from "@/components/calendar/SearchHeader";
 import GridListViewToggle from "@/components/calendar/GridListViewToggle";
-import RaceDetails from "@/components/calendar/RaceDetails";
-import Modal from "@/components/Modal";
 import BackToTopBtn from "@/components/BackToTopBtn";
+import RaceSheet from "@/components/calendar/RaceSheet";
 import {
   CalendarViewMode,
   CALENDAR_VIEW_MODE_KEY,
 } from "@/lib/constants/calendar";
-import { AnimatePresence } from "framer-motion";
 import { lightDarkGlassBase } from "@/lib/classNames";
 import SortOrderToggle from "@/components/calendar/SortOrderToggle";
 import {
@@ -41,23 +39,22 @@ export default function CalendarClient({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [races, setRaces] = useState<IRaceEvent[]>(initialRaces);
-  const [chosenRace, setChosenRace] = useState<IRaceEvent | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | string>(year);
   const [sortOrder, setSortOrder] = useState<RaceEventSortOptions>(
     initialSort === RaceEventSortOptions.DESC
       ? RaceEventSortOptions.DESC
-      : RaceEventSortOptions.ASC
+      : RaceEventSortOptions.ASC,
   );
   const [searchQuery, setSearchQuery] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
   const [sectionWidth, setSectionWidth] = useState(0);
   const [viewMode, setViewModeState] = useState<CalendarViewMode>(
-    CalendarViewMode.GRID
+    CalendarViewMode.GRID,
   );
   const showListView =
     viewMode === CalendarViewMode.LIST && sectionWidth >= 850;
   const hasLiveOrNextRace = races.some(
-    (r) => r.status === RaceStatus.LIVE || r.status === RaceStatus.UPNEXT
+    (r) => r.status === RaceStatus.LIVE || r.status === RaceStatus.UPNEXT,
   );
 
   // Update races and selectedYear when year prop changes
@@ -79,7 +76,7 @@ export default function CalendarClient({
         const response = await getRaceEvents(
           selectedYear === "all" ? undefined : selectedYear.toString(),
           sortOrder,
-          searchQuery.trim()
+          searchQuery.trim(),
         );
         setRaces(response.data);
       } catch (error) {
@@ -131,7 +128,7 @@ export default function CalendarClient({
       router.push(
         `/calendar/${yearString}?sort=${
           sortOrder === RaceEventSortOptions.DESC ? "desc" : "asc"
-        }`
+        }`,
       );
     }
   };
@@ -166,7 +163,7 @@ export default function CalendarClient({
       try {
         const response = await getRaceEvents(
           selectedYear === "all" ? undefined : selectedYear.toString(),
-          sortOrder
+          sortOrder,
         );
         setRaces(response.data);
       } catch (error) {
@@ -247,7 +244,6 @@ export default function CalendarClient({
                     <RaceCard
                       key={race.id}
                       race={race}
-                      onClick={() => setChosenRace(race)}
                       variant={showListView ? "row" : "card"}
                     />
                   ))}
@@ -257,18 +253,8 @@ export default function CalendarClient({
           </div>
         </section>
 
-        <AnimatePresence>
-          {chosenRace && (
-            <Modal onClose={() => setChosenRace(null)}>
-              <RaceDetails
-                race={chosenRace}
-                onClose={() => setChosenRace(null)}
-              />
-            </Modal>
-          )}
-        </AnimatePresence>
-
         <BackToTopBtn />
+        <RaceSheet />
       </div>
     </>
   );

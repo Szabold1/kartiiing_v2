@@ -12,10 +12,10 @@ export class RaceEventsController {
   constructor(private readonly raceEventsService: RaceEventsService) {}
 
   @Get()
-  findAll(
+  async findAll(
     @Query() query: FindRaceEventsQuery,
   ): Promise<IPaginatedResponse<IRaceEvent>> {
-    const raceEvents = this.raceEventsService.findAll(query);
+    const raceEvents = await this.raceEventsService.findAll(query);
     return raceEvents;
   }
 
@@ -34,12 +34,20 @@ export class RaceEventsController {
     };
   }
 
+  @Get('detail/:slug')
+  async findBySlug(@Param('slug') slug: string): Promise<IRaceEvent> {
+    return await this.raceEventsService.findBySlug(slug);
+  }
+
   @Get(':year')
-  findByYear(
+  async findByYear(
     @Param() params: YearParams,
     @Query() query: FindRaceEventsQuery,
   ): Promise<IPaginatedResponse<IRaceEvent>> {
-    const raceEvents = this.raceEventsService.findByYear(params.year, query);
+    const raceEvents = await this.raceEventsService.findByYear(
+      params.year,
+      query,
+    );
     return raceEvents;
   }
 }

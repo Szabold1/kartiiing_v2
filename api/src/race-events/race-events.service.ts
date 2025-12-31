@@ -43,6 +43,29 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
+  async findBySlug(slug: string): Promise<IRaceEvent> {
+    // Slug format: championship-circuit-id
+    // Extract the ID from the end of the slug
+    const lastHyphenIndex = slug.lastIndexOf('-');
+    if (lastHyphenIndex === -1) {
+      throw new NotFoundException(`Invalid race event slug format: ${slug}`);
+    }
+
+    const id = parseInt(slug.substring(lastHyphenIndex + 1), 10);
+    if (isNaN(id)) {
+      throw new NotFoundException(`Invalid ID in race event slug: ${slug}`);
+    }
+
+    const event = await this.getEventById(id);
+
+    if (!event) {
+      console.error(`Race event not found with id: ${id}`);
+      throw new NotFoundException(`Race event with id ${id} not found`);
+    }
+
+    return toIRaceEvent(event);
+  }
+
   async getYearStats(
     year: number,
   ): Promise<{ races: number; circuits: number; championships: number }> {
@@ -310,5 +333,14 @@ export class RaceEventsService {
     }
 
     return transformedEvents;
+  }
+
+  /**
+   * Get an event by its ID with all necessary relations for transformation
+   */
+  private getEventById(id: number): Promise<RaceEvent | null> {
+    return this.createBaseQueryBuilder()
+      .where('raceEvent.id = :id', { id })
+      .getOne();
   }
 }

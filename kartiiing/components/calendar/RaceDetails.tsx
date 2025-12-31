@@ -1,3 +1,5 @@
+"use client";
+
 import { IRaceEvent } from "@kartiiing/shared-types";
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import Tabs from "@/components/Tabs";
@@ -46,10 +48,12 @@ export default function RaceDetails({ race, onClose }: Props) {
           className="text-xl font-semibold tracking-tight"
         />
         <LiveActions race={race} />
-        <X
-          className="w-8 h-8 p-2 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent ml-auto flex-shrink-0"
-          onClick={onClose}
-        />
+        {onClose && (
+          <X
+            className="w-8 h-8 p-2 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent ml-auto flex-shrink-0"
+            onClick={onClose}
+          />
+        )}
       </div>
 
       <Tabs tabs={tabs} defaultTab="summary" />

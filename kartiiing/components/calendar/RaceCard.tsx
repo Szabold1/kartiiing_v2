@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
 import StatusResultsBadge from "@/components/calendar/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
@@ -5,38 +6,57 @@ import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate"
 import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import { lightDarkGlassHover } from "@/lib/classNames";
+import { generateSlug } from "@/lib/slug";
 
 type Props = {
   race: IRaceEvent;
-  onClick?: () => void;
   variant?: "card" | "row";
 };
 
-export default function RaceCard({
-  race,
-  onClick = () => {},
-  variant = "card",
-}: Props) {
+export default function RaceCard({ race, variant = "card" }: Props) {
+  const router = useRouter();
   const { id, date, circuit, championships, categories } = race;
   const championship = championships[0];
+  const year = date.start.split("-")[0];
   const hasResults = race.links?.results && race.links.results.length > 0;
+  const addDatePadding = variant === "row" && !race.status && !hasResults;
   const liveContainerStyle =
     "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25 hover:border-red-500/70 hover:dark:border-red-900";
+  const slug = generateSlug(
+    `${year} ${championship?.title || ""} ${circuit?.nameShort || ""} ${id}`,
+  );
+  const raceLink = `?race=${slug}`;
+
+  const handleRaceClick = () => {
+    router.push(raceLink, { scroll: false });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleRaceClick();
+    }
+  };
 
   if (variant === "row") {
     return (
       <div
-        className={`p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
+        onClick={handleRaceClick}
+        className={`min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
           race.status === RaceStatus.LIVE || race.status === RaceStatus.UPNEXT
             ? `${liveContainerStyle}`
             : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
         }`}
-        onClick={onClick}
         id={`${id}`}
+        role="button"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
       >
         <div className="flex-1 flex items-center gap-4">
           {race.status || hasResults ? (
-            <span className="min-w-[6.5rem]">
+            <span
+              className={`${addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5em]"}`}
+            >
               <StatusResultsBadge
                 race={race}
                 className="px-3 rounded-md "
@@ -46,7 +66,7 @@ export default function RaceCard({
           ) : null}
           <RenderRaceDate
             date={date}
-            className="text-sm text-muted-foreground min-w-[7rem] tracking-tight"
+            className={`text-sm text-muted-foreground min-w-[7rem] tracking-tight ${addDatePadding ? "pl-2" : ""}`}
           />
           <RenderRaceLocation
             circuit={circuit}
@@ -59,7 +79,7 @@ export default function RaceCard({
           <RenderEngineCategory
             engineCategoryPairs={categories}
             className="ml-auto"
-            badgeClassName="px-2.5 py-1.5"
+            badgeClassName="px-2.5 py-2 xl:px-3"
           />
         </div>
       </div>
@@ -68,13 +88,16 @@ export default function RaceCard({
 
   return (
     <div
-      className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
+      onClick={handleRaceClick}
+      className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl w-full ${lightDarkGlassHover} ${
         race.status === RaceStatus.LIVE || race.status === RaceStatus.UPNEXT
           ? liveContainerStyle
           : ""
       }`}
-      onClick={onClick}
       id={`${id}`}
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
     >
       {race.status || hasResults ? (
         <div className="absolute -top-0.5 -right-0.5">

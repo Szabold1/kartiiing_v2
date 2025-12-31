@@ -29,9 +29,7 @@ export async function getAvailableYears(): Promise<number[]> {
 /**
  * Fetch year statistics (races, circuits, championships count)
  */
-export async function getYearStats(
-  year: number | string
-): Promise<IYearStats> {
+export async function getYearStats(year: number | string): Promise<IYearStats> {
   const res = await fetch(`${getApiBase()}/race-events/stats/${year}`);
 
   if (!res.ok) {
@@ -47,7 +45,7 @@ export async function getYearStats(
 export async function getRaceEvents(
   year?: string,
   sort: RaceEventSortOptions = RaceEventSortOptions.ASC,
-  search?: string
+  search?: string,
 ): Promise<IPaginatedResponse<IRaceEvent>> {
   if (year && year !== "all" && isNaN(parseInt(year))) {
     throw new Error("Invalid year parameter");
@@ -62,6 +60,21 @@ export async function getRaceEvents(
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to fetch races: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
+ * Fetch a single race event by slug
+ */
+export async function getRaceEventBySlug(slug: string): Promise<IRaceEvent> {
+  const encodedSlug = encodeURIComponent(slug);
+  const url = `${getApiBase()}/race-events/detail/${encodedSlug}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch race event: ${res.status}`);
   }
 
   return res.json();

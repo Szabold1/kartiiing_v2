@@ -38,7 +38,7 @@ export default function RaceDetails({ race, onClose }: Props) {
         )}
         {onClose && (
           <X
-            className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover} p-2 rounded-lg cursor-pointer ml-auto`}
+            className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover} p-2 cursor-pointer ml-auto`}
             onClick={onClose}
           />
         )}

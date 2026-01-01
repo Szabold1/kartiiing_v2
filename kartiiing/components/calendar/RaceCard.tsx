@@ -5,7 +5,7 @@ import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
 import { lightDarkGlassHover, liveContainerHover } from "@/lib/classNames";
-import { generateSlug } from "@/lib/slug";
+import { generateSlug } from "@/lib/utils";
 
 type Props = {
   race: IRaceEvent;
@@ -51,7 +51,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         <div className="flex-1 flex items-center gap-4">
           {race.status || hasResults ? (
             <span
-              className={`${addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5em]"}`}
+              className={`${addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]"}`}
             >
               <StatusResultsBadge
                 race={race}

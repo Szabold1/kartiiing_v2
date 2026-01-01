@@ -74,7 +74,7 @@ function buildRaceTitle(championships: IRaceEvent['championships']): string {
   const roundPart = championships[0].roundNumber
     ? ` #${championships[0].roundNumber}`
     : '';
-  return `${championships[0].name} ${roundPart}`;
+  return `${championships[0].name} ${roundPart}`.trim();
 }
 
 /**

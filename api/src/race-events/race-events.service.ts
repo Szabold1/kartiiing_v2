@@ -44,7 +44,7 @@ export class RaceEventsService {
   }
 
   async findBySlug(slug: string): Promise<IRaceEvent> {
-    // Slug format: championship-circuit-id
+    // Slug format: year-title-circuit-id
     // Extract the ID from the end of the slug
     const lastHyphenIndex = slug.lastIndexOf('-');
     if (lastHyphenIndex === -1) {

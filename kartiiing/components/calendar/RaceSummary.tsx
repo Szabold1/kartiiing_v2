@@ -37,9 +37,11 @@ export default function RaceSummary({ race, className = "" }: Props) {
         <SectionTitle>
           Championship{race.championships.length > 1 && "s"}
         </SectionTitle>
-        {race.championships.map((champ) => {
-          return <div className="font-medium tracking-tight">{champ.name}</div>;
-        })}
+        {race.championships.map((champ) => (
+          <div key={champ.id} className="font-medium tracking-tight">
+            {champ.name}
+          </div>
+        ))}
       </div>
 
       {Object.keys(categories).length > 0 && (

@@ -14,16 +14,13 @@ import {
 } from "@/components/ui/select";
 import { openLinkInNewTab } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
+import { useMemo } from "react";
 
 type Props = {
   race: IRaceEvent;
   className?: string;
   heightValue?: string;
 };
-
-function calculateHeight(heightValue: string): string {
-  return `${parseFloat(heightValue) * 0.25}rem`;
-}
 
 export default function StatusResultsBadge({
   race,
@@ -32,6 +29,11 @@ export default function StatusResultsBadge({
 }: Props) {
   const resultLinks = race.links?.results || [];
   const status = race.status;
+
+  const calculatedHeight = useMemo(
+    () => `${parseFloat(heightValue) * 0.25}rem`,
+    [heightValue],
+  );
 
   const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium `;
 
@@ -47,7 +49,7 @@ export default function StatusResultsBadge({
             openLinkInNewTab(resultLinks[0].url);
           }}
           className={`${resultsClasses}`}
-          style={{ height: calculateHeight(heightValue) }}
+          style={{ height: calculatedHeight }}
         >
           Results <ExternalLink className="w-3 h-3 mx-0.5" />
         </button>
@@ -59,7 +61,7 @@ export default function StatusResultsBadge({
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
           className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 hover:!text-gray-700 hover:dark:!text-gray-300`}
-          style={{ height: calculateHeight(heightValue) }}
+          style={{ height: calculatedHeight }}
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>
@@ -94,7 +96,7 @@ export default function StatusResultsBadge({
   return (
     <span
       className={`${baseClasses} ${colorClasses[status]} ${className}`}
-      style={{ height: calculateHeight(heightValue) }}
+      style={{ height: calculatedHeight }}
     >
       {status}
     </span>

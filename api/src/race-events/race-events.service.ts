@@ -64,10 +64,14 @@ export class RaceEventsService {
     }
 
     // If event is in the past or today, just calculate its status directly
-    if (new Date(event.dateEnd || '') <= new Date()) {
+    if (
+      event.dateStart &&
+      event.dateEnd &&
+      new Date(event.dateEnd) <= new Date()
+    ) {
       const raceDate = {
-        start: event.dateStart || '',
-        end: event.dateEnd || '',
+        start: event.dateStart,
+        end: event.dateEnd,
       };
       const status = RaceStatusCalculator.getRaceStatus(raceDate, null);
       return toIRaceEvent(event, status);

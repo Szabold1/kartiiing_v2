@@ -2,7 +2,13 @@ import { RaceEvent } from '../entities/raceEvent.entity';
 import { Category } from '../entities/category.entity';
 import { RaceEventResult } from '../entities/raceEventResult.entity';
 import { RaceEventChampionship } from '../entities/raceEventChampionship.entity';
-import { IRaceEvent, RaceStatus, IResultsLink } from '@kartiiing/shared-types';
+import { FastestLap } from '../entities/fastestLap.entity';
+import {
+  IRaceEvent,
+  RaceStatus,
+  IResultsLink,
+  IEventFastestLap,
+} from '@kartiiing/shared-types';
 
 export function toIRaceEvent(
   entity: RaceEvent,
@@ -40,6 +46,11 @@ export function toIRaceEvent(
     categories: groupCategoriesByEngineType(entity.categories),
   };
 
+  // Add fastest laps if available
+  if (Array.isArray(entity?.fastestLaps) && entity?.fastestLaps.length > 0) {
+    raceEvent.fastestLaps = getFastestLapsPerCategory(entity.fastestLaps);
+  }
+
   // Add result links if available
   if (Array.isArray(entity?.results) && entity?.results.length > 0) {
     raceEvent.links = {
@@ -60,7 +71,10 @@ export function toIRaceEvent(
  */
 function buildRaceTitle(championships: IRaceEvent['championships']): string {
   if (championships.length === 0) return '';
-  return championships[0].title || '';
+  const roundPart = championships[0].roundNumber
+    ? ` #${championships[0].roundNumber}`
+    : '';
+  return `${championships[0].name} ${roundPart}`;
 }
 
 /**
@@ -100,19 +114,16 @@ function sortChampionships(
     )
     .map((detail) => {
       const champ = detail.championship;
-      let title = champ.nameShort || champ.nameLong;
+      let name = champ.nameShort || champ.nameLong;
 
       if (champ.nameSeries) {
-        title += ` ${champ.nameSeries}`;
-      }
-
-      if (detail.roundNumber) {
-        title += ` #${detail.roundNumber}`;
+        name += ` ${champ.nameSeries}`;
       }
 
       return {
         id: champ.id,
-        title,
+        name,
+        roundNumber: detail.roundNumber || undefined,
       };
     });
 }
@@ -128,5 +139,36 @@ function sortResultLinks(
     .map((result) => ({
       category: result.category?.name || 'All',
       url: result.url,
+    }));
+}
+
+/**
+ * Gets the fastest lap per category, sorted by category order
+ */
+function getFastestLapsPerCategory(
+  fastestLaps: FastestLap[],
+): IEventFastestLap[] {
+  const lapMap = new Map<number, FastestLap>();
+
+  for (const lap of fastestLaps || []) {
+    if (lap.category) {
+      const existing = lapMap.get(lap.category.id);
+      if (!existing || lap.lapTime < existing.lapTime) {
+        lapMap.set(lap.category.id, lap);
+      }
+    }
+  }
+
+  // Convert to array and sort by category order
+  return Array.from(lapMap.values())
+    .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
+    .map((lap) => ({
+      category: lap.category?.name || 'Unknown',
+      driverName: lap.driver
+        ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
+        : 'Unknown',
+      lapTime: lap.lapTime,
+      sessionType: lap.sessionType,
+      date: lap.date,
     }));
 }

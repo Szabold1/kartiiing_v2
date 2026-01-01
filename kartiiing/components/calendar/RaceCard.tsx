@@ -3,9 +3,8 @@ import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEng
 import StatusResultsBadge from "@/components/calendar/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
-import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
 import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
-import { lightDarkGlassHover } from "@/lib/classNames";
+import { lightDarkGlassHover, liveContainerHover } from "@/lib/classNames";
 import { generateSlug } from "@/lib/slug";
 
 type Props = {
@@ -15,15 +14,12 @@ type Props = {
 
 export default function RaceCard({ race, variant = "card" }: Props) {
   const router = useRouter();
-  const { id, date, circuit, championships, categories } = race;
-  const championship = championships[0];
+  const { id, date, circuit, categories } = race;
   const year = date.start.split("-")[0];
   const hasResults = race.links?.results && race.links.results.length > 0;
   const addDatePadding = variant === "row" && !race.status && !hasResults;
-  const liveContainerStyle =
-    "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25 hover:border-red-500/70 hover:dark:border-red-900";
   const slug = generateSlug(
-    `${year} ${championship?.title || ""} ${circuit?.nameShort || ""} ${id}`,
+    `${year} ${race?.title || ""} ${circuit?.nameShort || ""} ${id}`,
   );
   const raceLink = `?race=${slug}`;
 
@@ -43,8 +39,8 @@ export default function RaceCard({ race, variant = "card" }: Props) {
       <div
         onClick={handleRaceClick}
         className={`min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
-          race.status === RaceStatus.LIVE || race.status === RaceStatus.UPNEXT
-            ? `${liveContainerStyle}`
+          race.status === RaceStatus.LIVE
+            ? `${liveContainerHover}`
             : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
         }`}
         id={`${id}`}
@@ -72,10 +68,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
             circuit={circuit}
             className="text-sm font-medium min-w-[8rem] max-w-[8rem] text-muted-foreground"
           />
-          <RenderRaceTitle
-            championship={championship}
-            className="font-semibold truncate flex-1"
-          />
+          <div className="font-semibold truncate flex-1">{race.title}</div>
           <RenderEngineCategory
             engineCategoryPairs={categories}
             className="ml-auto"
@@ -90,9 +83,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
     <div
       onClick={handleRaceClick}
       className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl w-full ${lightDarkGlassHover} ${
-        race.status === RaceStatus.LIVE || race.status === RaceStatus.UPNEXT
-          ? liveContainerStyle
-          : ""
+        race.status === RaceStatus.LIVE ? liveContainerHover : ""
       }`}
       id={`${id}`}
       role="button"
@@ -115,10 +106,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         circuit={circuit}
         className="text-muted-foreground text-sm mt-1.5 font-medium"
       />
-      <RenderRaceTitle
-        championship={championship}
-        className="font-semibold tracking-tight flex-1"
-      />
+      <div className="font-semibold tracking-tight flex-1">{race.title}</div>
       <RenderEngineCategory engineCategoryPairs={categories} className="mt-2" />
     </div>
   );

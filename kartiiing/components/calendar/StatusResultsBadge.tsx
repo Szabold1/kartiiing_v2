@@ -1,4 +1,9 @@
-import { grayGlassBase, redGlassBase, grayGlassHover } from "@/lib/classNames";
+import {
+  grayGlassBase,
+  redGlassBase,
+  grayGlassHover,
+  emeraldGlassBase,
+} from "@/lib/classNames";
 import { IRaceEvent, RaceStatus, IResultsLink } from "@kartiiing/shared-types";
 import {
   Select,
@@ -16,6 +21,10 @@ type Props = {
   heightValue?: string;
 };
 
+function calculateHeight(heightValue: string): string {
+  return `${parseFloat(heightValue) * 0.25}rem`;
+}
+
 export default function StatusResultsBadge({
   race,
   className = "",
@@ -24,7 +33,7 @@ export default function StatusResultsBadge({
   const resultLinks = race.links?.results || [];
   const status = race.status;
 
-  const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 h-${heightValue} `;
+  const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium `;
 
   // If results are available, show results button instead of status
   if (resultLinks.length > 0) {
@@ -38,6 +47,7 @@ export default function StatusResultsBadge({
             openLinkInNewTab(resultLinks[0].url);
           }}
           className={`${resultsClasses}`}
+          style={{ height: calculateHeight(heightValue) }}
         >
           Results <ExternalLink className="w-3 h-3 mx-0.5" />
         </button>
@@ -49,6 +59,7 @@ export default function StatusResultsBadge({
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
           className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 hover:!text-gray-700 hover:dark:!text-gray-300`}
+          style={{ height: calculateHeight(heightValue) }}
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>
@@ -76,12 +87,14 @@ export default function StatusResultsBadge({
   const colorClasses = {
     [RaceStatus.LIVE]: `${redGlassBase} `,
     [RaceStatus.UPNEXT]: `${redGlassBase} `,
+    [RaceStatus.UPCOMING]: `${emeraldGlassBase} `,
     [RaceStatus.FINISHED]: `${grayGlassBase} `,
   };
 
   return (
     <span
       className={`${baseClasses} ${colorClasses[status]} ${className}`}
+      style={{ height: calculateHeight(heightValue) }}
     >
       {status}
     </span>

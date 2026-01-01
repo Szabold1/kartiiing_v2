@@ -35,7 +35,7 @@ export default function RenderEngineCategory({
       {badges.map(({ label, engineType }) => (
         <span
           key={label}
-          className={`text-xs px-2 py-1 rounded-md uppercase font-medium ${
+          className={`text-xs px-2 py-1.5 rounded-md uppercase font-medium ${
             ENGINE_COLORS[engineType] ||
             "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
           } ${badgeClassName}`}

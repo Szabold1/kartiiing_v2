@@ -60,6 +60,7 @@ export class RaceStatusCalculator {
     ) {
       return RaceStatus.UPNEXT;
     }
+    if (today < startDate) return RaceStatus.UPCOMING;
     if (endDate < today) return RaceStatus.FINISHED;
     return null;
   }

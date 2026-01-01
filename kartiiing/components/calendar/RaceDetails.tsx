@@ -1,12 +1,16 @@
 "use client";
 
-import { IRaceEvent } from "@kartiiing/shared-types";
-import RenderRaceTitle from "@/components/calendar/renderRaceData/RenderRaceTitle";
-import Tabs from "@/components/Tabs";
+import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import { X } from "lucide-react";
-import RaceSummary from "@/components/calendar/tabs/RaceSummary";
-import Results from "@/components/calendar/tabs/Results";
-import LiveActions from "./LiveActions";
+import RaceSummary from "@/components/calendar/RaceSummary";
+import RaceActions from "./RaceActions";
+import {
+  lightDarkGlassBase,
+  lightDarkGlassHover,
+  liveContainerBase,
+} from "@/lib/classNames";
+import StatusResultsBadge from "./StatusResultsBadge";
+import RaceDetailsSection from "./RaceDetailsSection";
 
 type Props = {
   race: IRaceEvent;
@@ -16,47 +20,39 @@ type Props = {
 export default function RaceDetails({ race, onClose }: Props) {
   const resultsLinks = race.links?.results || [];
 
-  const tabs = [
-    {
-      id: "summary",
-      label: "Summary",
-      content: <RaceSummary race={race} />,
-    },
-    ...(resultsLinks && resultsLinks.length > 0
-      ? [
-          resultsLinks.length === 1
-            ? {
-                id: "results",
-                label: "Results",
-                content: null,
-                onClick: () => window.open(resultsLinks[0].url, "_blank"),
-              }
-            : {
-                id: "results",
-                label: "Results",
-                content: <Results race={race} />,
-              },
-        ]
-      : []),
-  ];
-
   return (
-    <div className="p-4 sm:p-5 h-full relative min-h-90">
-      <div className="flex items-center mb-4 gap-2">
-        <RenderRaceTitle
-          championship={race.championships[0]}
-          className="text-xl font-semibold tracking-tight"
-        />
-        <LiveActions race={race} />
+    <div className="p-2.5 sm:p-3.5 h-full relative min-h-90">
+      <div
+        className={`flex justify-end items-center p-1.5 mb-4.5 rounded-xl ${lightDarkGlassBase} 
+        ${race.status === RaceStatus.LIVE ? liveContainerBase : ""}`}
+      >
+        {(race.status || resultsLinks.length > 0) && (
+          <div className="flex items-center gap-1.5">
+            <StatusResultsBadge
+              race={race}
+              className="p-3.5 rounded-lg font-medium"
+              heightValue="10.5"
+            />
+            <RaceActions race={race} />
+          </div>
+        )}
         {onClose && (
           <X
-            className="w-8 h-8 p-2 border rounded-sm cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent ml-auto flex-shrink-0"
+            className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover} p-2 rounded-lg cursor-pointer ml-auto`}
             onClick={onClose}
           />
         )}
       </div>
 
-      <Tabs tabs={tabs} defaultTab="summary" />
+      <div className="flex flex-col px-2.5 mb-4.5 gap-2">
+        <div className="text-2xl font-semibold tracking-tight">
+          {race.title}
+        </div>
+      </div>
+
+      <RaceDetailsSection title="Summary">
+        <RaceSummary race={race} />
+      </RaceDetailsSection>
     </div>
   );
 }

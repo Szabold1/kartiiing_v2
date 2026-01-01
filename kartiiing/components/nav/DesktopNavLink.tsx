@@ -12,7 +12,12 @@ interface Props {
   matchPath?: string;
 }
 
-const DesktopNavLink = ({ children, href, match = "exact", matchPath }: Props) => {
+const DesktopNavLink = ({
+  children,
+  href,
+  match = "exact",
+  matchPath,
+}: Props) => {
   const pathname = usePathname();
 
   let isActive = false;
@@ -26,7 +31,9 @@ const DesktopNavLink = ({ children, href, match = "exact", matchPath }: Props) =
     <NavigationMenuItem>
       <NavigationMenuLink
         asChild
-        className={`tracking-wide ${isActive} ? "text-green-600 dark:text-green-500" : ""`}
+        className={`tracking-wide ${
+          isActive ? "text-green-600 dark:text-green-500" : ""
+        }`}
       >
         <Link href={href}>{children}</Link>
       </NavigationMenuLink>

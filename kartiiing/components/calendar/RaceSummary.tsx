@@ -25,13 +25,21 @@ export default function RaceSummary({ race, className = "" }: Props) {
       </div>
 
       <div>
-        <SectionTitle>Circuit</SectionTitle>
+        <SectionTitle>Location</SectionTitle>
         <RenderRaceLocation
           circuit={circuit}
           className="font-medium tracking-tight"
-          version="long"
           isClickable
         />
+      </div>
+
+      <div>
+        <SectionTitle>
+          Championship{race.championships.length > 1 && "s"}
+        </SectionTitle>
+        {race.championships.map((champ) => {
+          return <div className="font-medium tracking-tight">{champ.name}</div>;
+        })}
       </div>
 
       {Object.keys(categories).length > 0 && (

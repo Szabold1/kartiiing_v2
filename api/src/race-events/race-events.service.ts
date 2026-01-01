@@ -63,7 +63,21 @@ export class RaceEventsService {
       throw new NotFoundException(`Race event with id ${id} not found`);
     }
 
-    return toIRaceEvent(event);
+    // If event is in the past or today, just calculate its status directly
+    if (new Date(event.dateEnd || '') <= new Date()) {
+      const raceDate = {
+        start: event.dateStart || '',
+        end: event.dateEnd || '',
+      };
+      const status = RaceStatusCalculator.getRaceStatus(raceDate, null);
+      return toIRaceEvent(event, status);
+    }
+
+    // If event is in the future, fetch future races to determine if it's UPNEXT
+    const futureRaces = await this.getFutureRaces();
+    const transformedRaces = this.transformEvents(futureRaces, true);
+    const currentRaceTransformed = transformedRaces.find((r) => r.id === id);
+    return currentRaceTransformed || toIRaceEvent(event);
   }
 
   async getYearStats(
@@ -165,7 +179,10 @@ export class RaceEventsService {
       .leftJoinAndSelect('championshipDetails.championship', 'championship')
       .leftJoinAndSelect('raceEvent.categories', 'categories')
       .leftJoinAndSelect('raceEvent.results', 'results')
-      .leftJoinAndSelect('results.category', 'resultCategory');
+      .leftJoinAndSelect('results.category', 'resultCategory')
+      .leftJoinAndSelect('raceEvent.fastestLaps', 'fastestLaps')
+      .leftJoinAndSelect('fastestLaps.category', 'fastestLapCategory')
+      .leftJoinAndSelect('fastestLaps.driver', 'driver');
   }
 
   /**
@@ -342,5 +359,16 @@ export class RaceEventsService {
     return this.createBaseQueryBuilder()
       .where('raceEvent.id = :id', { id })
       .getOne();
+  }
+
+  /**
+   * Get all future races
+   */
+  private getFutureRaces(): Promise<RaceEvent[]> {
+    const now = new Date();
+    return this.createBaseQueryBuilder()
+      .where('raceEvent.dateStart >= :now', { now })
+      .orderBy('raceEvent.dateStart', 'ASC')
+      .getMany();
   }
 }

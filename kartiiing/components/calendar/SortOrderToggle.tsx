@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDownUp, ArrowUpDown } from "lucide-react";
 import { lightDarkGlassHover } from "@/lib/classNames";
-import React from "react";
 import { RaceEventSortOptions } from "@kartiiing/shared-types";
 
 interface Props {

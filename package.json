@@ -1,0 +1,15 @@
+{
+  "name": "kartiiing-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "shared-types",
+    "api",
+    "kartiiing"
+  ],
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

@@ -43,6 +43,47 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
+  async findBySlug(slug: string): Promise<IRaceEvent> {
+    // Slug format: year-title-circuit-id
+    // Extract the ID from the end of the slug
+    const lastHyphenIndex = slug.lastIndexOf('-');
+    if (lastHyphenIndex === -1) {
+      throw new NotFoundException(`Invalid race event slug format: ${slug}`);
+    }
+
+    const id = parseInt(slug.substring(lastHyphenIndex + 1), 10);
+    if (isNaN(id)) {
+      throw new NotFoundException(`Invalid ID in race event slug: ${slug}`);
+    }
+
+    const event = await this.getEventById(id);
+
+    if (!event) {
+      console.error(`Race event not found with id: ${id}`);
+      throw new NotFoundException(`Race event with id ${id} not found`);
+    }
+
+    // If event is in the past or today, just calculate its status directly
+    if (
+      event.dateStart &&
+      event.dateEnd &&
+      new Date(event.dateEnd) <= new Date()
+    ) {
+      const raceDate = {
+        start: event.dateStart,
+        end: event.dateEnd,
+      };
+      const status = RaceStatusCalculator.getRaceStatus(raceDate, null);
+      return toIRaceEvent(event, status);
+    }
+
+    // If event is in the future, fetch future races to determine if it's UPNEXT
+    const futureRaces = await this.getFutureRaces();
+    const transformedRaces = this.transformEvents(futureRaces, true);
+    const currentRaceTransformed = transformedRaces.find((r) => r.id === id);
+    return currentRaceTransformed || toIRaceEvent(event);
+  }
+
   async getYearStats(
     year: number,
   ): Promise<{ races: number; circuits: number; championships: number }> {
@@ -142,7 +183,10 @@ export class RaceEventsService {
       .leftJoinAndSelect('championshipDetails.championship', 'championship')
       .leftJoinAndSelect('raceEvent.categories', 'categories')
       .leftJoinAndSelect('raceEvent.results', 'results')
-      .leftJoinAndSelect('results.category', 'resultCategory');
+      .leftJoinAndSelect('results.category', 'resultCategory')
+      .leftJoinAndSelect('raceEvent.fastestLaps', 'fastestLaps')
+      .leftJoinAndSelect('fastestLaps.category', 'fastestLapCategory')
+      .leftJoinAndSelect('fastestLaps.driver', 'driver');
   }
 
   /**
@@ -310,5 +354,25 @@ export class RaceEventsService {
     }
 
     return transformedEvents;
+  }
+
+  /**
+   * Get an event by its ID with all necessary relations for transformation
+   */
+  private getEventById(id: number): Promise<RaceEvent | null> {
+    return this.createBaseQueryBuilder()
+      .where('raceEvent.id = :id', { id })
+      .getOne();
+  }
+
+  /**
+   * Get all future races
+   */
+  private getFutureRaces(): Promise<RaceEvent[]> {
+    const now = new Date();
+    return this.createBaseQueryBuilder()
+      .where('raceEvent.dateStart >= :now', { now })
+      .orderBy('raceEvent.dateStart', 'ASC')
+      .getMany();
   }
 }

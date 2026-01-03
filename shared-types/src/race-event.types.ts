@@ -34,18 +34,28 @@ export interface ICircuit {
 
 export interface IChampionship {
   id: number;
-  title: string;
+  name: string;
+  roundNumber?: number;
 }
 
 export enum RaceStatus {
   LIVE = 'Live',
   UPNEXT = 'Up Next',
+  UPCOMING = 'Upcoming',
   FINISHED = 'Finished',
 }
 
 export interface IResultsLink {
   category: string;
   url: string;
+}
+
+export interface IEventFastestLap {
+  category: string;
+  driverName: string;
+  lapTime: number;
+  sessionType: string;
+  date: string;
 }
 
 export interface IRaceEvent {
@@ -55,6 +65,7 @@ export interface IRaceEvent {
   circuit: ICircuit;
   championships: IChampionship[];
   categories: Record<string, string[]>;
+  fastestLaps?: IEventFastestLap[];
   status?: RaceStatus;
   links?: {
     results?: IResultsLink[];

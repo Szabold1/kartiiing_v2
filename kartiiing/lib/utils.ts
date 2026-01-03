@@ -91,3 +91,20 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
 export function openLinkInNewTab(url: string) {
   window.open(url, "_blank", "noopener noreferrer");
 }
+
+/**
+ * Generate a URL-friendly slug from a string
+ * 
+ * @param text - The input string to be converted into a slug.
+ * @returns A URL-friendly slug string.
+ */
+export function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD") // Normalize accented characters
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+}

@@ -343,16 +343,6 @@ export class RaceEventsService {
       return toIRaceEvent(event, status);
     });
 
-    // If any event is LIVE, do not allow any event to be UPNEXT
-    const hasLive = transformedEvents.some(
-      (item) => item.status === RaceStatus.LIVE,
-    );
-    for (const event of transformedEvents) {
-      if (hasLive && event.status === RaceStatus.UPNEXT) {
-        event.status = undefined;
-      }
-    }
-
     return transformedEvents;
   }
 
@@ -366,13 +356,13 @@ export class RaceEventsService {
   }
 
   /**
-   * Get all future races
+   * Get all future races (including live)
    */
   private getFutureRaces(): Promise<RaceEvent[]> {
     const now = new Date();
     return this.createBaseQueryBuilder()
-      .where('raceEvent.dateStart >= :now', { now })
-      .orderBy('raceEvent.dateStart', 'ASC')
+      .where('raceEvent.dateEnd >= :now', { now })
+      .orderBy('raceEvent.dateEnd', 'ASC')
       .getMany();
   }
 }

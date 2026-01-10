@@ -74,22 +74,9 @@ export class RaceStatusCalculator {
     const nextRaceDate = this.getNextRaceDate(races);
     const statusMap = new Map<T, RaceStatus | null>();
 
-    const tempStatuses: Array<{ race: T; status: RaceStatus | null }> = [];
     for (const race of races) {
       const status = this.getRaceStatus(race.date, nextRaceDate);
-      tempStatuses.push({ race, status });
-    }
-
-    // If any race is LIVE, do not allow any race to be UPNEXT
-    const hasLive = tempStatuses.some(
-      (item) => item.status === RaceStatus.LIVE,
-    );
-    for (const { race, status } of tempStatuses) {
-      if (hasLive && status === RaceStatus.UPNEXT) {
-        statusMap.set(race, null);
-      } else {
-        statusMap.set(race, status);
-      }
+      statusMap.set(race, status);
     }
 
     return statusMap;

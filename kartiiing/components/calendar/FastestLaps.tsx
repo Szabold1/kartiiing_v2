@@ -24,9 +24,9 @@ export default function FastestLaps({ race }: Props) {
 
   return (
     <ul className="flex flex-col gap-2.5">
-      {fastestLaps.map((lap, index) => (
+      {fastestLaps.map((lap) => (
         <li
-          key={`${lap.category}-${index}`}
+          key={`${lap.category}`}
           className={`flex flex-col gap-2.5 p-3 rounded-xl ${lightDarkGlassBase}`}
         >
           <div className="flex items-start justify-between">

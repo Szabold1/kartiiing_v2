@@ -361,7 +361,8 @@ export class RaceEventsService {
     const now = new Date();
     return this.createBaseQueryBuilder()
       .where('raceEvent.dateEnd >= :now', { now })
-      .orderBy('raceEvent.dateEnd', 'ASC')
+      .orderBy('raceEvent.dateStart', 'ASC')
+      .addOrderBy('raceEvent.dateEnd', 'ASC')
       .getMany();
   }
 }

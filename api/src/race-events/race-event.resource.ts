@@ -179,6 +179,7 @@ function getFastestLapsPerCategory(
  * E.g., "WARM_UP" -> "Warm Up", "PRACTICE" -> "Practice"
  */
 function formatSessionType(sessionType: string): string {
+  if (!sessionType) return 'Unknown';
   return sessionType
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())

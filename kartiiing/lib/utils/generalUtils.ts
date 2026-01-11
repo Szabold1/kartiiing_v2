@@ -14,7 +14,7 @@ export function formatLapTime(milliseconds: number): string {
   const totalSeconds = milliseconds / 1000;
   const minutes = Math.floor(totalSeconds / 60);
   const secs = (totalSeconds % 60).toFixed(3);
-  return `${minutes == 0 ? "" : `${minutes}:`}${secs.padStart(6, "0")}`;
+  return `${minutes === 0 ? "" : `${minutes}:`}${secs.padStart(6, "0")}`;
 }
 
 /**

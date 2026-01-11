@@ -77,7 +77,7 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
  * Formats a date string into a more readable format.
  * @param dateString - The date string to format.
  * @param withYear - Whether to include the year in the formatted output. Defaults to true.
- * @returns The formatted date string (e.g. "4 MAY 2025").
+ * @returns The formatted date string (e.g. "4 May 2025" or "4 May").
  */
 export function formatDate(
   dateString: string,

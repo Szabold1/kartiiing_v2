@@ -6,7 +6,7 @@ import {
   tealGlassBase,
   blueGlassBase,
   amberGlassBase,
-  slateGlassBase,
+  grayGlassBase,
 } from "@/lib/classNames";
 
 export const ENGINE_COLORS: Record<string, string> = {
@@ -20,5 +20,5 @@ export const ENGINE_COLORS: Record<string, string> = {
 };
 
 export function getColorStylesForEngineCategory(engineType: string): string {
-  return ENGINE_COLORS[engineType] || slateGlassBase;
+  return ENGINE_COLORS[engineType] || grayGlassBase;
 }

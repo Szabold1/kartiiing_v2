@@ -36,8 +36,6 @@ export const amberGlassBase = `${glassBase} border-amber-500/15 text-amber-600 d
 
 export const violetGlassBase = `${glassBase} border-violet-500/15 text-violet-600 dark:text-violet-400 bg-violet-100/80 dark:bg-violet-900/50`;
 
-export const slateGlassBase = `${glassBase} border-slate-500/15 text-slate-600 dark:text-slate-400 bg-slate-100/80 dark:bg-slate-900/50`;
-
 export const liveContainerBase =
   "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25";
 export const liveContainerHover = `${liveContainerBase} hover:border-red-500/70 hover:dark:border-red-900 hover:bg-red-100/80 hover:dark:bg-red-900/40`;

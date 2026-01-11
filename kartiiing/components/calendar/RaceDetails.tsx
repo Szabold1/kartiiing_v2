@@ -24,7 +24,7 @@ export default function RaceDetails({ race, onClose }: Props) {
   return (
     <div className="p-2.5 sm:p-3.5 pt-1.5 sm:pt-1.5 h-full relative min-h-90 overflow-auto">
       <div
-        className={`flex justify-end items-center p-1.5 mb-5.5 rounded-xl ${lightDarkGlassBase} 
+        className={`sticky top-0 z-50 flex justify-end items-center p-1.5 mb-6 rounded-xl ${lightDarkGlassBase} 
         ${race.status === RaceStatus.LIVE ? liveContainerBase : ""}`}
       >
         {(race.status || resultsLinks.length > 0) && (
@@ -46,9 +46,7 @@ export default function RaceDetails({ race, onClose }: Props) {
       </div>
 
       <div className="flex flex-col px-2.5 mb-6 gap-2">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          {race.title}
-        </h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{race.title}</h2>
       </div>
 
       <div className="flex flex-col gap-6">

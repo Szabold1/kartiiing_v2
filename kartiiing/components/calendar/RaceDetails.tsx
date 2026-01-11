@@ -4,6 +4,7 @@ import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import { X } from "lucide-react";
 import RaceSummary from "@/components/calendar/RaceSummary";
 import RaceActions from "./RaceActions";
+import FastestLaps from "./FastestLaps";
 import {
   lightDarkGlassBase,
   lightDarkGlassHover,
@@ -21,9 +22,9 @@ export default function RaceDetails({ race, onClose }: Props) {
   const resultsLinks = race.links?.results || [];
 
   return (
-    <div className="p-2.5 sm:p-3.5 h-full relative min-h-90">
+    <div className="p-2.5 sm:p-3.5 pt-1.5 sm:pt-1.5 h-full relative min-h-90 overflow-auto">
       <div
-        className={`flex justify-end items-center p-1.5 mb-4.5 rounded-xl ${lightDarkGlassBase} 
+        className={`flex justify-end items-center p-1.5 mb-5.5 rounded-xl ${lightDarkGlassBase} 
         ${race.status === RaceStatus.LIVE ? liveContainerBase : ""}`}
       >
         {(race.status || resultsLinks.length > 0) && (
@@ -44,15 +45,22 @@ export default function RaceDetails({ race, onClose }: Props) {
         )}
       </div>
 
-      <div className="flex flex-col px-2.5 mb-4.5 gap-2">
-        <div className="text-2xl font-semibold tracking-tight">
+      <div className="flex flex-col px-2.5 mb-6 gap-2">
+        <h2 className="text-2xl font-semibold tracking-tight">
           {race.title}
-        </div>
+        </h2>
       </div>
 
-      <RaceDetailsSection title="Summary">
-        <RaceSummary race={race} />
-      </RaceDetailsSection>
+      <div className="flex flex-col gap-6">
+        <RaceDetailsSection title="Summary">
+          <RaceSummary race={race} />
+        </RaceDetailsSection>
+        {race.fastestLaps && (
+          <RaceDetailsSection title="Fastest Laps">
+            <FastestLaps race={race} />
+          </RaceDetailsSection>
+        )}
+      </div>
     </div>
   );
 }

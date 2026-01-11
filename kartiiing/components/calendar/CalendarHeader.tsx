@@ -26,6 +26,11 @@ export default function CalendarHeader({
   years,
 }: Props) {
   const [stats, setStats] = useState<IYearStats | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -56,11 +61,11 @@ export default function CalendarHeader({
       };
     } else {
       const uniqueCircuits = Array.from(
-        new Set(races.map((r) => r.circuit.id))
+        new Set(races.map((r) => r.circuit.id)),
       ).length;
 
       const uniqueChampionships = Array.from(
-        new Set(races.flatMap((r) => r.championships.map((c) => c.id)))
+        new Set(races.flatMap((r) => r.championships.map((c) => c.id))),
       ).length;
 
       statsData = {
@@ -78,25 +83,29 @@ export default function CalendarHeader({
       title="Calendar"
       description={buildCalendarDescription()}
       headerAction={
-        <Select
-          value={selectedYear.toString()}
-          onValueChange={(val: string) => setSelectedYear(val)}
-        >
-          <SelectTrigger className="w-24 h-10.5! cursor-pointer font-semibold text-[1rem]">
-            <SelectValue placeholder="Year" />
-          </SelectTrigger>
-          <SelectContent>
-            {years.map((year) => (
-              <SelectItem
-                key={year}
-                value={year.toString()}
-                className="cursor-pointer h-10"
-              >
-                {year}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        mounted ? (
+          <Select
+            value={selectedYear.toString()}
+            onValueChange={(val: string) => setSelectedYear(val)}
+          >
+            <SelectTrigger className="w-24 h-10.5! cursor-pointer font-semibold text-[1rem]">
+              <SelectValue placeholder="Year" />
+            </SelectTrigger>
+            <SelectContent>
+              {years.map((year) => (
+                <SelectItem
+                  key={year}
+                  value={year.toString()}
+                  className="cursor-pointer h-10"
+                >
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <div className="w-24 h-10.5" />
+        )
       }
     />
   );

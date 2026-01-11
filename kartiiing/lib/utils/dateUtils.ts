@@ -1,0 +1,91 @@
+import {
+  differenceInDays,
+  differenceInMonths,
+  differenceInYears,
+  addYears,
+  addMonths,
+  format,
+} from "date-fns";
+
+/**
+ * Converts a date input (string or Date) to a Date object representing the start of that day (00:00:00).
+ * @param dateInput - The date input, either as a string or a Date object.
+ * @returns A Date object set to the start of the given day.
+ */
+export function toDay(dateInput: string | Date): Date {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+/**
+ * Returns a human-readable relative text for the given start and end dates.
+ * It calculates the difference in years, months, and days, and formats it accordingly.
+ * @param startDate - The start date of the event.
+ * @param endDate - The end date of the event.
+ * @returns A string representing the relative time until the start or since the end of the event. E.g., "starts in 2 months, 3 days" or "1 year, 5 months and 10 days ago".
+ */
+export function getRelativeText(startDate: Date, endDate: Date): string {
+  const today = toDay(new Date());
+  const daysToStart = differenceInDays(toDay(startDate), today);
+  const daysToEnd = differenceInDays(toDay(endDate), today);
+
+  const getFormattedDuration = (targetDate: Date, isPast: boolean = false) => {
+    const referenceDate = isPast ? today : targetDate;
+    const comparisonDate = isPast ? targetDate : today;
+
+    const years = differenceInYears(referenceDate, comparisonDate);
+    const months = differenceInMonths(referenceDate, comparisonDate) % 12;
+
+    let remainingDate = new Date(comparisonDate);
+    remainingDate = addYears(remainingDate, years);
+    remainingDate = addMonths(remainingDate, months);
+    const days = differenceInDays(referenceDate, remainingDate);
+
+    const parts = [];
+
+    if (years > 0) {
+      parts.push(`${years} year${years === 1 ? "" : "s"}`);
+    }
+    if (months > 0) {
+      parts.push(`${months} month${months === 1 ? "" : "s"}`);
+    }
+    if (days > 0 || parts.length === 0) {
+      parts.push(`${days} day${days === 1 ? "" : "s"}`);
+    }
+
+    if (parts.length === 1) {
+      return parts[0];
+    } else if (parts.length === 2) {
+      return `${parts[0]} and ${parts[1]}`;
+    } else {
+      return `${parts[0]}, ${parts[1]} and ${parts[2]}`;
+    }
+  };
+
+  if (daysToStart > 0) {
+    const duration = getFormattedDuration(toDay(startDate));
+    return `starts in ${duration}`;
+  } else if (daysToEnd < 0) {
+    const duration = getFormattedDuration(toDay(endDate), true);
+    return `${duration} ago`;
+  } else {
+    return "live now";
+  }
+}
+
+/**
+ * Formats a date string into a more readable format.
+ * @param dateString - The date string to format.
+ * @param withYear - Whether to include the year in the formatted output. Defaults to true.
+ * @returns The formatted date string (e.g. "4 May 2025" or "4 May").
+ */
+export function formatDate(
+  dateString: string,
+  withYear: boolean = true,
+): string {
+  try {
+    return format(new Date(dateString), withYear ? "d MMM yyyy" : "d MMM");
+  } catch {
+    return dateString;
+  }
+}

@@ -10,7 +10,6 @@ import { toIRaceEvent } from './race-event.resource';
 import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
-import { RaceStatus } from '@kartiiing/shared-types';
 import { SEASON_TO_MONTHS, MONTH_NAMES } from './season-month.constants';
 
 @Injectable()

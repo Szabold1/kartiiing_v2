@@ -164,11 +164,23 @@ function getFastestLapsPerCategory(
     .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
     .map((lap) => ({
       category: lap.category?.name || 'Unknown',
+      engineType: lap.category?.engineType || 'Unknown',
       driverName: lap.driver
         ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
         : 'Unknown',
       lapTime: lap.lapTime,
-      sessionType: lap.sessionType,
+      sessionType: formatSessionType(lap.sessionType),
       date: lap.date,
     }));
+}
+
+/**
+ * Convert session type constant to readable format
+ * E.g., "WARM_UP" -> "Warm Up", "PRACTICE" -> "Practice"
+ */
+function formatSessionType(sessionType: string): string {
+  return sessionType
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 }

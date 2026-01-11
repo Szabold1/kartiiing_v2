@@ -6,6 +6,7 @@ import {
   tealGlassBase,
   blueGlassBase,
   amberGlassBase,
+  slateGlassBase,
 } from "@/lib/classNames";
 
 export const ENGINE_COLORS: Record<string, string> = {
@@ -17,3 +18,7 @@ export const ENGINE_COLORS: Record<string, string> = {
   IAME: `${amberGlassBase}`,
   Vortex: `${limeGlassBase}`,
 };
+
+export function getColorStylesForEngineCategory(engineType: string): string {
+  return ENGINE_COLORS[engineType] || slateGlassBase;
+}

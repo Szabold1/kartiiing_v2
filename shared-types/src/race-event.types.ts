@@ -52,6 +52,7 @@ export interface IResultsLink {
 
 export interface IEventFastestLap {
   category: string;
+  engineType: string;
   driverName: string;
   lapTime: number;
   sessionType: string;

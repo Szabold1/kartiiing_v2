@@ -1,6 +1,6 @@
 "use client";
 
-import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
+import { IRaceEventDetail, RaceStatus } from "@kartiiing/shared-types";
 import { X } from "lucide-react";
 import RaceSummary from "@/components/calendar/RaceSummary";
 import RaceActions from "./RaceActions";
@@ -14,7 +14,7 @@ import StatusResultsBadge from "./StatusResultsBadge";
 import RaceDetailsSection from "./RaceDetailsSection";
 
 type Props = {
-  race: IRaceEvent;
+  race: IRaceEventDetail;
   onClose?: () => void;
 };
 
@@ -53,7 +53,7 @@ export default function RaceDetails({ race, onClose }: Props) {
         <RaceDetailsSection title="Summary">
           <RaceSummary race={race} />
         </RaceDetailsSection>
-        {race.fastestLaps && (
+        {race.fastestLaps && race.fastestLaps.length > 0 && (
           <RaceDetailsSection title="Fastest Laps">
             <FastestLaps race={race} />
           </RaceDetailsSection>

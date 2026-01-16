@@ -1,9 +1,9 @@
 import Flag from "react-world-flags";
-import { ICircuit } from "@kartiiing/shared-types";
+import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
 
 type Props = {
-  circuit: ICircuit;
+  circuit: ICircuit | ICircuitDetail;
   showFlag?: boolean;
   version?: "short" | "long";
   className?: string;
@@ -19,8 +19,7 @@ export default function RenderRaceLocation({
 }: Props) {
   const handleClick = () => {
     if (!isClickable) return;
-    const searchQuery = encodeURIComponent(circuit.nameLong);
-    const mapUrl = `https://www.google.com/maps/search/${searchQuery}`;
+    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${circuit.latitude},${circuit.longitude}`;
     window.open(mapUrl, "_blank");
   };
 
@@ -39,7 +38,8 @@ export default function RenderRaceLocation({
       )}
 
       {version === "short" && circuit.nameShort}
-      {version === "long" && circuit.nameLong}
+      {version === "long" &&
+        ("nameLong" in circuit ? circuit.nameLong : circuit.nameShort)}
 
       {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
     </div>

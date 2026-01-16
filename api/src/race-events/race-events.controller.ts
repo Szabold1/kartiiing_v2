@@ -3,6 +3,7 @@ import { RaceEventsService } from './race-events.service';
 import { YearParams, FindRaceEventsQuery } from './dtos';
 import {
   IRaceEvent,
+  IRaceEventDetail,
   IPaginatedResponse,
   IYearStats,
 } from '@kartiiing/shared-types';
@@ -35,7 +36,7 @@ export class RaceEventsController {
   }
 
   @Get('detail/:slug')
-  async findBySlug(@Param('slug') slug: string): Promise<IRaceEvent> {
+  async findBySlug(@Param('slug') slug: string): Promise<IRaceEventDetail> {
     return await this.raceEventsService.findBySlug(slug);
   }
 

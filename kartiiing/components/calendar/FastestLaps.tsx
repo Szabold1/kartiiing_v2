@@ -1,10 +1,10 @@
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEventDetail } from "@kartiiing/shared-types";
 import { badgeBase, grayGlassBase, lightDarkGlassBase } from "@/lib/classNames";
 import CategoryBadge from "./CategoryBadge";
 import { formatDate, formatLapTime } from "@/lib/utils";
 
 type Props = {
-  race: IRaceEvent;
+  race: IRaceEventDetail;
 };
 
 export default function FastestLaps({ race }: Props) {

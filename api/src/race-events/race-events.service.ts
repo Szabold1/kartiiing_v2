@@ -4,9 +4,10 @@ import { Repository, SelectQueryBuilder } from 'typeorm';
 import {
   RaceEventSortOptions,
   IRaceEvent,
+  IRaceEventDetail,
   IPaginatedResponse,
 } from '@kartiiing/shared-types';
-import { toIRaceEvent } from './race-event.resource';
+import { toIRaceEvent, toIRaceEventDetail } from './race-event.resource';
 import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
@@ -42,7 +43,7 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
-  async findBySlug(slug: string): Promise<IRaceEvent> {
+  async findBySlug(slug: string): Promise<IRaceEventDetail> {
     // Slug format: year-title-circuit-id
     // Extract the ID from the end of the slug
     const lastHyphenIndex = slug.lastIndexOf('-');
@@ -73,14 +74,18 @@ export class RaceEventsService {
         end: event.dateEnd,
       };
       const status = RaceStatusCalculator.getRaceStatus(raceDate, null);
-      return toIRaceEvent(event, status);
+      return toIRaceEventDetail(event, status);
     }
 
     // If event is in the future, fetch future races to determine if it's UPNEXT
     const futureRaces = await this.getFutureRaces();
-    const transformedRaces = this.transformEvents(futureRaces, true);
+    const transformedRaces = this.transformEvents(
+      futureRaces,
+      true,
+      true,
+    ) as IRaceEventDetail[];
     const currentRaceTransformed = transformedRaces.find((r) => r.id === id);
-    return currentRaceTransformed || toIRaceEvent(event);
+    return currentRaceTransformed || toIRaceEventDetail(event);
   }
 
   async getYearStats(
@@ -312,12 +317,13 @@ export class RaceEventsService {
   }
 
   /**
-   * Transform race events to IRaceEvent with optional status calculation
+   * Transform race events to IRaceEvent/IRaceEventDetail with optional status calculation
    */
   private transformEvents(
     events: RaceEvent[],
     includeStatus: boolean,
-  ): IRaceEvent[] {
+    returnDetail = false,
+  ): IRaceEvent[] | IRaceEventDetail[] {
     const nextRaceDate = includeStatus
       ? RaceStatusCalculator.getNextRaceDate(
           events.map((e) => ({
@@ -339,7 +345,9 @@ export class RaceEventsService {
         ? RaceStatusCalculator.getRaceStatus(raceDate, nextRaceDate)
         : null;
 
-      return toIRaceEvent(event, status);
+      return returnDetail
+        ? toIRaceEventDetail(event, status)
+        : toIRaceEvent(event, status);
     });
 
     return transformedEvents;

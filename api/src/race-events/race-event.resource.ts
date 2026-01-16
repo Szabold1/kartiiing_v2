@@ -5,9 +5,10 @@ import { RaceEventChampionship } from '../entities/raceEventChampionship.entity'
 import { FastestLap } from '../entities/fastestLap.entity';
 import {
   IRaceEvent,
+  IRaceEventDetail,
   RaceStatus,
   IResultsLink,
-  IEventFastestLap,
+  IFastestLap,
 } from '@kartiiing/shared-types';
 
 export function toIRaceEvent(
@@ -26,7 +27,6 @@ export function toIRaceEvent(
     circuit: {
       id: entity.circuit.id,
       nameShort: entity.circuit.nameShort,
-      nameLong: entity.circuit.nameLong,
       length: entity.circuit.length,
       website: entity.circuit.websiteLink,
       latitude: entity.circuit.latitude,
@@ -36,20 +36,10 @@ export function toIRaceEvent(
         name: entity.circuit.country.name,
         code: entity.circuit.country.code,
       },
-      layout: {
-        id: entity.circuitLayout?.id || 0,
-        name: entity.circuitLayout?.name || undefined,
-        length: entity.circuitLayout?.length || 0,
-      },
     },
     championships: sortedChampionships,
     categories: groupCategoriesByEngineType(entity.categories),
   };
-
-  // Add fastest laps if available
-  if (Array.isArray(entity?.fastestLaps) && entity?.fastestLaps.length > 0) {
-    raceEvent.fastestLaps = getFastestLapsPerCategory(entity.fastestLaps);
-  }
 
   // Add result links if available
   if (Array.isArray(entity?.results) && entity?.results.length > 0) {
@@ -64,6 +54,34 @@ export function toIRaceEvent(
   }
 
   return raceEvent;
+}
+
+export function toIRaceEventDetail(
+  entity: RaceEvent,
+  status?: RaceStatus | null,
+): IRaceEventDetail {
+  const baseEvent = toIRaceEvent(entity, status);
+
+  // Extend circuit with detailed information
+  const detailedCircuit = {
+    ...baseEvent.circuit,
+    nameLong: entity.circuit.nameLong,
+    layout: {
+      id: entity.circuitLayout?.id || 0,
+      name: entity.circuitLayout?.name || undefined,
+      length: entity.circuitLayout?.length || 0,
+    },
+  };
+
+  const raceEventDetail: IRaceEventDetail = {
+    ...baseEvent,
+    circuit: detailedCircuit,
+    fastestLaps: Array.isArray(entity?.fastestLaps)
+      ? getFastestLapsPerCategory(entity.fastestLaps)
+      : undefined,
+  };
+
+  return raceEventDetail;
 }
 
 /**
@@ -145,9 +163,7 @@ function sortResultLinks(
 /**
  * Gets the fastest lap per category, sorted by category order
  */
-function getFastestLapsPerCategory(
-  fastestLaps: FastestLap[],
-): IEventFastestLap[] {
+function getFastestLapsPerCategory(fastestLaps: FastestLap[]): IFastestLap[] {
   const lapMap = new Map<number, FastestLap>();
 
   for (const lap of fastestLaps || []) {

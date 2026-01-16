@@ -1,3 +1,6 @@
+import { ICircuit, ICircuitDetail } from "./circuit.types";
+import { IFastestLap } from "./fastest-lap.types";
+
 export enum RaceEventSortOptions {
   ASC = "asc",
   DESC = "desc",
@@ -8,30 +11,6 @@ export interface IRaceEventDate {
   end: string;
 }
 
-export interface ICountry {
-  id: number;
-  name: string;
-  code: string;
-}
-
-export interface ICircuitLayout {
-  id: number;
-  name?: string;
-  length: number;
-}
-
-export interface ICircuit {
-  id: number;
-  nameShort: string;
-  nameLong: string;
-  length: number;
-  website?: string;
-  latitude: number;
-  longitude: number;
-  country: ICountry;
-  layout: ICircuitLayout;
-}
-
 export interface IChampionship {
   id: number;
   name: string;
@@ -39,24 +18,15 @@ export interface IChampionship {
 }
 
 export enum RaceStatus {
-  LIVE = 'Live',
-  UPNEXT = 'Up Next',
-  UPCOMING = 'Upcoming',
-  FINISHED = 'Finished',
+  LIVE = "Live",
+  UPNEXT = "Up Next",
+  UPCOMING = "Upcoming",
+  FINISHED = "Finished",
 }
 
 export interface IResultsLink {
   category: string;
   url: string;
-}
-
-export interface IEventFastestLap {
-  category: string;
-  engineType: string;
-  driverName: string;
-  lapTime: number;
-  sessionType: string;
-  date: string;
 }
 
 export interface IRaceEvent {
@@ -66,23 +36,13 @@ export interface IRaceEvent {
   circuit: ICircuit;
   championships: IChampionship[];
   categories: Record<string, string[]>;
-  fastestLaps?: IEventFastestLap[];
   status?: RaceStatus;
   links?: {
     results?: IResultsLink[];
-  }
+  };
 }
 
-export interface IPaginationMeta {
-  currentPage: number;
-  itemsPerPage: number;
-  totalItems: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-}
-
-export interface IPaginatedResponse<T> {
-  data: T[];
-  meta: IPaginationMeta;
+export interface IRaceEventDetail extends IRaceEvent {
+  circuit: ICircuitDetail;
+  fastestLaps?: IFastestLap[];
 }

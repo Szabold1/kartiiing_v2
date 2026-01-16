@@ -9,7 +9,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { getRaceEventBySlug } from "@/lib/api";
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEventDetail } from "@kartiiing/shared-types";
 import RaceDetails from "./RaceDetails";
 import Loader from "../Loader";
 
@@ -18,7 +18,7 @@ export default function RaceSheet() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("race");
 
-  const [race, setRace] = useState<IRaceEvent | null>(null);
+  const [race, setRace] = useState<IRaceEventDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

@@ -1,6 +1,7 @@
 import {
   RaceEventSortOptions,
   IRaceEvent,
+  IRaceEventDetail,
   IPaginatedResponse,
   IYearStats,
 } from "@kartiiing/shared-types";
@@ -68,7 +69,7 @@ export async function getRaceEvents(
 /**
  * Fetch a single race event by slug
  */
-export async function getRaceEventBySlug(slug: string): Promise<IRaceEvent> {
+export async function getRaceEventBySlug(slug: string): Promise<IRaceEventDetail> {
   const encodedSlug = encodeURIComponent(slug);
   const url = `${getApiBase()}/race-events/detail/${encodedSlug}`;
   const res = await fetch(url);

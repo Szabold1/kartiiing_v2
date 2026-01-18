@@ -1,9 +1,10 @@
 import Flag from "react-world-flags";
-import { ICircuit } from "@kartiiing/shared-types";
+import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
+import { flagIconBase } from "@/lib/classNames";
 
 type Props = {
-  circuit: ICircuit;
+  circuit: ICircuit | ICircuitDetail;
   showFlag?: boolean;
   version?: "short" | "long";
   className?: string;
@@ -17,31 +18,38 @@ export default function RenderRaceLocation({
   className = "",
   isClickable = false,
 }: Props) {
-  const handleClick = () => {
-    if (!isClickable) return;
-    const searchQuery = encodeURIComponent(circuit.nameLong);
-    const mapUrl = `https://www.google.com/maps/search/${searchQuery}`;
-    window.open(mapUrl, "_blank");
-  };
+  const mapUrl = `https://maps.google.com/?q=${circuit.latitude},${circuit.longitude}`;
 
-  return (
-    <div
-      className={`flex items-center gap-2 w-fit ${
-        isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
-      } ${className}`}
-      onClick={handleClick}
-    >
+  const baseClassName = `flex items-center gap-2 w-fit ${
+    isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
+  } ${className}`;
+
+  const content = (
+    <>
       {showFlag && (
-        <Flag
-          code={circuit.country.code}
-          className="w-5 max-h-4 rounded-[0.15rem] object-cover shadow"
-        />
+        <Flag code={circuit.country.code} className={flagIconBase} />
       )}
 
       {version === "short" && circuit.nameShort}
-      {version === "long" && circuit.nameLong}
+      {version === "long" &&
+        ("nameLong" in circuit ? circuit.nameLong : circuit.nameShort)}
 
       {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
-    </div>
+    </>
   );
+
+  if (isClickable) {
+    return (
+      <a
+        href={mapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={baseClassName}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <div className={baseClassName}>{content}</div>;
 }

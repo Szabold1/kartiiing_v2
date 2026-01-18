@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Country } from './country.entity';
 import { CircuitLayout } from './circuitLayout.entity';
+import { FastestLap } from './fastestLap.entity';
 
 @Entity('circuits')
 @Index(['nameShort', 'country'], { unique: true })
@@ -41,4 +42,7 @@ export class Circuit {
     cascade: true,
   })
   layouts!: CircuitLayout[];
+
+  @OneToMany(() => FastestLap, (lap) => lap.circuit)
+  fastestLaps?: FastestLap[];
 }

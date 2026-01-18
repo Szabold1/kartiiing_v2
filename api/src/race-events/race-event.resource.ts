@@ -5,9 +5,10 @@ import { RaceEventChampionship } from '../entities/raceEventChampionship.entity'
 import { FastestLap } from '../entities/fastestLap.entity';
 import {
   IRaceEvent,
+  IRaceEventDetail,
   RaceStatus,
   IResultsLink,
-  IEventFastestLap,
+  IFastestLap,
 } from '@kartiiing/shared-types';
 
 export function toIRaceEvent(
@@ -26,7 +27,6 @@ export function toIRaceEvent(
     circuit: {
       id: entity.circuit.id,
       nameShort: entity.circuit.nameShort,
-      nameLong: entity.circuit.nameLong,
       length: entity.circuit.length,
       website: entity.circuit.websiteLink,
       latitude: entity.circuit.latitude,
@@ -36,20 +36,10 @@ export function toIRaceEvent(
         name: entity.circuit.country.name,
         code: entity.circuit.country.code,
       },
-      layout: {
-        id: entity.circuitLayout?.id || 0,
-        name: entity.circuitLayout?.name || undefined,
-        length: entity.circuitLayout?.length || 0,
-      },
     },
     championships: sortedChampionships,
     categories: groupCategoriesByEngineType(entity.categories),
   };
-
-  // Add fastest laps if available
-  if (Array.isArray(entity?.fastestLaps) && entity?.fastestLaps.length > 0) {
-    raceEvent.fastestLaps = getFastestLapsPerCategory(entity.fastestLaps);
-  }
 
   // Add result links if available
   if (Array.isArray(entity?.results) && entity?.results.length > 0) {
@@ -64,6 +54,37 @@ export function toIRaceEvent(
   }
 
   return raceEvent;
+}
+
+export function toIRaceEventDetail(
+  entity: RaceEvent,
+  status?: RaceStatus | null,
+): IRaceEventDetail {
+  const baseEvent = toIRaceEvent(entity, status);
+
+  // Extend circuit with detailed information
+  const detailedCircuit = {
+    ...baseEvent.circuit,
+    nameLong: entity.circuit.nameLong,
+    layout: {
+      id: entity.circuitLayout?.id || 0,
+      name: entity.circuitLayout?.name || undefined,
+      length: entity.circuitLayout?.length || 0,
+    },
+    circuitFastestLaps: Array.isArray(entity.circuit?.fastestLaps)
+      ? getFastestLapsPerCategoryPerYear(entity.circuit.fastestLaps, true)
+      : undefined,
+  };
+
+  const raceEventDetail: IRaceEventDetail = {
+    ...baseEvent,
+    circuit: detailedCircuit,
+    fastestLaps: Array.isArray(entity?.fastestLaps)
+      ? getFastestLapsPerCategoryPerYear(entity.fastestLaps)
+      : undefined,
+  };
+
+  return raceEventDetail;
 }
 
 /**
@@ -143,35 +164,59 @@ function sortResultLinks(
 }
 
 /**
- * Gets the fastest lap per category, sorted by category order
+ * Gets the fastest lap per category per year, sorted by category order
+ * If withTitles is true, includes the event title for each lap
  */
-function getFastestLapsPerCategory(
+function getFastestLapsPerCategoryPerYear(
   fastestLaps: FastestLap[],
-): IEventFastestLap[] {
-  const lapMap = new Map<number, FastestLap>();
+  withTitles = false,
+): IFastestLap[] {
+  const lapsByYearAndCategory = new Map<string, FastestLap>();
 
   for (const lap of fastestLaps || []) {
-    if (lap.category) {
-      const existing = lapMap.get(lap.category.id);
-      if (!existing || lap.lapTime < existing.lapTime) {
-        lapMap.set(lap.category.id, lap);
-      }
+    if (!lap.category) continue;
+
+    const year = new Date(lap.date).getFullYear();
+    const key = `${lap.category.id}_${year}`;
+    const existing = lapsByYearAndCategory.get(key);
+
+    if (!existing || lap.lapTime < existing.lapTime) {
+      lapsByYearAndCategory.set(key, lap);
     }
   }
 
-  // Convert to array and sort by category order
-  return Array.from(lapMap.values())
-    .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
-    .map((lap) => ({
-      category: lap.category?.name || 'Unknown',
-      engineType: lap.category?.engineType || 'Unknown',
-      driverName: lap.driver
-        ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
-        : 'Unknown',
-      lapTime: lap.lapTime,
-      sessionType: formatSessionType(lap.sessionType),
-      date: lap.date,
-    }));
+  // Convert to array, sort by category order and lap time, and map to IFastestLap
+  return Array.from(lapsByYearAndCategory.values())
+    .sort((a, b) => {
+      const categorySort =
+        (a.category?.order ?? 999) - (b.category?.order ?? 999);
+      if (categorySort !== 0) return categorySort;
+      return a.lapTime - b.lapTime;
+    })
+    .map((lap) => {
+      let eventTitle = '';
+      if (withTitles) {
+        const eventChampionships = sortChampionships(
+          lap.raceEvent?.championshipDetails || [],
+        );
+        eventTitle = eventChampionships[0]
+          ? buildRaceTitle(eventChampionships)
+          : '';
+      }
+
+      return {
+        category: lap.category?.name || 'Unknown',
+        engineType: lap.category?.engineType || 'Unknown',
+        driverName: lap.driver
+          ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
+          : 'Unknown',
+        driverCountryCode: lap.driver?.country?.code,
+        lapTime: lap.lapTime,
+        sessionType: formatSessionType(lap.sessionType),
+        date: lap.date,
+        eventTitle: eventTitle || undefined,
+      };
+    });
 }
 
 /**

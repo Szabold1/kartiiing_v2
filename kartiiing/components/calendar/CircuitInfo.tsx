@@ -70,7 +70,7 @@ export default function CircuitInfo({ circuit, race }: Props) {
         </div>
         {circuit.circuitFastestLaps &&
           circuit.circuitFastestLaps.length > 0 && (
-            <div className=" mt-3 pt-4 border-t border-gray-300 dark:border-gray-700">
+            <div className="mt-3 pt-4 border-t border-gray-300 dark:border-gray-700">
               <FastestLapsWithDropdown
                 fastestLaps={circuit.circuitFastestLaps}
                 showYears={true}

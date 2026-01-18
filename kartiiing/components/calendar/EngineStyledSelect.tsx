@@ -20,7 +20,7 @@ type Props = {
   engineType?: string;
 };
 
-export default function GenericSelect({
+export default function EngineStyledSelect({
   label,
   options,
   value,

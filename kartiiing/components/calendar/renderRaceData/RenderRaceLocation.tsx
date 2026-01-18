@@ -18,24 +18,16 @@ export default function RenderRaceLocation({
   className = "",
   isClickable = false,
 }: Props) {
-  const handleClick = () => {
-    if (!isClickable) return;
-    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${circuit.latitude},${circuit.longitude}`;
-    window.open(mapUrl, "_blank");
-  };
+  const mapUrl = `https://maps.google.com/?q=${circuit.latitude},${circuit.longitude}`;
 
-  return (
-    <div
-      className={`flex items-center gap-2 w-fit ${
-        isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
-      } ${className}`}
-      onClick={handleClick}
-    >
+  const baseClassName = `flex items-center gap-2 w-fit ${
+    isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
+  } ${className}`;
+
+  const content = (
+    <>
       {showFlag && (
-        <Flag
-          code={circuit.country.code}
-          className={flagIconBase}
-        />
+        <Flag code={circuit.country.code} className={flagIconBase} />
       )}
 
       {version === "short" && circuit.nameShort}
@@ -43,6 +35,21 @@ export default function RenderRaceLocation({
         ("nameLong" in circuit ? circuit.nameLong : circuit.nameShort)}
 
       {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
-    </div>
+    </>
   );
+
+  if (isClickable) {
+    return (
+      <a
+        href={mapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={baseClassName}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <div className={baseClassName}>{content}</div>;
 }

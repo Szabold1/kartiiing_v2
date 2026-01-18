@@ -35,24 +35,25 @@ export default function StatusResultsBadge({
     [heightValue],
   );
 
-  const baseClasses = ` relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium `;
+  const baseClasses = `relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium`;
 
-  // If results are available, show results button instead of status
+  // If results are available, show results link instead of status
   if (resultLinks.length > 0) {
     const resultsClasses = `${baseClasses} ${grayGlassHover} cursor-pointer ${className} `;
 
     if (resultLinks.length === 1) {
       return (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            openLinkInNewTab(resultLinks[0].url);
-          }}
+        <a
+          href={resultLinks[0].url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
           className={`${resultsClasses}`}
           style={{ height: calculatedHeight }}
+          title="View results"
         >
           Results <ExternalLink className="w-3 h-3 mx-0.5" />
-        </button>
+        </a>
       );
     }
 
@@ -60,7 +61,7 @@ export default function StatusResultsBadge({
       <Select value="" onValueChange={(url) => openLinkInNewTab(url)}>
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
-          className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 hover:!text-gray-700 hover:dark:!text-gray-300`}
+          className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 transition`}
           style={{ height: calculatedHeight }}
         >
           <SelectValue placeholder="Results" />

@@ -185,9 +185,14 @@ function getFastestLapsPerCategoryPerYear(
     }
   }
 
-  // Convert to array, sort by category order, and map to IFastestLap
+  // Convert to array, sort by category order and lap time, and map to IFastestLap
   return Array.from(lapsByYearAndCategory.values())
-    .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
+    .sort((a, b) => {
+      const categorySort =
+        (a.category?.order ?? 999) - (b.category?.order ?? 999);
+      if (categorySort !== 0) return categorySort;
+      return a.lapTime - b.lapTime;
+    })
     .map((lap) => {
       let eventTitle = '';
       if (withTitles) {

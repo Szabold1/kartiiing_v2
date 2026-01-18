@@ -14,7 +14,7 @@ export default function RaceDetailsSection({
 }: Props) {
   return (
     <section>
-      <SectionTitle className="px-4 pb-0.5 !text-lg">{title}</SectionTitle>
+      <SectionTitle className="px-4 pb-1 !text-lg">{title}</SectionTitle>
       <div
         className={`flex flex-col p-3 rounded-2xl ${lightDarkGlassBase} ${className}`}
       >

@@ -1,5 +1,5 @@
 import { badgeBase } from "@/lib/classNames";
-import { getColorStylesForEngineCategory } from "@/lib/constants/categories";
+import { getColorsForEngine } from "@/lib/constants/categories";
 
 type Props = {
   label: string;
@@ -12,7 +12,7 @@ export default function CategoryBadge({
   engineType,
   className = "",
 }: Props) {
-  const colorClass = getColorStylesForEngineCategory(engineType);
+  const colorClass = getColorsForEngine(engineType);
 
   return (
     <span className={`${badgeBase} ${colorClass} ${className}`}>{label}</span>

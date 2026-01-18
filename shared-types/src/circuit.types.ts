@@ -20,5 +20,5 @@ export interface ICircuit {
 export interface ICircuitDetail extends ICircuit {
   nameLong: string;
   layout: ICircuitLayout;
-  ICircuitFastestLaps?: IFastestLap[];
+  circuitFastestLaps?: IFastestLap[];
 }

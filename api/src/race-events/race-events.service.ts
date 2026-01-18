@@ -136,7 +136,7 @@ export class RaceEventsService {
     const pageSize = +limit;
     const skip = (pageNumber - 1) * pageSize;
 
-    const qb = this.createBaseQueryBuilder();
+    const qb = this.createListQueryBuilder();
     this.addSorting(qb, sort);
     if (year) {
       qb.andWhere('EXTRACT(YEAR FROM raceEvent.dateStart) = :year', { year });
@@ -176,9 +176,10 @@ export class RaceEventsService {
   }
 
   /**
-   * Create the base query builder with all necessary joins for race events
+   * Create a lightweight query builder for listing/pagination
+   * Only loads essential data needed for list views
    */
-  private createBaseQueryBuilder(): SelectQueryBuilder<RaceEvent> {
+  private createListQueryBuilder(): SelectQueryBuilder<RaceEvent> {
     return this.raceEventRepo
       .createQueryBuilder('raceEvent')
       .leftJoinAndSelect('raceEvent.circuit', 'circuit')
@@ -187,10 +188,42 @@ export class RaceEventsService {
       .leftJoinAndSelect('championshipDetails.championship', 'championship')
       .leftJoinAndSelect('raceEvent.categories', 'categories')
       .leftJoinAndSelect('raceEvent.results', 'results')
-      .leftJoinAndSelect('results.category', 'resultCategory')
+      .leftJoinAndSelect('results.category', 'resultCategory');
+  }
+
+  /**
+   * Create a full query builder for detail views
+   * Loads all relations including results, fastest laps, and circuit fastest laps
+   */
+  private createDetailQueryBuilder(): SelectQueryBuilder<RaceEvent> {
+    return this.createListQueryBuilder()
+      .leftJoinAndSelect('raceEvent.circuitLayout', 'circuitLayout')
       .leftJoinAndSelect('raceEvent.fastestLaps', 'fastestLaps')
       .leftJoinAndSelect('fastestLaps.category', 'fastestLapCategory')
-      .leftJoinAndSelect('fastestLaps.driver', 'driver');
+      .leftJoinAndSelect('fastestLaps.driver', 'driver')
+      .leftJoinAndSelect('driver.country', 'driverCountry')
+      .leftJoinAndSelect('circuit.fastestLaps', 'circuitFastestLaps')
+      .leftJoinAndSelect(
+        'circuitFastestLaps.category',
+        'circuitFastestLapCategory',
+      )
+      .leftJoinAndSelect('circuitFastestLaps.driver', 'circuitFastestLapDriver')
+      .leftJoinAndSelect(
+        'circuitFastestLapDriver.country',
+        'circuitFastestLapDriverCountry',
+      )
+      .leftJoinAndSelect(
+        'circuitFastestLaps.raceEvent',
+        'circuitFastestLapRaceEvent',
+      )
+      .leftJoinAndSelect(
+        'circuitFastestLapRaceEvent.championshipDetails',
+        'circuitFastestLapChampionshipDetails',
+      )
+      .leftJoinAndSelect(
+        'circuitFastestLapChampionshipDetails.championship',
+        'circuitFastestLapChampionship',
+      );
   }
 
   /**
@@ -357,7 +390,7 @@ export class RaceEventsService {
    * Get an event by its ID with all necessary relations for transformation
    */
   private getEventById(id: number): Promise<RaceEvent | null> {
-    return this.createBaseQueryBuilder()
+    return this.createDetailQueryBuilder()
       .where('raceEvent.id = :id', { id })
       .getOne();
   }
@@ -367,7 +400,7 @@ export class RaceEventsService {
    */
   private getFutureRaces(): Promise<RaceEvent[]> {
     const now = new Date();
-    return this.createBaseQueryBuilder()
+    return this.createDetailQueryBuilder()
       .where('raceEvent.dateEnd >= :now', { now })
       .orderBy('raceEvent.dateStart', 'ASC')
       .addOrderBy('raceEvent.dateEnd', 'ASC')

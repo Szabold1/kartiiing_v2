@@ -4,7 +4,6 @@ import { IRaceEventDetail, RaceStatus } from "@kartiiing/shared-types";
 import { X } from "lucide-react";
 import RaceSummary from "@/components/calendar/RaceSummary";
 import RaceActions from "./RaceActions";
-import FastestLaps from "./FastestLaps";
 import {
   lightDarkGlassBase,
   lightDarkGlassHover,
@@ -12,6 +11,7 @@ import {
 } from "@/lib/classNames";
 import StatusResultsBadge from "./StatusResultsBadge";
 import RaceDetailsSection from "./RaceDetailsSection";
+import FastestLapsWithDropdown from "./FastestLapsWithDropdown";
 
 type Props = {
   race: IRaceEventDetail;
@@ -54,8 +54,8 @@ export default function RaceDetails({ race, onClose }: Props) {
           <RaceSummary race={race} />
         </RaceDetailsSection>
         {race.fastestLaps && race.fastestLaps.length > 0 && (
-          <RaceDetailsSection title="Fastest Laps">
-            <FastestLaps race={race} />
+          <RaceDetailsSection title="Event Fastest Laps">
+            <FastestLapsWithDropdown fastestLaps={race.fastestLaps} />
           </RaceDetailsSection>
         )}
       </div>

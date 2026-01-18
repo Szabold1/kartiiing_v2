@@ -1,6 +1,7 @@
 import Flag from "react-world-flags";
 import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
+import { flagIconBase } from "@/lib/classNames";
 
 type Props = {
   circuit: ICircuit | ICircuitDetail;
@@ -33,7 +34,7 @@ export default function RenderRaceLocation({
       {showFlag && (
         <Flag
           code={circuit.country.code}
-          className="w-5 max-h-4 rounded-[0.15rem] object-cover shadow"
+          className={flagIconBase}
         />
       )}
 

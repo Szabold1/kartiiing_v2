@@ -71,13 +71,16 @@ export function toIRaceEventDetail(
       name: entity.circuitLayout?.name || undefined,
       length: entity.circuitLayout?.length || 0,
     },
+    circuitFastestLaps: Array.isArray(entity.circuit?.fastestLaps)
+      ? getFastestLapsPerCategoryPerYear(entity.circuit.fastestLaps, true)
+      : undefined,
   };
 
   const raceEventDetail: IRaceEventDetail = {
     ...baseEvent,
     circuit: detailedCircuit,
     fastestLaps: Array.isArray(entity?.fastestLaps)
-      ? getFastestLapsPerCategory(entity.fastestLaps)
+      ? getFastestLapsPerCategoryPerYear(entity.fastestLaps)
       : undefined,
   };
 
@@ -161,33 +164,54 @@ function sortResultLinks(
 }
 
 /**
- * Gets the fastest lap per category, sorted by category order
+ * Gets the fastest lap per category per year, sorted by category order
+ * If withTitles is true, includes the event title for each lap
  */
-function getFastestLapsPerCategory(fastestLaps: FastestLap[]): IFastestLap[] {
-  const lapMap = new Map<number, FastestLap>();
+function getFastestLapsPerCategoryPerYear(
+  fastestLaps: FastestLap[],
+  withTitles = false,
+): IFastestLap[] {
+  const lapsByYearAndCategory = new Map<string, FastestLap>();
 
   for (const lap of fastestLaps || []) {
-    if (lap.category) {
-      const existing = lapMap.get(lap.category.id);
-      if (!existing || lap.lapTime < existing.lapTime) {
-        lapMap.set(lap.category.id, lap);
-      }
+    if (!lap.category) continue;
+
+    const year = new Date(lap.date).getFullYear();
+    const key = `${lap.category.id}_${year}`;
+    const existing = lapsByYearAndCategory.get(key);
+
+    if (!existing || lap.lapTime < existing.lapTime) {
+      lapsByYearAndCategory.set(key, lap);
     }
   }
 
-  // Convert to array and sort by category order
-  return Array.from(lapMap.values())
+  // Convert to array, sort by category order, and map to IFastestLap
+  return Array.from(lapsByYearAndCategory.values())
     .sort((a, b) => (a.category?.order ?? 999) - (b.category?.order ?? 999))
-    .map((lap) => ({
-      category: lap.category?.name || 'Unknown',
-      engineType: lap.category?.engineType || 'Unknown',
-      driverName: lap.driver
-        ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
-        : 'Unknown',
-      lapTime: lap.lapTime,
-      sessionType: formatSessionType(lap.sessionType),
-      date: lap.date,
-    }));
+    .map((lap) => {
+      let eventTitle = '';
+      if (withTitles) {
+        const eventChampionships = sortChampionships(
+          lap.raceEvent?.championshipDetails || [],
+        );
+        eventTitle = eventChampionships[0]
+          ? buildRaceTitle(eventChampionships)
+          : '';
+      }
+
+      return {
+        category: lap.category?.name || 'Unknown',
+        engineType: lap.category?.engineType || 'Unknown',
+        driverName: lap.driver
+          ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
+          : 'Unknown',
+        driverCountryCode: lap.driver?.country?.code,
+        lapTime: lap.lapTime,
+        sessionType: formatSessionType(lap.sessionType),
+        date: lap.date,
+        eventTitle: eventTitle || undefined,
+      };
+    });
 }
 
 /**

@@ -12,8 +12,8 @@ type Props = {
   lap: IFastestLap;
 };
 
-const renderBadge = (label: string) => {
-  return <span className={`${badgeBase} ${grayGlassBase}`}>{label}</span>;
+const renderBadge = (label: string, className: string = "") => {
+  return <span className={`${badgeBase} ${grayGlassBase} ${className}`}>{label}</span>;
 };
 
 export default function FastestLapItem({ lap }: Props) {
@@ -21,10 +21,10 @@ export default function FastestLapItem({ lap }: Props) {
     <div
       className={`flex flex-col gap-2.5 p-2.5 rounded-xl ${lightDarkGlassBase}`}
     >
-      <div className="flex items-start justify-between">
+      <div className="flex gap-1.5 justify-between">
         {lap.eventTitle && renderBadge(lap.eventTitle)}
         {!lap.eventTitle && renderBadge(lap.sessionType)}
-        {renderBadge(formatDate(lap.date))}
+        {renderBadge(formatDate(lap.date), "whitespace-nowrap")}
       </div>
       <div className="flex items-end justify-between">
         <div className="flex items-center gap-2">

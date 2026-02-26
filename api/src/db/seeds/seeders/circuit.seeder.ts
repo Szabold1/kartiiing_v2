@@ -13,8 +13,8 @@ interface CircuitLayoutData {
 }
 
 interface CircuitData {
-  nameShort: string;
-  nameLong: string;
+  locationName: string;
+  name: string;
   length: number;
   websiteLink?: string;
   latitude: number;
@@ -56,15 +56,15 @@ export class CircuitSeeder {
         for (const circuitData of circuits) {
           // Check if circuit already exists
           let circuit = await circuitRepository.findOne({
-            where: { nameShort: circuitData.nameShort },
+            where: { locationName: circuitData.locationName },
             relations: ['layouts'],
           });
 
           if (!circuit) {
             // Create new circuit with default length
             circuit = await circuitRepository.save({
-              nameShort: circuitData.nameShort,
-              nameLong: circuitData.nameLong,
+              locationName: circuitData.locationName,
+              name: circuitData.name,
               length: circuitData.length,
               websiteLink: circuitData.websiteLink,
               latitude: circuitData.latitude,

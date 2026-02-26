@@ -9,7 +9,7 @@ export interface ICircuitLayout {
 
 export interface ICircuit {
   id: number;
-  nameShort: string;
+  locationName: string;
   length: number;
   website?: string;
   latitude: number;
@@ -18,7 +18,7 @@ export interface ICircuit {
 }
 
 export interface ICircuitDetail extends ICircuit {
-  nameLong: string;
+  name: string;
   layout: ICircuitLayout;
   circuitFastestLaps?: IFastestLap[];
 }

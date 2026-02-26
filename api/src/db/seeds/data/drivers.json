@@ -6,7 +6,9 @@
     { "firstName": "Dean", "lastName": "Hoogendoorn" },
     { "firstName": "Jayden", "lastName": "Thien" },
     { "firstName": "Sem", "lastName": "Knopjes" },
-    { "firstName": "Enzo", "lastName": "Bol" }
+    { "firstName": "Enzo", "lastName": "Bol" },
+    { "firstName": "Wout", "lastName": "Kurstjens" },
+    { "firstName": "Daniel", "lastName": "Mirón Lorente" }
   ],
   "IT": [
     { "firstName": "Giuseppe", "lastName": "Palomba" },
@@ -19,7 +21,9 @@
     { "firstName": "Davide", "lastName": "Fore" },
     { "firstName": "Riccardo", "lastName": "Ferrari" },
     { "firstName": "Giovanni", "lastName": "Pistore" },
-    { "firstName": "Danny", "lastName": "Carenini" }
+    { "firstName": "Danny", "lastName": "Carenini" },
+    { "firstName": "Niccoló", "lastName": "Perico" },
+    { "firstName": "Gioele", "lastName": "Girardello" }
   ],
   "DE": [
     { "firstName": "David", "lastName": "Trefilov" },
@@ -38,7 +42,10 @@
     { "firstName": "Nicolas", "lastName": "Picot" },
     { "firstName": "Mattis", "lastName": "Brageot" },
     { "firstName": "Charles", "lastName": "Ural" },
-    { "firstName": "Mehdi", "lastName": "Lassoued" }
+    { "firstName": "Mehdi", "lastName": "Lassoued" },
+    { "firstName": "Antoine", "lastName": "Barbaroux" },
+    { "firstName": "Mehdi", "lastName": "Lassoued" },
+    { "firstName": "Zack", "lastName": "Zhu" }
   ],
   "ES": [
     { "firstName": "Pedro", "lastName": "Hiltbrand" },
@@ -57,12 +64,14 @@
     { "firstName": "Quentin", "lastName": "Voria" },
     { "firstName": "Chiara", "lastName": "Battig" },
     { "firstName": "Dan", "lastName": "Allemann" },
-    { "firstName": "Tino", "lastName": "Sidler" }
+    { "firstName": "Tino", "lastName": "Sidler" },
+    { "firstName": "Luan", "lastName": "Seidl" }
   ],
   "SE": [
     { "firstName": "Viktor", "lastName": "Gustafsson" },
     { "firstName": "Mio", "lastName": "Olert" },
-    { "firstName": "Jonatan", "lastName": "Morin" }
+    { "firstName": "Jonatan", "lastName": "Morin" },
+    { "firstName": "Lucas", "lastName": "Rosenbäck" }
   ],
   "RU": [
     { "firstName": "Vladimir", "lastName": "Ivannikov" },
@@ -79,7 +88,8 @@
     { "firstName": "Macauley", "lastName": "Bishop" },
     { "firstName": "Jesse", "lastName": "Phillips" },
     { "firstName": "Archie", "lastName": "Owen" },
-    { "firstName": "Colbe", "lastName": "Pattison" }
+    { "firstName": "Colbe", "lastName": "Pattison" },
+    { "firstName": "Joshua", "lastName": "Cooke" }
   ],
   "CA": [
     { "firstName": "Ilie", "lastName": "Tristan Crisan" },
@@ -97,12 +107,19 @@
   "AE": [{ "firstName": "Alfie", "lastName": "Ward" }],
   "DK": [{ "firstName": "Knud Eske", "lastName": "Nielsen" }],
   "HU": [
-    { "firstName": "Bende", "lastName": "Szabo" },
-    { "firstName": "Armand", "lastName": "Hamilton" }
+    { "firstName": "Bende", "lastName": "Szabó" },
+    { "firstName": "Armand", "lastName": "Hamilton" },
+    { "firstName": "Márk", "lastName": "Ferencz" },
+    { "firstName": "Sándor", "lastName": "Nagy" },
+    { "firstName": "Zsombor", "lastName": "Kovács" },
+    { "firstName": "László", "lastName": "Ellenes" },
+    { "firstName": "Gábor Roland", "lastName": "Kovács" },
+    { "firstName": "Balázs", "lastName": "Volentér" }
   ],
   "SI": [
     { "firstName": "Xen", "lastName": "De Ruwe" },
-    { "firstName": "Timon", "lastName": "Grgic" }
+    { "firstName": "Timon", "lastName": "Grgic" },
+    { "firstName": "Vid", "lastName": "Pšajd" }
   ],
   "GE": [{ "firstName": "Mate", "lastName": "Kobakhidze" }],
   "EE": [
@@ -126,7 +143,19 @@
   ],
   "AR": [{ "firstName": "Matias", "lastName": "Rodriguez" }],
   "BR": [{ "firstName": "Matheus", "lastName": "Morgatto" }],
-  "US": [{ "firstName": "Turner", "lastName": "Brown" }],
+  "US": [
+    { "firstName": "Turner", "lastName": "Brown" },
+    { "firstName": "Michael", "lastName": "McGaughy" }
+  ],
   "TH": [{ "firstName": "Eason", "lastName": "Tseng" }],
-  "LT": [{ "firstName": "Martynas", "lastName": "Tankevicius" }]
+  "IE": [{ "firstName": "Daniel", "lastName": "Kelleher" }],
+  "RS": [{ "firstName": "Filip", "lastName": "Jenic" }],
+  "TR": [{ "firstName": "İskender", "lastName": "Zülfikari" }],
+  "HR": [{ "firstName": "Marko", "lastName": "Turk" }],
+  "AT": [{ "firstName": "Sandro", "lastName": "Luković" }],
+  "ZA": [{ "firstName": "Ethan", "lastName": "Lennon" }],
+  "LT": [
+    { "firstName": "Martynas", "lastName": "Tankevicius" },
+    { "firstName": "Nojus", "lastName": "Stasionis" }
+  ]
 }

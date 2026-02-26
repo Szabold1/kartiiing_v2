@@ -233,9 +233,10 @@ export class RaceEventsService {
     qb: SelectQueryBuilder<RaceEvent>,
     sort: RaceEventSortOptions,
   ): void {
-    qb.orderBy(
-      'raceEvent.dateStart',
-      sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC',
+    const direction = sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC';
+    qb.orderBy('raceEvent.dateStart', direction).addOrderBy(
+      'raceEvent.dateEnd',
+      direction,
     );
   }
 

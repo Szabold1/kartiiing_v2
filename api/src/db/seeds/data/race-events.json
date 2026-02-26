@@ -6,7 +6,15 @@
         "locationName": "Jesolo",
         "dateStart": "2015-03-21",
         "dateEnd": "2015-03-22",
-        "categoryNames": ["Micro", "Junior", "Senior", "DD2", "DD2-Masters", "KZ2"],
+        "categoryNames": [
+          "Micro",
+          "Junior",
+          "Senior",
+          "Max-Masters",
+          "DD2",
+          "DD2-Masters",
+          "KZ2"
+        ],
         "resultLinks": [
           {
             "url": "https://www.speed-timing.hr/KART_SLO_2015/01_JESOLO/",

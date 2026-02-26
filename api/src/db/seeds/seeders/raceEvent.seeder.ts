@@ -28,7 +28,7 @@ interface ResultLinkData {
 
 interface RaceEventData {
   roundNumber?: number;
-  circuitShortName: string;
+  locationName: string;
   circuitLayout?: string;
   dateStart?: string;
   dateEnd: string;
@@ -90,7 +90,7 @@ export class RaceEventSeeder {
 
         for (const eventData of events) {
           // Create a unique key for grouping events from same circuit + date
-          const groupKey = `${eventData.circuitShortName}||${eventData.dateEnd}`;
+          const groupKey = `${eventData.locationName}||${eventData.dateEnd}`;
 
           if (!groupedEvents.has(groupKey)) {
             groupedEvents.set(groupKey, {
@@ -227,12 +227,12 @@ export class RaceEventSeeder {
     const layoutRepository = dataSource.getRepository(CircuitLayout);
 
     const circuit = await circuitRepository.findOne({
-      where: { nameShort: eventData.circuitShortName },
+      where: { locationName: eventData.locationName },
       relations: ['layouts'],
     });
     if (!circuit) {
       console.warn(
-        `⚠️ Circuit '${eventData.circuitShortName}' not found. Skipping event.`,
+        `⚠️ Circuit '${eventData.locationName}' not found. Skipping event.`,
       );
       return { raceEvent: null, isNew: false };
     }
@@ -248,7 +248,7 @@ export class RaceEventSeeder {
       });
       if (!circuitLayout) {
         console.warn(
-          `⚠️ Layout '${eventData.circuitLayout}' for circuit '${eventData.circuitShortName}' not found. Will use default circuit length.`,
+          `⚠️ Layout '${eventData.circuitLayout}' for circuit '${eventData.locationName}' not found. Will use default circuit length.`,
         );
       }
     }

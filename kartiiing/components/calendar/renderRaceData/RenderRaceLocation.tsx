@@ -6,7 +6,7 @@ import { flagIconBase } from "@/lib/classNames";
 type Props = {
   circuit: ICircuit | ICircuitDetail;
   showFlag?: boolean;
-  version?: "short" | "long";
+  version?: "locationName" | "circuitName";
   className?: string;
   isClickable?: boolean;
 };
@@ -14,7 +14,7 @@ type Props = {
 export default function RenderRaceLocation({
   circuit,
   showFlag = true,
-  version = "short",
+  version = "locationName",
   className = "",
   isClickable = false,
 }: Props) {
@@ -30,9 +30,9 @@ export default function RenderRaceLocation({
         <Flag code={circuit.country.code} className={flagIconBase} />
       )}
 
-      {version === "short" && circuit.nameShort}
-      {version === "long" &&
-        ("nameLong" in circuit ? circuit.nameLong : circuit.nameShort)}
+      {version === "locationName" && circuit.locationName}
+      {version === "circuitName" &&
+        ("name" in circuit ? circuit.name : circuit.locationName)}
 
       {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
     </>

@@ -61,6 +61,11 @@
     },
     {
       "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Euro Trophy Winter Cup",
+      "order": 22
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
       "nameSeries": "CEE",
       "order": 23
     },
@@ -77,6 +82,16 @@
     {
       "nameLong": "Rotax Max Challenge",
       "nameSeries": "Switzerland",
+      "order": 23
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "Hungary",
+      "order": 23
+    },
+    {
+      "nameLong": "Rotax Max Challenge",
+      "nameSeries": "SSC",
       "order": 23
     }
   ],

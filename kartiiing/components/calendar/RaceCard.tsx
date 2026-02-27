@@ -19,7 +19,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
   const hasResults = race.links?.results && race.links.results.length > 0;
   const addDatePadding = variant === "row" && !race.status && !hasResults;
   const slug = generateSlug(
-    `${year} ${race?.title || ""} ${circuit?.nameShort || ""} ${id}`,
+    `${year} ${race?.title || ""} ${circuit?.locationName || ""} ${id}`,
   );
   const raceLink = `?race=${slug}`;
 

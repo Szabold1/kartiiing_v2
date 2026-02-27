@@ -22,7 +22,7 @@ export default function CircuitInfo({ circuit, race }: Props) {
       <div className="relative h-48 w-full rounded-t-2xl overflow-hidden">
         <Image
           src={mapImageUrl}
-          alt={circuit.nameLong}
+          alt={circuit.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
@@ -34,7 +34,7 @@ export default function CircuitInfo({ circuit, race }: Props) {
           <div className="py-0.5 px-1.5 flex flex-col gap-0.5">
             <RenderRaceLocation circuit={circuit} />
             <h3 className="text-lg font-semibold leading-tight">
-              {circuit.nameLong}
+              {circuit.name}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {circuit.layout?.name && <>{circuit.layout.name} • </>}

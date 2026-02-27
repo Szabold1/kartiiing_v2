@@ -26,7 +26,7 @@ export function toIRaceEvent(
     },
     circuit: {
       id: entity.circuit.id,
-      nameShort: entity.circuit.nameShort,
+      locationName: entity.circuit.locationName,
       length: entity.circuit.length,
       website: entity.circuit.websiteLink,
       latitude: entity.circuit.latitude,
@@ -65,7 +65,7 @@ export function toIRaceEventDetail(
   // Extend circuit with detailed information
   const detailedCircuit = {
     ...baseEvent.circuit,
-    nameLong: entity.circuit.nameLong,
+    name: entity.circuit.name,
     layout: {
       id: entity.circuitLayout?.id || 0,
       name: entity.circuitLayout?.name || undefined,

@@ -233,9 +233,10 @@ export class RaceEventsService {
     qb: SelectQueryBuilder<RaceEvent>,
     sort: RaceEventSortOptions,
   ): void {
-    qb.orderBy(
-      'raceEvent.dateStart',
-      sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC',
+    const direction = sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC';
+    qb.orderBy('raceEvent.dateStart', direction).addOrderBy(
+      'raceEvent.dateEnd',
+      direction,
     );
   }
 
@@ -289,8 +290,10 @@ export class RaceEventsService {
         );
 
         const circuitMatch =
-          this.normalizeString(event.circuit?.nameShort || '').includes(term) ||
-          this.normalizeString(event.circuit?.nameLong || '').includes(term) ||
+          this.normalizeString(event.circuit?.locationName || '').includes(
+            term,
+          ) ||
+          this.normalizeString(event.circuit?.name || '').includes(term) ||
           this.normalizeString(event.circuit?.country?.name || '').includes(
             term,
           );

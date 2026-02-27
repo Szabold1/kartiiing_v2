@@ -40,6 +40,6 @@ export const liveContainerBase =
   "border-red-500/20 bg-red-100/50 dark:border-red-900/50 dark:bg-red-900/25";
 export const liveContainerHover = `${liveContainerBase} hover:border-red-500/70 hover:dark:border-red-900 hover:bg-red-100/80 hover:dark:bg-red-900/40`;
 
-export const badgeBase = "text-xs px-2 py-1.5 rounded-md uppercase font-medium";
+export const badgeBase = "text-xs px-2 py-1.5 rounded-md uppercase font-medium flex items-center justify-center";
 
 export const flagIconBase = "w-5 max-h-4 rounded-[0.15rem] object-cover shadow";

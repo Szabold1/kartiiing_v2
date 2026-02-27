@@ -19,7 +19,7 @@ export default function RaceActions({ race }: Props) {
     const livePrefix = isLive ? "live " : "";
 
     const searchQuery = encodeURIComponent(
-      `${year} ${race.title} ${race.circuit.nameShort} ${livePrefix}${type}`,
+      `${year} ${race.title} ${race.circuit.locationName} ${livePrefix}${type}`,
     );
     const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
 

@@ -23,8 +23,14 @@ export class DatabaseTruncator {
         return;
       }
 
-      // Disable foreign key checks temporarily
-      await dataSource.query('SET session_replication_role = replica;');
+      // Disable foreign key checks temporarily (skip if permission denied - e.g., Neon)
+      try {
+        await dataSource.query('SET session_replication_role = replica;');
+      } catch {
+        console.log(
+          '  ⚠️  Could not disable foreign key checks (managed database?)',
+        );
+      }
 
       for (const table of tables) {
         console.log(`  Truncating table: ${table.tablename}`);
@@ -33,8 +39,12 @@ export class DatabaseTruncator {
         );
       }
 
-      // Re-enable foreign key checks
-      await dataSource.query('SET session_replication_role = DEFAULT;');
+      // Re-enable foreign key checks (skip if permission denied)
+      try {
+        await dataSource.query('SET session_replication_role = DEFAULT;');
+      } catch {
+        console.log('  ⚠️  Could not re-enable foreign key checks');
+      }
 
       console.log('🎉 Database truncation completed successfully!');
     } catch (error) {

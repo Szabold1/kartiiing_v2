@@ -8,38 +8,39 @@
     { "name": "OK-N", "order": 13 },
     { "name": "OK-NJ", "order": 14 }
   ],
-  "KZ": [
-    { "name": "KZ", "order": 21 },
-    { "name": "KZ2", "order": 22 },
-    { "name": "KZ2-Masters", "order": 23 }
-  ],
   "Academy": [
-    { "name": "Academy", "order": 31 },
-    { "name": "Academy-Junior", "order": 32 },
-    { "name": "Academy-Senior", "order": 33 }
+    { "name": "Academy", "order": 21 },
+    { "name": "Academy-Junior", "order": 22 },
+    { "name": "Academy-Senior", "order": 23 }
   ],
   "Rotax": [
-    { "name": "Micro", "order": 41 },
-    { "name": "Mini", "order": 42 },
-    { "name": "Junior", "order": 43 },
-    { "name": "Senior", "order": 44 },
-    { "name": "DD2", "order": 45 },
-    { "name": "DD2-Masters", "order": 46 },
-    { "name": "E20-Senior", "order": 47 },
-    { "name": "E20-Masters", "order": 48 }
+    { "name": "Micro", "order": 31 },
+    { "name": "Mini", "order": 32 },
+    { "name": "Junior", "order": 33 },
+    { "name": "Senior", "order": 34 },
+    { "name": "Max-Masters", "order": 35 },
+    { "name": "DD2", "order": 36 },
+    { "name": "DD2-Masters", "order": 37 },
+    { "name": "E20-Senior", "order": 38 },
+    { "name": "E20-Masters", "order": 39 }
   ],
   "IAME": [
-    { "name": "X30 Mini", "order": 51 },
-    { "name": "X30 Junior", "order": 52 },
-    { "name": "X30 Senior", "order": 53 }
+    { "name": "X30 Mini", "order": 41 },
+    { "name": "X30 Junior", "order": 42 },
+    { "name": "X30 Senior", "order": 43 }
   ],
   "Vortex": [
-    { "name": "Rok Mini", "order": 61 },
-    { "name": "Rok Junior", "order": 62 },
-    { "name": "Rok Senior", "order": 63 },
-    { "name": "Rok Expert", "order": 64 },
-    { "name": "Rok Super", "order": 65 },
-    { "name": "Rok Shifter", "order": 66 }
+    { "name": "Rok Mini", "order": 51 },
+    { "name": "Rok Junior", "order": 52 },
+    { "name": "Rok Senior", "order": 53 },
+    { "name": "Rok Expert", "order": 54 },
+    { "name": "Rok Super", "order": 55 },
+    { "name": "Rok Shifter", "order": 56 }
+  ],
+  "KZ": [
+    { "name": "KZ", "order": 61 },
+    { "name": "KZ2", "order": 62 },
+    { "name": "KZ2-Masters", "order": 63 }
   ],
   "Other": [
     { "name": "All", "order": 71 }

@@ -11,16 +11,16 @@ import { CircuitLayout } from './circuitLayout.entity';
 import { FastestLap } from './fastestLap.entity';
 
 @Entity('circuits')
-@Index(['nameShort', 'country'], { unique: true })
+@Index(['locationName', 'country'], { unique: true })
 export class Circuit {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
-  nameShort!: string;
+  locationName!: string;
 
   @Column()
-  nameLong!: string;
+  name!: string;
 
   @Column()
   length!: number;

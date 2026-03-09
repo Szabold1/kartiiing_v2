@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { RaceEventsService } from './race-events.service';
 import { YearParams, FindRaceEventsQuery } from './dtos';
 import {
@@ -35,9 +35,11 @@ export class RaceEventsController {
     };
   }
 
-  @Get('detail/:slug')
-  async findBySlug(@Param('slug') slug: string): Promise<IRaceEventDetail> {
-    return await this.raceEventsService.findBySlug(slug);
+  @Get('by-id/:id')
+  async findById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<IRaceEventDetail> {
+    return await this.raceEventsService.findById(id);
   }
 
   @Get(':year')

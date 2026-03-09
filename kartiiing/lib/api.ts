@@ -67,6 +67,20 @@ export async function getRaceEvents(
 }
 
 /**
+ * Fetch a single race event by ID
+ */
+export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
+  const url = `${getApiBase()}/race-events/by-id/${id}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch race event: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
  * Fetch a single race event by slug
  */
 export async function getRaceEventBySlug(slug: string): Promise<IRaceEventDetail> {

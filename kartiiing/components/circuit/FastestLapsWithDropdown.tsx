@@ -3,7 +3,14 @@
 import { useState, useMemo, useEffect } from "react";
 import { IFastestLap } from "@kartiiing/shared-types";
 import FastestLapItem from "./FastestLapItem";
-import EngineStyledSelect from "./EngineStyledSelect";
+import EngineStyledSelect from "@/components/calendar/EngineStyledSelect";
+import { cn } from "@/lib/utils";
+
+enum DropdownType {
+  Engine = "engine",
+  Category = "category",
+  Year = "year",
+}
 
 type Props = {
   fastestLaps: IFastestLap[];
@@ -38,9 +45,7 @@ export default function FastestLapsWithDropdown({
     useState<string>(initialEngineType);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedYear, setSelectedYear] = useState<string>("All Time");
-  const [openDropdown, setOpenDropdown] = useState<
-    "engine" | "category" | "year" | null
-  >(null);
+  const [openDropdown, setOpenDropdown] = useState<DropdownType | null>(null);
 
   // Set initial category when engine type changes
   useEffect(() => {
@@ -128,15 +133,17 @@ export default function FastestLapsWithDropdown({
   }
 
   return (
-    <section className={`space-y-2.5 ${className}`}>
+    <section className={cn("space-y-2.5", className)}>
       <div className="flex items-center gap-1.5 flex-wrap">
         <EngineStyledSelect
           label="Engine Type"
           options={engineTypeOptions}
           value={selectedEngineType}
           onValueChange={setSelectedEngineType}
-          isOpen={openDropdown === "engine"}
-          onOpenChange={(open) => setOpenDropdown(open ? "engine" : null)}
+          isOpen={openDropdown === DropdownType.Engine}
+          onOpenChange={(open) =>
+            setOpenDropdown(open ? DropdownType.Engine : null)
+          }
           engineType={selectedEngineType}
         />
         <EngineStyledSelect
@@ -144,8 +151,10 @@ export default function FastestLapsWithDropdown({
           options={categoryOptions}
           value={selectedCategory}
           onValueChange={setSelectedCategory}
-          isOpen={openDropdown === "category"}
-          onOpenChange={(open) => setOpenDropdown(open ? "category" : null)}
+          isOpen={openDropdown === DropdownType.Category}
+          onOpenChange={(open) =>
+            setOpenDropdown(open ? DropdownType.Category : null)
+          }
           engineType={selectedEngineType}
         />
         {showYears && (
@@ -154,8 +163,10 @@ export default function FastestLapsWithDropdown({
             options={yearOptions}
             value={selectedYear}
             onValueChange={setSelectedYear}
-            isOpen={openDropdown === "year"}
-            onOpenChange={(open) => setOpenDropdown(open ? "year" : null)}
+            isOpen={openDropdown === DropdownType.Year}
+            onOpenChange={(open) =>
+              setOpenDropdown(open ? DropdownType.Year : null)
+            }
             engineType={selectedEngineType}
           />
         )}

@@ -2,18 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
 import { lightDarkGlassActive, lightDarkGlassBase } from "@/lib/classNames";
 import { CalendarViewMode } from "@/lib/constants/calendar";
+import { useCalendarStore } from "@/lib/stores/calendarStore";
+import { cn } from "@/lib/utils";
 
 interface Props {
-  viewMode: CalendarViewMode;
-  setViewMode: (mode: CalendarViewMode) => void;
   className?: string;
 }
 
-export default function GridListViewToggle({
-  viewMode,
-  setViewMode,
-  className = "",
-}: Props) {
+export default function GridListViewToggle({ className = "" }: Props) {
+  const { viewMode, setViewMode } = useCalendarStore();
+
   const options = [
     {
       value: CalendarViewMode.GRID,
@@ -29,17 +27,23 @@ export default function GridListViewToggle({
 
   return (
     <div
-      className={`hidden lg:flex rounded-lg h-10.5 p-[0.09rem] ${lightDarkGlassBase} ${className}`}
+      className={cn(
+        "hidden lg:flex rounded-lg h-10.5 p-[0.09rem]",
+        lightDarkGlassBase,
+        className,
+      )}
     >
       {options.map((opt) => (
         <Button
           key={opt.value}
           variant="outline"
           aria-label={opt.label}
-          // noHover
-          className={`w-[2.33rem] h-[2.33rem] border-transparent shadow-none dark:bg-transparent ${
-            viewMode === opt.value ? lightDarkGlassActive : "opacity-60 hover:opacity-100"
-          }`}
+          className={cn(
+            "w-[2.33rem] h-[2.33rem] border-transparent shadow-none dark:bg-transparent",
+            viewMode === opt.value
+              ? lightDarkGlassActive
+              : "opacity-60 hover:opacity-100",
+          )}
           onClick={() => setViewMode(opt.value)}
         >
           {opt.icon}

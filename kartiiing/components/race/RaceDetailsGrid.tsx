@@ -79,7 +79,7 @@ export default function RaceDetailsGrid() {
           items={sections}
           columnGutter={sectionGap}
           columnWidth={minSectionWidth}
-          render={({ data }) => <div>{data.content}</div>}
+          render={({ data }: { data: SectionItem }) => <>{data.content}</>}
         />
       </div>
     </div>

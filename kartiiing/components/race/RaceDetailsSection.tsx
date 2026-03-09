@@ -1,5 +1,6 @@
 import SectionTitle from "../SectionTitle";
 import { lightDarkGlassBase } from "@/lib/classNames";
+import { cn } from "@/lib/utils";
 
 type Props = {
   title: string;
@@ -13,10 +14,16 @@ export default function RaceDetailsSection({
   className = "",
 }: Props) {
   return (
-    <section>
-      <SectionTitle className="px-4 pb-1 !text-lg">{title}</SectionTitle>
+    <section className="break-inside-avoid">
+      <SectionTitle className="px-4 pb-1 !text-lg uppercase tracking-wide">
+        {title}
+      </SectionTitle>
       <div
-        className={`flex flex-col p-3 rounded-2xl ${lightDarkGlassBase} ${className}`}
+        className={cn(
+          "flex flex-col p-3 rounded-2xl",
+          lightDarkGlassBase,
+          className,
+        )}
       >
         {children}
       </div>

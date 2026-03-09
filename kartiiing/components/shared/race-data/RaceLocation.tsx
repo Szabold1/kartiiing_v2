@@ -2,6 +2,7 @@ import Flag from "react-world-flags";
 import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
 import { flagIconBase } from "@/lib/classNames";
+import { cn } from "@/lib/utils";
 
 type Props = {
   circuit: ICircuit | ICircuitDetail;
@@ -11,7 +12,7 @@ type Props = {
   isClickable?: boolean;
 };
 
-export default function RenderRaceLocation({
+export default function RaceLocation({
   circuit,
   showFlag = true,
   version = "locationName",
@@ -20,9 +21,11 @@ export default function RenderRaceLocation({
 }: Props) {
   const mapUrl = `https://maps.google.com/?q=${circuit.latitude},${circuit.longitude}`;
 
-  const baseClassName = `flex items-center gap-2 w-fit ${
-    isClickable ? "cursor-pointer hover:opacity-75 transition-opacity" : ""
-  } ${className}`;
+  const baseClassName = cn(
+    "flex items-center gap-2 w-fit",
+    isClickable && "cursor-pointer hover:opacity-75 transition-opacity",
+    className,
+  );
 
   const content = (
     <>

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
   onClick: () => void;
   className?: string;
@@ -12,7 +14,10 @@ export default function RaceActionButton({
   return (
     <button
       onClick={onClick}
-      className={`p-2 rounded-lg transition-colors duration-200 cursor-pointer w-10.5 h-10.5 flex items-center justify-center ${className}`}
+      className={cn(
+        "p-2 rounded-lg transition-colors duration-200 cursor-pointer w-10.5 h-10.5 flex items-center justify-center",
+        className,
+      )}
     >
       {children}
     </button>

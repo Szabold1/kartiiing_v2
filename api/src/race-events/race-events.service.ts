@@ -43,19 +43,7 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
-  async findBySlug(slug: string): Promise<IRaceEventDetail> {
-    // Slug format: year-title-circuit-id
-    // Extract the ID from the end of the slug
-    const lastHyphenIndex = slug.lastIndexOf('-');
-    if (lastHyphenIndex === -1) {
-      throw new NotFoundException(`Invalid race event slug format: ${slug}`);
-    }
-
-    const id = parseInt(slug.substring(lastHyphenIndex + 1), 10);
-    if (isNaN(id)) {
-      throw new NotFoundException(`Invalid ID in race event slug: ${slug}`);
-    }
-
+  async findById(id: number): Promise<IRaceEventDetail> {
     const event = await this.getEventById(id);
 
     if (!event) {

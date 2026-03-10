@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/nav/Footer";
 import { GlobalProvider } from "@/contexts/GlobalContext";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import { Roboto } from "next/font/google";
 
 const roboto = Roboto({
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${roboto.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <ScrollToTop />
         <GlobalProvider value={{ currentYear }}>
           <ThemeProvider
             attribute="class"

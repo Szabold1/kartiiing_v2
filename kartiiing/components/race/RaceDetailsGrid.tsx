@@ -6,16 +6,18 @@ import RaceSummary from "@/components/race/RaceSummary";
 import CircuitInfo from "@/components/circuit/CircuitInfo";
 import RaceDetailsSection from "./RaceDetailsSection";
 import FastestLapsWithDropdown from "@/components/circuit/FastestLapsWithDropdown";
-import { useRaceStore } from "@/lib/stores/raceStore";
+import { IRaceEventDetail } from "@kartiiing/shared-types";
 
 type SectionItem = {
   id: string;
   content: ReactNode;
 };
 
-export default function RaceDetailsGrid() {
-  const race = useRaceStore((state) => state.race);
+type Props = {
+  race: IRaceEventDetail;
+};
 
+export default function RaceDetailsGrid({ race }: Props) {
   const minSectionWidth = 320;
   const maxSectionWidth = 450;
   const sectionGap = 32;
@@ -26,14 +28,12 @@ export default function RaceDetailsGrid() {
     sectionCount * maxSectionWidth + (sectionCount - 1) * sectionGap;
 
   const sections = useMemo<SectionItem[]>(() => {
-    if (!race) return [];
-
     const items: SectionItem[] = [
       {
         id: "summary",
         content: (
           <RaceDetailsSection title="Summary">
-            <RaceSummary />
+            <RaceSummary race={race} />
           </RaceDetailsSection>
         ),
       },
@@ -49,7 +49,7 @@ export default function RaceDetailsGrid() {
             }`}
             className="!p-0"
           >
-            <CircuitInfo circuit={race.circuit} />
+            <CircuitInfo circuit={race.circuit} race={race} />
           </RaceDetailsSection>
         ),
       },
@@ -69,7 +69,7 @@ export default function RaceDetailsGrid() {
     return items;
   }, [race]);
 
-  if (!race || !sections.length) return null;
+  if (!sections.length) return null;
 
   return (
     <div className="w-full my-8">

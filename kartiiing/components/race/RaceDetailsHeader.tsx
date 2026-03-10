@@ -6,13 +6,13 @@ import RaceActions from "./RaceActions";
 import { lightDarkGlassHover } from "@/lib/classNames";
 import { cn } from "@/lib/utils";
 import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
-import { useRaceStore } from "@/lib/stores/raceStore";
+import { IRaceEventDetail } from "@kartiiing/shared-types";
 
-export default function RaceDetailsHeader() {
-  const race = useRaceStore((state) => state.race);
+type Props = {
+  race: IRaceEventDetail;
+};
 
-  if (!race) return null;
-
+export default function RaceDetailsHeader({ race }: Props) {
   const resultsLinks = race.links?.results || [];
 
   const headerAction = (
@@ -25,7 +25,7 @@ export default function RaceDetailsHeader() {
             className="p-3.5 rounded-lg font-medium"
             heightValue="10.5"
           />
-          <RaceActions />
+          <RaceActions race={race} />
         </>
       )}
     </div>

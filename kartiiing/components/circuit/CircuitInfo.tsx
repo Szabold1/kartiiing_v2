@@ -1,17 +1,14 @@
-"use client";
-
 import Image from "next/image";
-import { ICircuitDetail } from "@kartiiing/shared-types";
+import { ICircuitDetail, IRaceEventDetail } from "@kartiiing/shared-types";
 import FastestLapsWithDropdown from "./FastestLapsWithDropdown";
 import CircuitInfoContent from "./CircuitInfoContent";
-import { useRaceStore } from "@/lib/stores/raceStore";
 
 type Props = {
   circuit: ICircuitDetail;
+  race?: IRaceEventDetail;
 };
 
-export default function CircuitInfo({ circuit }: Props) {
-  const race = useRaceStore((state) => state.race);
+export default function CircuitInfo({ circuit, race }: Props) {
   const mapImageUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${circuit.longitude},${circuit.latitude},14.85/360x270@2x?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
   const preferredEngineTypes = race ? Object.keys(race.categories) : [];
 

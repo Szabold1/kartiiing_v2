@@ -79,18 +79,3 @@ export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
 
   return res.json();
 }
-
-/**
- * Fetch a single race event by slug
- */
-export async function getRaceEventBySlug(slug: string): Promise<IRaceEventDetail> {
-  const encodedSlug = encodeURIComponent(slug);
-  const url = `${getApiBase()}/race-events/detail/${encodedSlug}`;
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch race event: ${res.status}`);
-  }
-
-  return res.json();
-}

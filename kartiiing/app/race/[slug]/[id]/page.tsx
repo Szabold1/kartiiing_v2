@@ -21,7 +21,7 @@ export default async function RaceDetailPage({ params }: Props) {
 
     const race = await getRaceEventById(id);
     return <RaceDetails race={race} />;
-  } catch (error) {
-    return <ErrorState message={`${error}`} />;
+  } catch {
+    return <ErrorState message="Failed to load race event." />;
   }
 }

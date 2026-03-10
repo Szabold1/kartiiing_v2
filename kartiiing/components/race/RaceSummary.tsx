@@ -1,20 +1,16 @@
-"use client";
-
+import { IRaceEvent } from "@kartiiing/shared-types";
 import EngineCategory from "@/components/shared/race-data/EngineCategory";
 import SectionTitle from "@/components/SectionTitle";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";
 import RaceDate from "@/components/shared/race-data/RaceDate";
 import { cn } from "@/lib/utils";
-import { useRaceStore } from "@/lib/stores/raceStore";
 
 interface Props {
+  race: IRaceEvent;
   className?: string;
 }
 
-export default function RaceSummary({ className = "" }: Props) {
-  const race = useRaceStore((state) => state.race);
-  if (!race) return null;
-
+export default function RaceSummary({ race, className = "" }: Props) {
   const { date, circuit, categories } = race;
 
   return (

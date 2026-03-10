@@ -6,20 +6,25 @@ import {
   lightDarkGlassBase,
 } from "@/lib/classNames";
 import Flag from "react-world-flags";
-import { formatDate, formatLapTime } from "@/lib/utils";
+import { formatDate, formatLapTime, cn } from "@/lib/utils";
 
 type Props = {
   lap: IFastestLap;
 };
 
 const renderBadge = (label: string, className: string = "") => {
-  return <span className={`${badgeBase} ${grayGlassBase} ${className}`}>{label}</span>;
+  return (
+    <span className={cn(badgeBase, grayGlassBase, className)}>{label}</span>
+  );
 };
 
 export default function FastestLapItem({ lap }: Props) {
   return (
     <div
-      className={`flex flex-col gap-2.5 p-2.5 rounded-xl ${lightDarkGlassBase}`}
+      className={cn(
+        "flex flex-col gap-2.5 p-2.5 rounded-xl",
+        lightDarkGlassBase,
+      )}
     >
       <div className="flex gap-1.5 justify-between">
         {lap.eventTitle && renderBadge(lap.eventTitle)}

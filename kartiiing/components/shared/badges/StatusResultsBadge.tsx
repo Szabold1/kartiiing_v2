@@ -4,7 +4,12 @@ import {
   grayGlassHover,
   emeraldGlassBase,
 } from "@/lib/classNames";
-import { IRaceEvent, RaceStatus, IResultsLink } from "@kartiiing/shared-types";
+import {
+  IRaceEvent,
+  RaceStatus,
+  IResultsLink,
+  IRaceEventDetail,
+} from "@kartiiing/shared-types";
 import {
   Select,
   SelectContent,
@@ -17,7 +22,7 @@ import { ExternalLink } from "lucide-react";
 import { useMemo } from "react";
 
 type Props = {
-  race: IRaceEvent;
+  race: IRaceEvent | IRaceEventDetail;
   className?: string;
   heightValue?: string;
 };

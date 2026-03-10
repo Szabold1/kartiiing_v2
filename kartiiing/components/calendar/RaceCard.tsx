@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
-import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
-import StatusResultsBadge from "@/components/calendar/StatusResultsBadge";
+import EngineCategory from "@/components/shared/race-data/EngineCategory";
+import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
-import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
-import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
+import RaceDate from "@/components/shared/race-data/RaceDate";
+import RaceLocation from "@/components/shared/race-data/RaceLocation";
 import { lightDarkGlassHover, liveContainerHover } from "@/lib/classNames";
-import { generateSlug } from "@/lib/utils";
+import { generateSlug, cn } from "@/lib/utils";
 
 type Props = {
   race: IRaceEvent;
@@ -19,12 +19,12 @@ export default function RaceCard({ race, variant = "card" }: Props) {
   const hasResults = race.links?.results && race.links.results.length > 0;
   const addDatePadding = variant === "row" && !race.status && !hasResults;
   const slug = generateSlug(
-    `${year} ${race?.title || ""} ${circuit?.locationName || ""} ${id}`,
+    `${year} ${race?.title || ""} ${circuit?.locationName || ""}`,
   );
-  const raceLink = `?race=${slug}`;
+  const raceLink = `/race/${slug}/${id}`;
 
   const handleRaceClick = () => {
-    router.push(raceLink, { scroll: false });
+    router.push(raceLink);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -38,11 +38,13 @@ export default function RaceCard({ race, variant = "card" }: Props) {
     return (
       <div
         onClick={handleRaceClick}
-        className={`min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl ${lightDarkGlassHover} ${
+        className={cn(
+          "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl",
+          lightDarkGlassHover,
           race.status === RaceStatus.LIVE
-            ? `${liveContainerHover}`
-            : "border-transparent dark:border-transparent dark:bg-transparent shadow-none"
-        }`}
+            ? liveContainerHover
+            : "border-transparent dark:border-transparent dark:bg-transparent shadow-none",
+        )}
         id={`${id}`}
         role="button"
         tabIndex={0}
@@ -51,7 +53,9 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         <div className="flex-1 flex items-center gap-4">
           {race.status || hasResults ? (
             <span
-              className={`${addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]"}`}
+              className={cn(
+                addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]",
+              )}
             >
               <StatusResultsBadge
                 race={race}
@@ -60,16 +64,19 @@ export default function RaceCard({ race, variant = "card" }: Props) {
               />
             </span>
           ) : null}
-          <RenderRaceDate
+          <RaceDate
             date={date}
-            className={`text-sm text-muted-foreground min-w-[7rem] tracking-tight ${addDatePadding ? "pl-2" : ""}`}
+            className={cn(
+              "text-sm text-muted-foreground min-w-[7rem] tracking-tight",
+              addDatePadding && "pl-2",
+            )}
           />
-          <RenderRaceLocation
+          <RaceLocation
             circuit={circuit}
             className="text-sm font-medium min-w-[8rem] max-w-[8rem] text-muted-foreground"
           />
           <div className="font-semibold truncate flex-1">{race.title}</div>
-          <RenderEngineCategory
+          <EngineCategory
             engineCategoryPairs={categories}
             className="ml-auto"
             badgeClassName="px-2.5 py-2 xl:px-3"
@@ -82,9 +89,11 @@ export default function RaceCard({ race, variant = "card" }: Props) {
   return (
     <div
       onClick={handleRaceClick}
-      className={`relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl w-full ${lightDarkGlassHover} ${
-        race.status === RaceStatus.LIVE ? liveContainerHover : ""
-      }`}
+      className={cn(
+        "relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl w-full",
+        lightDarkGlassHover,
+        race.status === RaceStatus.LIVE && liveContainerHover,
+      )}
       id={`${id}`}
       role="button"
       tabIndex={0}
@@ -98,16 +107,16 @@ export default function RaceCard({ race, variant = "card" }: Props) {
           />
         </div>
       ) : null}
-      <RenderRaceDate
+      <RaceDate
         date={date}
         className="leading-tight tracking-tighter text-muted-foreground"
       />
-      <RenderRaceLocation
+      <RaceLocation
         circuit={circuit}
         className="text-muted-foreground text-sm mt-1.5 font-medium"
       />
       <div className="font-semibold tracking-tight flex-1">{race.title}</div>
-      <RenderEngineCategory engineCategoryPairs={categories} className="mt-2" />
+      <EngineCategory engineCategoryPairs={categories} className="mt-2" />
     </div>
   );
 }

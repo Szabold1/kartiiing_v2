@@ -1,6 +1,20 @@
-import CategoryBadge from "@/components/calendar/CategoryBadge";
+import { badgeBase } from "@/lib/classNames";
+import { getColorsForEngine } from "@/lib/constants/categories";
+import { cn } from "@/lib/utils";
 
 type Props = {
+  label: string;
+  engineType: string;
+  className?: string;
+};
+
+function CategoryBadge({ label, engineType, className = "" }: Props) {
+  const colorClass = getColorsForEngine(engineType);
+
+  return <span className={cn(badgeBase, colorClass, className)}>{label}</span>;
+}
+
+type RenderProps = {
   engineCategoryPairs: Record<string, string[]>;
   className?: string;
   showAll?: boolean;
@@ -12,12 +26,12 @@ type Badge = {
   engineType: string;
 };
 
-export default function RenderEngineCategory({
+export default function EngineCategory({
   engineCategoryPairs,
   className = "",
   showAll = false,
   badgeClassName = "",
-}: Props) {
+}: RenderProps) {
   const badges: Badge[] = [];
 
   Object.entries(engineCategoryPairs).forEach(([engineType, categories]) => {
@@ -31,7 +45,7 @@ export default function RenderEngineCategory({
   });
 
   return (
-    <div className={`flex gap-1.5 flex-wrap ${className}`}>
+    <div className={cn("flex gap-1.5 flex-wrap", className)}>
       {badges.map(({ label, engineType }) => (
         <CategoryBadge
           key={`${engineType}-${label}`}

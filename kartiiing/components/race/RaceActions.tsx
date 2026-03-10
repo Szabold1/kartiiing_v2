@@ -1,7 +1,8 @@
-import { IRaceEvent } from "@kartiiing/shared-types";
+"use client";
+
 import RaceActionButton from "./RaceActionButton";
 import { Timer, TvMinimalPlay } from "lucide-react";
-import { RaceStatus } from "@kartiiing/shared-types";
+import { RaceStatus, IRaceEvent } from "@kartiiing/shared-types";
 import { grayGlassHover, redGlassHover } from "@/lib/classNames";
 
 type Props = {

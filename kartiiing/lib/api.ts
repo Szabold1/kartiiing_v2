@@ -67,11 +67,10 @@ export async function getRaceEvents(
 }
 
 /**
- * Fetch a single race event by slug
+ * Fetch a single race event by ID
  */
-export async function getRaceEventBySlug(slug: string): Promise<IRaceEventDetail> {
-  const encodedSlug = encodeURIComponent(slug);
-  const url = `${getApiBase()}/race-events/detail/${encodedSlug}`;
+export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
+  const url = `${getApiBase()}/race-events/by-id/${id}`;
   const res = await fetch(url);
 
   if (!res.ok) {

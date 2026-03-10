@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { getRelativeText, toDay } from "@/lib/utils";
+import { getRelativeText, toDay, cn } from "@/lib/utils";
 import { IRaceEventDate } from "@kartiiing/shared-types";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   showRelative?: boolean;
 };
 
-export default function RenderRaceDate({
+export default function RaceDate({
   date,
   className = "",
   withYear = false,
@@ -24,9 +24,11 @@ export default function RenderRaceDate({
 
   return (
     <div
-      className={`uppercase ${className} ${
-        showRelative ? "flex flex-wrap items-center gap-x-2" : ""
-      }`}
+      className={cn(
+        "uppercase",
+        showRelative && "flex flex-wrap items-center gap-x-2",
+        className,
+      )}
     >
       {isSameDay ? (
         // single day

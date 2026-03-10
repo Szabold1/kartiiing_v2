@@ -1,8 +1,9 @@
 import { IRaceEvent } from "@kartiiing/shared-types";
-import RenderEngineCategory from "@/components/calendar/renderRaceData/RenderEngineCategory";
+import EngineCategory from "@/components/shared/race-data/EngineCategory";
 import SectionTitle from "@/components/SectionTitle";
-import RenderRaceLocation from "@/components/calendar/renderRaceData/RenderRaceLocation";
-import RenderRaceDate from "@/components/calendar/renderRaceData/RenderRaceDate";
+import RaceLocation from "@/components/shared/race-data/RaceLocation";
+import RaceDate from "@/components/shared/race-data/RaceDate";
+import { cn } from "@/lib/utils";
 
 interface Props {
   race: IRaceEvent;
@@ -13,10 +14,10 @@ export default function RaceSummary({ race, className = "" }: Props) {
   const { date, circuit, categories } = race;
 
   return (
-    <div className={`space-y-3.5 ${className}`}>
+    <div className={cn("space-y-3.5", className)}>
       <div>
         <SectionTitle>Date</SectionTitle>
-        <RenderRaceDate
+        <RaceDate
           date={date}
           className="font-medium tracking-tight"
           withYear
@@ -26,7 +27,7 @@ export default function RaceSummary({ race, className = "" }: Props) {
 
       <div>
         <SectionTitle>Location</SectionTitle>
-        <RenderRaceLocation
+        <RaceLocation
           circuit={circuit}
           className="font-medium tracking-tight"
           isClickable
@@ -49,17 +50,14 @@ export default function RaceSummary({ race, className = "" }: Props) {
           <SectionTitle>
             Engine type{Object.keys(categories).length > 1 && "s"}
           </SectionTitle>
-          <RenderEngineCategory
-            engineCategoryPairs={categories}
-            className="mt-1"
-          />
+          <EngineCategory engineCategoryPairs={categories} className="mt-1" />
         </div>
       )}
 
       {Object.values(categories).flat().length > 0 && (
         <div>
           <SectionTitle>Categories</SectionTitle>
-          <RenderEngineCategory
+          <EngineCategory
             engineCategoryPairs={categories}
             className="mt-1"
             showAll

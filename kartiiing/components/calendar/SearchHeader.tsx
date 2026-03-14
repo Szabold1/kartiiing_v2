@@ -1,4 +1,4 @@
-import SearchBar from "@/components/calendar/SearchBar";
+import SearchBar from "@/components/shared/SearchBar";
 import { IRaceEvent } from "@kartiiing/shared-types";
 
 type Props = {

@@ -1,4 +1,4 @@
-import WorkInProgress from "@/components/WorkInProgress";
+import WorkInProgress from "@/components/shared/WorkInProgress";
 
 export default function CircuitsPage() {
   return (

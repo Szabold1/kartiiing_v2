@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PageHeader from "@/components/PageHeader";
+import PageHeader from "@/components/shared/PageHeader";
 import {
   Select,
   SelectContent,

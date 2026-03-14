@@ -1,9 +1,9 @@
 import SideBarMenu from "./sidebar/SideBarMenu";
 import data from "./content/WikiContent";
 import RenderSection from "./content/RenderSection";
-import Aside from "@/components/Aside";
-import PageHeader from "@/components/PageHeader";
-import BackToTopBTn from "@/components/BackToTopBtn";
+import Aside from "@/components/shared/Aside";
+import PageHeader from "@/components/shared/PageHeader";
+import BackToTopBTn from "@/components/shared/btns/BackToTopBtn";
 
 const WikiPage = () => {
   return (

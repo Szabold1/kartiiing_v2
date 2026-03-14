@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/Loader";
+import Loader from "@/components/shared/Loader";
 import { lightDarkGlassHover } from "@/lib/classNames";
 
 const ThemeBtn = () => {

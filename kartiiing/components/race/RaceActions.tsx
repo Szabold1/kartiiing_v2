@@ -1,6 +1,6 @@
 "use client";
 
-import RaceActionButton from "./RaceActionButton";
+import RaceActionBtn from "@/components/shared/btns/RaceActionBtn";
 import { Timer, TvMinimalPlay } from "lucide-react";
 import { RaceStatus, IRaceEvent } from "@kartiiing/shared-types";
 import { grayGlassHover, redGlassHover } from "@/lib/classNames";
@@ -28,22 +28,22 @@ export default function RaceActions({ race }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-1.5">
+    <>
       {isLive && (
-        <RaceActionButton
+        <RaceActionBtn
           onClick={() => handleClick("timing")}
           className={redGlassHover}
         >
           <Timer />
-        </RaceActionButton>
+        </RaceActionBtn>
       )}
 
-      <RaceActionButton
+      <RaceActionBtn
         onClick={() => handleClick("streaming")}
         className={isLive ? redGlassHover : grayGlassHover}
       >
         <TvMinimalPlay />
-      </RaceActionButton>
-    </div>
+      </RaceActionBtn>
+    </>
   );
 }

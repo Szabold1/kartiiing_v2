@@ -1,4 +1,4 @@
-import SectionTitle from "../SectionTitle";
+import SectionTitle from "@/components/shared/SectionTitle";
 import { lightDarkGlassBase } from "@/lib/classNames";
 import { cn } from "@/lib/utils";
 
@@ -14,8 +14,8 @@ export default function RaceDetailsSection({
   className = "",
 }: Props) {
   return (
-    <section className="break-inside-avoid">
-      <SectionTitle className="px-4 pb-1 !text-lg uppercase tracking-wide">
+    <section>
+      <SectionTitle className="px-4 pb-2.5 text-lg font-semibold uppercase tracking-wider">
         {title}
       </SectionTitle>
       <div

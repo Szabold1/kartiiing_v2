@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { IFastestLap } from "@kartiiing/shared-types";
-import FastestLapItem from "./FastestLapItem";
-import EngineStyledSelect from "@/components/calendar/EngineStyledSelect";
+import FastestLapItem from "@/components/circuit/FastestLapItem";
+import EngineStyledSelect from "@/components/circuit/EngineStyledSelect";
 import { cn } from "@/lib/utils";
 
 enum DropdownType {

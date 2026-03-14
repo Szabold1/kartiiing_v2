@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
   children: React.ReactNode;
   className?: string;
@@ -5,6 +7,8 @@ type Props = {
 
 export default function SectionTitle({ children, className = "" }: Props) {
   return (
-    <h3 className={`text-sm text-muted-foreground ${className}`}>{children}</h3>
+    <h3 className={cn("text-sm text-muted-foreground", className)}>
+      {children}
+    </h3>
   );
 }

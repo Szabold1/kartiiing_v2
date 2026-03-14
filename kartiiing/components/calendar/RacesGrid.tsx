@@ -19,10 +19,11 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
     viewMode === CalendarViewMode.LIST && sectionWidth >= 850;
 
   const columnCount = Math.min(races.length, 4);
-  const gap = 20;
-  const cardWidth = 16.9 * 16;
-  const containerWidth =
-    1.25 * columnCount * cardWidth + (columnCount - 1) * gap;
+  const cardWidthRem = 16.9;
+  const gapRem = 1.25;
+  const cardWidthScale = 1.25;
+  const containerMaxWidth = `calc(${columnCount} * ${cardWidthScale} * ${cardWidthRem}rem 
+  + ${columnCount - 1} * ${gapRem}rem)`;
 
   if (loading) {
     return <Loader />;
@@ -34,7 +35,11 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
 
   return (
     <div
-      style={{ maxWidth: `${containerWidth}px` }}
+      style={
+        showListView
+          ? { maxWidth: "none", width: "100%" }
+          : { maxWidth: containerMaxWidth }
+      }
       className={cn(
         showListView
           ? cn(

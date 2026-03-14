@@ -6,7 +6,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function RaceActionButton({
+export default function RaceActionBtn({
   onClick,
   className = "",
   children = "Live Action",

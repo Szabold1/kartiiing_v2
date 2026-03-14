@@ -2,7 +2,7 @@ import {
   NavigationMenu,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import DesktopNavLink from "./DesktopNavLink";
+import DesktopNavLink from "@/components/nav/desktop/DesktopNavLink";
 import { NavLink } from "@/lib/types/NavTypes";
 
 const navLinks: NavLink[] = [

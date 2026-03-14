@@ -1,9 +1,9 @@
 "use client";
 
 import HeroLink from "@/components/hero/HeroLink";
-import Copyright from "@/components/Copyright";
-import BrandLogo from "@/components/BrandLogo";
-import { useCurrentYear } from "@/contexts/GlobalContext";
+import Copyright from "@/components/shared/Copyright";
+import BrandLogo from "@/components/shared/BrandLogo";
+import { useCurrentYear } from "@/providers/GlobalProvider";
 
 interface Props {
   subtitle: string;

@@ -2,7 +2,7 @@
 
 import { IRaceEventDetail } from "@kartiiing/shared-types";
 import dynamic from "next/dynamic";
-import Loader from "@/components/shared/Loader";
+import Loader from "@/components/Loader";
 
 const RaceDetailsMasonry = dynamic(
   () => import("@/components/race/RaceDetailsMasonry"),

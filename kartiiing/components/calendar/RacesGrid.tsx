@@ -48,7 +48,7 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
             )
           : cn(
               "grid justify-center gap-5",
-              !showListView && getGridWidthClass(races.length),
+              getGridWidthClass(races.length),
               "grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]",
             ),
       )}

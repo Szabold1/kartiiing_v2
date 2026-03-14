@@ -18,7 +18,7 @@ function getGridWidthClass(raceCount: number) {
     case 1:
       return "max-w-[22rem]";
     case 2:
-      return "max-w-[calc(2*22rem+1.25rem)]";
+      return "max-w-[calc(2*22rem_+_1.25rem)]";
     default:
       return "max-w-full";
   }

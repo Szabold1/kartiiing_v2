@@ -13,18 +13,21 @@ type Props = {
   sectionWidth: number;
 };
 
+function getGridWidthClass(raceCount: number) {
+  switch (raceCount) {
+    case 1:
+      return "max-w-[22rem]";
+    case 2:
+      return "max-w-[calc(2*22rem+1.25rem)]";
+    default:
+      return "max-w-full";
+  }
+}
+
 export default function RacesGrid({ races, loading, sectionWidth }: Props) {
   const viewMode = useCalendarStore((state) => state.viewMode);
   const showListView =
     viewMode === CalendarViewMode.LIST && sectionWidth >= 850;
-
-  const gridWidthClass = !showListView
-    ? races.length <= 1
-      ? "max-w-[22rem]"
-      : races.length === 2
-        ? "max-w-[calc(2*22rem+1.25rem)]"
-        : "max-w-full"
-    : "";
 
   if (loading) {
     return <Loader />;
@@ -45,7 +48,7 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
             )
           : cn(
               "grid justify-center gap-5",
-              gridWidthClass,
+              !showListView && getGridWidthClass(races.length),
               "grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]",
             ),
       )}

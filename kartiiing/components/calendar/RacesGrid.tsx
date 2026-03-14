@@ -18,12 +18,13 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
   const showListView =
     viewMode === CalendarViewMode.LIST && sectionWidth >= 850;
 
-  const columnCount = Math.min(races.length, 4);
-  const cardWidthRem = 16.9;
-  const gapRem = 1.25;
-  const cardWidthScale = 1.25;
-  const containerMaxWidth = `calc(${columnCount} * ${cardWidthScale} * ${cardWidthRem}rem 
-  + ${columnCount - 1} * ${gapRem}rem)`;
+  const gridWidthClass = !showListView
+    ? races.length <= 1
+      ? "max-w-[22rem]"
+      : races.length === 2
+        ? "max-w-[calc(2*22rem+1.25rem)]"
+        : "max-w-full"
+    : "";
 
   if (loading) {
     return <Loader />;
@@ -35,11 +36,6 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
 
   return (
     <div
-      style={
-        showListView
-          ? { maxWidth: "none", width: "100%" }
-          : { maxWidth: containerMaxWidth }
-      }
       className={cn(
         showListView
           ? cn(
@@ -47,7 +43,11 @@ export default function RacesGrid({ races, loading, sectionWidth }: Props) {
               lightDarkGlassBase,
               "p-1.5 rounded-[1.1rem] dark:bg-neutral-900",
             )
-          : "grid justify-center gap-5 grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]",
+          : cn(
+              "grid justify-center gap-5",
+              gridWidthClass,
+              "grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]",
+            ),
       )}
     >
       {races.map((race) => (

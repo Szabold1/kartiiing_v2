@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { getRaceEvents } from "@/lib/api";
 import { getRaceUrl } from "@/lib/utils/raceUtils";
+import { IRaceEvent } from "@kartiiing/shared-types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://kartiiing.com";
 const now = new Date();
@@ -34,12 +35,32 @@ const staticPages: MetadataRoute.Sitemap = [
   },
 ];
 
+async function getAllRaceEvents(): Promise<IRaceEvent[]> {
+  const allRaces: IRaceEvent[] = [];
+  const PAGE_SIZE = 100;
+  let page = 1;
+
+  while (true) {
+    const response = await getRaceEvents(`${page}`);
+    const data = Array.isArray(response?.data) ? response.data : [];
+    if (data.length === 0) {
+      break;
+    }
+    allRaces.push(...data);
+    if (data.length < PAGE_SIZE) {
+      break;
+    }
+    page += 1;
+  }
+  return allRaces;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const races = await getRaceEvents();
+    const races = await getAllRaceEvents();
 
     // Dynamic race event pages
-    const racePages: MetadataRoute.Sitemap = races.data.map((race) => {
+    const racePages: MetadataRoute.Sitemap = races.map((race) => {
       const endDate = new Date(race.date?.end || now);
       const isPast = endDate < now;
 

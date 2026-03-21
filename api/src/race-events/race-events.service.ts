@@ -6,6 +6,7 @@ import {
   IRaceEvent,
   IRaceEventDetail,
   IPaginatedResponse,
+  ISeoData,
 } from '@kartiiing/shared-types';
 import { toIRaceEvent, toIRaceEventDetail } from './race-event.resource';
 import { FindRaceEventsQuery } from './dtos';
@@ -76,30 +77,14 @@ export class RaceEventsService {
     return currentRaceTransformed || toIRaceEventDetail(event);
   }
 
-  async getYearStats(
-    year: number,
-  ): Promise<{ races: number; circuits: number; championships: number }> {
-    const races = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getCount();
+  async getCalendarMetadata(year: number): Promise<ISeoData> {
+    const { races, circuits, championships } = await this.getYearStats(year);
 
-    const circuitsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getRawOne<{ circuitCount: string }>();
-    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
-
-    const championshipsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .innerJoin('re.championshipDetails', 'champ')
-      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getRawOne<{ champCount: string }>();
-    const championships = parseInt(championshipsResult?.champCount || '0', 10);
-
-    return { races, circuits, championships };
+    return {
+      title: `Racing Calendar ${year} - Kartiiing`,
+      description: `Discover our ${year} karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
+      keywords: `${year} kart racing calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
+    };
   }
 
   // ------------------------------------------------------------- //
@@ -396,5 +381,34 @@ export class RaceEventsService {
       .orderBy('raceEvent.dateStart', 'ASC')
       .addOrderBy('raceEvent.dateEnd', 'ASC')
       .getMany();
+  }
+
+  /**
+   * Calculate year stats for race events, including total races, unique circuits, and unique championships
+   */
+  private async getYearStats(
+    year: number,
+  ): Promise<{ races: number; circuits: number; championships: number }> {
+    const races = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getCount();
+
+    const circuitsResult = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getRawOne<{ circuitCount: string }>();
+    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
+
+    const championshipsResult = await this.raceEventRepo
+      .createQueryBuilder('re')
+      .innerJoin('re.championshipDetails', 'champ')
+      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
+      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
+      .getRawOne<{ champCount: string }>();
+    const championships = parseInt(championshipsResult?.champCount || '0', 10);
+
+    return { races, circuits, championships };
   }
 }

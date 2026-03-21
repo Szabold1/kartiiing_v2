@@ -3,7 +3,7 @@ import {
   IRaceEvent,
   IRaceEventDetail,
   IPaginatedResponse,
-  IYearStats,
+  ISeoData,
 } from "@kartiiing/shared-types";
 
 /**
@@ -28,13 +28,17 @@ export async function getAvailableYears(): Promise<number[]> {
 }
 
 /**
- * Fetch year statistics (races, circuits, championships count)
+ * Fetch calendar metadata for a specific year
  */
-export async function getYearStats(year: number | string): Promise<IYearStats> {
-  const res = await fetch(`${getApiBase()}/race-events/stats/${year}`);
+export async function getCalendarMetadata(
+  year: number | string,
+): Promise<ISeoData> {
+  const res = await fetch(
+    `${getApiBase()}/race-events/calendar-metadata/${year}`,
+  );
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch year stats: ${res.status}`);
+    throw new Error(`Failed to fetch calendar metadata: ${res.status}`);
   }
 
   return res.json();

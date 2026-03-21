@@ -9,17 +9,26 @@ import {
   RaceStatus,
   IResultsLink,
   IFastestLap,
+  ISeoData,
 } from '@kartiiing/shared-types';
 
+/**
+ * Convert a RaceEvent entity to an IRaceEvent DTO, including optional status and result links
+ */
 export function toIRaceEvent(
   entity: RaceEvent,
   status?: RaceStatus | null,
 ): IRaceEvent {
   const sortedChampionships = sortChampionships(entity.championshipDetails);
+  const title = buildRaceTitle(sortedChampionships);
+  const categories = groupCategoriesByEngineType(entity.categories);
 
   const raceEvent: IRaceEvent = {
     id: entity.id,
-    title: buildRaceTitle(sortedChampionships),
+    title: title,
+    slug: generateSlug(
+      `${entity.dateEnd?.slice(0, 4) || ''}-${title.replace(/#(\d+)/g, 'round-$1')}-${entity.circuit.locationName}`,
+    ),
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
@@ -38,7 +47,8 @@ export function toIRaceEvent(
       },
     },
     championships: sortedChampionships,
-    categories: groupCategoriesByEngineType(entity.categories),
+    categories: categories,
+    updatedAt: entity.updatedAt?.toISOString(),
   };
 
   // Add result links if available
@@ -56,6 +66,9 @@ export function toIRaceEvent(
   return raceEvent;
 }
 
+/**
+ * Convert a RaceEvent entity to an IRaceEventDetail DTO, including detailed circuit info, fastest laps, and SEO data
+ */
 export function toIRaceEventDetail(
   entity: RaceEvent,
   status?: RaceStatus | null,
@@ -82,10 +95,14 @@ export function toIRaceEventDetail(
     fastestLaps: Array.isArray(entity?.fastestLaps)
       ? getFastestLapsPerCategoryPerYear(entity.fastestLaps)
       : undefined,
+    seoData: generateSeoData(entity, baseEvent.title, baseEvent.categories),
   };
 
   return raceEventDetail;
 }
+
+// ---------------------------------------------- //
+// ----- Helpers -------------------------------- //
 
 /**
  * Build the race event title from the first championship and its round number
@@ -93,9 +110,82 @@ export function toIRaceEventDetail(
 function buildRaceTitle(championships: IRaceEvent['championships']): string {
   if (championships.length === 0) return '';
   const roundPart = championships[0].roundNumber
-    ? ` #${championships[0].roundNumber}`
+    ? `#${championships[0].roundNumber}`
     : '';
   return `${championships[0].name} ${roundPart}`.trim();
+}
+
+/**
+ * Generate a URL-friendly slug from a string
+ */
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize('NFD') // Normalize accented characters
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+}
+
+/**
+ * Generate SEO data for a race event
+ */
+function generateSeoData(
+  entity: RaceEvent,
+  title: string | undefined,
+  categories: Record<string, string[]>,
+): ISeoData {
+  const year = entity.dateEnd?.slice(0, 4) || 'Unknown Year';
+  const location = entity.circuit?.locationName || 'Unknown Location';
+  const date = entity.dateEnd || 'Unknown Date';
+  const categoriesShort = formatCategoriesForSeo(categories);
+  const categoriesLong = formatCategoriesForSeo(categories, 'long');
+
+  // Replace # with "Round "
+  const formattedTitle = title?.replace(/#(\d+)/g, 'Round $1');
+
+  return {
+    title: `${year} ${formattedTitle} - ${location} (${categoriesShort}) - Kartiiing`,
+    description: `Race details for ${year} ${formattedTitle} at ${location}. Categories: ${categoriesLong}. Date: ${date}. View event information, like results, circuit details, fastest laps, and more.`,
+    keywords: [
+      `${year} ${formattedTitle}`,
+      `${formattedTitle} ${location}`,
+      location,
+      categoriesShort,
+      `karting race ${location}`,
+    ].join(', '),
+  };
+}
+
+/**
+ * Format categories for SEO
+ * @param categories - Categories grouped by engine type
+ * @param version - 'short' returns just engine types (e.g., "KZ, Mini 60, OK")
+ *                  'long' returns engine types with categories (e.g., "KZ (KZ2), Mini 60, OK (OK, OK-J, OK-NJ)")
+ */
+function formatCategoriesForSeo(
+  categories: Record<string, string[]>,
+  version: 'short' | 'long' = 'short',
+): string {
+  if (!categories || Object.keys(categories).length === 0) {
+    return '';
+  }
+
+  if (version === 'short') {
+    return Object.keys(categories).join(', ');
+  }
+
+  return Object.entries(categories)
+    .map(([engineType, categoryNames]) => {
+      if (categoryNames.length === 0) {
+        return engineType;
+      }
+      const engines = categoryNames.join(', ');
+      return `${engineType} (${engines})`;
+    })
+    .join(', ');
 }
 
 /**
@@ -210,7 +300,7 @@ function getFastestLapsPerCategoryPerYear(
         driverName: lap.driver
           ? `${lap.driver.firstName} ${lap.driver.lastName}`.trim()
           : 'Unknown',
-        driverCountryCode: lap.driver?.country?.code,
+        driverCountry: lap.driver?.country,
         lapTime: lap.lapTime,
         sessionType: formatSessionType(lap.sessionType),
         date: lap.date,

@@ -1,8 +1,7 @@
 import Flag from "react-world-flags";
 import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
 import { ExternalLink } from "lucide-react";
-import { flagIconBase } from "@/lib/classNames";
-import { cn } from "@/lib/utils";
+import { cn, flagIconBase } from "@/lib/utils";
 
 type Props = {
   circuit: ICircuit | ICircuitDetail;
@@ -30,14 +29,21 @@ export default function RaceLocation({
   const content = (
     <>
       {showFlag && (
-        <Flag code={circuit.country.code} className={flagIconBase} />
+        <Flag
+          code={circuit.country.code}
+          className={flagIconBase}
+          aria-label={`${circuit.country.name} flag`}
+          title={circuit.country.name}
+        />
       )}
 
       {version === "locationName" && circuit.locationName}
       {version === "circuitName" &&
         ("name" in circuit ? circuit.name : circuit.locationName)}
 
-      {isClickable && <ExternalLink className="w-3 h-3 opacity-75" />}
+      {isClickable && (
+        <ExternalLink className="w-3 h-3 opacity-75" aria-hidden="true" />
+      )}
     </>
   );
 
@@ -48,6 +54,7 @@ export default function RaceLocation({
         target="_blank"
         rel="noopener noreferrer"
         className={baseClassName}
+        aria-label={`View ${circuit.locationName} on Google Maps`}
       >
         {content}
       </a>

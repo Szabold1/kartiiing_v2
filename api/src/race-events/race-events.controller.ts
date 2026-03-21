@@ -5,7 +5,7 @@ import {
   IRaceEvent,
   IRaceEventDetail,
   IPaginatedResponse,
-  IYearStats,
+  ISeoData,
 } from '@kartiiing/shared-types';
 
 @Controller('race-events')
@@ -26,13 +26,9 @@ export class RaceEventsController {
     return years;
   }
 
-  @Get('stats/:year')
-  async getYearStats(@Param() params: YearParams): Promise<IYearStats> {
-    const stats = await this.raceEventsService.getYearStats(params.year);
-    return {
-      year: params.year,
-      ...stats,
-    };
+  @Get('calendar-metadata/:year')
+  async getCalendarMetadata(@Param() params: YearParams): Promise<ISeoData> {
+    return await this.raceEventsService.getCalendarMetadata(params.year);
   }
 
   @Get('by-id/:id')

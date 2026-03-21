@@ -4,12 +4,14 @@ type Props = {
   onClick: () => void;
   className?: string;
   children?: React.ReactNode;
+  ariaLabel?: string;
 };
 
 export default function RaceActionBtn({
   onClick,
   className = "",
   children = "Live Action",
+  ariaLabel,
 }: Props) {
   return (
     <button
@@ -18,6 +20,7 @@ export default function RaceActionBtn({
         "p-2 rounded-lg transition-colors duration-200 cursor-pointer w-10.5 h-10.5 flex items-center justify-center",
         className,
       )}
+      aria-label={ariaLabel}
     >
       {children}
     </button>

@@ -3,11 +3,12 @@ import BrandLogo from "@/components/shared/BrandLogo";
 
 const HomeLink = () => {
   return (
-    <h1 className="cursor-pointer text-[1.2rem] font-bold uppercase tracking-wider">
-      <Link href="/" className="pl-2.5">
-        <BrandLogo />
-      </Link>
-    </h1>
+    <Link
+      href="/"
+      className="pl-2.5 py-1 cursor-pointer text-[1.2rem] font-bold uppercase tracking-wider"
+    >
+      <BrandLogo />
+    </Link>
   );
 };
 

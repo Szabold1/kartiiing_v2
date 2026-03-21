@@ -1,8 +1,7 @@
 import { Globe, MapPin } from "lucide-react";
-import { grayGlassHover } from "@/lib/classNames";
 import { ICircuitDetail } from "@kartiiing/shared-types";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";
-import { cn } from "@/lib/utils";
+import { cn, grayGlassHover } from "@/lib/utils";
 
 type Props = {
   circuit: ICircuitDetail;

@@ -3,7 +3,7 @@
 import RaceActionBtn from "@/components/shared/btns/RaceActionBtn";
 import { Timer, TvMinimalPlay } from "lucide-react";
 import { RaceStatus, IRaceEvent } from "@kartiiing/shared-types";
-import { grayGlassHover, redGlassHover } from "@/lib/classNames";
+import { grayGlassHover, redGlassHover } from "@/lib/utils";
 
 type Props = {
   race: IRaceEvent;
@@ -33,6 +33,7 @@ export default function RaceActions({ race }: Props) {
         <RaceActionBtn
           onClick={() => handleClick("timing")}
           className={redGlassHover}
+          ariaLabel="Find live timing options"
         >
           <Timer />
         </RaceActionBtn>
@@ -41,6 +42,7 @@ export default function RaceActions({ race }: Props) {
       <RaceActionBtn
         onClick={() => handleClick("streaming")}
         className={isLive ? redGlassHover : grayGlassHover}
+        ariaLabel={`Find ${isLive ? "live " : ""}streaming options`}
       >
         <TvMinimalPlay />
       </RaceActionBtn>

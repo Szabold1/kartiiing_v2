@@ -1,5 +1,6 @@
 import { ICircuit, ICircuitDetail } from "./circuit.types";
 import { IFastestLap } from "./fastest-lap.types";
+import { ISeoData } from "./seo.types";
 
 export enum RaceEventSortOptions {
   ASC = "asc",
@@ -32,11 +33,13 @@ export interface IResultsLink {
 export interface IRaceEvent {
   id: number;
   title?: string;
+  slug: string;
   date: IRaceEventDate;
   circuit: ICircuit;
   championships: IChampionship[];
   categories: Record<string, string[]>;
   status?: RaceStatus;
+  updatedAt?: string;
   links?: {
     results?: IResultsLink[];
   };
@@ -45,4 +48,5 @@ export interface IRaceEvent {
 export interface IRaceEventDetail extends IRaceEvent {
   circuit: ICircuitDetail;
   fastestLaps?: IFastestLap[];
+  seoData: ISeoData;
 }

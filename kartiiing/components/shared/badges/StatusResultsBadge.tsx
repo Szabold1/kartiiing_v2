@@ -1,9 +1,10 @@
 import {
+  openLinkInNewTab,
   grayGlassBase,
   redGlassBase,
   grayGlassHover,
   emeraldGlassBase,
-} from "@/lib/classNames";
+} from "@/lib/utils";
 import {
   IRaceEvent,
   RaceStatus,
@@ -17,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { openLinkInNewTab } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 import { useMemo } from "react";
 

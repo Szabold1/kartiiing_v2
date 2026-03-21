@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { greenGlassHover } from "@/lib/classNames";
+import { greenGlassHover } from "@/lib/utils";
 
 interface Props {
   className?: string;

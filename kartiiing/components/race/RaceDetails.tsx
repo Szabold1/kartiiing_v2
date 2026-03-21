@@ -8,9 +8,9 @@ type Props = {
 
 export default function RaceDetails({ race }: Props) {
   return (
-    <div className="container relative flex-1 mx-auto lg:px-10 sm:px-5 md:px-6">
+    <article className="container relative flex-1 mx-auto lg:px-10 sm:px-5 md:px-6">
       <RaceDetailsHeader race={race} />
       <RaceDetailsGrid race={race} />
-    </div>
+    </article>
   );
 }

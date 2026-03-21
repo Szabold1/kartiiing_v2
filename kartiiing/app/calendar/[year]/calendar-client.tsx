@@ -15,6 +15,7 @@ interface Props {
   year: string;
   initialSort: RaceEventSortOptions;
   years: number[];
+  description: string;
 }
 
 export default function CalendarClient({
@@ -22,6 +23,7 @@ export default function CalendarClient({
   year,
   initialSort,
   years,
+  description,
 }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -156,7 +158,7 @@ export default function CalendarClient({
         <section className="flex-1 mx-auto lg:px-8">
           <div className="sm:px-5 md:px-6 lg:px-2">
             <CalendarHeader
-              races={races}
+              description={description}
               selectedYear={selectedYear}
               setSelectedYear={handleYearChange}
               years={years}

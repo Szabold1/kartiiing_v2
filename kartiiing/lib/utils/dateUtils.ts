@@ -89,3 +89,21 @@ export function formatDate(
     return dateString;
   }
 }
+
+/**
+ * Safely parse a date string, returning the parsed date or fallback
+ */
+export function safeParseDate(
+  dateString: string | undefined | null,
+  fallback: Date = new Date(),
+): Date {
+  if (
+    !dateString ||
+    typeof dateString !== "string" ||
+    dateString.trim() === ""
+  ) {
+    return fallback;
+  }
+  const parsed = new Date(dateString);
+  return isNaN(parsed.getTime()) ? fallback : parsed;
+}

@@ -48,10 +48,10 @@ export default async function CalendarPage({ params, searchParams }: Props) {
   const { sort } = await searchParams;
 
   const sortOrder = (sort as RaceEventSortOptions) || RaceEventSortOptions.ASC;
-  const racesRes = await getRaceEvents(
-    year === "all" ? undefined : year,
-    sortOrder,
-  );
+  const racesRes = await getRaceEvents({
+    year: year === "all" ? undefined : year,
+    sort: sortOrder,
+  });
   const years = await getAvailableYears();
   const metadata = await getCalendarMetadata(
     year === "all" ? new Date().getFullYear() : year,

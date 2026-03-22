@@ -2,9 +2,9 @@ import { MetadataRoute } from "next";
 import { getRaceEvents } from "@/lib/api";
 import { getRaceUrl } from "@/lib/utils/raceUtils";
 import { IRaceEvent } from "@kartiiing/shared-types";
+import { safeParseDate } from "@/lib/utils";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://kartiiing.com";
-const now = new Date();
 
 // Static pages
 const staticPages: MetadataRoute.Sitemap = [
@@ -37,17 +37,16 @@ const staticPages: MetadataRoute.Sitemap = [
 
 async function getAllRaceEvents(): Promise<IRaceEvent[]> {
   const allRaces: IRaceEvent[] = [];
-  const PAGE_SIZE = 100;
   let page = 1;
 
   while (true) {
-    const response = await getRaceEvents(`${page}`);
+    const response = await getRaceEvents({ page });
     const data = Array.isArray(response?.data) ? response.data : [];
     if (data.length === 0) {
       break;
     }
     allRaces.push(...data);
-    if (data.length < PAGE_SIZE) {
+    if (!response?.meta?.hasNextPage) {
       break;
     }
     page += 1;
@@ -61,12 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Dynamic race event pages
     const racePages: MetadataRoute.Sitemap = races.map((race) => {
-      const endDate = new Date(race.date?.end || now);
-      const isPast = endDate < now;
+      const endDate = safeParseDate(race.date?.end);
+      const isPast = endDate < new Date();
 
       return {
         url: `${BASE_URL}${getRaceUrl(race)}`,
-        lastModified: new Date(race.updatedAt || race.date?.end || now),
+        lastModified: safeParseDate(race.updatedAt || race.date?.end),
         changeFrequency: isPast ? "yearly" : "weekly",
         priority: isPast ? 0.7 : 0.8,
       };

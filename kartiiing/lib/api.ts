@@ -47,17 +47,27 @@ export async function getCalendarMetadata(
 /**
  * Fetch race events
  */
-export async function getRaceEvents(
-  year?: string,
-  sort: RaceEventSortOptions = RaceEventSortOptions.ASC,
-  search?: string,
-): Promise<IPaginatedResponse<IRaceEvent>> {
+export async function getRaceEvents(options?: {
+  year?: string;
+  sort?: RaceEventSortOptions;
+  search?: string;
+  limit?: number;
+  page?: number;
+}): Promise<IPaginatedResponse<IRaceEvent>> {
+  const {
+    year,
+    sort = RaceEventSortOptions.ASC,
+    search,
+    limit = 100,
+    page = 1,
+  } = options || {};
+
   if (year && year !== "all" && isNaN(parseInt(year))) {
     throw new Error("Invalid year parameter");
   }
 
   const yearPath = year && year !== "all" ? `/${year}` : "";
-  let url = `${getApiBase()}/race-events${yearPath}?sort=${sort}&limit=100`;
+  let url = `${getApiBase()}/race-events${yearPath}?sort=${sort}&limit=${limit}&page=${page}`;
   if (search) {
     url += `&search=${encodeURIComponent(search)}`;
   }

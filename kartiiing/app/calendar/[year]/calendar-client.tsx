@@ -53,11 +53,11 @@ export default function CalendarClient({
     const performSearch = async () => {
       setLoading(true);
       try {
-        const response = await getRaceEvents(
-          selectedYear === "all" ? undefined : selectedYear.toString(),
-          sortOrder,
-          searchQuery.trim(),
-        );
+        const response = await getRaceEvents({
+          year: selectedYear === "all" ? undefined : selectedYear.toString(),
+          sort: sortOrder,
+          search: searchQuery.trim(),
+        });
         setRaces(response.data);
       } catch (error) {
         console.error("Error searching races:", error);
@@ -123,10 +123,10 @@ export default function CalendarClient({
     setLoading(true);
     const fetchRaces = async () => {
       try {
-        const response = await getRaceEvents(
-          selectedYear === "all" ? undefined : selectedYear.toString(),
-          sortOrder,
-        );
+        const response = await getRaceEvents({
+          year: selectedYear === "all" ? undefined : selectedYear.toString(),
+          sort: sortOrder,
+        });
         setRaces(response.data);
       } catch (error) {
         console.error("Error loading races:", error);

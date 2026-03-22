@@ -1,6 +1,4 @@
-import { badgeBase } from "@/lib/classNames";
-import { getColorsForEngine } from "@/lib/constants/categories";
-import { cn } from "@/lib/utils";
+import { cn, badgeBase, getColorsForEngine } from "@/lib/utils";
 
 type Props = {
   label: string;

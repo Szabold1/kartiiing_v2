@@ -1,9 +1,8 @@
 import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/shared/Loader";
-import { lightDarkGlassBase } from "@/lib/classNames";
 import { IRaceEvent } from "@kartiiing/shared-types";
 import { CalendarViewMode } from "@/lib/constants/calendar";
-import { cn } from "@/lib/utils";
+import { cn, lightDarkGlassBase } from "@/lib/utils";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
 import ErrorState from "@/components/shared/ErrorState";
 

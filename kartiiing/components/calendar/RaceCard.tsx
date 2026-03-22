@@ -4,8 +4,12 @@ import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import RaceDate from "@/components/shared/race-data/RaceDate";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";
-import { lightDarkGlassHover, liveContainerHover } from "@/lib/classNames";
-import { generateSlug, cn } from "@/lib/utils";
+import {
+  cn,
+  getRaceUrl,
+  lightDarkGlassHover,
+  liveContainerHover,
+} from "@/lib/utils";
 
 type Props = {
   race: IRaceEvent;
@@ -15,16 +19,12 @@ type Props = {
 export default function RaceCard({ race, variant = "card" }: Props) {
   const router = useRouter();
   const { id, date, circuit, categories } = race;
-  const year = date.start.split("-")[0];
   const hasResults = race.links?.results && race.links.results.length > 0;
   const addDatePadding = variant === "row" && !race.status && !hasResults;
-  const slug = generateSlug(
-    `${year} ${race?.title || ""} ${circuit?.locationName || ""}`,
-  );
-  const raceLink = `/race/${slug}/${id}`;
+  const ariaLabel = `View details for ${race.title} at ${circuit?.locationName} - ${date.end}`;
 
   const handleRaceClick = () => {
-    router.push(raceLink);
+    router.push(getRaceUrl(race));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -49,6 +49,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         role="button"
         tabIndex={0}
         onKeyDown={handleKeyDown}
+        aria-label={ariaLabel}
       >
         <div className="flex-1 flex items-center gap-4">
           {race.status || hasResults ? (
@@ -98,6 +99,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
       role="button"
       tabIndex={0}
       onKeyDown={handleKeyDown}
+      aria-label={ariaLabel}
     >
       {race.status || hasResults ? (
         <div className="absolute -top-0.5 -right-0.5">

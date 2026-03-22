@@ -14,7 +14,8 @@ interface Props {
   initialRaces: IRaceEvent[];
   year: string;
   initialSort: RaceEventSortOptions;
-  years: number[];
+  years: (number | string)[];
+  description: string;
 }
 
 export default function CalendarClient({
@@ -22,6 +23,7 @@ export default function CalendarClient({
   year,
   initialSort,
   years,
+  description,
 }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -51,11 +53,11 @@ export default function CalendarClient({
     const performSearch = async () => {
       setLoading(true);
       try {
-        const response = await getRaceEvents(
-          selectedYear === "all" ? undefined : selectedYear.toString(),
-          sortOrder,
-          searchQuery.trim(),
-        );
+        const response = await getRaceEvents({
+          year: selectedYear === "all" ? undefined : selectedYear.toString(),
+          sort: sortOrder,
+          search: searchQuery.trim(),
+        });
         setRaces(response.data);
       } catch (error) {
         console.error("Error searching races:", error);
@@ -121,10 +123,10 @@ export default function CalendarClient({
     setLoading(true);
     const fetchRaces = async () => {
       try {
-        const response = await getRaceEvents(
-          selectedYear === "all" ? undefined : selectedYear.toString(),
-          sortOrder,
-        );
+        const response = await getRaceEvents({
+          year: selectedYear === "all" ? undefined : selectedYear.toString(),
+          sort: sortOrder,
+        });
         setRaces(response.data);
       } catch (error) {
         console.error("Error loading races:", error);
@@ -156,7 +158,7 @@ export default function CalendarClient({
         <section className="flex-1 mx-auto lg:px-8">
           <div className="sm:px-5 md:px-6 lg:px-2">
             <CalendarHeader
-              races={races}
+              description={description}
               selectedYear={selectedYear}
               setSelectedYear={handleYearChange}
               years={years}

@@ -1,12 +1,14 @@
 import { IFastestLap } from "@kartiiing/shared-types";
+import Flag from "react-world-flags";
 import {
+  formatDate,
+  formatLapTime,
+  cn,
   badgeBase,
   flagIconBase,
   grayGlassBase,
   lightDarkGlassBase,
-} from "@/lib/classNames";
-import Flag from "react-world-flags";
-import { formatDate, formatLapTime, cn } from "@/lib/utils";
+} from "@/lib/utils";
 
 type Props = {
   lap: IFastestLap;
@@ -33,10 +35,11 @@ export default function FastestLapItem({ lap }: Props) {
       </div>
       <div className="flex items-end justify-between">
         <div className="flex items-center gap-2">
-          {lap.driverCountryCode && (
+          {lap.driverCountry && (
             <Flag
-              code={lap.driverCountryCode}
-              alt={lap.driverCountryCode}
+              code={lap.driverCountry.code}
+              alt={`${lap.driverCountry.name} flag`}
+              title={lap.driverCountry.name}
               className={flagIconBase}
             />
           )}

@@ -6,8 +6,14 @@ import {
   IRaceEvent,
   IRaceEventDetail,
   IPaginatedResponse,
+  ISeoData,
+  IRaceEventMinimal,
 } from '@kartiiing/shared-types';
-import { toIRaceEvent, toIRaceEventDetail } from './race-event.resource';
+import {
+  toIRaceEvent,
+  toIRaceEventDetail,
+  toIRaceEventMinimal,
+} from './race-event.resource';
 import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
@@ -76,30 +82,29 @@ export class RaceEventsService {
     return currentRaceTransformed || toIRaceEventDetail(event);
   }
 
-  async getYearStats(
-    year: number,
-  ): Promise<{ races: number; circuits: number; championships: number }> {
-    const races = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getCount();
+  async getCalendarMetadata(year?: number): Promise<ISeoData> {
+    const { races, circuits, championships } = await this.getYearStats(year);
 
-    const circuitsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getRawOne<{ circuitCount: string }>();
-    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
+    return {
+      title: `Racing Calendar ${year ? `${year} ` : ``}- Kartiiing`,
+      description: `Discover our ${year ? `${year} ` : ``}karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
+      keywords: `${year ? `${year} ` : ``}karting calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
+    };
+  }
 
-    const championshipsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .innerJoin('re.championshipDetails', 'champ')
-      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getRawOne<{ champCount: string }>();
-    const championships = parseInt(championshipsResult?.champCount || '0', 10);
+  async getMinimal(): Promise<IRaceEventMinimal[]> {
+    // Load minimal necessary data for slug generation
+    const qb = this.raceEventRepo
+      .createQueryBuilder('raceEvent')
+      .leftJoinAndSelect('raceEvent.circuit', 'circuit')
+      .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
+      .leftJoinAndSelect('championshipDetails.championship', 'championship')
+      .orderBy('raceEvent.dateEnd', 'DESC')
+      .addOrderBy('raceEvent.id', 'DESC');
 
-    return { races, circuits, championships };
+    const allEvents = await qb.getMany();
+
+    return allEvents.map((event) => toIRaceEventMinimal(event));
   }
 
   // ------------------------------------------------------------- //
@@ -396,5 +401,47 @@ export class RaceEventsService {
       .orderBy('raceEvent.dateStart', 'ASC')
       .addOrderBy('raceEvent.dateEnd', 'ASC')
       .getMany();
+  }
+
+  /**
+   * Calculate year stats for race events, including total races, unique circuits, and unique championships
+   * If year is omitted, returns stats for all years combined
+   */
+  private async getYearStats(
+    year?: number,
+  ): Promise<{ races: number; circuits: number; championships: number }> {
+    let raceQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      raceQb = raceQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
+        year,
+      });
+    }
+    const races = await raceQb.getCount();
+
+    let circuitsQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      circuitsQb = circuitsQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
+        year,
+      });
+    }
+    const circuitsResult = await circuitsQb
+      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
+      .getRawOne<{ circuitCount: string }>();
+    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
+
+    let championshipsQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      championshipsQb = championshipsQb.where(
+        'EXTRACT(YEAR FROM re.dateStart) = :year',
+        { year },
+      );
+    }
+    const championshipsResult = await championshipsQb
+      .innerJoin('re.championshipDetails', 'champ')
+      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
+      .getRawOne<{ champCount: string }>();
+    const championships = parseInt(championshipsResult?.champCount || '0', 10);
+
+    return { races, circuits, championships };
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { greenGlassHover, lightDarkGlassHover } from "@/lib/classNames";
+import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
 

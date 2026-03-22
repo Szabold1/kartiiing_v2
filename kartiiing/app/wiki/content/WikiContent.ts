@@ -38,7 +38,7 @@ const data = {
         {
           type: "image",
           src: "/images/first-go-kart.jpg",
-          alt: "Art Ingels and Lou Borelli with the very first go-kart",
+          alt: "The first kart created by Art Ingels and Lou Borelli.",
           caption:
             "The first kart created in August 1956 in California (USA) by Art Ingels and Lou Borelli.",
         },

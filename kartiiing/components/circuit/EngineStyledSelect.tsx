@@ -1,7 +1,5 @@
-import {
-  EngineColorVariant,
-  getColorsForEngine,
-} from "@/lib/constants/categories";
+import { EngineColorVariant } from "@/lib/constants/categories";
+import { getColorsForEngine } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -42,6 +40,7 @@ export default function EngineStyledSelect({
     >
       <SelectTrigger
         className={`!h-9.5 cursor-pointer transition ${getColorsForEngine(engineType, EngineColorVariant.FULL)}`}
+        aria-label={`Select ${label}`}
       >
         <SelectValue placeholder={`Select ${label}`} />
       </SelectTrigger>

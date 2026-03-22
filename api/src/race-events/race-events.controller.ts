@@ -4,8 +4,9 @@ import { YearParams, FindRaceEventsQuery } from './dtos';
 import {
   IRaceEvent,
   IRaceEventDetail,
+  IRaceEventMinimal,
   IPaginatedResponse,
-  IYearStats,
+  ISeoData,
 } from '@kartiiing/shared-types';
 
 @Controller('race-events')
@@ -26,13 +27,21 @@ export class RaceEventsController {
     return years;
   }
 
-  @Get('stats/:year')
-  async getYearStats(@Param() params: YearParams): Promise<IYearStats> {
-    const stats = await this.raceEventsService.getYearStats(params.year);
-    return {
-      year: params.year,
-      ...stats,
-    };
+  @Get('calendar-metadata')
+  async getCalendarMetadata(): Promise<ISeoData> {
+    return await this.raceEventsService.getCalendarMetadata();
+  }
+
+  @Get('calendar-metadata/:year')
+  async getCalendarMetadataByYear(
+    @Param() params: YearParams,
+  ): Promise<ISeoData> {
+    return await this.raceEventsService.getCalendarMetadata(params.year);
+  }
+
+  @Get('minimal')
+  async getMinimal(): Promise<IRaceEventMinimal[]> {
+    return await this.raceEventsService.getMinimal();
   }
 
   @Get('by-id/:id')

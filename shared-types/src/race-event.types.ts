@@ -32,14 +32,14 @@ export interface IResultsLink {
 
 export interface IRaceEvent {
   id: number;
-  title?: string;
+  title: string;
   slug: string;
   date: IRaceEventDate;
   circuit: ICircuit;
   championships: IChampionship[];
   categories: Record<string, string[]>;
+  updatedAt: string;
   status?: RaceStatus;
-  updatedAt?: string;
   links?: {
     results?: IResultsLink[];
   };

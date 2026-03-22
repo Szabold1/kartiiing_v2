@@ -39,6 +39,7 @@ export default function FastestLapItem({ lap }: Props) {
             <Flag
               code={lap.driverCountry.code}
               alt={`${lap.driverCountry.name} flag`}
+              title={lap.driverCountry.name}
               className={flagIconBase}
             />
           )}

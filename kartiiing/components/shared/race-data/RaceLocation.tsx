@@ -32,7 +32,7 @@ export default function RaceLocation({
         <Flag
           code={circuit.country.code}
           className={flagIconBase}
-          aria-label={`${circuit.country.name} flag`}
+          alt={`${circuit.country.name} flag`}
           title={circuit.country.name}
         />
       )}

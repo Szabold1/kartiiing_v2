@@ -24,8 +24,8 @@ export function toIRaceEventMinimal(entity: RaceEvent): IRaceEventMinimal {
     id: entity.id,
     slug: buildRaceSlug(entity, title),
     date: {
-      start: entity.dateStart || '',
-      end: entity.dateEnd || '',
+      start: entity.dateStart,
+      end: entity.dateEnd,
       year: extractYearFromDate(entity.dateEnd || entity.dateStart),
     },
     updatedAt: entity.updatedAt.toISOString(),
@@ -47,8 +47,8 @@ export function toIRaceEvent(
     id: entity.id,
     slug: buildRaceSlug(entity, title),
     date: {
-      start: entity.dateStart || '',
-      end: entity.dateEnd || '',
+      start: entity.dateStart,
+      end: entity.dateEnd,
       year: extractYearFromDate(entity.dateEnd || entity.dateStart),
     },
     updatedAt: entity.updatedAt.toISOString(),

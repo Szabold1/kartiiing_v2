@@ -16,7 +16,7 @@ export default function RaceActions({ race }: Props) {
   if (!isLive && !isFinished) return null;
 
   const handleClick = (type: "timing" | "streaming") => {
-    const year = new Date(race.date.start).getFullYear();
+    const year = race.date.year;
     const livePrefix = isLive ? "live " : "";
 
     const searchQuery = encodeURIComponent(

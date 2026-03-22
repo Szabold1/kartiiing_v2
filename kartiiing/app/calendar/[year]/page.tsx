@@ -1,8 +1,13 @@
-import { getAvailableYears, getRaceEvents } from "@/lib/api";
+import {
+  getAvailableYears,
+  getRaceEvents,
+  getCalendarMetadata,
+} from "@/lib/api";
 import CalendarClient from "./calendar-client";
 import { RaceEventSortOptions } from "@kartiiing/shared-types";
+import { SITE_URL } from "@/lib/utils";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{
@@ -14,17 +19,41 @@ interface Props {
 }
 
 /**
- * Generate metadata for the calendar page based on the year parameter
+ * Generate metadata for the calendar page
  */
 export async function generateMetadata({ params }: Props) {
   const { year } = await params;
 
-  return {
-    title: year === "all" ? "Kartiiing - Calendar - All Years" : `Kartiiing - Calendar ${year}`,
-    description: `Browse karting races ${
-      year === "all" ? "from all years" : `for ${year}`
-    }`,
-  };
+  try {
+    const metadata = await getCalendarMetadata(year);
+
+    return {
+      title: metadata.title,
+      description: metadata.description,
+      keywords: metadata.keywords,
+      openGraph: {
+        url: `${SITE_URL}/calendar/${year}`,
+        type: "website",
+        // image: metadata.openGraph?.image || DEFAULT_OG_IMAGE,
+      },
+      // twitter: {
+      //   image: metadata.twitter?.image || DEFAULT_OG_IMAGE,
+      // },
+    };
+  } catch (error) {
+    console.error("Error generating calendar metadata:", error);
+
+    const yearDisplay = year === "all" ? "All Years" : year;
+    return {
+      title: `${yearDisplay} Calendar - Kartiiing`,
+      description: `Karting race calendar for ${yearDisplay}. View upcoming and past events.`,
+      keywords: `karting calendar, ${yearDisplay} karting calendar, races, events`,
+      openGraph: {
+        url: `${SITE_URL}/calendar/${year}`,
+        type: "website",
+      },
+    };
+  }
 }
 
 export default async function CalendarPage({ params, searchParams }: Props) {
@@ -32,9 +61,20 @@ export default async function CalendarPage({ params, searchParams }: Props) {
   const { sort } = await searchParams;
 
   const sortOrder = (sort as RaceEventSortOptions) || RaceEventSortOptions.ASC;
-  const racesRes = await getRaceEvents(year === "all" ? undefined : year, sortOrder);
-  const years = await getAvailableYears();
-  console.log('races', racesRes);
+  const racesRes = await getRaceEvents({
+    year: year,
+    sort: sortOrder,
+  });
+  const availableYears = await getAvailableYears();
+  const years = ["all", ...availableYears] as (string | number)[];
+
+  let description = "Race calendar - view upcoming and past events.";
+  try {
+    const metadata = await getCalendarMetadata(year);
+    description = metadata.description;
+  } catch (error) {
+    console.error("Error fetching calendar metadata:", error);
+  }
 
   return (
     <CalendarClient
@@ -42,6 +82,7 @@ export default async function CalendarPage({ params, searchParams }: Props) {
       year={year}
       initialSort={sortOrder}
       years={years}
+      description={description}
     />
   );
 }

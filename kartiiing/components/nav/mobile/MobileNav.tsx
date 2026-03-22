@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import MobileNavLink from "./MobileNavLink";
-import { lightDarkGlassBase, lightDarkGlassHover } from "@/lib/classNames";
+import MobileNavLink from "@/components/nav/mobile/MobileNavLink";
+import { lightDarkGlassBase, lightDarkGlassHover } from "@/lib/utils";
 import { NavLink } from "@/lib/types/NavTypes";
 // import LoginBtn from "@/components/nav/LoginBtn";
 

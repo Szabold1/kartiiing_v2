@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function BackToTopBTn() {
+export default function BackToTopBtn() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

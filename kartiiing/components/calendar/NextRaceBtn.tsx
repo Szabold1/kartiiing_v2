@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
 import { Button } from "@/components/ui/button";
-import { redGlassHover } from "@/lib/classNames";
+import { redGlassHover } from "@/lib/utils";
 
 type Props = {
   races: IRaceEvent[];
@@ -25,8 +25,8 @@ export default function NextRaceBtn({ races }: Props) {
       liveRaces.length > 0
         ? liveRaces[0]
         : nextRaces.length > 0
-        ? nextRaces[0]
-        : null;
+          ? nextRaces[0]
+          : null;
 
     if (!targetRace) return;
 

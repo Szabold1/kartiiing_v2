@@ -1,8 +1,8 @@
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { GlobalProvider } from "@/providers/GlobalProvider";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/nav/Footer";
-import { GlobalProvider } from "@/contexts/GlobalContext";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import { Roboto } from "next/font/google";
 

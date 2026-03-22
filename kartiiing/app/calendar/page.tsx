@@ -1,19 +1,19 @@
 import { redirect } from "next/navigation";
+import { getAvailableYears } from "@/lib/api";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function CalendarPage() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || ""}/api/race-events/years`
-  );
-  const years: number[] = await res.json();
-
+  const availableYears = await getAvailableYears();
   const currentYear = new Date().getFullYear();
-  if (years?.includes(currentYear)) {
-    redirect(`/calendar/${currentYear}`);
+  let targetYear = currentYear;
+
+  if (availableYears.length > 0) {
+    if (availableYears.includes(currentYear)) {
+      targetYear = currentYear;
+    } else {
+      targetYear = Math.max(...availableYears);
+    }
   }
-  if (years?.length > 0) {
-    const targetYear = Math.max(...years);
-    redirect(`/calendar/${targetYear}`);
-  }
+  redirect(`/calendar/${targetYear}`);
 }

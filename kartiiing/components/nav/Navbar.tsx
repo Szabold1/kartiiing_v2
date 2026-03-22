@@ -1,11 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
-import ThemeBtn from "./ThemeBtn";
-import HomeLink from "./HomeLink";
-import { lightDarkGlassBase } from "@/lib/classNames";
+import DesktopNav from "@/components/nav/desktop/DesktopNav";
+import MobileNav from "@/components/nav/mobile/MobileNav";
+import ThemeBtn from "@/components/nav/ThemeBtn";
+import HomeLink from "@/components/nav/HomeLink";
+import { lightDarkGlassBase } from "@/lib/utils";
 // import LoginBtn from "@/components/nav/LoginBtn";
 
 const Navbar = () => {

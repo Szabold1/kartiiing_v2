@@ -1,9 +1,13 @@
+import { Metadata } from "next";
+import { buildMetadata, getPageMetadata } from "@/lib/utils";
 import SideBarMenu from "./sidebar/SideBarMenu";
 import data from "./content/WikiContent";
 import RenderSection from "./content/RenderSection";
-import Aside from "@/components/Aside";
-import PageHeader from "@/components/PageHeader";
-import BackToTopBTn from "@/components/BackToTopBtn";
+import Aside from "@/components/shared/Aside";
+import PageHeader from "@/components/shared/PageHeader";
+import BackToTopBtn from "@/components/shared/btns/BackToTopBtn";
+
+export const metadata: Metadata = buildMetadata(getPageMetadata("wiki"));
 
 const WikiPage = () => {
   return (
@@ -22,7 +26,7 @@ const WikiPage = () => {
       </section>
 
       <Aside position="right" visibilityFrom="xl"></Aside>
-      <BackToTopBTn />
+      <BackToTopBtn />
     </div>
   );
 };

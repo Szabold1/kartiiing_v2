@@ -1,20 +1,7 @@
-import { badgeBase } from "@/lib/classNames";
-import { getColorsForEngine } from "@/lib/constants/categories";
 import { cn } from "@/lib/utils";
+import CategoryBadge from "@/components/shared/badges/CategoryBadge";
 
 type Props = {
-  label: string;
-  engineType: string;
-  className?: string;
-};
-
-function CategoryBadge({ label, engineType, className = "" }: Props) {
-  const colorClass = getColorsForEngine(engineType);
-
-  return <span className={cn(badgeBase, colorClass, className)}>{label}</span>;
-}
-
-type RenderProps = {
   engineCategoryPairs: Record<string, string[]>;
   className?: string;
   showAll?: boolean;
@@ -31,7 +18,7 @@ export default function EngineCategory({
   className = "",
   showAll = false,
   badgeClassName = "",
-}: RenderProps) {
+}: Props) {
   const badges: Badge[] = [];
 
   Object.entries(engineCategoryPairs).forEach(([engineType, categories]) => {

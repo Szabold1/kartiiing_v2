@@ -1,4 +1,4 @@
-import { greenGlassHover, lightDarkGlassHover } from "@/lib/classNames";
+import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,7 +10,13 @@ interface Props {
   matchPath?: string;
 }
 
-const MobileNavLink = ({ children, href, setOpen, match = "exact", matchPath }: Props) => {
+const MobileNavLink = ({
+  children,
+  href,
+  setOpen,
+  match = "exact",
+  matchPath,
+}: Props) => {
   const pathname = usePathname();
 
   let isActive = false;

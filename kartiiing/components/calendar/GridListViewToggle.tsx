@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
-import { lightDarkGlassActive, lightDarkGlassBase } from "@/lib/classNames";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
-import { cn } from "@/lib/utils";
+import { cn, lightDarkGlassActive, lightDarkGlassBase } from "@/lib/utils";
 
 interface Props {
   className?: string;

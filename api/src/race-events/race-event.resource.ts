@@ -49,7 +49,7 @@ export function toIRaceEvent(
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
-      year: extractYearFromDate(entity.dateEnd),
+      year: extractYearFromDate(entity.dateEnd || entity.dateStart),
     },
     updatedAt: entity.updatedAt.toISOString(),
     title: title,

@@ -26,7 +26,7 @@ export function toIRaceEventMinimal(entity: RaceEvent): IRaceEventMinimal {
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
-      year: extractYearFromDate(entity.dateEnd),
+      year: extractYearFromDate(entity.dateEnd || entity.dateStart),
     },
     updatedAt: entity.updatedAt.toISOString(),
   };
@@ -128,8 +128,8 @@ export function toIRaceEventDetail(
  */
 function extractYearFromDate(dateString?: string): number | undefined {
   if (!dateString) return undefined;
-  const year = dateString.slice(0, 4);
-  return year ? parseInt(year) : undefined;
+  const year = parseInt(dateString.slice(0, 4), 10);
+  return !isNaN(year) ? year : undefined;
 }
 
 /**

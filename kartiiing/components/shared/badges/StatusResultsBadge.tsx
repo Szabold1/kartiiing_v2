@@ -68,6 +68,7 @@ export default function StatusResultsBadge({
           onClick={(e) => e.stopPropagation()}
           className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 transition`}
           style={{ height: calculatedHeight }}
+          suppressHydrationWarning
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>

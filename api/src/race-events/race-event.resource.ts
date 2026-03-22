@@ -172,16 +172,29 @@ function generateSeoData(
   // Replace # with "Round "
   const formattedTitle = title?.replace(/#(\d+)/g, 'Round $1');
 
+  // Build title with optional categories segment
+  const titleSuffix = categoriesShort ? ` (${categoriesShort})` : '';
+  const seoTitle = `${year} ${formattedTitle} - ${location}${titleSuffix} - Kartiiing`;
+
+  // Build description with optional categories sentence
+  const categoriesSentence = categoriesLong
+    ? `Categories: ${categoriesLong}. `
+    : '';
+  const seoDescription = `Race details for ${year} ${formattedTitle} at ${location}. ${categoriesSentence}Date: ${date}. View event information, like results, circuit details, fastest laps, and more.`;
+
+  // Build keywords, excluding empty categories
+  const keywords = [
+    `${year} ${formattedTitle}`,
+    `${formattedTitle} ${location}`,
+    location,
+    ...(categoriesShort ? [categoriesShort] : []),
+    `karting race ${location}`,
+  ].join(', ');
+
   return {
-    title: `${year} ${formattedTitle} - ${location} (${categoriesShort}) - Kartiiing`,
-    description: `Race details for ${year} ${formattedTitle} at ${location}. Categories: ${categoriesLong}. Date: ${date}. View event information, like results, circuit details, fastest laps, and more.`,
-    keywords: [
-      `${year} ${formattedTitle}`,
-      `${formattedTitle} ${location}`,
-      location,
-      categoriesShort,
-      `karting race ${location}`,
-    ].join(', '),
+    title: seoTitle,
+    description: seoDescription,
+    keywords: keywords,
   };
 }
 

@@ -29,14 +29,17 @@ export async function getAvailableYears(): Promise<number[]> {
 }
 
 /**
- * Fetch calendar metadata for a specific year
+ * Fetch calendar metadata for a specific year or all years
+ * For a specific year: /race-events/calendar-metadata/{year}
+ * For all years: /race-events/calendar-metadata
  */
-export async function getCalendarMetadata(
-  year: number | string,
-): Promise<ISeoData> {
-  const res = await fetch(
-    `${getApiBase()}/race-events/calendar-metadata/${year}`,
-  );
+export async function getCalendarMetadata(year: string): Promise<ISeoData> {
+  const endpoint =
+    year === "all"
+      ? `${getApiBase()}/race-events/calendar-metadata`
+      : `${getApiBase()}/race-events/calendar-metadata/${year}`;
+
+  const res = await fetch(endpoint);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch calendar metadata: ${res.status}`);

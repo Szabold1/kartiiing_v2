@@ -22,6 +22,10 @@ export default function CalendarHeader({
   setSelectedYear,
   years,
 }: Props) {
+  const formatYearDisplay = (year: number | string) => {
+    return year === "all" ? "All Years" : year;
+  };
+
   return (
     <PageHeader
       title="Calendar"
@@ -32,7 +36,7 @@ export default function CalendarHeader({
           onValueChange={(val: string) => setSelectedYear(val)}
         >
           <SelectTrigger
-            className="w-24 h-10.5! cursor-pointer font-semibold text-[1rem]"
+            className="w-29 h-10.5! cursor-pointer font-semibold text-[1rem]"
             aria-label="Select year to view racing calendar"
             suppressHydrationWarning
           >
@@ -45,7 +49,7 @@ export default function CalendarHeader({
                 value={year.toString()}
                 className="cursor-pointer h-10"
               >
-                {year}
+                {formatYearDisplay(year)}
               </SelectItem>
             ))}
           </SelectContent>

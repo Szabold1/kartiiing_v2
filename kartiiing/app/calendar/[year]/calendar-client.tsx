@@ -14,7 +14,7 @@ interface Props {
   initialRaces: IRaceEvent[];
   year: string;
   initialSort: RaceEventSortOptions;
-  years: number[];
+  years: (number | string)[];
   description: string;
 }
 

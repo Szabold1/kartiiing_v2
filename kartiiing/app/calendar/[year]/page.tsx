@@ -25,9 +25,7 @@ export async function generateMetadata({ params }: Props) {
   const { year } = await params;
 
   try {
-    const metadata = await getCalendarMetadata(
-      year === "all" ? new Date().getFullYear() : year,
-    );
+    const metadata = await getCalendarMetadata(year);
 
     return {
       title: metadata.title,
@@ -64,16 +62,15 @@ export default async function CalendarPage({ params, searchParams }: Props) {
 
   const sortOrder = (sort as RaceEventSortOptions) || RaceEventSortOptions.ASC;
   const racesRes = await getRaceEvents({
-    year: year === "all" ? undefined : year,
+    year: year,
     sort: sortOrder,
   });
-  const years = await getAvailableYears();
+  const availableYears = await getAvailableYears();
+  const years = ["all", ...availableYears] as (string | number)[];
 
   let description = "Race calendar - view upcoming and past events.";
   try {
-    const metadata = await getCalendarMetadata(
-      year === "all" ? new Date().getFullYear() : year,
-    );
+    const metadata = await getCalendarMetadata(year);
     description = metadata.description;
   } catch (error) {
     console.error("Error fetching calendar metadata:", error);

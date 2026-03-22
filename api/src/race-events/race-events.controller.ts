@@ -27,8 +27,15 @@ export class RaceEventsController {
     return years;
   }
 
+  @Get('calendar-metadata')
+  async getCalendarMetadata(): Promise<ISeoData> {
+    return await this.raceEventsService.getCalendarMetadata();
+  }
+
   @Get('calendar-metadata/:year')
-  async getCalendarMetadata(@Param() params: YearParams): Promise<ISeoData> {
+  async getCalendarMetadataByYear(
+    @Param() params: YearParams,
+  ): Promise<ISeoData> {
     return await this.raceEventsService.getCalendarMetadata(params.year);
   }
 

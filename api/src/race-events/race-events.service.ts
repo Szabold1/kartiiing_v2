@@ -82,13 +82,13 @@ export class RaceEventsService {
     return currentRaceTransformed || toIRaceEventDetail(event);
   }
 
-  async getCalendarMetadata(year: number): Promise<ISeoData> {
+  async getCalendarMetadata(year?: number): Promise<ISeoData> {
     const { races, circuits, championships } = await this.getYearStats(year);
 
     return {
-      title: `Racing Calendar ${year} - Kartiiing`,
-      description: `Discover our ${year} karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
-      keywords: `${year} kart racing calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
+      title: `Racing Calendar ${year ? `${year} ` : ``}- Kartiiing`,
+      description: `Discover our ${year ? `${year} ` : ``}karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
+      keywords: `${year ? `${year} ` : ``}karting calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
     };
   }
 
@@ -406,27 +406,40 @@ export class RaceEventsService {
 
   /**
    * Calculate year stats for race events, including total races, unique circuits, and unique championships
+   * If year is omitted, returns stats for all years combined
    */
   private async getYearStats(
-    year: number,
+    year?: number,
   ): Promise<{ races: number; circuits: number; championships: number }> {
-    const races = await this.raceEventRepo
-      .createQueryBuilder('re')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
-      .getCount();
+    let raceQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      raceQb = raceQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
+        year,
+      });
+    }
+    const races = await raceQb.getCount();
 
-    const circuitsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
+    let circuitsQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      circuitsQb = circuitsQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
+        year,
+      });
+    }
+    const circuitsResult = await circuitsQb
       .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
       .getRawOne<{ circuitCount: string }>();
     const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
 
-    const championshipsResult = await this.raceEventRepo
-      .createQueryBuilder('re')
+    let championshipsQb = this.raceEventRepo.createQueryBuilder('re');
+    if (year) {
+      championshipsQb = championshipsQb.where(
+        'EXTRACT(YEAR FROM re.dateStart) = :year',
+        { year },
+      );
+    }
+    const championshipsResult = await championshipsQb
       .innerJoin('re.championshipDetails', 'champ')
       .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
-      .where('EXTRACT(YEAR FROM re.dateStart) = :year', { year })
       .getRawOne<{ champCount: string }>();
     const championships = parseInt(championshipsResult?.champCount || '0', 10);
 

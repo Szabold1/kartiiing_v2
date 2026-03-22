@@ -97,7 +97,6 @@ export class RaceEventsService {
     const qb = this.raceEventRepo
       .createQueryBuilder('raceEvent')
       .leftJoinAndSelect('raceEvent.circuit', 'circuit')
-      .leftJoinAndSelect('circuit.country', 'country')
       .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
       .leftJoinAndSelect('championshipDetails.championship', 'championship')
       .orderBy('raceEvent.dateEnd', 'DESC')

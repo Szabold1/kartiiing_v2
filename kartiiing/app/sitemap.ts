@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getMinimalRaceEvents } from "@/lib/api";
+import { getMinimalRaceEvents, getAvailableYears } from "@/lib/api";
 import { getRaceUrl } from "@/lib/utils/raceUtils";
 import { safeParseDate } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 1,
   },
   {
-    url: `${BASE_URL}/calendar`,
+    url: `${BASE_URL}/calendar/all`,
     changeFrequency: "weekly",
     priority: 0.8,
   },
@@ -36,7 +36,21 @@ const staticPages: MetadataRoute.Sitemap = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const races = await getMinimalRaceEvents();
+    const [races, years] = await Promise.all([
+      getMinimalRaceEvents(),
+      getAvailableYears(),
+    ]);
+
+    // Dynamic calendar year pages
+    const currentYear = new Date().getFullYear();
+    const calendarPages: MetadataRoute.Sitemap = years.map((year) => {
+      const isPastYear = year < currentYear;
+      return {
+        url: `${BASE_URL}/calendar/${year}`,
+        changeFrequency: isPastYear ? "yearly" : "weekly",
+        priority: 0.8,
+      };
+    });
 
     // Dynamic race event pages
     const racePages: MetadataRoute.Sitemap = races.map((race) => {
@@ -47,11 +61,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${BASE_URL}${getRaceUrl(race)}`,
         lastModified: safeParseDate(race.updatedAt || race.date?.end),
         changeFrequency: isPast ? "yearly" : "weekly",
-        priority: isPast ? 0.7 : 0.8,
+        priority: isPast ? 0.6 : 0.7,
       };
     });
 
-    return [...staticPages, ...racePages];
+    return [...staticPages, ...calendarPages, ...racePages];
   } catch (error) {
     console.error("Error generating sitemap:", error);
     return staticPages;

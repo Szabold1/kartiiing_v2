@@ -10,7 +10,26 @@ import {
   IResultsLink,
   IFastestLap,
   ISeoData,
+  IRaceEventMinimal,
 } from '@kartiiing/shared-types';
+
+/**
+ * Convert a RaceEvent entity to an IRaceEventMinimal DTO, which includes only basic information
+ */
+export function toIRaceEventMinimal(entity: RaceEvent): IRaceEventMinimal {
+  const sortedChampionships = sortChampionships(entity.championshipDetails);
+  const title = buildRaceTitle(sortedChampionships);
+
+  return {
+    id: entity.id,
+    slug: buildRaceSlug(entity, title),
+    date: {
+      start: entity.dateStart || '',
+      end: entity.dateEnd || '',
+    },
+    updatedAt: entity.updatedAt.toISOString(),
+  };
+}
 
 /**
  * Convert a RaceEvent entity to an IRaceEvent DTO, including optional status and result links
@@ -26,9 +45,7 @@ export function toIRaceEvent(
   const raceEvent: IRaceEvent = {
     id: entity.id,
     title: title,
-    slug: generateSlug(
-      `${entity.dateEnd?.slice(0, 4) || ''}-${title.replace(/#(\d+)/g, 'round-$1')}-${entity.circuit.locationName}`,
-    ),
+    slug: buildRaceSlug(entity, title),
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
@@ -48,7 +65,7 @@ export function toIRaceEvent(
     },
     championships: sortedChampionships,
     categories: categories,
-    updatedAt: entity.updatedAt?.toISOString(),
+    updatedAt: entity.updatedAt.toISOString(),
   };
 
   // Add result links if available
@@ -103,6 +120,15 @@ export function toIRaceEventDetail(
 
 // ---------------------------------------------- //
 // ----- Helpers -------------------------------- //
+
+/**
+ * Build the race event slug
+ */
+function buildRaceSlug(entity: RaceEvent, title: string): string {
+  return generateSlug(
+    `${entity.dateEnd?.slice(0, 4) || ''}-${title.replace(/#(\d+)/g, 'round-$1')}-${entity.circuit.locationName}`,
+  );
+}
 
 /**
  * Build the race event title from the first championship and its round number

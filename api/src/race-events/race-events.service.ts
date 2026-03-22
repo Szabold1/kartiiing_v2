@@ -7,8 +7,13 @@ import {
   IRaceEventDetail,
   IPaginatedResponse,
   ISeoData,
+  IRaceEventMinimal,
 } from '@kartiiing/shared-types';
-import { toIRaceEvent, toIRaceEventDetail } from './race-event.resource';
+import {
+  toIRaceEvent,
+  toIRaceEventDetail,
+  toIRaceEventMinimal,
+} from './race-event.resource';
 import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
@@ -85,6 +90,22 @@ export class RaceEventsService {
       description: `Discover our ${year} karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
       keywords: `${year} kart racing calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
     };
+  }
+
+  async getMinimal(): Promise<IRaceEventMinimal[]> {
+    // Load minimal necessary data for slug generation
+    const qb = this.raceEventRepo
+      .createQueryBuilder('raceEvent')
+      .leftJoinAndSelect('raceEvent.circuit', 'circuit')
+      .leftJoinAndSelect('circuit.country', 'country')
+      .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
+      .leftJoinAndSelect('championshipDetails.championship', 'championship')
+      .orderBy('raceEvent.dateEnd', 'DESC')
+      .addOrderBy('raceEvent.id', 'DESC');
+
+    const allEvents = await qb.getMany();
+
+    return allEvents.map((event) => toIRaceEventMinimal(event));
   }
 
   // ------------------------------------------------------------- //

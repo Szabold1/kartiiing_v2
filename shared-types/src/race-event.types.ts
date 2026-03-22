@@ -30,15 +30,18 @@ export interface IResultsLink {
   url: string;
 }
 
-export interface IRaceEvent {
+export interface IRaceEventMinimal {
   id: number;
-  title: string;
   slug: string;
   date: IRaceEventDate;
+  updatedAt: string;
+}
+
+export interface IRaceEvent extends IRaceEventMinimal {
+  title: string;
   circuit: ICircuit;
   championships: IChampionship[];
   categories: Record<string, string[]>;
-  updatedAt: string;
   status?: RaceStatus;
   links?: {
     results?: IResultsLink[];

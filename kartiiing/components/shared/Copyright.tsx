@@ -10,6 +10,7 @@ interface Props {
     url: string;
   }>;
   className?: string;
+  ariaHidden?: boolean;
 }
 
 export default function Copyright({
@@ -20,9 +21,13 @@ export default function Copyright({
     { label: "KSP", url: "https://kspreportages.com/?lang=en" },
   ],
   className = "",
+  ariaHidden = false,
 }: Props) {
   return (
-    <div className={`text-center text-xs text-gray-300/80 ${className}`}>
+    <div
+      className={`text-center text-xs text-gray-300/80 ${className}`}
+      aria-hidden={ariaHidden}
+    >
       <p>
         {year} {text} (Photo © {year}{" "}
         {links.map((link, index) => (

@@ -2,6 +2,7 @@ import {
   RaceEventSortOptions,
   IRaceEvent,
   IRaceEventDetail,
+  IRaceEventMinimal,
   IPaginatedResponse,
   ISeoData,
 } from "@kartiiing/shared-types";
@@ -89,6 +90,21 @@ export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
 
   if (!res.ok) {
     throw new Error(`Failed to fetch race event: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
+ * Fetch minimal race events data
+ * (Good for sitemap generation and other lightweight data needs)
+ */
+export async function getMinimalRaceEvents(): Promise<IRaceEventMinimal[]> {
+  const url = `${getApiBase()}/race-events/minimal`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch minimal race events: ${res.status}`);
   }
 
   return res.json();

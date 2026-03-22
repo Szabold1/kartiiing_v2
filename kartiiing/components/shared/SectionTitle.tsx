@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   children: React.ReactNode;
   className?: string;
-  headerNb?: number;
+  headerNb?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
 export default function SectionTitle({
@@ -12,13 +12,6 @@ export default function SectionTitle({
   className = "",
   headerNb = 3,
 }: Props) {
-  if (headerNb < 1 || headerNb > 6) {
-    console.warn(
-      `Invalid headerNb value: ${headerNb}. It should be between 1 and 6. Defaulting to h3.`,
-    );
-    headerNb = 3;
-  }
-
   const tag = `h${headerNb}` as const;
 
   return createElement(

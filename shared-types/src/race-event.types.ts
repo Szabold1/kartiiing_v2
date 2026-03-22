@@ -8,9 +8,9 @@ export enum RaceEventSortOptions {
 }
 
 export interface IRaceEventDate {
-  start: string;
-  end: string;
-  year: number;
+  start?: string;
+  end?: string;
+  year?: number;
 }
 
 export interface IChampionship {

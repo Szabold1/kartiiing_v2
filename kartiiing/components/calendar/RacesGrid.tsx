@@ -31,6 +31,10 @@ function groupRacesByYear(
 
   for (const race of races) {
     const year = race.date.year;
+    if (!year) {
+      console.warn(`Race with id ${race.id} is missing a year in its date`);
+      continue;
+    }
     if (!grouped.has(year)) {
       grouped.set(year, []);
     }

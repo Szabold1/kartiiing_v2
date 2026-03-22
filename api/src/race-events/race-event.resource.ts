@@ -26,7 +26,7 @@ export function toIRaceEventMinimal(entity: RaceEvent): IRaceEventMinimal {
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
-      year: entity.dateEnd ? new Date(entity.dateEnd).getFullYear() : -1,
+      year: extractYearFromDate(entity.dateEnd),
     },
     updatedAt: entity.updatedAt.toISOString(),
   };
@@ -39,19 +39,14 @@ export function toIRaceEvent(
   entity: RaceEvent,
   status?: RaceStatus | null,
 ): IRaceEvent {
+  const minimal = toIRaceEventMinimal(entity);
   const sortedChampionships = sortChampionships(entity.championshipDetails);
   const title = buildRaceTitle(sortedChampionships);
   const categories = groupCategoriesByEngineType(entity.categories);
 
   const raceEvent: IRaceEvent = {
-    id: entity.id,
+    ...minimal,
     title: title,
-    slug: buildRaceSlug(entity, title),
-    date: {
-      start: entity.dateStart || '',
-      end: entity.dateEnd || '',
-      year: entity.dateEnd ? new Date(entity.dateEnd).getFullYear() : -1,
-    },
     circuit: {
       id: entity.circuit.id,
       locationName: entity.circuit.locationName,
@@ -67,7 +62,6 @@ export function toIRaceEvent(
     },
     championships: sortedChampionships,
     categories: categories,
-    updatedAt: entity.updatedAt.toISOString(),
   };
 
   // Add result links if available
@@ -122,6 +116,15 @@ export function toIRaceEventDetail(
 
 // ---------------------------------------------- //
 // ----- Helpers -------------------------------- //
+
+/**
+ * Extract year from a date string (YYYY-MM-DD format)
+ */
+function extractYearFromDate(dateString?: string): number | undefined {
+  if (!dateString) return undefined;
+  const year = dateString.slice(0, 4);
+  return year ? parseInt(year) : undefined;
+}
 
 /**
  * Build the race event slug

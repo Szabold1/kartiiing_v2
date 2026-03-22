@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Dynamic race event pages
     const racePages: MetadataRoute.Sitemap = races.map((race) => {
       const endDate = safeParseDate(race.date?.end);
-      const isPast = endDate < new Date();
+      const isPast = endDate ? endDate < new Date() : false;
 
       return {
         url: `${BASE_URL}${getRaceUrl(race)}`,

@@ -95,8 +95,8 @@ export function formatDate(
  */
 export function safeParseDate(
   dateString: string | undefined | null,
-  fallback: Date = new Date(),
-): Date {
+  fallback: Date | undefined = undefined,
+): Date | undefined {
   if (
     !dateString ||
     typeof dateString !== "string" ||

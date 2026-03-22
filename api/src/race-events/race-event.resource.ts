@@ -26,6 +26,7 @@ export function toIRaceEventMinimal(entity: RaceEvent): IRaceEventMinimal {
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
+      year: entity.dateEnd ? new Date(entity.dateEnd).getFullYear() : -1,
     },
     updatedAt: entity.updatedAt.toISOString(),
   };
@@ -49,6 +50,7 @@ export function toIRaceEvent(
     date: {
       start: entity.dateStart || '',
       end: entity.dateEnd || '',
+      year: entity.dateEnd ? new Date(entity.dateEnd).getFullYear() : -1,
     },
     circuit: {
       id: entity.circuit.id,

@@ -181,6 +181,7 @@ export default function CalendarClient({
                 races={races}
                 loading={loading}
                 sectionWidth={sectionWidth}
+                isAllYearsView={selectedYear === "all"}
               />
             </div>
           </div>

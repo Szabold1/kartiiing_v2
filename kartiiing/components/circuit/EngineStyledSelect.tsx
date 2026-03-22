@@ -41,6 +41,7 @@ export default function EngineStyledSelect({
       <SelectTrigger
         className={`!h-9.5 cursor-pointer transition ${getColorsForEngine(engineType, EngineColorVariant.FULL)}`}
         aria-label={`Select ${label}`}
+        suppressHydrationWarning
       >
         <SelectValue placeholder={`Select ${label}`} />
       </SelectTrigger>

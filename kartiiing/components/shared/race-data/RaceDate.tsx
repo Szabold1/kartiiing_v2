@@ -15,6 +15,11 @@ export default function RaceDate({
   withYear = false,
   showRelative = false,
 }: Props) {
+  if (!date.start || !date.end) {
+    return (
+      <span className={cn("text-muted-foreground", className)}>Date TBA</span>
+    );
+  }
   const startDate = toDay(date.start);
   const endDate = toDay(date.end);
   const isSameDay = startDate.getTime() === endDate.getTime();

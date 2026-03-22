@@ -39,13 +39,19 @@ export function toIRaceEvent(
   entity: RaceEvent,
   status?: RaceStatus | null,
 ): IRaceEvent {
-  const minimal = toIRaceEventMinimal(entity);
   const sortedChampionships = sortChampionships(entity.championshipDetails);
   const title = buildRaceTitle(sortedChampionships);
   const categories = groupCategoriesByEngineType(entity.categories);
 
   const raceEvent: IRaceEvent = {
-    ...minimal,
+    id: entity.id,
+    slug: buildRaceSlug(entity, title),
+    date: {
+      start: entity.dateStart || '',
+      end: entity.dateEnd || '',
+      year: extractYearFromDate(entity.dateEnd),
+    },
+    updatedAt: entity.updatedAt.toISOString(),
     title: title,
     circuit: {
       id: entity.circuit.id,

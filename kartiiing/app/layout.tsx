@@ -5,6 +5,7 @@ import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/nav/Footer";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import { Roboto } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Footer year={currentYear} />
           </ThemeProvider>
         </GlobalProvider>
+        <Analytics />
       </body>
     </html>
   );

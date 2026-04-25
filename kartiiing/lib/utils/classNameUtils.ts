@@ -50,7 +50,7 @@ export const flagIconBase = "w-5 max-h-4 rounded-[0.15rem] object-cover shadow";
 // ---------------------------------------------- //
 // ----- Engine and category related colors ----- //
 
-const ENGINE_COLORS: Record<string, string> = {
+export const ENGINE_COLORS: Record<string, string> = {
   "MINI 60": `${tealGlassBase}`,
   OK: `${blueGlassBase}`,
   ACADEMY: `${skyGlassBase}`,

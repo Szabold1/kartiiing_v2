@@ -9,6 +9,19 @@ import {
 import { buildRace } from "@/test/fixtures";
 
 const raceBase: IRaceEvent = buildRace();
+const URLS = {
+  results: "https://results.com",
+  kz: "https://kz.com",
+  ok: "https://ok.com",
+} as const;
+
+const RESULTS_LINKS = {
+  single: [{ category: "KZ", url: URLS.results }] as IResultsLink[],
+  multiple: [
+    { category: "KZ", url: URLS.kz },
+    { category: "OK", url: URLS.ok },
+  ] as IResultsLink[],
+} as const;
 
 describe("StatusResultsBadge", () => {
   it("renders nothing when no results and no status", () => {
@@ -33,31 +46,21 @@ describe("StatusResultsBadge", () => {
   });
 
   it("renders a single results link as an anchor", () => {
-    const resultsLinks: IResultsLink[] = [
-      {
-        category: "KZ",
-        url: "https://results.com",
-      },
-    ];
     const race = {
       ...raceBase,
-      links: { results: resultsLinks },
+      links: { results: RESULTS_LINKS.single },
     };
     render(<StatusResultsBadge race={race} />);
 
     const link = screen.getByRole("link");
-    expect(link).toHaveAttribute("href", resultsLinks[0].url);
+    expect(link).toHaveAttribute("href", RESULTS_LINKS.single[0].url);
     expect(link).toHaveAttribute("target", "_blank");
   });
 
   it("renders a dropdown trigger when multiple result links are provided", () => {
-    const resultsLinks: IResultsLink[] = [
-      { category: "KZ", url: "https://kz.com" },
-      { category: "OK", url: "https://ok.com" },
-    ];
     const race = {
       ...raceBase,
-      links: { results: resultsLinks },
+      links: { results: RESULTS_LINKS.multiple },
     };
     render(<StatusResultsBadge race={race} />);
 
@@ -92,7 +95,7 @@ describe("StatusResultsBadge", () => {
     const race: IRaceEvent = {
       ...raceBase,
       status: undefined,
-      links: { results: [{ url: "https://results.com", category: "KZ" }] },
+      links: { results: RESULTS_LINKS.single },
     };
     render(<StatusResultsBadge race={race} heightValue="12" />);
 
@@ -105,10 +108,7 @@ describe("StatusResultsBadge", () => {
       ...raceBase,
       status: undefined,
       links: {
-        results: [
-          { url: "https://kz.com", category: "KZ" },
-          { url: "https://ok.com", category: "OK" },
-        ],
+        results: RESULTS_LINKS.multiple,
       },
     };
     render(<StatusResultsBadge race={race} heightValue="6" />);

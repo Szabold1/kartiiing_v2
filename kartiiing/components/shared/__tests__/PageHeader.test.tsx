@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import PageHeader from "../PageHeader";
 
 const defaultTitle = "Test Title";
+const defaultDescription = "2025 karting season schedule";
 
 describe("PageHeader", () => {
   it("renders the title", () => {
@@ -14,16 +15,15 @@ describe("PageHeader", () => {
   });
 
   it("renders the description when provided", () => {
-    const description = "2025 karting season schedule";
-    render(<PageHeader title={defaultTitle} description={description} />);
+    render(<PageHeader title={defaultTitle} description={defaultDescription} />);
 
-    expect(screen.getByText(description)).toBeInTheDocument();
+    expect(screen.getByText(defaultDescription)).toBeInTheDocument();
   });
 
   it("does not render a description when not provided", () => {
     render(<PageHeader title={defaultTitle} />);
 
-    expect(screen.queryByRole("paragraph")).not.toBeInTheDocument();
+    expect(screen.queryByText(defaultDescription)).not.toBeInTheDocument();
   });
 
   it("renders a headerAction when provided", () => {

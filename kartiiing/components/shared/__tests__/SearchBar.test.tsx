@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { useState } from "react";
 import SearchBar from "../SearchBar";
 
 const placeholder = "Search...";
@@ -42,14 +43,35 @@ describe("SearchBar", () => {
   });
 
   it("calls setSearchQuery with the typed value when user types", async () => {
-    const setSearchQuery = vi.fn();
-    const { user, input } = setup("", setSearchQuery);
+    const onChangeSpy = vi.fn();
+    const user = userEvent.setup();
+
+    function ControlledSearchBar() {
+      const [query, setQuery] = useState("");
+
+      const handleSearchQueryChange = (value: string) => {
+        onChangeSpy(value);
+        setQuery(value);
+      };
+
+      return (
+        <SearchBar
+          searchQuery={query}
+          setSearchQuery={handleSearchQueryChange}
+          placeholder={placeholder}
+        />
+      );
+    }
+
+    render(<ControlledSearchBar />);
+    const input = screen.getByPlaceholderText(placeholder);
 
     await user.type(input, searchTerm);
 
-    expect(setSearchQuery).toHaveBeenCalledWith("k");
-    expect(setSearchQuery).toHaveBeenCalledWith("z");
-    expect(setSearchQuery).toHaveBeenCalledWith("2");
+    expect(onChangeSpy).toHaveBeenNthCalledWith(1, "k");
+    expect(onChangeSpy).toHaveBeenNthCalledWith(2, "kz");
+    expect(onChangeSpy).toHaveBeenNthCalledWith(3, "kz2");
+    expect(input).toHaveValue(searchTerm);
   });
 
   it("does not show the clear button when searchQuery is empty", () => {

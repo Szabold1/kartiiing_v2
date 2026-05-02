@@ -1,7 +1,7 @@
 {
-  "name": "@kartiiing/shared-types",
+  "name": "@kartiiing/shared",
   "version": "1.0.0",
-  "description": "Shared TypeScript types for Kartiiing project",
+  "description": "Shared TypeScript code for Kartiiing project",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

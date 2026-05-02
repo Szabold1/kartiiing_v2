@@ -1,4 +1,5 @@
 export * from "./seo.types";
+export * from "./weather.types";
 export * from "./country.types";
 export * from "./circuit.types";
 export * from "./fastest-lap.types";

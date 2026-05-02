@@ -6,7 +6,7 @@ import RaceSummary from "@/components/race/RaceSummary";
 import CircuitInfo from "@/components/circuit/CircuitInfo";
 import RaceDetailsSection from "@/components/race/RaceDetailsSection";
 import FastestLapsWithDropdown from "@/components/circuit/FastestLapsWithDropdown";
-import { IRaceEventDetail } from "@kartiiing/shared-types";
+import { IRaceEventDetail } from "@kartiiing/shared";
 
 type SectionItem = {
   id: string;

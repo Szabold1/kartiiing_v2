@@ -7,7 +7,7 @@ import {
   IRaceEventMinimal,
   IPaginatedResponse,
   ISeoData,
-} from '@kartiiing/shared-types';
+} from '@kartiiing/shared';
 
 @Controller('race-events')
 export class RaceEventsController {

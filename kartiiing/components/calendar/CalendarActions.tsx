@@ -5,7 +5,7 @@ import {
   IRaceEvent,
   RaceEventSortOptions,
   RaceStatus,
-} from "@kartiiing/shared-types";
+} from "@kartiiing/shared";
 
 type Props = {
   sortOrder: RaceEventSortOptions;

@@ -2,7 +2,7 @@
 
 import RaceActionBtn from "@/components/shared/btns/RaceActionBtn";
 import { Timer, TvMinimalPlay } from "lucide-react";
-import { RaceStatus, IRaceEvent } from "@kartiiing/shared-types";
+import { RaceStatus, IRaceEvent } from "@kartiiing/shared";
 import { grayGlassHover, redGlassHover } from "@/lib/utils";
 
 type Props = {

@@ -1,6 +1,6 @@
 import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/shared/Loader";
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEvent } from "@kartiiing/shared";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 import { useCalendarStore } from "@/lib/stores/calendarStore";

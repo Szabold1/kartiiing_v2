@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import EngineCategory from "@/components/shared/race-data/EngineCategory";
 import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
-import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
+import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
 import RaceDate from "@/components/shared/race-data/RaceDate";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";
 import {

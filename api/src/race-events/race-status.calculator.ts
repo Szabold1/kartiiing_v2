@@ -1,4 +1,4 @@
-import { RaceStatus } from '@kartiiing/shared-types';
+import { RaceStatus } from '@kartiiing/shared';
 
 export interface RaceDate {
   start: string;

@@ -11,7 +11,7 @@ import {
   IFastestLap,
   ISeoData,
   IRaceEventMinimal,
-} from '@kartiiing/shared-types';
+} from '@kartiiing/shared';
 
 /**
  * Convert a RaceEvent entity to an IRaceEventMinimal DTO, which includes only basic information
@@ -58,8 +58,10 @@ export function toIRaceEvent(
       locationName: entity.circuit.locationName,
       length: entity.circuit.length,
       website: entity.circuit.websiteLink,
-      latitude: entity.circuit.latitude,
-      longitude: entity.circuit.longitude,
+      coordinates: {
+        latitude: entity.circuit.latitude,
+        longitude: entity.circuit.longitude,
+      },
       country: {
         id: entity.circuit.country.id,
         name: entity.circuit.country.name,

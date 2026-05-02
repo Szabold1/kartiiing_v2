@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "cd shared-types && npm run build"
+    "postinstall": "cd shared && npm run build"
   },
   "workspaces": [
-    "shared-types",
+    "shared",
     "api",
     "kartiiing"
   ],

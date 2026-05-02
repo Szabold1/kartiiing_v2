@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
-import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
+import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
 import { Button } from "@/components/ui/button";
 import { redGlassHover } from "@/lib/utils";
 

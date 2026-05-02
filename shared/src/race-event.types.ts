@@ -7,9 +7,12 @@ export enum RaceEventSortOptions {
   DESC = "desc",
 }
 
-export interface IRaceEventDate {
-  start?: string;
-  end?: string;
+export interface IRaceEventDateMinimal {
+  start: string;
+  end: string;
+}
+
+export interface IRaceEventDate extends IRaceEventDateMinimal {
   year?: number;
 }
 

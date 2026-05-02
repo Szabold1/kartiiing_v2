@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Build and copy shared-types into API for deployment
-echo "Building shared-types..."
-cd shared-types
+# Build and copy shared into API for deployment
+echo "Building shared..."
+cd shared
 npm install
 npm run build
 cd ..
 
-echo "Copying shared-types to api..."
-mkdir -p api/node_modules/@kartiiing/shared-types
-cp -r shared-types/dist api/node_modules/@kartiiing/shared-types/
-cp shared-types/package.json api/node_modules/@kartiiing/shared-types/
+echo "Copying shared to api..."
+mkdir -p api/node_modules/@kartiiing/shared
+cp -r shared/dist api/node_modules/@kartiiing/shared/
+cp shared/package.json api/node_modules/@kartiiing/shared/
 
-echo "✓ Shared types built and copied successfully"
+echo "✓ Shared package built and copied successfully"

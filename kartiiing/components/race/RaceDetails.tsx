@@ -1,4 +1,4 @@
-import { IRaceEventDetail } from "@kartiiing/shared-types";
+import { IRaceEventDetail } from "@kartiiing/shared";
 import RaceDetailsHeader from "@/components/race/RaceDetailsHeader";
 import RaceDetailsGrid from "@/components/race/RaceDetailsGrid";
 

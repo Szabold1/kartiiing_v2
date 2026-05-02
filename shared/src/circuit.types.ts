@@ -7,13 +7,17 @@ export interface ICircuitLayout {
   length: number;
 }
 
+export interface ICoordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export interface ICircuit {
   id: number;
   locationName: string;
   length: number;
   website?: string;
-  latitude: number;
-  longitude: number;
+  coordinates: ICoordinates;
   country: ICountry;
 }
 

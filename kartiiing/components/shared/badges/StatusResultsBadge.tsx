@@ -10,7 +10,7 @@ import {
   RaceStatus,
   IResultsLink,
   IRaceEventDetail,
-} from "@kartiiing/shared-types";
+} from "@kartiiing/shared";
 import {
   Select,
   SelectContent,

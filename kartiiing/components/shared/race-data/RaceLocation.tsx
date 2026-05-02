@@ -1,7 +1,7 @@
 import Flag from "react-world-flags";
-import { ICircuit, ICircuitDetail } from "@kartiiing/shared-types";
+import { ICircuit, ICircuitDetail } from "@kartiiing/shared";
 import { ExternalLink } from "lucide-react";
-import { cn, flagIconBase } from "@/lib/utils";
+import { cn, flagIconBase, getGoogleMapsUrl } from "@/lib/utils";
 
 type Props = {
   circuit: ICircuit | ICircuitDetail;
@@ -18,7 +18,7 @@ export default function RaceLocation({
   className = "",
   isClickable = false,
 }: Props) {
-  const mapUrl = `https://maps.google.com/?q=${circuit.latitude},${circuit.longitude}`;
+  const mapUrl = getGoogleMapsUrl(circuit.coordinates);
 
   const baseClassName = cn(
     "flex items-center gap-2 w-fit",
@@ -47,7 +47,7 @@ export default function RaceLocation({
     </>
   );
 
-  if (isClickable) {
+  if (isClickable && mapUrl) {
     return (
       <a
         href={mapUrl}

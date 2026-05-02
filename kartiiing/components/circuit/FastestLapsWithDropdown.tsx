@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { IFastestLap } from "@kartiiing/shared-types";
+import { IFastestLap } from "@kartiiing/shared";
 import FastestLapItem from "@/components/circuit/FastestLapItem";
 import EngineStyledSelect from "@/components/circuit/EngineStyledSelect";
 import { cn } from "@/lib/utils";

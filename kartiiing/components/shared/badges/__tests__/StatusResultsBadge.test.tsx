@@ -5,7 +5,7 @@ import {
   IResultsLink,
   RaceStatus,
   type IRaceEvent,
-} from "@kartiiing/shared-types";
+} from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
 
 const raceBase: IRaceEvent = buildRace();

@@ -4,7 +4,7 @@ import {
   getCalendarMetadata,
 } from "@/lib/api";
 import CalendarClient from "./calendar-client";
-import { RaceEventSortOptions } from "@kartiiing/shared-types";
+import { RaceEventSortOptions } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";

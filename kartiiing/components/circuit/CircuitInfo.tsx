@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ICircuitDetail, IRaceEventDetail } from "@kartiiing/shared-types";
+import { ICircuitDetail, IRaceEventDetail } from "@kartiiing/shared";
 import FastestLapsWithDropdown from "./FastestLapsWithDropdown";
 import CircuitInfoContent from "./CircuitInfoContent";
 
@@ -8,8 +8,22 @@ type Props = {
   race?: IRaceEventDetail;
 };
 
+function getMapImageUrl(circuit: ICircuitDetail) {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_MAPBOX_BASE_URL ||
+    "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static";
+  const coordinates = `${circuit.coordinates.longitude},${circuit.coordinates.latitude}`;
+  const zoomLevel = 14.85;
+  const dimensions = "360x270";
+  const queryParams = new URLSearchParams({
+    access_token: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "",
+  });
+
+  return `${baseUrl}/${coordinates},${zoomLevel}/${dimensions}@2x?${queryParams.toString()}`;
+}
+
 export default function CircuitInfo({ circuit, race }: Props) {
-  const mapImageUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${circuit.longitude},${circuit.latitude},14.85/360x270@2x?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
+  const mapImageUrl = getMapImageUrl(circuit);
   const preferredEngineTypes = race ? Object.keys(race.categories) : [];
 
   return (

@@ -1,6 +1,7 @@
 import { ICircuit, ICircuitDetail } from "./circuit.types";
 import { IFastestLap } from "./fastest-lap.types";
 import { ISeoData } from "./seo.types";
+import { IWeatherDataDay } from "./weather.types";
 
 export enum RaceEventSortOptions {
   ASC = "asc",
@@ -55,5 +56,6 @@ export interface IRaceEvent extends IRaceEventMinimal {
 export interface IRaceEventDetail extends IRaceEvent {
   circuit: ICircuitDetail;
   fastestLaps?: IFastestLap[];
+  weatherByDays?: IWeatherDataDay[];
   seoData: ISeoData;
 }

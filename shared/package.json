@@ -9,6 +9,9 @@
     "dev": "tsc --watch",
     "clean": "rm -rf dist"
   },
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
   "devDependencies": {
     "typescript": "^5.7.3"
   },

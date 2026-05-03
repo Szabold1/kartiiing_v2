@@ -11,6 +11,7 @@ import {
   IFastestLap,
   ISeoData,
   IRaceEventMinimal,
+  IWeatherDataDay,
 } from '@kartiiing/shared';
 
 /**
@@ -93,6 +94,7 @@ export function toIRaceEvent(
 export function toIRaceEventDetail(
   entity: RaceEvent,
   status?: RaceStatus | null,
+  weather?: IWeatherDataDay[],
 ): IRaceEventDetail {
   const baseEvent = toIRaceEvent(entity, status);
 
@@ -116,6 +118,7 @@ export function toIRaceEventDetail(
     fastestLaps: Array.isArray(entity?.fastestLaps)
       ? getFastestLapsPerCategoryPerYear(entity.fastestLaps)
       : undefined,
+    weatherByDays: weather?.length ? weather : undefined,
     seoData: generateSeoData(entity, baseEvent.title, baseEvent.categories),
   };
 

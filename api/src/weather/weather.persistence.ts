@@ -64,7 +64,6 @@ export class WeatherPersistence {
           tempMin: day.temp.min,
           tempMax: day.temp.max,
           tempAvg: day.temp.avg,
-          humidity: day.humidity == null ? undefined : Math.round(day.humidity),
           windSpeed: day.wind.speed,
           windGust: day.wind.gust,
           precipitationMm: day.precipitationMm,

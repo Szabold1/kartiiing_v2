@@ -20,7 +20,6 @@ export function toIWeatherDataDay(entity: CircuitWeatherDay): IWeatherDataDay {
       speed: entity.windSpeed,
       gust: entity.windGust,
     },
-    humidity: entity.humidity,
     precipitationMm: entity.precipitationMm,
   };
 }

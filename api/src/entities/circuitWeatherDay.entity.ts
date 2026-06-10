@@ -43,9 +43,6 @@ export class CircuitWeatherDay {
   tempAvg?: number; // Average temperature in Celsius
 
   @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true })
-  humidity?: number; // Humidity percentage
-
-  @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true })
   windSpeed?: number; // Wind speed in km/h
 
   @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true })

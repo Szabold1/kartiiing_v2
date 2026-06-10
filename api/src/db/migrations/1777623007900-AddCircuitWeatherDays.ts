@@ -43,7 +43,6 @@ export class AddCircuitWeatherDays1777623007900 implements MigrationInterface {
         "tempMin" numeric(5,2) NOT NULL,
         "tempMax" numeric(5,2) NOT NULL,
         "tempAvg" numeric(5,2),
-        "humidity" numeric(5,2),
         "windSpeed" numeric(5,2),
         "windGust" numeric(5,2),
         "precipitationMm" numeric(5,2),

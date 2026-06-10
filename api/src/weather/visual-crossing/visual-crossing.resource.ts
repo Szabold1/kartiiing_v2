@@ -5,7 +5,6 @@ interface VisualCrossingDay {
   tempmin?: number;
   tempmax?: number;
   temp?: number;
-  humidity?: number;
   windspeed?: number;
   windgust?: number;
   precip?: number;
@@ -38,7 +37,6 @@ function toIWeatherDataDay(day: VisualCrossingDay): IWeatherDataDay | null {
       speed: day.windspeed,
       gust: day.windgust,
     },
-    humidity: day.humidity,
     precipitationMm: day.precip,
   };
 }

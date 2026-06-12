@@ -1,6 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, SelectQueryBuilder } from 'typeorm';
 import {
   RaceEventSortOptions,
   IRaceEvent,
@@ -22,12 +20,12 @@ import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
 import { SEASON_TO_MONTHS, MONTH_NAMES } from './season-month.constants';
 import { WeatherService } from '../weather/weather.service';
+import { RaceEventPersistence } from './race-events.persistence';
 
 @Injectable()
 export class RaceEventsService {
   constructor(
-    @InjectRepository(RaceEvent)
-    private raceEventRepo: Repository<RaceEvent>,
+    private raceEventPersistence: RaceEventPersistence,
     private weatherService: WeatherService,
   ) {}
 
@@ -54,20 +52,14 @@ export class RaceEventsService {
    * Gets a list of all years for which race events are available.
    */
   async getAvailableYears(): Promise<number[]> {
-    const years = await this.raceEventRepo
-      .createQueryBuilder('raceEvent')
-      .select('DISTINCT EXTRACT(YEAR FROM raceEvent.dateEnd)', 'year')
-      .orderBy('year', 'DESC')
-      .getRawMany();
-
-    return years.map((result: { year: string }) => parseInt(result.year, 10));
+    return this.raceEventPersistence.findAvailableYears();
   }
 
   /**
    * Find a race event by its ID and return detailed information
    */
   async findById(id: number): Promise<IRaceEventDetail> {
-    const event = await this.getEventById(id);
+    const event = await this.raceEventPersistence.findEventById(id);
 
     if (!event) {
       console.error(`Race event not found with id: ${id}`);
@@ -87,11 +79,11 @@ export class RaceEventsService {
    * Generate SEO metadata for the calendar page, optionally filtered by year
    */
   async getCalendarMetadata(year?: number): Promise<ISeoData> {
-    const { races, circuits, championships } = await this.getYearStats(year);
+    const stats = await this.raceEventPersistence.findYearStats(year);
 
     return {
       title: `Racing Calendar ${year ? `${year} ` : ``}- Kartiiing`,
-      description: `Discover our ${year ? `${year} ` : ``}karting calendar, featuring ${races} races across ${circuits} circuits, representing ${championships} championships.`,
+      description: `Discover our ${year ? `${year} ` : ``}karting calendar, featuring ${stats.races} races across ${stats.circuits} circuits, representing ${stats.championships} championships.`,
       keywords: `${year ? `${year} ` : ``}karting calendar, kart racing calendar, karting events, race schedule, karting championship calendar`,
     };
   }
@@ -101,16 +93,7 @@ export class RaceEventsService {
    * This is used for sitemap generation and other internal uses where we need the full list of events without pagination.
    */
   async getMinimal(): Promise<IRaceEventMinimal[]> {
-    const qb = this.raceEventRepo
-      .createQueryBuilder('raceEvent')
-      .leftJoinAndSelect('raceEvent.circuit', 'circuit')
-      .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
-      .leftJoinAndSelect('championshipDetails.championship', 'championship')
-      .orderBy('raceEvent.dateEnd', 'DESC')
-      .addOrderBy('raceEvent.id', 'DESC');
-
-    const allEvents = await qb.getMany();
-
+    const allEvents = await this.raceEventPersistence.findMinimalEvents();
     return allEvents.map((event) => toIRaceEventMinimal(event));
   }
 
@@ -136,13 +119,10 @@ export class RaceEventsService {
     const pageSize = +limit;
     const skip = (pageNumber - 1) * pageSize;
 
-    const qb = this.createListQueryBuilder();
-    this.addSorting(qb, sort);
-    if (year) {
-      qb.andWhere('EXTRACT(YEAR FROM raceEvent.dateStart) = :year', { year });
-    }
-
-    const allEvents = await qb.getMany();
+    const allEvents = await this.raceEventPersistence.findAllEventsWithSorting(
+      sort,
+      year,
+    );
 
     // Apply search filtering at the application level
     let filteredEvents = allEvents;
@@ -173,71 +153,6 @@ export class RaceEventsService {
         hasPreviousPage: pageNumber > 1,
       },
     };
-  }
-
-  /**
-   * Create a lightweight query builder for listing/pagination
-   * Only loads essential data needed for list views
-   */
-  private createListQueryBuilder(): SelectQueryBuilder<RaceEvent> {
-    return this.raceEventRepo
-      .createQueryBuilder('raceEvent')
-      .leftJoinAndSelect('raceEvent.circuit', 'circuit')
-      .leftJoinAndSelect('circuit.country', 'country')
-      .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
-      .leftJoinAndSelect('championshipDetails.championship', 'championship')
-      .leftJoinAndSelect('raceEvent.categories', 'categories')
-      .leftJoinAndSelect('raceEvent.results', 'results')
-      .leftJoinAndSelect('results.category', 'resultCategory');
-  }
-
-  /**
-   * Create a full query builder for detail views
-   * Loads all relations including results, fastest laps, and circuit fastest laps
-   */
-  private createDetailQueryBuilder(): SelectQueryBuilder<RaceEvent> {
-    return this.createListQueryBuilder()
-      .leftJoinAndSelect('raceEvent.circuitLayout', 'circuitLayout')
-      .leftJoinAndSelect('raceEvent.fastestLaps', 'fastestLaps')
-      .leftJoinAndSelect('fastestLaps.category', 'fastestLapCategory')
-      .leftJoinAndSelect('fastestLaps.driver', 'driver')
-      .leftJoinAndSelect('driver.country', 'driverCountry')
-      .leftJoinAndSelect('circuit.fastestLaps', 'circuitFastestLaps')
-      .leftJoinAndSelect(
-        'circuitFastestLaps.category',
-        'circuitFastestLapCategory',
-      )
-      .leftJoinAndSelect('circuitFastestLaps.driver', 'circuitFastestLapDriver')
-      .leftJoinAndSelect(
-        'circuitFastestLapDriver.country',
-        'circuitFastestLapDriverCountry',
-      )
-      .leftJoinAndSelect(
-        'circuitFastestLaps.raceEvent',
-        'circuitFastestLapRaceEvent',
-      )
-      .leftJoinAndSelect(
-        'circuitFastestLapRaceEvent.championshipDetails',
-        'circuitFastestLapChampionshipDetails',
-      )
-      .leftJoinAndSelect(
-        'circuitFastestLapChampionshipDetails.championship',
-        'circuitFastestLapChampionship',
-      );
-  }
-
-  /**
-   * Add sorting to the query builder
-   */
-  private addSorting(
-    qb: SelectQueryBuilder<RaceEvent>,
-    sort: RaceEventSortOptions,
-  ): void {
-    const direction = sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC';
-    qb.orderBy('raceEvent.dateStart', direction).addOrderBy(
-      'raceEvent.dateEnd',
-      direction,
-    );
   }
 
   /**
@@ -390,69 +305,6 @@ export class RaceEventsService {
   }
 
   /**
-   * Get an event by its ID with all necessary relations for transformation
-   */
-  private getEventById(id: number): Promise<RaceEvent | null> {
-    return this.createDetailQueryBuilder()
-      .where('raceEvent.id = :id', { id })
-      .getOne();
-  }
-
-  /**
-   * Get all future races (including live)
-   */
-  private getFutureRaces(): Promise<RaceEvent[]> {
-    const now = new Date();
-    return this.createDetailQueryBuilder()
-      .where('raceEvent.dateEnd >= :now', { now })
-      .orderBy('raceEvent.dateStart', 'ASC')
-      .addOrderBy('raceEvent.dateEnd', 'ASC')
-      .getMany();
-  }
-
-  /**
-   * Calculate year stats for race events, including total races, unique circuits, and unique championships
-   * If year is omitted, returns stats for all years combined
-   */
-  private async getYearStats(
-    year?: number,
-  ): Promise<{ races: number; circuits: number; championships: number }> {
-    let raceQb = this.raceEventRepo.createQueryBuilder('re');
-    if (year) {
-      raceQb = raceQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
-        year,
-      });
-    }
-    const races = await raceQb.getCount();
-
-    let circuitsQb = this.raceEventRepo.createQueryBuilder('re');
-    if (year) {
-      circuitsQb = circuitsQb.where('EXTRACT(YEAR FROM re.dateStart) = :year', {
-        year,
-      });
-    }
-    const circuitsResult = await circuitsQb
-      .select('COUNT(DISTINCT re.circuitId)', 'circuitCount')
-      .getRawOne<{ circuitCount: string }>();
-    const circuits = parseInt(circuitsResult?.circuitCount || '0', 10);
-
-    let championshipsQb = this.raceEventRepo.createQueryBuilder('re');
-    if (year) {
-      championshipsQb = championshipsQb.where(
-        'EXTRACT(YEAR FROM re.dateStart) = :year',
-        { year },
-      );
-    }
-    const championshipsResult = await championshipsQb
-      .innerJoin('re.championshipDetails', 'champ')
-      .select('COUNT(DISTINCT champ.championshipId)', 'champCount')
-      .getRawOne<{ champCount: string }>();
-    const championships = parseInt(championshipsResult?.champCount || '0', 10);
-
-    return { races, circuits, championships };
-  }
-
-  /**
    * Calculate the status of a race.
    * If it's in the past or live, calculate based on current date.
    * If it's in the future, calculate based on the next upcoming race.
@@ -464,7 +316,7 @@ export class RaceEventsService {
       return RaceStatusCalculator.getRaceStatus(raceDate, null);
     }
 
-    const futureRaces = await this.getFutureRaces();
+    const futureRaces = await this.raceEventPersistence.findFutureRaces();
 
     const nextRaceDate = RaceStatusCalculator.getNextRaceDate(
       futureRaces.map((race) => ({

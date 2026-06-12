@@ -1,4 +1,4 @@
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEvent } from "@kartiiing/shared";
 import EngineCategory from "@/components/shared/race-data/EngineCategory";
 import SectionTitle from "@/components/shared/SectionTitle";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";

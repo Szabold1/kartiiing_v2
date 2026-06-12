@@ -1,15 +1,19 @@
 import { ICircuit, ICircuitDetail } from "./circuit.types";
 import { IFastestLap } from "./fastest-lap.types";
 import { ISeoData } from "./seo.types";
+import { IWeatherDataDay } from "./weather.types";
 
 export enum RaceEventSortOptions {
   ASC = "asc",
   DESC = "desc",
 }
 
-export interface IRaceEventDate {
-  start?: string;
-  end?: string;
+export interface IRaceEventDateMinimal {
+  start: string;
+  end: string;
+}
+
+export interface IRaceEventDate extends IRaceEventDateMinimal {
   year?: number;
 }
 
@@ -52,5 +56,6 @@ export interface IRaceEvent extends IRaceEventMinimal {
 export interface IRaceEventDetail extends IRaceEvent {
   circuit: ICircuitDetail;
   fastestLaps?: IFastestLap[];
+  weatherByDays?: IWeatherDataDay[];
   seoData: ISeoData;
 }

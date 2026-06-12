@@ -1,4 +1,4 @@
-import { IFastestLap } from "@kartiiing/shared-types";
+import { IFastestLap } from "@kartiiing/shared";
 import Flag from "react-world-flags";
 import {
   formatDate,

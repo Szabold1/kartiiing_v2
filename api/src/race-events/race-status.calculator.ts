@@ -1,4 +1,4 @@
-import { RaceStatus } from '@kartiiing/shared-types';
+import { RaceStatus, toDay } from '@kartiiing/shared';
 
 export interface RaceDate {
   start: string;
@@ -7,24 +7,16 @@ export interface RaceDate {
 
 export class RaceStatusCalculator {
   /**
-   * Converts a date string to a Date object with time set to start of day
-   */
-  private static toDay(date: string | Date): Date {
-    const d = typeof date === 'string' ? new Date(date) : date;
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
-  /**
    * Returns the date object (start and end) of the next race (with the soonest future start date).
    */
   static getNextRaceDate(races: { date: RaceDate }[]): RaceDate | null {
-    const today = this.toDay(new Date());
-    const futureRaces = races.filter((r) => this.toDay(r.date.start) > today);
+    const today = toDay(new Date());
+    const futureRaces = races.filter((r) => toDay(r.date.start) > today);
 
     if (futureRaces.length === 0) return null;
 
     const nextRace = futureRaces.reduce((prev, curr) =>
-      this.toDay(prev.date.start) < this.toDay(curr.date.start) ? prev : curr,
+      toDay(prev.date.start) < toDay(curr.date.start) ? prev : curr,
     );
 
     return nextRace.date;
@@ -37,13 +29,11 @@ export class RaceStatusCalculator {
     date: RaceDate,
     nextRaceDate: RaceDate | null,
   ): RaceStatus | null {
-    const today = this.toDay(new Date());
-    const startDate = this.toDay(date.start);
-    const endDate = this.toDay(date.end);
-    const nextRaceStartDate = nextRaceDate
-      ? this.toDay(nextRaceDate.start)
-      : null;
-    const nextRaceEndDate = nextRaceDate ? this.toDay(nextRaceDate.end) : null;
+    const today = toDay(new Date());
+    const startDate = toDay(date.start);
+    const endDate = toDay(date.end);
+    const nextRaceStartDate = nextRaceDate ? toDay(nextRaceDate.start) : null;
+    const nextRaceEndDate = nextRaceDate ? toDay(nextRaceDate.end) : null;
 
     if (!startDate) {
       if (today.getTime() === endDate.getTime()) return RaceStatus.LIVE;

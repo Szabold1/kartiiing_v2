@@ -1,6 +1,6 @@
 "use client";
 
-import { IRaceEventDetail } from "@kartiiing/shared-types";
+import { IRaceEventDetail } from "@kartiiing/shared";
 import dynamic from "next/dynamic";
 import Loader from "@/components/shared/Loader";
 

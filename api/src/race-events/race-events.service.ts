@@ -8,7 +8,10 @@ import {
   IPaginatedResponse,
   ISeoData,
   IRaceEventMinimal,
-} from '@kartiiing/shared-types';
+  IWeatherDataDay,
+  IRaceEventDateMinimal,
+  RaceStatus,
+} from '@kartiiing/shared';
 import {
   toIRaceEvent,
   toIRaceEventDetail,
@@ -18,20 +21,28 @@ import { FindRaceEventsQuery } from './dtos';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { RaceStatusCalculator } from './race-status.calculator';
 import { SEASON_TO_MONTHS, MONTH_NAMES } from './season-month.constants';
+import { WeatherService } from '../weather/weather.service';
 
 @Injectable()
 export class RaceEventsService {
   constructor(
     @InjectRepository(RaceEvent)
     private raceEventRepo: Repository<RaceEvent>,
+    private weatherService: WeatherService,
   ) {}
 
+  /**
+   * Finds all race events.
+   */
   async findAll(
     query: FindRaceEventsQuery,
   ): Promise<IPaginatedResponse<IRaceEvent>> {
     return this.findPaginated(query);
   }
 
+  /**
+   * Finds race events for a specific year.
+   */
   async findByYear(
     year: number,
     query: FindRaceEventsQuery,
@@ -39,6 +50,9 @@ export class RaceEventsService {
     return this.findPaginated(query, year);
   }
 
+  /**
+   * Gets a list of all years for which race events are available.
+   */
   async getAvailableYears(): Promise<number[]> {
     const years = await this.raceEventRepo
       .createQueryBuilder('raceEvent')
@@ -49,6 +63,9 @@ export class RaceEventsService {
     return years.map((result: { year: string }) => parseInt(result.year, 10));
   }
 
+  /**
+   * Find a race event by its ID and return detailed information
+   */
   async findById(id: number): Promise<IRaceEventDetail> {
     const event = await this.getEventById(id);
 
@@ -57,31 +74,18 @@ export class RaceEventsService {
       throw new NotFoundException(`Race event with id ${id} not found`);
     }
 
-    // If event is in the past or today, just calculate its status directly
-    if (
-      event.dateStart &&
-      event.dateEnd &&
-      new Date(event.dateEnd) <= new Date()
-    ) {
-      const raceDate = {
-        start: event.dateStart,
-        end: event.dateEnd,
-      };
-      const status = RaceStatusCalculator.getRaceStatus(raceDate, null);
-      return toIRaceEventDetail(event, status);
-    }
+    const weatherData = await this.getRaceEventWeather(event);
+    const status = await this.getRaceEventStatus({
+      start: event.dateStart,
+      end: event.dateEnd,
+    });
 
-    // If event is in the future, fetch future races to determine if it's UPNEXT
-    const futureRaces = await this.getFutureRaces();
-    const transformedRaces = this.transformEvents(
-      futureRaces,
-      true,
-      true,
-    ) as IRaceEventDetail[];
-    const currentRaceTransformed = transformedRaces.find((r) => r.id === id);
-    return currentRaceTransformed || toIRaceEventDetail(event);
+    return toIRaceEventDetail(event, status, weatherData);
   }
 
+  /**
+   * Generate SEO metadata for the calendar page, optionally filtered by year
+   */
   async getCalendarMetadata(year?: number): Promise<ISeoData> {
     const { races, circuits, championships } = await this.getYearStats(year);
 
@@ -92,8 +96,11 @@ export class RaceEventsService {
     };
   }
 
+  /**
+   * Get a minimal list of all race events without pagination, sorted by most recent first.
+   * This is used for sitemap generation and other internal uses where we need the full list of events without pagination.
+   */
   async getMinimal(): Promise<IRaceEventMinimal[]> {
-    // Load minimal necessary data for slug generation
     const qb = this.raceEventRepo
       .createQueryBuilder('raceEvent')
       .leftJoinAndSelect('raceEvent.circuit', 'circuit')
@@ -364,7 +371,7 @@ export class RaceEventsService {
         )
       : null;
 
-    // Get status for each event and transform to IRaceEvent
+    // Get status for each event and transform to IRaceEvent or IRaceEventDetail
     const transformedEvents = events.map((event) => {
       const raceDate = {
         start: event.dateStart || '',
@@ -443,5 +450,60 @@ export class RaceEventsService {
     const championships = parseInt(championshipsResult?.champCount || '0', 10);
 
     return { races, circuits, championships };
+  }
+
+  /**
+   * Calculate the status of a race.
+   * If it's in the past or live, calculate based on current date.
+   * If it's in the future, calculate based on the next upcoming race.
+   */
+  private async getRaceEventStatus(
+    raceDate: IRaceEventDateMinimal,
+  ): Promise<RaceStatus | null> {
+    if (new Date(raceDate.end) <= new Date()) {
+      return RaceStatusCalculator.getRaceStatus(raceDate, null);
+    }
+
+    const futureRaces = await this.getFutureRaces();
+
+    const nextRaceDate = RaceStatusCalculator.getNextRaceDate(
+      futureRaces.map((race) => ({
+        date: {
+          start: race.dateStart || '',
+          end: race.dateEnd || '',
+        },
+      })),
+    );
+
+    return RaceStatusCalculator.getRaceStatus(raceDate, nextRaceDate);
+  }
+
+  /**
+   * Fetch weather data for a race event based on its circuit and date.
+   */
+  private async getRaceEventWeather(
+    event: RaceEvent,
+  ): Promise<IWeatherDataDay[] | []> {
+    let weatherData: IWeatherDataDay[] | [] = [];
+    try {
+      weatherData = await this.weatherService.getWeatherForCircuit(
+        event.circuit.id,
+        {
+          start: event.dateStart,
+          end: event.dateEnd,
+        },
+        {
+          latitude: Number(event.circuit?.latitude),
+          longitude: Number(event.circuit?.longitude),
+        },
+      );
+    } catch (error) {
+      console.warn(
+        `Weather fetch failed for race event ${event.id}, serving event without weather:`,
+        error,
+      );
+    }
+
+    return weatherData;
   }
 }

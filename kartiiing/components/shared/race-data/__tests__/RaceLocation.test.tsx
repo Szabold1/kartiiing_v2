@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { flagIconBase } from "@/lib/utils";
+import { flagIconBase, getGoogleMapsUrl } from "@/lib/utils";
 import { buildCircuit, buildCircuitDetail } from "@/test/fixtures";
 import RaceLocation from "../RaceLocation";
 
@@ -8,9 +8,6 @@ const CIRCUITS = {
   base: buildCircuit(),
   detail: buildCircuitDetail(),
 } as const;
-
-const getMapUrl = (latitude: number, longitude: number) =>
-  `https://maps.google.com/?q=${latitude},${longitude}`;
 
 describe("RaceLocation", () => {
   it("renders location name by default", () => {
@@ -55,7 +52,7 @@ describe("RaceLocation", () => {
     });
     expect(link).toHaveAttribute(
       "href",
-      getMapUrl(CIRCUITS.base.latitude, CIRCUITS.base.longitude),
+      getGoogleMapsUrl(CIRCUITS.base.coordinates),
     );
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");

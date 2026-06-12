@@ -10,7 +10,7 @@ import {
   IChampionship,
   IResultsLink,
   ISeoData,
-} from "@kartiiing/shared-types";
+} from "@kartiiing/shared";
 
 // ─── Primitives ───────────────────────────────────────────────────────────────
 
@@ -55,8 +55,10 @@ export function buildCircuit(o: Partial<ICircuit> = {}): ICircuit {
     id: 1,
     locationName: "Kecskemét",
     length: 1122,
-    latitude: 47.9495,
-    longitude: 21.7444,
+    coordinates: {
+      latitude: 47.9495,
+      longitude: 21.7444,
+    },
     country: buildCountry(),
     ...o,
   };

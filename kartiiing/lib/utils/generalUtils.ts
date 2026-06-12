@@ -1,3 +1,4 @@
+import { ICoordinates } from "@kartiiing/shared";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -23,4 +24,15 @@ export function formatLapTime(milliseconds: number): string {
  */
 export function openLinkInNewTab(url: string) {
   window.open(url, "_blank", "noopener noreferrer");
+}
+
+/**
+ * Generate a Google Maps URL for given coordinates
+ * @param coordinates
+ * @return Google Maps URL string or null if coordinates are invalid
+ */
+export function getGoogleMapsUrl(coordinates: ICoordinates) {
+  const { latitude, longitude } = coordinates;
+  if (!latitude || !longitude) return null;
+  return `https://maps.google.com/?q=${latitude},${longitude}`;
 }

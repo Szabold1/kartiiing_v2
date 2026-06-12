@@ -9,6 +9,7 @@ import {
 import { Country } from './country.entity';
 import { CircuitLayout } from './circuitLayout.entity';
 import { FastestLap } from './fastestLap.entity';
+import { CircuitWeatherDay } from './circuitWeatherDay.entity';
 
 @Entity('circuits')
 @Index(['locationName', 'country'], { unique: true })
@@ -45,4 +46,9 @@ export class Circuit {
 
   @OneToMany(() => FastestLap, (lap) => lap.circuit)
   fastestLaps?: FastestLap[];
+
+  @OneToMany(() => CircuitWeatherDay, (weatherDay) => weatherDay.circuit, {
+    cascade: true,
+  })
+  weatherDays?: CircuitWeatherDay[];
 }

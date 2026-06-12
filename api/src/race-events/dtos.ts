@@ -8,7 +8,7 @@ import {
   IsBoolean,
 } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
-import { RaceEventSortOptions } from '@kartiiing/shared-types';
+import { RaceEventSortOptions } from '@kartiiing/shared';
 
 export class FindRaceEventsQuery {
   @IsOptional()

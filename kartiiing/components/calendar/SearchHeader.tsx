@@ -1,5 +1,5 @@
 import SearchBar from "@/components/shared/SearchBar";
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEvent } from "@kartiiing/shared";
 
 type Props = {
   searchQuery: string;

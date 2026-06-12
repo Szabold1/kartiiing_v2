@@ -7,7 +7,7 @@ import SearchHeader from "@/components/calendar/SearchHeader";
 import CalendarActions from "@/components/calendar/CalendarActions";
 import RacesGrid from "@/components/calendar/RacesGrid";
 import BackToTopBtn from "@/components/shared/btns/BackToTopBtn";
-import { IRaceEvent, RaceEventSortOptions } from "@kartiiing/shared-types";
+import { IRaceEvent, RaceEventSortOptions } from "@kartiiing/shared";
 import { getRaceEvents } from "@/lib/api";
 
 interface Props {

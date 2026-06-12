@@ -1,7 +1,7 @@
 import { Globe, MapPin } from "lucide-react";
-import { ICircuitDetail } from "@kartiiing/shared-types";
+import { ICircuitDetail } from "@kartiiing/shared";
 import RaceLocation from "@/components/shared/race-data/RaceLocation";
-import { cn, grayGlassHover } from "@/lib/utils";
+import { cn, getGoogleMapsUrl, grayGlassHover } from "@/lib/utils";
 
 type Props = {
   circuit: ICircuitDetail;
@@ -12,6 +12,7 @@ export default function CircuitInfoContent({ circuit }: Props) {
     grayGlassHover,
     "flex w-10 h-10 items-center justify-center rounded-md",
   );
+  const googleMapsUrl = getGoogleMapsUrl(circuit.coordinates);
 
   return (
     <div className="flex justify-between items-center">
@@ -35,9 +36,9 @@ export default function CircuitInfoContent({ circuit }: Props) {
             <Globe className="w-5 h-5" />
           </a>
         )}
-        {circuit.latitude && circuit.longitude && (
+        {googleMapsUrl && (
           <a
-            href={`https://maps.google.com/?q=${circuit.latitude},${circuit.longitude}`}
+            href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={btnStyles}

@@ -4,20 +4,13 @@ import {
   formatDate,
   formatLapTime,
   cn,
-  badgeBase,
   flagIconBase,
-  grayGlassBase,
   lightDarkGlassBase,
 } from "@/lib/utils";
+import Badge from "@/components/shared/badges/Badge";
 
 type Props = {
   lap: IFastestLap;
-};
-
-const renderBadge = (label: string, className: string = "") => {
-  return (
-    <span className={cn(badgeBase, grayGlassBase, className)}>{label}</span>
-  );
 };
 
 export default function FastestLapItem({ lap }: Props) {
@@ -29,9 +22,9 @@ export default function FastestLapItem({ lap }: Props) {
       )}
     >
       <div className="flex gap-1.5 justify-between">
-        {lap.eventTitle && renderBadge(lap.eventTitle)}
-        {!lap.eventTitle && renderBadge(lap.sessionType)}
-        {renderBadge(formatDate(lap.date), "whitespace-nowrap")}
+        {lap.eventTitle && <Badge>{lap.eventTitle}</Badge>}
+        {!lap.eventTitle && <Badge>{lap.sessionType}</Badge>}
+        <Badge className="whitespace-nowrap">{formatDate(lap.date)}</Badge>
       </div>
       <div className="flex items-end justify-between">
         <div className="flex items-center gap-2">

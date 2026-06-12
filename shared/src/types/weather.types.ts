@@ -1,4 +1,4 @@
-interface ICondition {
+export interface IWeatherCondition {
   name: string;
   icon?: string;
 }
@@ -16,9 +16,8 @@ interface IWind {
 
 export interface IWeatherDataDay {
   date: string;
-  condition: ICondition;
+  condition: IWeatherCondition;
   temp: ITemperature;
   wind: IWind;
-  humidity?: number;
   precipitationMm?: number;
 }

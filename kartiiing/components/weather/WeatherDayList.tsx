@@ -11,7 +11,11 @@ type Props = {
 };
 
 export default function WeatherDayList({ days, className = "" }: Props) {
-  const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>({});
+  const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>(
+    () => {
+      return days.length > 0 ? { [days[days.length - 1].date]: true } : {};
+    },
+  );
 
   if (!days || days.length === 0) return null;
 
@@ -20,13 +24,14 @@ export default function WeatherDayList({ days, className = "" }: Props) {
   };
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-1", className)}>
       {days.map((day) => (
         <WeatherDayCard
           key={day.date}
           day={day}
           isExpanded={expandedDays[day.date] === true}
           onToggle={() => toggleDay(day.date)}
+          className={`border border-transparent hover:border-gray-500/45 ${expandedDays[day.date] ? "border-gray-500/25" : ""}`}
         />
       ))}
     </div>

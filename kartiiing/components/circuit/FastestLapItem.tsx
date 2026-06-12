@@ -17,7 +17,7 @@ export default function FastestLapItem({ lap }: Props) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-2.5 p-2.5 rounded-xl",
+        "flex flex-col gap-2.5 p-2.5 rounded-2xl",
         lightDarkGlassBase,
       )}
     >

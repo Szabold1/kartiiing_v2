@@ -28,7 +28,7 @@ export default function CircuitInfo({ circuit, race }: Props) {
 
   return (
     <>
-      <div className="relative h-48 w-full rounded-t-2xl overflow-hidden">
+      <div className="relative h-48 w-full rounded-t-3xl overflow-hidden">
         <Image
           src={mapImageUrl}
           alt={circuit.name}
@@ -38,7 +38,7 @@ export default function CircuitInfo({ circuit, race }: Props) {
         />
       </div>
 
-      <div className="p-3">
+      <div className="p-3.5">
         <CircuitInfoContent circuit={circuit} />
         {circuit.circuitFastestLaps &&
           circuit.circuitFastestLaps.length > 0 && (

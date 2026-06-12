@@ -10,7 +10,7 @@ type Props = {
 export default function CircuitInfoContent({ circuit }: Props) {
   const btnStyles = cn(
     grayGlassHover,
-    "flex w-10 h-10 items-center justify-center rounded-md",
+    "flex w-10 h-10 items-center justify-center rounded-lg",
   );
   const googleMapsUrl = getGoogleMapsUrl(circuit.coordinates);
 

@@ -1,6 +1,6 @@
 import { EngineColorVariant } from "@/lib/constants/categories";
 
-export const glassBase = "border shadow backdrop-blur-md";
+export const glassBase = "border shadow-2xs backdrop-blur-md";
 
 export const redGlassBase = `${glassBase} border-red-500/15 text-red-700 dark:text-red-400 bg-red-200/70 dark:bg-red-900/45`;
 export const redGlassHover = `${redGlassBase} hover:bg-red-200/90 hover:border-red-500/30 hover:dark:bg-red-900/70 hover:text-red-600 hover:dark:text-red-400 hover:shadow-md transition`;
@@ -43,9 +43,10 @@ export const liveContainerBase =
 export const liveContainerHover = `${liveContainerBase} hover:border-red-500/70 hover:dark:border-red-900 hover:bg-red-100/80 hover:dark:bg-red-900/40`;
 
 export const badgeBase =
-  "text-xs px-2 py-1.5 rounded-md uppercase font-medium flex items-center justify-center";
+  "text-xs px-2 py-1.5 rounded-lg uppercase font-medium flex items-center justify-center";
 
-export const flagIconBase = "w-5 max-h-4 rounded-[0.15rem] object-cover shadow";
+export const flagIconBase =
+  "max-w-5 h-3.5 rounded-[0.15rem] object-cover shadow";
 
 // ---------------------------------------------- //
 // ----- Engine and category related colors ----- //

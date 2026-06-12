@@ -44,7 +44,7 @@ const MobileNav = () => {
         </SheetTrigger>
         <SheetContentHamburgerMenu
           side="right"
-          className={`h-fit w-44 mt-17 mx-2 rounded-xl ${lightDarkGlassBase}`}
+          className={`h-fit w-44 mt-17 mx-2 rounded-2xl ${lightDarkGlassBase}`}
         >
           <nav className="flex flex-col gap-1.5 p-1.5">
             {/* <LoginBtn className="mb-2 h-12" /> */}

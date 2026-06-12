@@ -39,7 +39,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
       <div
         onClick={handleRaceClick}
         className={cn(
-          "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-xl",
+          "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-2xl",
           lightDarkGlassHover,
           race.status === RaceStatus.LIVE
             ? liveContainerHover
@@ -60,7 +60,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
             >
               <StatusResultsBadge
                 race={race}
-                className="px-3 rounded-md "
+                className="px-3 rounded-lg"
                 heightValue="9.5"
               />
             </span>
@@ -91,7 +91,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
     <div
       onClick={handleRaceClick}
       className={cn(
-        "relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-xl w-full",
+        "relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
         lightDarkGlassHover,
         race.status === RaceStatus.LIVE && liveContainerHover,
       )}
@@ -105,7 +105,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         <div className="absolute -top-0.5 -right-0.5">
           <StatusResultsBadge
             race={race}
-            className="pl-4 pr-3.5 rounded-bl-xl"
+            className="pl-4 pr-3.5 rounded-bl-2xl"
           />
         </div>
       ) : null}

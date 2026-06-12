@@ -82,7 +82,7 @@ export default function RacesGrid({
                 ? cn(
                     "flex flex-col",
                     lightDarkGlassBase,
-                    "p-1.5 rounded-[1.1rem] dark:bg-neutral-900",
+                    "p-1.5 rounded-[1.3rem] dark:bg-neutral-900",
                   )
                 : cn(
                     "grid justify-center gap-5",

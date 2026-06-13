@@ -6,7 +6,7 @@ import RaceSummary from "@/components/race/RaceSummary";
 import WeatherDayList from "@/components/weather/WeatherDayList";
 import CircuitInfo from "@/components/circuit/CircuitInfo";
 import RaceDetailsSection from "@/components/race/RaceDetailsSection";
-import FastestLapsWithDropdown from "@/components/circuit/FastestLapsWithDropdown";
+import FastestLapsList from "@/components/circuit/FastestLapsList";
 import { IRaceEventDetail } from "@kartiiing/shared";
 
 type SectionItem = {
@@ -64,8 +64,8 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
           {
             id: "event-fastest-laps",
             content: (
-              <RaceDetailsSection title="Event Fastest Laps" className="p-3.5">
-                <FastestLapsWithDropdown fastestLaps={fastestLaps} />
+              <RaceDetailsSection title="Event Fastest Laps" className="p-2">
+                <FastestLapsList fastestLaps={fastestLaps} />
               </RaceDetailsSection>
             ),
           },

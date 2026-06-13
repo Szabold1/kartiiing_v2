@@ -36,7 +36,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
 
   if (variant === "row") {
     return (
-      <div
+      <article
         onClick={handleRaceClick}
         className={cn(
           "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-2xl",
@@ -83,12 +83,12 @@ export default function RaceCard({ race, variant = "card" }: Props) {
             badgeClassName="px-2.5 py-2 xl:px-3"
           />
         </div>
-      </div>
+      </article>
     );
   }
 
   return (
-    <div
+    <article
       onClick={handleRaceClick}
       className={cn(
         "relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
@@ -119,6 +119,6 @@ export default function RaceCard({ race, variant = "card" }: Props) {
       />
       <div className="font-semibold tracking-tight flex-1">{race.title}</div>
       <EngineCategory engineCategoryPairs={categories} className="mt-2" />
-    </div>
+    </article>
   );
 }

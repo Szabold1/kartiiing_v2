@@ -1,4 +1,4 @@
-import { ISeoData } from "@kartiiing/shared-types";
+import { ISeoData } from "@kartiiing/shared";
 import { Metadata } from "next";
 
 export const SITE_URL =

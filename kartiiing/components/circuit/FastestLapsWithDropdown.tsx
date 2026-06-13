@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { IFastestLap } from "@kartiiing/shared-types";
-import FastestLapItem from "@/components/circuit/FastestLapItem";
+import { IFastestLap } from "@kartiiing/shared";
+import FastestLapCard from "@/components/circuit/FastestLapCard";
 import EngineStyledSelect from "@/components/circuit/EngineStyledSelect";
+import { getFastestLap } from "@/lib/utils/raceUtils";
 import { cn } from "@/lib/utils";
 
 enum DropdownType {
@@ -32,6 +33,12 @@ export default function FastestLapsWithDropdown({
     );
 
     if (preferredEngineTypes.length > 0) {
+      const preferredLaps = fastestLaps.filter((lap) =>
+        preferredEngineTypes.includes(lap.engineType),
+      );
+      const fastestLap = getFastestLap(preferredLaps);
+      if (fastestLap) return fastestLap.engineType;
+
       const preferred = preferredEngineTypes.find((type) =>
         engineTypes.includes(type),
       );
@@ -47,16 +54,24 @@ export default function FastestLapsWithDropdown({
   const [selectedYear, setSelectedYear] = useState<string>("All Time");
   const [openDropdown, setOpenDropdown] = useState<DropdownType | null>(null);
 
-  // Set initial category when engine type changes
+  // Sync selectedEngineType when initialEngineType changes (e.g., data loaded async)
   useEffect(() => {
-    const categories = Array.from(
-      new Set(
-        fastestLaps
-          .filter((lap) => lap.engineType === selectedEngineType)
-          .map((lap) => lap.category),
-      ),
+    if (initialEngineType && initialEngineType !== selectedEngineType) {
+      setSelectedEngineType(initialEngineType);
+    }
+  }, [initialEngineType, selectedEngineType]);
+
+  // Set initial category to the fastest lap when engine type changes
+  useEffect(() => {
+    const laps = fastestLaps.filter(
+      (lap) => lap.engineType === selectedEngineType,
     );
-    setSelectedCategory(categories[0] || "");
+    if (laps.length === 0) {
+      setSelectedCategory("");
+      return;
+    }
+    const fastestLap = getFastestLap(laps);
+    if (fastestLap) setSelectedCategory(fastestLap.category);
   }, [selectedEngineType, fastestLaps]);
 
   // Sync year when category changes
@@ -172,7 +187,7 @@ export default function FastestLapsWithDropdown({
         )}
       </div>
 
-      {selectedLap && <FastestLapItem lap={selectedLap} />}
+      {selectedLap && <FastestLapCard lap={selectedLap} variant="compact" />}
     </section>
   );
 }

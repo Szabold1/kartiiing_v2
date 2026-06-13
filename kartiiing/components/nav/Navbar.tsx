@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <header className="bg-transparent sticky top-0 z-50 flex justify-center">
       <div
-        className={`flex items-center justify-between gap-6 w-full md:w-fit m-1.5 mb-0 p-1.5 rounded-xl ${lightDarkGlassBase} ${
+        className={`flex items-center justify-between gap-6 w-full md:w-fit m-1.5 mb-0 p-1.5 rounded-2xl ${lightDarkGlassBase} ${
           isHomePage ? " sm:text-gray-200" : ""
         }`}
       >

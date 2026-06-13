@@ -5,7 +5,7 @@ import {
   IRaceEventMinimal,
   IPaginatedResponse,
   ISeoData,
-} from "@kartiiing/shared-types";
+} from "@kartiiing/shared";
 
 /**
  * Get the base URL for API requests

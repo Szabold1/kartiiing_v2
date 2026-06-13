@@ -24,10 +24,10 @@ export class RaceEvent {
   id!: number;
 
   @Column({ type: 'date' })
-  dateStart?: string;
+  dateStart!: string;
 
   @Column({ type: 'date' })
-  dateEnd?: string;
+  dateEnd!: string;
 
   @ManyToOne(() => Circuit, { eager: true })
   circuit!: Circuit;

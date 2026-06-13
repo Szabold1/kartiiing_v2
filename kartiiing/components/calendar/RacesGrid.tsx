@@ -1,6 +1,6 @@
 import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/shared/Loader";
-import { IRaceEvent } from "@kartiiing/shared-types";
+import { IRaceEvent } from "@kartiiing/shared";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
@@ -82,7 +82,7 @@ export default function RacesGrid({
                 ? cn(
                     "flex flex-col",
                     lightDarkGlassBase,
-                    "p-1.5 rounded-[1.1rem] dark:bg-neutral-900",
+                    "p-1.5 rounded-[1.3rem] dark:bg-neutral-900",
                   )
                 : cn(
                     "grid justify-center gap-5",

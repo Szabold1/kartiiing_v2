@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { getRelativeText, toDay, cn } from "@/lib/utils";
-import { IRaceEventDate } from "@kartiiing/shared-types";
+import { IRaceEventDate } from "@kartiiing/shared";
 
 type Props = {
   date: IRaceEventDate;

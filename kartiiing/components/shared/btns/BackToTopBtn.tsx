@@ -4,18 +4,23 @@ import { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function BackToTopBtn() {
+interface Props {
+  visibleOffset?: number;
+}
+
+export default function BackToTopBtn({ visibleOffset = 300 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) setIsVisible(true);
+      if (window.pageYOffset > visibleOffset) setIsVisible(true);
       else setIsVisible(false);
     };
 
+    toggleVisibility();
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+  }, [visibleOffset]);
 
   const scrollToTop = () => {
     window.scrollTo({

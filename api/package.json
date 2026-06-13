@@ -28,7 +28,7 @@
     "migration:show": "npm run typeorm -- -d src/data-source.ts migration:show"
   },
   "dependencies": {
-    "@kartiiing/shared-types": "file:../shared-types",
+    "@kartiiing/shared": "file:../shared",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",

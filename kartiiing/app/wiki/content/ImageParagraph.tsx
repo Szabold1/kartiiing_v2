@@ -12,7 +12,7 @@ const ImageParagraph = ({ src, alt, caption }: Props) => {
       <Image
         src={src}
         alt={alt}
-        className="rounded-md w-full h-auto dark:brightness-85 transition-all duration-300"
+        className="rounded-2xl w-full h-auto dark:brightness-85 transition-all duration-300"
         width={500}
         height={300}
       />

@@ -27,7 +27,7 @@ export default function GridListViewToggle({ className = "" }: Props) {
   return (
     <div
       className={cn(
-        "hidden lg:flex rounded-lg h-10.5 p-[0.09rem]",
+        "hidden lg:flex rounded-lg h-10.5 items-center justify-center p-[0.1rem]",
         lightDarkGlassBase,
         className,
       )}
@@ -38,7 +38,7 @@ export default function GridListViewToggle({ className = "" }: Props) {
           variant="outline"
           aria-label={opt.label}
           className={cn(
-            "w-[2.33rem] h-[2.33rem] border-transparent shadow-none dark:bg-transparent",
+            "w-[2.33rem] h-[2.33rem] border-transparent shadow-none dark:bg-transparent rounded-[0.55rem]",
             viewMode === opt.value
               ? lightDarkGlassActive
               : "opacity-60 hover:opacity-100",

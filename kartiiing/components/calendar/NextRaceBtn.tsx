@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
-import { IRaceEvent, RaceStatus } from "@kartiiing/shared-types";
+import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
 import { Button } from "@/components/ui/button";
 import { redGlassHover } from "@/lib/utils";
 
@@ -37,7 +37,7 @@ export default function NextRaceBtn({ races }: Props) {
 
   return (
     <Button
-      className={`uppercase text-xs h-10.5 font-medium text-center tracking-wide ${redGlassHover}`}
+      className={`uppercase text-xs h-10.5 font-medium text-center tracking-wide rounded-lg ${redGlassHover}`}
       onClick={handleClick}
     >
       <span className="pl-1.5">{label}</span>

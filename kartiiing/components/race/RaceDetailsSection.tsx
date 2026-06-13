@@ -22,7 +22,7 @@ export default function RaceDetailsSection({
       </SectionTitle>
       <div
         className={cn(
-          "flex flex-col p-3 rounded-2xl",
+          "flex flex-col p-3 rounded-3xl",
           lightDarkGlassBase,
           className,
         )}

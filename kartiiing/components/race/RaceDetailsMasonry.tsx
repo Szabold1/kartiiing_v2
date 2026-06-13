@@ -26,7 +26,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
     {
       id: "summary",
       content: (
-        <RaceDetailsSection title="Summary">
+        <RaceDetailsSection title="Summary" className="p-4.5">
           <RaceSummary race={race} />
         </RaceDetailsSection>
       ),
@@ -36,7 +36,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
           {
             id: "weather",
             content: (
-              <RaceDetailsSection title="Weather">
+              <RaceDetailsSection title="Weather" className="p-2">
                 <WeatherDayList days={weatherDays} />
               </RaceDetailsSection>
             ),
@@ -53,7 +53,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
               ? " & Lap Records"
               : ""
           }`}
-          className="!p-0"
+          className="p-0"
         >
           <CircuitInfo circuit={race.circuit} race={race} />
         </RaceDetailsSection>
@@ -64,7 +64,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
           {
             id: "event-fastest-laps",
             content: (
-              <RaceDetailsSection title="Event Fastest Laps">
+              <RaceDetailsSection title="Event Fastest Laps" className="p-3.5">
                 <FastestLapsWithDropdown fastestLaps={fastestLaps} />
               </RaceDetailsSection>
             ),

@@ -29,7 +29,7 @@ const MobileNavLink = ({
   return (
     <Link
       href={href}
-      className={`font-medium text-[0.93rem] rounded-lg p-3 w-full text-center uppercase tracking-wide ${lightDarkGlassHover}
+      className={`font-medium text-[0.93rem] rounded-xl p-3 w-full text-center uppercase tracking-wide ${lightDarkGlassHover}
         ${isActive ? `${greenGlassHover}` : ""}`}
       onClick={() => setOpen(false)}
     >

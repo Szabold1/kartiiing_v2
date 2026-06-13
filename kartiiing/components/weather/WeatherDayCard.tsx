@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronUp, Umbrella, Wind } from "lucide-react";
-import { cn, formatDate, lightDarkGlassHover } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { formatValue } from "@/lib/utils/weatherUtils";
 import MetricTile from "@/components/shared/MetricTile";
 import WeatherIcon from "@/components/weather/WeatherIcon";
@@ -11,9 +11,15 @@ type Props = {
   day: IWeatherDataDay;
   isExpanded: boolean;
   onToggle: () => void;
+  className?: string;
 };
 
-export default function WeatherDayCard({ day, isExpanded, onToggle }: Props) {
+export default function WeatherDayCard({
+  day,
+  isExpanded,
+  onToggle,
+  className,
+}: Props) {
   const conditionName = day.condition?.name || "Unknown";
   const hasGust = day.wind.gust != null;
   const windValue = hasGust
@@ -24,8 +30,8 @@ export default function WeatherDayCard({ day, isExpanded, onToggle }: Props) {
   return (
     <article
       className={cn(
-        "flex flex-col gap-2.5 p-2.5 rounded-xl cursor-pointer",
-        lightDarkGlassHover,
+        "flex flex-col gap-2.5 p-2.5 rounded-2xl cursor-pointer transition",
+        className,
       )}
       onClick={onToggle}
       role="button"

@@ -47,7 +47,7 @@ export default function SearchBar({
         <button
           aria-label="Clear search"
           onClick={clearSearch}
-          className="absolute right-1 cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent border rounded-sm p-1"
+          className="absolute right-1 cursor-pointer text-zinc-600 dark:text-zinc-300 hover:bg-accent border rounded-md p-1"
         >
           <X className="w-6 h-6" />
         </button>

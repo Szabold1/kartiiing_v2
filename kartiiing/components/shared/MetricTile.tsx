@@ -21,7 +21,7 @@ export default function MetricTile({
     <div
       title={title}
       className={cn(
-        "rounded-md py-1.5 px-2 flex items-center justify-center gap-1.5 min-w-max flex-1 whitespace-nowrap",
+        "rounded-lg py-1.5 px-2 flex items-center justify-center gap-1.5 min-w-max flex-1 whitespace-nowrap",
         grayGlassBase,
         className,
       )}

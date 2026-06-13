@@ -18,7 +18,7 @@ export default function HeroLink({
   className = "",
 }: Props) {
   const baseStyles =
-    "px-4.5 sm:px-5.5 py-2.5 font-medium rounded-lg transition-colors";
+    "px-4.5 sm:px-5.5 py-2.5 font-medium rounded-xl transition-colors";
 
   const variants = {
     light: `${lightDarkGlassHover}`,

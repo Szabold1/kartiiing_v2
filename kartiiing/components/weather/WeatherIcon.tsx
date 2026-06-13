@@ -19,7 +19,7 @@ export default function WeatherIcon({ condition, className = "" }: Props) {
   return (
     <div
       className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-md",
+        "flex h-9 w-9 items-center justify-center rounded-lg",
         grayGlassBase,
         className,
       )}

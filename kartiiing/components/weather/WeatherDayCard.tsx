@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronUp, Umbrella, Wind } from "lucide-react";
-import { cn, formatDate, lightDarkGlassHover } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { formatValue } from "@/lib/utils/weatherUtils";
 import MetricTile from "@/components/shared/MetricTile";
 import WeatherIcon from "@/components/weather/WeatherIcon";

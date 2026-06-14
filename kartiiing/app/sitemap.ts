@@ -18,11 +18,6 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 0.8,
   },
   {
-    url: `${BASE_URL}/results`,
-    changeFrequency: "weekly",
-    priority: 0.8,
-  },
-  {
     url: `${BASE_URL}/circuits`,
     changeFrequency: "monthly",
     priority: 0.8,

@@ -12,7 +12,6 @@ const navLinks: NavLink[] = [
     match: "startsWith",
     matchPath: "/calendar/",
   },
-  { label: "Results", href: "/results", match: "exact" },
   { label: "Circuits", href: "/circuits", match: "exact" },
   { label: "Wiki", href: "/wiki", match: "exact" },
 ];

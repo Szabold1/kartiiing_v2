@@ -59,7 +59,8 @@ export default function FastestLapsWithDropdown({
     if (initialEngineType && initialEngineType !== selectedEngineType) {
       setSelectedEngineType(initialEngineType);
     }
-  }, [initialEngineType, selectedEngineType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialEngineType]);
 
   // Set initial category to the fastest lap when engine type changes
   useEffect(() => {

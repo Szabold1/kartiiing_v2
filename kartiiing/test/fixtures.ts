@@ -53,6 +53,7 @@ export function buildRaceEventDate(
 export function buildCircuit(o: Partial<ICircuit> = {}): ICircuit {
   return {
     id: 1,
+    name: "Birizdokart",
     locationName: "Kecskemét",
     length: 1122,
     coordinates: {
@@ -60,6 +61,7 @@ export function buildCircuit(o: Partial<ICircuit> = {}): ICircuit {
       longitude: 21.7444,
     },
     country: buildCountry(),
+    layouts: [{ id: 1, name: "Full Circuit", length: 1122 }],
     ...o,
   };
 }
@@ -75,8 +77,10 @@ export function buildCircuitDetail(
 ): ICircuitDetail {
   return {
     ...buildCircuit(),
-    name: "Birizdokart",
-    layout: buildCircuitLayout(),
+    layouts: [
+      { ...buildCircuitLayout(), current: true },
+      ...(buildCircuit().layouts || []),
+    ],
     circuitFastestLaps: [],
     ...o,
   };

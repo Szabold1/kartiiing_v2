@@ -94,3 +94,22 @@ export function getColorsForEngine(
 }
 
 // ---------------------------------------------- //
+// ----- Grid/List view layout utilities -------- //
+
+export const listViewContainerClasses = `${lightDarkGlassBase} flex flex-col p-1.5 rounded-[1.3rem] dark:bg-neutral-900`;
+
+export const gridViewContainerBase =
+  "grid justify-center gap-5 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]";
+
+export function getGridWidthClass(itemCount: number): string {
+  switch (itemCount) {
+    case 1:
+      return "max-w-[22rem]";
+    case 2:
+      return "max-w-[calc(2*22rem_+_1.25rem)]";
+    default:
+      return "max-w-full";
+  }
+}
+
+// ---------------------------------------------- //

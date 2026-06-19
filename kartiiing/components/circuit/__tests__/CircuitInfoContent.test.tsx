@@ -7,7 +7,7 @@ describe("CircuitInfoContent", () => {
   const circuit = buildCircuitDetail({
     name: "Test Circuit",
     length: 1200,
-    layout: { id: 1, name: "Layout A", length: 1200 },
+    layouts: [{ id: 1, name: "Layout A", length: 1200 }],
   });
 
   it("renders circuit name", () => {
@@ -16,10 +16,9 @@ describe("CircuitInfoContent", () => {
     expect(screen.getByText("Test Circuit")).toBeInTheDocument();
   });
 
-  it("renders layout name and circuit length", () => {
+  it("renders circuit length", () => {
     render(<CircuitInfoContent circuit={circuit} />);
 
-    expect(screen.getByText(/Layout A/)).toBeInTheDocument();
     expect(screen.getByText(/1200 meters/)).toBeInTheDocument();
   });
 
@@ -55,11 +54,10 @@ describe("CircuitInfoContent", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 
-  it("renders 'Unknown length' when circuit length is 0", () => {
-    const zeroLength = buildCircuitDetail({ length: 0 });
+  it("renders 'Unknown length' when circuit length is 0 and no layouts exist", () => {
+    const zeroLength = buildCircuitDetail({ length: 0, layouts: [] });
     render(<CircuitInfoContent circuit={zeroLength} />);
 
     expect(screen.getByText(/Unknown length/)).toBeInTheDocument();
   });
-
 });

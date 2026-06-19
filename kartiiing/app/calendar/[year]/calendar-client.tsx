@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
+import { isCompactSection } from "@/lib/constants/layout";
 import { useRouter } from "next/navigation";
+import PageWrapper from "@/components/shared/PageWrapper";
 import CalendarHeader from "@/components/calendar/CalendarHeader";
 import SearchHeader from "@/components/calendar/SearchHeader";
 import CalendarActions from "@/components/calendar/CalendarActions";
@@ -35,8 +38,7 @@ export default function CalendarClient({
       : RaceEventSortOptions.ASC,
   );
   const [searchQuery, setSearchQuery] = useState("");
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [sectionWidth, setSectionWidth] = useState(0);
+  const { sectionRef, sectionWidth } = useSectionWidth();
 
   useEffect(() => {
     setRaces(initialRaces);
@@ -70,17 +72,6 @@ export default function CalendarClient({
     const debounceTimer = setTimeout(performSearch, 300);
     return () => clearTimeout(debounceTimer);
   }, [searchQuery, initialRaces, sortOrder, selectedYear]);
-
-  // Track section width for responsive design
-  useLayoutEffect(() => {
-    if (!sectionRef.current) return;
-    function updateWidth() {
-      if (sectionRef.current) setSectionWidth(sectionRef.current.offsetWidth);
-    }
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
 
   // Handle year change by navigating to new route
   const handleYearChange = (newYear: string | number) => {
@@ -151,44 +142,37 @@ export default function CalendarClient({
 
   return (
     <>
-      <div
-        ref={sectionRef}
-        className="container flex flex-1 items-stretch justify-between mx-auto"
-      >
-        <section className="flex-1 mx-auto lg:px-8">
-          <div className="sm:px-5 md:px-6 lg:px-2">
-            <CalendarHeader
-              description={description}
-              selectedYear={selectedYear}
-              setSelectedYear={handleYearChange}
-              years={years}
-            />
+      <PageWrapper ref={sectionRef}>
+        <CalendarHeader
+          description={description}
+          selectedYear={selectedYear}
+          setSelectedYear={handleYearChange}
+          years={years}
+        />
 
-            <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
-              <SearchHeader
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                races={races}
-              >
-                {sectionWidth < 768 && renderCalendarActions(true)}
-              </SearchHeader>
+        <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
+          <SearchHeader
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            races={races}
+          >
+            {isCompactSection(sectionWidth) && renderCalendarActions(true)}
+          </SearchHeader>
 
-              {sectionWidth >= 768 && renderCalendarActions()}
-            </div>
+          {!isCompactSection(sectionWidth) && renderCalendarActions()}
+        </div>
 
-            <div className="my-4 py-4 border-t border-dashed">
-              <RacesGrid
-                races={races}
-                loading={loading}
-                sectionWidth={sectionWidth}
-                isAllYearsView={selectedYear === "all"}
-              />
-            </div>
-          </div>
-        </section>
+        <div className="my-4 py-4 border-t border-dashed">
+          <RacesGrid
+            races={races}
+            loading={loading}
+            sectionWidth={sectionWidth}
+            isAllYearsView={selectedYear === "all"}
+          />
+        </div>
+      </PageWrapper>
 
-        <BackToTopBtn />
-      </div>
+      <BackToTopBtn />
     </>
   );
 }

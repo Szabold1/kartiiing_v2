@@ -24,9 +24,14 @@ describe("RaceLocation", () => {
   });
 
   it("falls back to locationName for circuitName version when name is unavailable", () => {
-    render(<RaceLocation circuit={CIRCUITS.base} version="circuitName" />);
+    render(
+      <RaceLocation
+        circuit={buildCircuit({ name: "" })}
+        version="circuitName"
+      />,
+    );
 
-    expect(screen.getByText(CIRCUITS.base.locationName)).toBeInTheDocument();
+    expect(screen.getByText("Kecskemét")).toBeInTheDocument();
   });
 
   it("renders flag by default with shared flag styles", () => {

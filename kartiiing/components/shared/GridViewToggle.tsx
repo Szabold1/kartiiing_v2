@@ -1,33 +1,29 @@
 import { Button } from "@/components/ui/button";
-import { Grid, List } from "lucide-react";
-import { CalendarViewMode } from "@/lib/constants/calendar";
-import { useCalendarStore } from "@/lib/stores/calendarStore";
 import { cn, lightDarkGlassActive, lightDarkGlassBase } from "@/lib/utils";
 
-interface Props {
+interface Option<T extends string> {
+  value: T;
+  icon: React.ReactNode;
+  label: string;
+}
+
+interface Props<T extends string> {
+  viewMode: T;
+  setViewMode: (mode: T) => void;
+  options: Option<T>[];
   className?: string;
 }
 
-export default function GridListViewToggle({ className = "" }: Props) {
-  const { viewMode, setViewMode } = useCalendarStore();
-
-  const options = [
-    {
-      value: CalendarViewMode.GRID,
-      icon: <Grid className="size-4" />,
-      label: "Grid view",
-    },
-    {
-      value: CalendarViewMode.LIST,
-      icon: <List className="size-4" />,
-      label: "List view",
-    },
-  ];
-
+export default function GridViewToggle<T extends string>({
+  viewMode,
+  setViewMode,
+  options,
+  className = "",
+}: Props<T>) {
   return (
     <div
       className={cn(
-        "hidden lg:flex rounded-lg h-10.5 items-center justify-center p-[0.1rem]",
+        "flex rounded-lg h-10.5 items-center justify-center p-[0.1rem]",
         lightDarkGlassBase,
         className,
       )}

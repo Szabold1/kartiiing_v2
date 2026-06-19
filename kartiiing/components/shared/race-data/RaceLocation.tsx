@@ -39,7 +39,7 @@ export default function RaceLocation({
 
       {version === "locationName" && circuit.locationName}
       {version === "circuitName" &&
-        ("name" in circuit ? circuit.name : circuit.locationName)}
+        (circuit.name ? circuit.name : circuit.locationName)}
 
       {isClickable && (
         <ExternalLink className="w-3 h-3 opacity-75" aria-hidden="true" />

@@ -3,6 +3,7 @@ import { Category } from '../entities/category.entity';
 import { RaceEventResult } from '../entities/raceEventResult.entity';
 import { RaceEventChampionship } from '../entities/raceEventChampionship.entity';
 import { FastestLap } from '../entities/fastestLap.entity';
+import { toICircuit } from '../circuits/circuit.resource';
 import {
   IRaceEvent,
   IRaceEventDetail,
@@ -54,21 +55,7 @@ export function toIRaceEvent(
     },
     updatedAt: entity.updatedAt.toISOString(),
     title: title,
-    circuit: {
-      id: entity.circuit.id,
-      locationName: entity.circuit.locationName,
-      length: entity.circuit.length,
-      website: entity.circuit.websiteLink,
-      coordinates: {
-        latitude: entity.circuit.latitude,
-        longitude: entity.circuit.longitude,
-      },
-      country: {
-        id: entity.circuit.country.id,
-        name: entity.circuit.country.name,
-        code: entity.circuit.country.code,
-      },
-    },
+    circuit: toICircuit(entity.circuit),
     championships: sortedChampionships,
     categories: categories,
   };
@@ -98,15 +85,16 @@ export function toIRaceEventDetail(
 ): IRaceEventDetail {
   const baseEvent = toIRaceEvent(entity, status);
 
+  // Mark the current layout
+  const layoutsWithCurrent = (baseEvent.circuit.layouts || []).map((l) => ({
+    ...l,
+    current: l.id === (entity.circuitLayout?.id || 0),
+  }));
+
   // Extend circuit with detailed information
   const detailedCircuit = {
     ...baseEvent.circuit,
-    name: entity.circuit.name,
-    layout: {
-      id: entity.circuitLayout?.id || 0,
-      name: entity.circuitLayout?.name || undefined,
-      length: entity.circuitLayout?.length || 0,
-    },
+    layouts: layoutsWithCurrent,
     circuitFastestLaps: Array.isArray(entity.circuit?.fastestLaps)
       ? getFastestLapsPerCategoryPerYear(entity.circuit.fastestLaps, true)
       : undefined,

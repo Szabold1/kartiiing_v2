@@ -129,6 +129,7 @@ export class RaceEventPersistence {
     return this.raceEventRepo
       .createQueryBuilder('raceEvent')
       .leftJoinAndSelect('raceEvent.circuit', 'circuit')
+      .leftJoinAndSelect('circuit.layouts', 'circuitLayouts')
       .leftJoinAndSelect('circuit.country', 'country')
       .leftJoinAndSelect('raceEvent.championshipDetails', 'championshipDetails')
       .leftJoinAndSelect('championshipDetails.championship', 'championship')

@@ -40,5 +40,5 @@ export class YearParams {
   @Min(1950)
   @Max(new Date().getFullYear() + 3)
   @Type(() => Number)
-  year: number;
+  year!: number;
 }

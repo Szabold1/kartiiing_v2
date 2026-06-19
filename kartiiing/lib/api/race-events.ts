@@ -6,14 +6,7 @@ import {
   IPaginatedResponse,
   ISeoData,
 } from "@kartiiing/shared";
-
-/**
- * Get the base URL for API requests
- */
-export function getApiBase(): string {
-  const base = process.env.NEXT_PUBLIC_API_URL || "/api";
-  return base.replace(/\/$/, "");
-}
+import { getApiBase } from "./base";
 
 /**
  * Fetch available years that have race events

@@ -21,25 +21,40 @@ export class CircuitsPersistence {
   createFilteredCircuitQuery(
     query: FindCircuitsQuery,
   ): SelectQueryBuilder<Circuit> {
-    const { search } = query;
-
     const qb = this.circuitRepo
       .createQueryBuilder('circuit')
       .leftJoinAndSelect('circuit.country', 'country')
       .leftJoinAndSelect('circuit.layouts', 'layouts')
       .orderBy('circuit.locationName', 'ASC');
 
-    if (search) {
-      const term = `%${search}%`;
-      qb.andWhere(
-        `(unaccent(circuit.name) ILIKE unaccent(:term) 
-          OR unaccent(circuit.locationName) ILIKE unaccent(:term) 
-          OR unaccent(country.name) ILIKE unaccent(:term))`,
-        { term },
-      );
-    }
+    this.applySearchFilter(qb, query.search);
 
     return qb;
+  }
+
+  /**
+   * Find a single circuit by ID with country and layouts relations.
+   */
+  async findCircuitById(id: number): Promise<Circuit | null> {
+    return this.circuitRepo.findOne({
+      where: { id },
+      relations: ['country', 'layouts'],
+    });
+  }
+
+  /**
+   * Find all circuits with minimal data for map marker coordinates.
+   * Optionally filtered by search query (matched against name, locationName, country name).
+   */
+  async findCoordinates(search?: string): Promise<Circuit[]> {
+    const qb = this.circuitRepo
+      .createQueryBuilder('circuit')
+      .select(['circuit.id', 'circuit.latitude', 'circuit.longitude'])
+      .leftJoin('circuit.country', 'country');
+
+    this.applySearchFilter(qb, search);
+
+    return qb.getMany();
   }
 
   /**
@@ -58,5 +73,23 @@ export class CircuitsPersistence {
       .select('COUNT(DISTINCT circuit.countryId)', 'count')
       .getRawOne<{ count: string }>();
     return parseInt(result?.count || '0', 10);
+  }
+
+  /**
+   * Applies the standard circuit text-search filter to a query builder.
+   * Matches against circuit name, locationName, and country name (accent-insensitive).
+   */
+  private applySearchFilter(
+    qb: SelectQueryBuilder<Circuit>,
+    search: string | undefined,
+  ): void {
+    if (!search) return;
+    const term = `%${search}%`;
+    qb.andWhere(
+      `(unaccent(circuit.name) ILIKE unaccent(:term) 
+        OR unaccent(circuit.locationName) ILIKE unaccent(:term) 
+        OR unaccent(country.name) ILIKE unaccent(:term))`,
+      { term },
+    );
   }
 }

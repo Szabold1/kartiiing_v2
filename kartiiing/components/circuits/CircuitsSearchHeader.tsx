@@ -20,7 +20,7 @@ export default function CircuitsSearchHeader({
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        placeholder="Search circuits..."
+        placeholder="Search... (e.g. Italy)"
       />
 
       <div className="text-sm text-muted-foreground pl-1.5 flex items-center w-full justify-between">

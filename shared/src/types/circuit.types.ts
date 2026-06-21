@@ -27,3 +27,8 @@ export interface ICircuit {
 export interface ICircuitDetail extends ICircuit {
   circuitFastestLaps?: IFastestLap[];
 }
+
+export interface ICircuitCoordinate {
+  id: number;
+  coordinates: ICoordinates;
+}

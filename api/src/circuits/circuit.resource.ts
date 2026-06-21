@@ -1,4 +1,4 @@
-import { ICircuit } from '@kartiiing/shared';
+import { ICircuit, ICircuitCoordinate } from '@kartiiing/shared';
 import { Circuit } from '../entities/circuit.entity';
 
 /**
@@ -25,5 +25,18 @@ export function toICircuit(entity: Circuit): ICircuit {
       name: l.name || undefined,
       length: l.length,
     })),
+  };
+}
+
+/**
+ * Maps a Circuit entity to the minimal ICircuitCoordinate DTO (for map markers).
+ */
+export function toICircuitCoordinate(entity: Circuit): ICircuitCoordinate {
+  return {
+    id: entity.id,
+    coordinates: {
+      latitude: Number(entity.latitude),
+      longitude: Number(entity.longitude),
+    },
   };
 }

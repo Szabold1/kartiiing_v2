@@ -55,7 +55,7 @@ export default function Hero({ subtitle }: Props) {
           aria-hidden="true"
         ></div>
 
-        <div className="relative z-10 flex flex-col items-center w-full h-full px-3.5 pt-[16dvh] md:pt-[21.5dvh] text-gray-200 dark:text-gray-200/90">
+        <div className="relative z-10 flex flex-col items-center w-full h-full px-3.5 pt-[16dvh] md:pt-[21.5dvh] text-gray-50 dark:text-gray-200/90">
           {renderHeroContent()}
           <Copyright
             className="absolute bottom-3 left-0 right-0 px-4"

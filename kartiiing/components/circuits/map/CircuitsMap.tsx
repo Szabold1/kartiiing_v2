@@ -116,6 +116,7 @@ export default function CircuitsMap({
           inset: 0,
         }}
         mapLib={import("mapbox-gl")}
+        tabIndex={-1}
       >
         <MapZoomControl
           mapRef={mapRef}

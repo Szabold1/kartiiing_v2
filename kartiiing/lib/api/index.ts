@@ -1,6 +1,8 @@
 export { getApiBase } from "./base";
 export {
   getCircuits,
+  getCircuitCoordinates,
+  getCircuitById,
   getCircuitsMetadata,
 } from "./circuits";
 export {

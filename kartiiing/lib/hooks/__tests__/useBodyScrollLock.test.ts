@@ -34,12 +34,13 @@ describe("useBodyScrollLock", () => {
     expect(document.body.style.overflow).toBe(OVERFLOW_EMPTY);
   });
 
-  it("restores overflow on unmount", () => {
-    document.body.style.overflow = OVERFLOW_HIDDEN;
+  it("restores the previous overflow value on unmount", () => {
+    const previousValue = "scroll";
+    document.body.style.overflow = previousValue;
 
     const { unmount } = renderHook(() => useBodyScrollLock(true));
     unmount();
 
-    expect(document.body.style.overflow).toBe(OVERFLOW_EMPTY);
+    expect(document.body.style.overflow).toBe(previousValue);
   });
 });

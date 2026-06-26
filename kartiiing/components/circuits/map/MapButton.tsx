@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Map } from "lucide-react";
-import { lightDarkGlassHover } from "@/lib/utils";
+import { cn, lightDarkGlassHover } from "@/lib/utils";
 
 interface Props {
   onClick: () => void;
@@ -14,7 +14,7 @@ export default function MapButton({ onClick, className = "" }: Props) {
     <Button
       variant="outline"
       aria-label="Open map view"
-      className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover} ${className}`}
+      className={cn("w-10.5 h-10.5 rounded-lg", lightDarkGlassHover, className)}
       onClick={onClick}
       title="Open map"
     >

@@ -47,6 +47,7 @@ export default function CircuitsMap({
   const mapRef = useRef<MapRef>(null);
   const { resolvedTheme } = useTheme();
   const mapLoadedRef = useRef(false);
+  const initialPositionDoneRef = useRef(false);
 
   // Set Standard style light preset based on theme
   const applyLightPreset = useCallback(() => {
@@ -59,12 +60,18 @@ export default function CircuitsMap({
   // On load: apply light preset + position the map
   const handleLoad = useCallback(() => {
     mapLoadedRef.current = true;
+    initialPositionDoneRef.current = false;
     applyLightPreset();
 
     const map = mapRef.current?.getMap();
     if (!map) return;
 
     flyToCenter(map, initialCenter, initialZoom);
+
+    // Mark initial positioning as done after the flyTo animation completes
+    setTimeout(() => {
+      initialPositionDoneRef.current = true;
+    }, 1550); // slightly longer than flyTo duration (1500ms)
   }, [applyLightPreset, initialCenter, initialZoom]);
 
   // Re-apply light preset when theme changes
@@ -77,6 +84,7 @@ export default function CircuitsMap({
   useEffect(() => {
     if (!mapLoadedRef.current) return;
     if (!initialCenter) return;
+    if (!initialPositionDoneRef.current) return;
 
     const map = mapRef.current?.getMap();
     if (!map) return;
@@ -87,7 +95,7 @@ export default function CircuitsMap({
   // Fit bounds when coordinates change (search filter) — only after initial positioning is done
   useEffect(() => {
     if (!mapLoadedRef.current) return;
-    if (!initialCenter) return;
+    if (!initialPositionDoneRef.current) return;
 
     const map = mapRef.current?.getMap();
     if (!map) return;
@@ -102,7 +110,6 @@ export default function CircuitsMap({
       maxZoom: 11,
       duration: 800,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
   // Close popup when coordinates change (search filters)

@@ -42,13 +42,17 @@ export default function CircuitsMapModal({
   // GPS upgrades the location later if the user allows it.
   useEffect(() => {
     if (!isOpen) return;
+    let cancelled = false;
     (async () => {
       const ipLoc = await getLocationFromIP();
-      if (ipLoc) setUserLocation(ipLoc);
+      if (ipLoc && !cancelled) setUserLocation(ipLoc);
 
       const gpsLoc = await getLocationFromGPS();
-      if (gpsLoc) setUserLocation(gpsLoc);
+      if (gpsLoc && !cancelled) setUserLocation(gpsLoc);
     })();
+    return () => {
+      cancelled = true;
+    };
   }, [isOpen]);
 
   // Close on Escape key

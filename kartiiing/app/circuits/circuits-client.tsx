@@ -9,15 +9,20 @@ import CircuitsActions from "@/components/circuits/CircuitsActions";
 import CircuitsGrid from "@/components/circuits/CircuitsGrid";
 import BackToTopBtn from "@/components/shared/btns/BackToTopBtn";
 import { getCircuits } from "@/lib/api";
-import { ICircuit, IPaginatedResponse } from "@kartiiing/shared";
+import {
+  ICircuit,
+  ICircuitCoordinate,
+  IPaginatedResponse,
+} from "@kartiiing/shared";
 
 interface Props {
   initialData: IPaginatedResponse<ICircuit>;
+  coordinates: ICircuitCoordinate[];
 }
 
 const PAGE_SIZE = 20;
 
-export default function CircuitsClient({ initialData }: Props) {
+export default function CircuitsClient({ initialData, coordinates }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const { sectionRef, sectionWidth } = useSectionWidth();
@@ -87,7 +92,7 @@ export default function CircuitsClient({ initialData }: Props) {
   }, []);
 
   function renderCircuitsActions(small = false) {
-    return <CircuitsActions small={small} />;
+    return <CircuitsActions coordinates={coordinates} small={small} />;
   }
 
   return (
@@ -115,6 +120,7 @@ export default function CircuitsClient({ initialData }: Props) {
           {hasMore && <div ref={sentinelRef} className="h-4 w-full" />}
         </div>
       </div>
+
       <BackToTopBtn />
     </>
   );

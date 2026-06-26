@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { ICircuit, IPaginatedResponse, ISeoData } from '@kartiiing/shared';
-import { toICircuit } from './circuit.resource';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ICircuit,
+  ICircuitCoordinate,
+  IPaginatedResponse,
+  ISeoData,
+} from '@kartiiing/shared';
+import { toICircuit, toICircuitCoordinate } from './circuit.resource';
 import { FindCircuitsQuery } from './dtos';
 import { CircuitsPersistence } from './circuits.persistence';
 
@@ -33,6 +38,19 @@ export class CircuitsService {
         hasPreviousPage: pageNumber > 1,
       },
     };
+  }
+
+  async findOne(id: number): Promise<ICircuit> {
+    const circuit = await this.persistence.findCircuitById(id);
+    if (!circuit) {
+      throw new NotFoundException(`Circuit with ID ${id} not found`);
+    }
+    return toICircuit(circuit);
+  }
+
+  async getCoordinates(search?: string): Promise<ICircuitCoordinate[]> {
+    const circuits = await this.persistence.findCoordinates(search);
+    return circuits.map(toICircuitCoordinate);
   }
 
   async getCircuitsMetadata(): Promise<ISeoData> {

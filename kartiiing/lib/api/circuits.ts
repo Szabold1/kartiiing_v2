@@ -1,4 +1,9 @@
-import { ICircuit, IPaginatedResponse, ISeoData } from "@kartiiing/shared";
+import {
+  ICircuit,
+  ICircuitCoordinate,
+  IPaginatedResponse,
+  ISeoData,
+} from "@kartiiing/shared";
 import { getApiBase } from "./base";
 
 /**
@@ -21,6 +26,40 @@ export async function getCircuits(options?: {
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuits: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
+ * Fetch all circuit coordinates
+ */
+export async function getCircuitCoordinates(
+  search?: string,
+): Promise<ICircuitCoordinate[]> {
+  const params = new URLSearchParams();
+  if (search) params.set("search", search);
+
+  const queryString = params.toString();
+  const url = `${getApiBase()}/circuits/coordinates${queryString ? `?${queryString}` : ""}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch circuit coordinates: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+/**
+ * Fetch a single circuit by ID
+ */
+export async function getCircuitById(id: number): Promise<ICircuit> {
+  const url = `${getApiBase()}/circuits/${id}`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch circuit ${id}: ${res.status}`);
   }
 
   return res.json();

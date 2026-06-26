@@ -134,6 +134,18 @@
   }
 }
 
+/* Reposition Mapbox logo (bottom-left) and attribution (bottom-right)
+     so they're fully visible inside the rounded container */
+.mapboxgl-ctrl-bottom-left {
+  left: 6px !important;
+  bottom: 5px !important;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  right: 6px !important;
+  bottom: 5px !important;
+}
+
 /* Hide scrollbar globally */
 @layer utilities {
   html {

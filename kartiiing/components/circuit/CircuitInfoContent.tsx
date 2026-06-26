@@ -5,9 +5,13 @@ import { getCircuitLengthDisplay } from "@/lib/utils/circuitUtils";
 
 type Props = {
   circuit: ICircuit;
+  showActions?: boolean;
 };
 
-export default function CircuitInfoContent({ circuit }: Props) {
+export default function CircuitInfoContent({
+  circuit,
+  showActions = true,
+}: Props) {
   return (
     <div className="flex justify-between items-center flex-1">
       <div className="flex flex-col min-w-0 flex-1">
@@ -22,10 +26,12 @@ export default function CircuitInfoContent({ circuit }: Props) {
           {getCircuitLengthDisplay(circuit)}
         </p>
       </div>
-      <CircuitActionLinks
-        circuit={circuit}
-        className="flex flex-col gap-1.5 pl-1.5"
-      />
+      {showActions && (
+        <CircuitActionLinks
+          circuit={circuit}
+          className="flex flex-col gap-1.5 pl-1.5"
+        />
+      )}
     </div>
   );
 }

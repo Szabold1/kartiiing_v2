@@ -5,6 +5,8 @@ import { RaceStatus } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
 import RaceCard from "../RaceCard";
 
+const RACE_TITLE = "Test Race 2025";
+const RACE_DATE_STRING = "01 - 04 Jun";
 const push = vi.fn();
 
 vi.mock("next/navigation", () => ({
@@ -18,7 +20,7 @@ describe("RaceCard", () => {
 
   const race = buildRace({
     id: 1,
-    title: "Test Race 2025",
+    title: RACE_TITLE,
     slug: "test-race-2025",
     date: { start: "2025-06-01", end: "2025-06-04", year: 2025 },
   });
@@ -28,8 +30,8 @@ describe("RaceCard", () => {
   it("renders title and date in card variant", () => {
     render(<RaceCard race={race} />);
 
-    expect(screen.getByText("Test Race 2025")).toBeInTheDocument();
-    expect(screen.getByText("01 - 04 Jun")).toBeInTheDocument();
+    expect(screen.getByText(RACE_TITLE)).toBeInTheDocument();
+    expect(screen.getByText(RACE_DATE_STRING)).toBeInTheDocument();
   });
 
   it("renders location name in card variant", () => {
@@ -104,8 +106,8 @@ describe("RaceCard", () => {
   it("renders title and date in row variant", () => {
     render(<RaceCard race={race} variant="row" />);
 
-    expect(screen.getByText("Test Race 2025")).toBeInTheDocument();
-    expect(screen.getByText("01 - 04 Jun")).toBeInTheDocument();
+    expect(screen.getByText(RACE_TITLE)).toBeInTheDocument();
+    expect(screen.getByText(RACE_DATE_STRING)).toBeInTheDocument();
   });
 
   it("applies row-specific classes in list view", () => {

@@ -2,18 +2,27 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Grid, List } from "lucide-react";
+import { CircuitsViewMode } from "@/lib/constants/circuits";
 import GridViewToggle from "../GridViewToggle";
 
 const OPTIONS = [
-  { value: "grid", icon: <Grid className="size-4" />, label: "Grid view" },
-  { value: "list", icon: <List className="size-4" />, label: "List view" },
+  {
+    value: CircuitsViewMode.GRID,
+    icon: <Grid className="size-4" />,
+    label: "Grid view",
+  },
+  {
+    value: CircuitsViewMode.LIST,
+    icon: <List className="size-4" />,
+    label: "List view",
+  },
 ];
 
 describe("GridViewToggle", () => {
   it("renders toggle buttons for each option", () => {
     render(
       <GridViewToggle
-        viewMode="grid"
+        viewMode={CircuitsViewMode.GRID}
         setViewMode={vi.fn()}
         options={OPTIONS}
       />,
@@ -33,23 +42,23 @@ describe("GridViewToggle", () => {
 
     render(
       <GridViewToggle
-        viewMode="grid"
+        viewMode={CircuitsViewMode.GRID}
         setViewMode={mockSetViewMode}
         options={OPTIONS}
       />,
     );
 
     await user.click(screen.getByRole("button", { name: "List view" }));
-    expect(mockSetViewMode).toHaveBeenCalledWith("list");
+    expect(mockSetViewMode).toHaveBeenCalledWith(CircuitsViewMode.LIST);
 
     await user.click(screen.getByRole("button", { name: "Grid view" }));
-    expect(mockSetViewMode).toHaveBeenCalledWith("grid");
+    expect(mockSetViewMode).toHaveBeenCalledWith(CircuitsViewMode.GRID);
   });
 
   it("applies the inactive class to non-selected options", () => {
     render(
       <GridViewToggle
-        viewMode="list"
+        viewMode={CircuitsViewMode.LIST}
         setViewMode={vi.fn()}
         options={OPTIONS}
       />,
@@ -67,7 +76,7 @@ describe("GridViewToggle", () => {
   it("applies additional className to the container", () => {
     const { container } = render(
       <GridViewToggle
-        viewMode="grid"
+        viewMode={CircuitsViewMode.GRID}
         setViewMode={vi.fn()}
         options={OPTIONS}
         className="tracking-wide"

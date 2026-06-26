@@ -7,6 +7,8 @@ import {
   getCircuitCoordinates,
 } from "@/lib/api";
 
+export const dynamic = "force-dynamic";
+
 export default async function CircuitsPage() {
   const initialData = await getCircuits({ page: 1, limit: 20 });
   const coordinates = await getCircuitCoordinates();

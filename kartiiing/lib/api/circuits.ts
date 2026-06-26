@@ -6,6 +6,8 @@ import {
 } from "@kartiiing/shared";
 import { getApiBase } from "./base";
 
+const MS_DAY = 1000 * 60 * 60 * 24;
+
 /**
  * Fetch circuits with pagination and optional search
  */
@@ -22,7 +24,7 @@ export async function getCircuits(options?: {
   if (search) params.set("search", search);
 
   const url = `${getApiBase()}/circuits?${params.toString()}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuits: ${res.status}`);
@@ -42,7 +44,7 @@ export async function getCircuitCoordinates(
 
   const queryString = params.toString();
   const url = `${getApiBase()}/circuits/coordinates${queryString ? `?${queryString}` : ""}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuit coordinates: ${res.status}`);
@@ -56,7 +58,7 @@ export async function getCircuitCoordinates(
  */
 export async function getCircuitById(id: number): Promise<ICircuit> {
   const url = `${getApiBase()}/circuits/${id}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuit ${id}: ${res.status}`);

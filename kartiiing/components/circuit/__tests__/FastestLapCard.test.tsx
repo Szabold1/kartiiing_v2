@@ -1,15 +1,16 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { buildFastestLap } from "@/test/fixtures";
 import FastestLapCard from "../FastestLapCard";
 
+const SESSION_TYPE = "Final";
 const lap = buildFastestLap({
   category: "KZ2",
   engineType: "KZ",
   driverName: "John Doe",
   lapTime: 54321,
-  sessionType: "Final",
+  sessionType: SESSION_TYPE,
   date: "2025-06-04",
 });
 
@@ -48,11 +49,14 @@ describe("FastestLapCard", () => {
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it("supports keyboard toggle with Enter", () => {
+  it("supports keyboard toggle with Enter", async () => {
     const onToggle = vi.fn();
+    const user = userEvent.setup();
 
     render(<FastestLapCard lap={lap} onToggle={onToggle} />);
-    fireEvent.keyDown(screen.getByRole("button"), { key: "Enter" });
+    screen.getByRole("button").focus();
+
+    await user.keyboard("{Enter}");
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
@@ -61,7 +65,7 @@ describe("FastestLapCard", () => {
     render(<FastestLapCard lap={lap} isExpanded />);
 
     expect(screen.getByText("John Doe")).toBeInTheDocument();
-    expect(screen.getByText("Final")).toBeInTheDocument();
+    expect(screen.getByText(SESSION_TYPE)).toBeInTheDocument();
   });
 
   it("has aria-expanded true when expanded", () => {
@@ -92,6 +96,6 @@ describe("FastestLapCard", () => {
   it("falls back to session type badge in compact when no eventTitle", () => {
     render(<FastestLapCard lap={lap} variant="compact" />);
 
-    expect(screen.getByText("Final")).toBeInTheDocument();
+    expect(screen.getByText(SESSION_TYPE)).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { IWeatherDataDay } from "@kartiiing/shared";
@@ -59,11 +59,14 @@ describe("WeatherDayCard", () => {
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it("supports keyboard toggle with Enter", () => {
+  it("supports keyboard toggle with Enter", async () => {
     const onToggle = vi.fn();
+    const user = userEvent.setup();
 
     render(<WeatherDayCard day={day} isExpanded={false} onToggle={onToggle} />);
-    fireEvent.keyDown(screen.getByRole("button"), { key: "Enter" });
+    const button = screen.getByRole("button");
+    button.focus();
+    await user.keyboard("{Enter}");
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });

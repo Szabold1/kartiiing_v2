@@ -3,6 +3,9 @@ import { describe, expect, it } from "vitest";
 import { buildCircuitDetail } from "@/test/fixtures";
 import CircuitInfoContent from "../CircuitInfoContent";
 
+const VISIT_LINK_LABEL = "Visit circuit website";
+const MAPS_LINK_LABEL = "Open in Google Maps";
+
 describe("CircuitInfoContent", () => {
   const circuit = buildCircuitDetail({
     name: "Test Circuit",
@@ -34,7 +37,7 @@ describe("CircuitInfoContent", () => {
     });
     render(<CircuitInfoContent circuit={circuitWithSite} />);
 
-    const link = screen.getByTitle("Visit circuit website");
+    const link = screen.getByRole("link", { name: VISIT_LINK_LABEL });
     expect(link).toHaveAttribute("href", "https://circuit.com");
     expect(link).toHaveAttribute("target", "_blank");
   });
@@ -43,14 +46,14 @@ describe("CircuitInfoContent", () => {
     render(<CircuitInfoContent circuit={circuit} />);
 
     expect(
-      screen.queryByTitle("Visit circuit website"),
+      screen.queryByRole("link", { name: VISIT_LINK_LABEL }),
     ).not.toBeInTheDocument();
   });
 
   it("renders Google Maps link when coordinates are valid", () => {
     render(<CircuitInfoContent circuit={circuit} />);
 
-    const link = screen.getByTitle("Open in Google Maps");
+    const link = screen.getByRole("link", { name: MAPS_LINK_LABEL });
     expect(link).toHaveAttribute("target", "_blank");
   });
 

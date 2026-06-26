@@ -5,6 +5,7 @@ export interface ICircuitLayout {
   id: number;
   name?: string;
   length: number;
+  current?: boolean;
 }
 
 export interface ICoordinates {
@@ -14,15 +15,20 @@ export interface ICoordinates {
 
 export interface ICircuit {
   id: number;
+  name: string;
   locationName: string;
   length: number;
   website?: string;
   coordinates: ICoordinates;
   country: ICountry;
+  layouts?: ICircuitLayout[];
 }
 
 export interface ICircuitDetail extends ICircuit {
-  name: string;
-  layout: ICircuitLayout;
   circuitFastestLaps?: IFastestLap[];
+}
+
+export interface ICircuitCoordinate {
+  id: number;
+  coordinates: ICoordinates;
 }

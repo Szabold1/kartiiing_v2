@@ -2,7 +2,12 @@ import RaceCard from "@/components/calendar/RaceCard";
 import Loader from "@/components/shared/Loader";
 import { IRaceEvent } from "@kartiiing/shared";
 import { CalendarViewMode } from "@/lib/constants/calendar";
-import { cn, lightDarkGlassBase } from "@/lib/utils";
+import {
+  cn,
+  getGridWidthClass,
+  listViewContainerClasses,
+  gridViewContainerBase,
+} from "@/lib/utils";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
 import ErrorState from "@/components/shared/ErrorState";
 
@@ -12,17 +17,6 @@ type Props = {
   sectionWidth: number;
   isAllYearsView?: boolean;
 };
-
-function getGridWidthClass(raceCount: number) {
-  switch (raceCount) {
-    case 1:
-      return "max-w-[22rem]";
-    case 2:
-      return "max-w-[calc(2*22rem_+_1.25rem)]";
-    default:
-      return "max-w-full";
-  }
-}
 
 function groupRacesByYear(
   races: IRaceEvent[],
@@ -77,19 +71,11 @@ export default function RacesGrid({
             <h2 className="text-2xl font-bold mx-5 my-3">{year}</h2>
           )}
           <div
-            className={cn(
+            className={
               showListView
-                ? cn(
-                    "flex flex-col",
-                    lightDarkGlassBase,
-                    "p-1.5 rounded-[1.3rem] dark:bg-neutral-900",
-                  )
-                : cn(
-                    "grid justify-center gap-5",
-                    getGridWidthClass(yearRaces.length),
-                    "grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]",
-                  ),
-            )}
+                ? listViewContainerClasses
+                : cn(gridViewContainerBase, getGridWidthClass(yearRaces.length))
+            }
           >
             {yearRaces.map((race) => (
               <RaceCard

@@ -35,6 +35,7 @@ export default function SearchBar({
   return (
     <div className="md:max-w-md flex items-center relative">
       <Input
+        id="search-bar"
         placeholder={placeholder}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

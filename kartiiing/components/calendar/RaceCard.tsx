@@ -74,7 +74,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
           />
           <RaceLocation
             circuit={circuit}
-            className="text-sm font-medium min-w-[8rem] max-w-[8rem] text-muted-foreground"
+            className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
           />
           <div className="font-semibold truncate flex-1">{race.title}</div>
           <EngineCategory
@@ -91,7 +91,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
     <article
       onClick={handleRaceClick}
       className={cn(
-        "relative p-3.5 sm:p-3 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
+        "relative p-3.5 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
         lightDarkGlassHover,
         race.status === RaceStatus.LIVE && liveContainerHover,
       )}
@@ -117,7 +117,7 @@ export default function RaceCard({ race, variant = "card" }: Props) {
         circuit={circuit}
         className="text-muted-foreground text-sm mt-1.5 font-medium"
       />
-      <div className="font-semibold tracking-tight flex-1">{race.title}</div>
+      <h3 className="font-semibold tracking-tight flex-1">{race.title}</h3>
       <EngineCategory engineCategoryPairs={categories} className="mt-2" />
     </article>
   );

@@ -20,7 +20,7 @@ export default function MapZoomControl({ mapRef, className }: Props) {
   };
 
   const buttonClasses = cn(
-    "flex items-center justify-center w-9 h-9 text-foreground/80 hover:text-foreground cursor-pointer",
+    "flex items-center justify-center w-10.5 h-10.5 text-foreground/80 hover:text-foreground cursor-pointer",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring focus-visible:ring-inset",
     lightDarkGlassOnlyHover,
   );

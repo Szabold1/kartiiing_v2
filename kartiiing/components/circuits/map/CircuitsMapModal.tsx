@@ -12,8 +12,10 @@ import CircuitsMap from "@/components/circuits/map/CircuitsMap";
 import {
   cn,
   lightDarkGlassBase,
-  fetchUserLocation,
+  getLocationFromGPS,
+  getLocationFromIP,
   lightDarkGlassHover,
+  UserLocation,
 } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { getCircuitById, getCircuitCoordinates } from "@/lib/api";
@@ -30,21 +32,22 @@ export default function CircuitsMapModal({
   onClose,
 }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [userLocation, setUserLocation] = useState<{
-    longitude: number;
-    latitude: number;
-  } | null>(null);
+  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [selectedCircuit, setSelectedCircuit] = useState<ICircuit | null>(null);
   const [filteredCoords, setFilteredCoords] =
     useState<ICircuitCoordinate[]>(coordinates);
   const circuitCache = useRef<Map<number, ICircuit>>(new Map());
 
-  // Fetch user location on open
+  // Fetch user location on open — IP resolves instantly (no prompt),
+  // GPS upgrades the location later if the user allows it.
   useEffect(() => {
     if (!isOpen) return;
     (async () => {
-      const loc = await fetchUserLocation();
-      setUserLocation(loc);
+      const ipLoc = await getLocationFromIP();
+      if (ipLoc) setUserLocation(ipLoc);
+
+      const gpsLoc = await getLocationFromGPS();
+      if (gpsLoc) setUserLocation(gpsLoc);
     })();
   }, [isOpen]);
 
@@ -138,6 +141,7 @@ export default function CircuitsMapModal({
                 onPopupClose={handlePopupClose}
                 className="!min-h-0 !rounded-none !border-0 !shadow-none"
                 initialCenter={userLocation}
+                initialZoom={userLocation?.source === "gps" ? 6 : 4}
               />
 
               {/* Floating search bar */}
@@ -160,7 +164,7 @@ export default function CircuitsMapModal({
               <Button
                 onClick={onClose}
                 className={cn(
-                  "absolute top-4 right-4 h-10.5 rounded-lg text-foreground/80",
+                  "absolute top-4 right-4 h-10.5 w-10.5 sm:w-fit rounded-lg text-foreground/80",
                   lightDarkGlassHover,
                 )}
                 aria-label="Close map"

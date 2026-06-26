@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
-import { ICircuit, ICircuitCoordinate } from "@kartiiing/shared";
+import { ICircuit, ICircuitCoordinate, ICoordinates } from "@kartiiing/shared";
 import { useTheme } from "next-themes";
 import mapboxgl from "mapbox-gl";
 import Map, { Marker, MapRef } from "react-map-gl/mapbox";
@@ -10,6 +10,20 @@ import MapZoomControl from "./MapZoomControl";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+function flyToCenter(
+  map: mapboxgl.Map,
+  center: ICoordinates | null,
+  zoom: number,
+): void {
+  if (!center) return;
+  map.flyTo({
+    center: [center.longitude, center.latitude],
+    zoom,
+    duration: 1500,
+    essential: true,
+  });
+}
+
 type Props = {
   coordinates: ICircuitCoordinate[];
   selectedCircuit: ICircuit | null;
@@ -17,7 +31,8 @@ type Props = {
   onCircuitSelect: (id: number) => void;
   onPopupClose: () => void;
   className?: string;
-  initialCenter: { longitude: number; latitude: number } | null;
+  initialCenter: ICoordinates | null;
+  initialZoom?: number;
 };
 
 export default function CircuitsMap({
@@ -27,6 +42,7 @@ export default function CircuitsMap({
   onPopupClose,
   className = "",
   initialCenter = { longitude: 10.50584, latitude: 45.425175 }, // Lonato
+  initialZoom = 4,
 }: Props) {
   const mapRef = useRef<MapRef>(null);
   const { resolvedTheme } = useTheme();
@@ -48,21 +64,25 @@ export default function CircuitsMap({
     const map = mapRef.current?.getMap();
     if (!map) return;
 
-    if (initialCenter) {
-      map.flyTo({
-        center: [initialCenter.longitude, initialCenter.latitude],
-        zoom: 4,
-        duration: 1500,
-        essential: true,
-      });
-    }
-  }, [applyLightPreset, initialCenter]);
+    flyToCenter(map, initialCenter, initialZoom);
+  }, [applyLightPreset, initialCenter, initialZoom]);
 
   // Re-apply light preset when theme changes
   useEffect(() => {
     if (!mapLoadedRef.current) return;
     applyLightPreset();
   }, [applyLightPreset]);
+
+  // Fly to a new initialCenter if it changes after the map is already loaded
+  useEffect(() => {
+    if (!mapLoadedRef.current) return;
+    if (!initialCenter) return;
+
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+
+    flyToCenter(map, initialCenter, initialZoom);
+  }, [initialCenter, initialZoom]);
 
   // Fit bounds when coordinates change (search filter) — only after initial positioning is done
   useEffect(() => {

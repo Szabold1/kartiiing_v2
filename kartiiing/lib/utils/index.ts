@@ -3,4 +3,4 @@ export * from "./dateUtils";
 export * from "./raceUtils";
 export * from "./classNameUtils";
 export * from "./metadataUtils";
-export * from "./geoLocation";
+export * from "./locationUtils";

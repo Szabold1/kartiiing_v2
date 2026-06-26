@@ -7,6 +7,8 @@ import CalendarClient from "./calendar-client";
 import { RaceEventSortOptions } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{
     year: string;

@@ -7,6 +7,7 @@ import mapboxgl from "mapbox-gl";
 import Map, { Marker, MapRef } from "react-map-gl/mapbox";
 import CircuitMapPopup from "./CircuitMapPopup";
 import MapZoomControl from "./MapZoomControl";
+import MapNoResults from "./MapNoResults";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -48,6 +49,8 @@ export default function CircuitsMap({
   const { resolvedTheme } = useTheme();
   const mapLoadedRef = useRef(false);
   const initialPositionDoneRef = useRef(false);
+
+  const hasCoordinates = coordinates.length > 0;
 
   // Set Standard style light preset based on theme
   const applyLightPreset = useCallback(() => {
@@ -94,8 +97,12 @@ export default function CircuitsMap({
 
   // Fit bounds when coordinates change (search filter) — only after initial positioning is done
   useEffect(() => {
-    if (!mapLoadedRef.current) return;
-    if (!initialPositionDoneRef.current) return;
+    if (
+      !mapLoadedRef.current ||
+      !initialPositionDoneRef.current ||
+      !hasCoordinates
+    )
+      return;
 
     const map = mapRef.current?.getMap();
     if (!map) return;
@@ -110,7 +117,7 @@ export default function CircuitsMap({
       maxZoom: 11,
       duration: 800,
     });
-  }, [coordinates]);
+  }, [coordinates, hasCoordinates]);
 
   // Close popup when coordinates change (search filters)
   useEffect(() => {
@@ -119,8 +126,6 @@ export default function CircuitsMap({
   }, [coordinates]);
 
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
-
-  if (!coordinates.length) return null;
 
   return (
     <div
@@ -150,28 +155,31 @@ export default function CircuitsMap({
           className="absolute top-17 right-4 z-10"
         />
 
-        {coordinates.map((coord) => (
-          <Marker
-            key={coord.id}
-            longitude={coord.coordinates.longitude}
-            latitude={coord.coordinates.latitude}
-            anchor="center"
-            onClick={(e: mapboxgl.MapMouseEvent) => {
-              e.originalEvent.stopPropagation();
-              onCircuitSelect(coord.id);
-            }}
-          >
-            <div className="group cursor-pointer">
-              <div className="w-6 h-6 bg-foreground/80 dark:bg-foreground/70 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                <div className="w-2.5 h-2.5 bg-background rounded-full" />
+        {hasCoordinates &&
+          coordinates.map((coord) => (
+            <Marker
+              key={coord.id}
+              longitude={coord.coordinates.longitude}
+              latitude={coord.coordinates.latitude}
+              anchor="center"
+              onClick={(e: mapboxgl.MapMouseEvent) => {
+                e.originalEvent.stopPropagation();
+                onCircuitSelect(coord.id);
+              }}
+            >
+              <div className="group cursor-pointer">
+                <div className="w-6 h-6 bg-foreground/80 dark:bg-foreground/70 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                  <div className="w-2.5 h-2.5 bg-background rounded-full" />
+                </div>
               </div>
-            </div>
-          </Marker>
-        ))}
+            </Marker>
+          ))}
 
         {selectedCircuit && (
           <CircuitMapPopup circuit={selectedCircuit} onClose={onPopupClose} />
         )}
+
+        {!hasCoordinates && <MapNoResults />}
       </Map>
     </div>
   );

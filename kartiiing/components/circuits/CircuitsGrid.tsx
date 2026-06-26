@@ -1,4 +1,4 @@
-import CircuitCard from "@/components/circuits/CircuitCard";
+import CircuitCard from "@/components/circuit/CircuitCard";
 import Loader from "@/components/shared/Loader";
 import ErrorState from "@/components/shared/ErrorState";
 import { ICircuit } from "@kartiiing/shared";

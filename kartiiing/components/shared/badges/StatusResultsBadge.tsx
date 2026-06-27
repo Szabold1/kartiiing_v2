@@ -1,4 +1,5 @@
 import {
+  cn,
   openLinkInNewTab,
   grayGlassBase,
   redGlassBase,
@@ -40,7 +41,8 @@ export function StatusResultsBadge({
     [heightValue],
   );
 
-  const baseClasses = `relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium`;
+  const baseClasses =
+    "relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium";
 
   // If results are available, show results link instead of status
   if (resultLinks.length > 0) {
@@ -53,7 +55,7 @@ export function StatusResultsBadge({
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className={`${resultsClasses}`}
+          className={resultsClasses}
           style={{ height: calculatedHeight }}
           title="View results"
         >
@@ -66,14 +68,17 @@ export function StatusResultsBadge({
       <Select value="" onValueChange={(url) => openLinkInNewTab(url)}>
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
-          className={`cursor-pointer rounded-none ${resultsClasses} !text-gray-600 dark:!text-gray-400 transition`}
+          className={cn(
+            "cursor-pointer rounded-none !text-gray-600 dark:!text-gray-400 transition",
+            resultsClasses,
+          )}
           style={{ height: calculatedHeight }}
           suppressHydrationWarning
         >
           <SelectValue placeholder="Results" />
         </SelectTrigger>
         <SelectContent
-          className={`${grayGlassBase}`}
+          className={grayGlassBase}
           onClick={(e) => e.stopPropagation()}
         >
           {resultLinks.map((link: IResultsLink) => (
@@ -102,7 +107,7 @@ export function StatusResultsBadge({
 
   return (
     <span
-      className={`${baseClasses} ${colorClasses[status]} ${className}`}
+      className={cn(baseClasses, colorClasses[status], className)}
       style={{ height: calculatedHeight }}
     >
       {status}

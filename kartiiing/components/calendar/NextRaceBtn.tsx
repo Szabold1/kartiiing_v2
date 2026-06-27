@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronsDown } from "lucide-react";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
 import { Button } from "@/components/ui/button";
-import { redGlassHover } from "@/lib/utils";
+import { cn, redGlassHover } from "@/lib/utils";
 
 type Props = {
   races: IRaceEvent[];
@@ -37,7 +37,10 @@ export function NextRaceBtn({ races }: Props) {
 
   return (
     <Button
-      className={`uppercase text-xs h-10.5 font-medium text-center tracking-wide rounded-lg ${redGlassHover}`}
+      className={cn(
+        "uppercase text-xs h-10.5 font-medium text-center tracking-wide rounded-lg",
+        redGlassHover,
+      )}
       onClick={handleClick}
     >
       <span className="pl-1.5">{label}</span>

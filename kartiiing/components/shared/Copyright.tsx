@@ -1,6 +1,6 @@
 "use client";
 
-import { openLinkInNewTab } from "@/lib/utils";
+import { cn, openLinkInNewTab } from "@/lib/utils";
 
 type Props = {
   year?: number;
@@ -11,7 +11,7 @@ type Props = {
   }>;
   className?: string;
   ariaHidden?: boolean;
-}
+};
 
 export function Copyright({
   year = 2022,
@@ -25,7 +25,7 @@ export function Copyright({
 }: Props) {
   return (
     <div
-      className={`text-center text-xs text-gray-300/80 ${className}`}
+      className={cn("text-center text-xs text-gray-300/80", className)}
       aria-hidden={ariaHidden}
     >
       <p>

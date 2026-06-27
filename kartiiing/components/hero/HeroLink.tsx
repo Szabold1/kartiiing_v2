@@ -1,6 +1,6 @@
 "use client";
 
-import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
+import { cn, greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -26,10 +26,7 @@ export function HeroLink({
   };
 
   return (
-    <Link
-      href={href}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
-    >
+    <Link href={href} className={cn(baseStyles, variants[variant], className)}>
       {children}
     </Link>
   );

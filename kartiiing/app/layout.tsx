@@ -2,7 +2,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GlobalProvider } from "@/providers/GlobalProvider";
 import Navbar from "@/components/nav/Navbar";
-import Footer from "@/components/nav/Footer";
+import { cn } from "@/lib/utils";
+import { Footer } from "@/components/nav/Footer";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { Roboto } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -20,7 +21,7 @@ export default function RootLayout({
   const currentYear = new Date().getFullYear();
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${roboto.variable}`}>
+    <html lang="en" suppressHydrationWarning className={cn(roboto.variable)}>
       <body className="flex min-h-screen flex-col">
         <ScrollToTop />
         <GlobalProvider value={{ currentYear }}>

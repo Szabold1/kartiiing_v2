@@ -31,7 +31,11 @@ export function WeatherDayList({ days, className = "" }: Props) {
           day={day}
           isExpanded={expandedDays[day.date] === true}
           onToggle={() => toggleDay(day.date)}
-          className={`border border-transparent ${lightDarkGlassOnlyHover} ${expandedDays[day.date] ? lightDarkGlassActive : ""}`}
+          className={cn(
+            "border border-transparent",
+            lightDarkGlassOnlyHover,
+            expandedDays[day.date] && lightDarkGlassActive,
+          )}
         />
       ))}
     </div>

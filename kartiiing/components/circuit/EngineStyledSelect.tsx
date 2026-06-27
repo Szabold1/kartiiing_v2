@@ -1,5 +1,5 @@
 import { EngineColorVariant } from "@/lib/constants/categories";
-import { getColorsForEngine } from "@/lib/utils";
+import { cn, getColorsForEngine } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -39,7 +39,10 @@ export function EngineStyledSelect({
       onOpenChange={onOpenChange}
     >
       <SelectTrigger
-        className={`!h-9.5 cursor-pointer transition ${getColorsForEngine(engineType, EngineColorVariant.FULL)}`}
+        className={cn(
+          "!h-9.5 cursor-pointer transition",
+          getColorsForEngine(engineType, EngineColorVariant.FULL),
+        )}
         aria-label={`Select ${label}`}
         suppressHydrationWarning
       >
@@ -50,10 +53,10 @@ export function EngineStyledSelect({
           <SelectItem
             key={option}
             value={option}
-            className={`${getColorsForEngine(
-              engineType,
-              EngineColorVariant.HOVER,
-            )} cursor-pointer transition h-10`}
+            className={cn(
+              getColorsForEngine(engineType, EngineColorVariant.HOVER),
+              "cursor-pointer transition h-10",
+            )}
           >
             {option}
           </SelectItem>

@@ -40,7 +40,6 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
   const {
     data: displayedCircuits,
     totalCount,
-    hasMore,
     loadingMore,
     sentinelRef,
     replaceData,
@@ -117,7 +116,7 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
             sectionWidth={sectionWidth}
             loadingMore={loadingMore}
           />
-          {hasMore && <div ref={sentinelRef} className="h-4 w-full" />}
+          <div ref={sentinelRef} className="h-2 w-full" />
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import { Section } from "@/lib/types/WikiTypes";
 import RenderParagraph from "./RenderParagraph";
 
-interface Props {
+type Props = {
   section: Section;
 }
 

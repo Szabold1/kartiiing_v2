@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-interface Props {
+type Props = {
   params: Promise<{
     year: string;
   }>;

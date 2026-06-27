@@ -4,7 +4,7 @@ import TextListParagraph from "./TextListParagraph";
 import ImageParagraph from "./ImageParagraph";
 import SubSectionParagraph from "./SubSectionParagraph";
 
-interface Props {
+type Props = {
   paragraph: Paragraph;
   level?: number;
 }

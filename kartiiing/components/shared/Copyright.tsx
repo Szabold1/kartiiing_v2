@@ -2,7 +2,7 @@
 
 import { openLinkInNewTab } from "@/lib/utils";
 
-interface Props {
+type Props = {
   year?: number;
   text?: string;
   links?: Array<{

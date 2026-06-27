@@ -13,7 +13,7 @@ import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
 import { IRaceEvent, RaceEventSortOptions } from "@kartiiing/shared";
 import { getRaceEvents } from "@/lib/api";
 
-interface Props {
+type Props = {
   initialRaces: IRaceEvent[];
   year: string;
   initialSort: RaceEventSortOptions;

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Props {
+type Props = {
   visibleOffset?: number;
 }
 

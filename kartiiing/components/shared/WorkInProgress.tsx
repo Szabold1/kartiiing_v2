@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Construction } from "lucide-react";
 
-interface Props {
+type Props = {
   title?: string;
   message?: string;
   showBackButton?: boolean;

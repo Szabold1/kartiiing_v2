@@ -4,7 +4,7 @@ import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-interface Props {
+type Props = {
   href: string;
   children: ReactNode;
   variant?: "light" | "green";

@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   href: string;
   match?: "exact" | "startsWith";

@@ -5,7 +5,7 @@ import { Copyright } from "@/components/shared/Copyright";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { useCurrentYear } from "@/providers/GlobalProvider";
 
-interface Props {
+type Props = {
   subtitle: string;
 }
 

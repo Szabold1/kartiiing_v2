@@ -5,7 +5,7 @@ import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
 import { RaceDate } from "@/components/shared/race-data/RaceDate";
 import { cn } from "@/lib/utils";
 
-interface Props {
+type Props = {
   race: IRaceEvent;
   className?: string;
 }

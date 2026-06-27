@@ -15,7 +15,7 @@ import {
   IPaginatedResponse,
 } from "@kartiiing/shared";
 
-interface Props {
+type Props = {
   initialData: IPaginatedResponse<ICircuit>;
   coordinates: ICircuitCoordinate[];
 }

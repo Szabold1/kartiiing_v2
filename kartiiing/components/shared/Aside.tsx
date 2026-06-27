@@ -1,4 +1,4 @@
-interface Props {
+type Props = {
   children?: React.ReactNode;
   position: "left" | "right";
   visibilityFrom: "lg" | "xl";

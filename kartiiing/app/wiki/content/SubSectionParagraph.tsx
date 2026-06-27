@@ -2,7 +2,7 @@ import { JSX } from "react";
 import { Paragraph } from "@/lib/types/WikiTypes";
 import RenderParagraph from "./RenderParagraph";
 
-interface Props {
+type Props = {
   title: string;
   id?: string;
   paragraphs: Paragraph[];

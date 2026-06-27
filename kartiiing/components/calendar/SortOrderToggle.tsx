@@ -3,7 +3,7 @@ import { ArrowDownUp, ArrowUpDown } from "lucide-react";
 import { lightDarkGlassHover } from "@/lib/utils";
 import { RaceEventSortOptions } from "@kartiiing/shared";
 
-interface Props {
+type Props = {
   sortOrder: RaceEventSortOptions;
   onToggle: () => void;
   className?: string;

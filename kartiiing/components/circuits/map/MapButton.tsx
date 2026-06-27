@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Map } from "lucide-react";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
 
-interface Props {
+type Props = {
   onClick: () => void;
   className?: string;
 }

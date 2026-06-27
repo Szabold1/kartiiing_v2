@@ -7,12 +7,12 @@ interface Option<T extends string> {
   label: string;
 }
 
-interface Props<T extends string> {
+type Props<T extends string> = {
   viewMode: T;
   setViewMode: (mode: T) => void;
   options: Option<T>[];
   className?: string;
-}
+};
 
 export function GridViewToggle<T extends string>({
   viewMode,

@@ -2,7 +2,7 @@ import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   href: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

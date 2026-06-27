@@ -15,7 +15,7 @@ vi.mock("@/lib/stores/circuitsStore", () => ({
 }));
 
 vi.mock("@/components/circuits/map/CircuitsMapModal", () => ({
-  default: function MockModal({
+  CircuitsMapModal: function MockModal({
     isOpen,
     onClose,
   }: {

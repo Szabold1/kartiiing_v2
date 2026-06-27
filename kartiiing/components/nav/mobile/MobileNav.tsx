@@ -24,7 +24,7 @@ const navLinks: NavLink[] = [
   { label: "Wiki", href: "/wiki", match: "exact" },
 ];
 
-const MobileNav = () => {
+export function MobileNav() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -43,7 +43,10 @@ const MobileNav = () => {
         </SheetTrigger>
         <SheetContentHamburgerMenu
           side="right"
-          className={cn("h-fit w-44 mt-17 mx-2 rounded-2xl", lightDarkGlassBase)}
+          className={cn(
+            "h-fit w-44 mt-17 mx-2 rounded-2xl",
+            lightDarkGlassBase,
+          )}
         >
           <nav className="flex flex-col gap-1.5 p-1.5">
             {/* <LoginBtn className="mb-2 h-12" /> */}
@@ -63,6 +66,4 @@ const MobileNav = () => {
       </Sheet>
     </div>
   );
-};
-
-export default MobileNav;
+}

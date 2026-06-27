@@ -13,12 +13,12 @@ type Props = {
   matchPath?: string;
 }
 
-const DesktopNavLink = ({
+export function DesktopNavLink({
   children,
   href,
   match = "exact",
   matchPath,
-}: Props) => {
+}: Props) {
   const pathname = usePathname();
 
   let isActive = false;
@@ -41,6 +41,4 @@ const DesktopNavLink = ({
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
-};
-
-export default DesktopNavLink;
+}

@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-const LoginBtn = ({ className }: Props) => {
+export function LoginBtn({ className }: Props) {
   return (
     <Button
       size="lg"
@@ -20,6 +20,4 @@ const LoginBtn = ({ className }: Props) => {
       Login
     </Button>
   );
-};
-
-export default LoginBtn;
+}

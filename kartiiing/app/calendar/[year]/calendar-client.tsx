@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
 import { isCompactSection } from "@/lib/constants/layout";
 import { useRouter } from "next/navigation";
-import PageWrapper from "@/components/shared/PageWrapper";
+import { PageWrapper } from "@/components/shared/PageWrapper";
 import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { SearchHeader } from "@/components/calendar/SearchHeader";
 import { CalendarActions } from "@/components/calendar/CalendarActions";

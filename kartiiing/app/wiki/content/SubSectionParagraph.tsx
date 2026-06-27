@@ -1,15 +1,20 @@
 import { JSX } from "react";
 import { Paragraph } from "@/lib/types/WikiTypes";
-import RenderParagraph from "./RenderParagraph";
+import { RenderParagraph } from "./RenderParagraph";
 
 type Props = {
   title: string;
   id?: string;
   paragraphs: Paragraph[];
   level?: number;
-}
+};
 
-const SubSectionParagraph = ({ title, id, paragraphs, level = 1 }: Props) => {
+export function SubSectionParagraph({
+  title,
+  id,
+  paragraphs,
+  level = 1,
+}: Props) {
   const HeadingTag = `h${level + 2}` as keyof JSX.IntrinsicElements;
   const headingStyles = `font-semibold pl-2 ${
     level === 1
@@ -31,6 +36,4 @@ const SubSectionParagraph = ({ title, id, paragraphs, level = 1 }: Props) => {
       ))}
     </div>
   );
-};
-
-export default SubSectionParagraph;
+}

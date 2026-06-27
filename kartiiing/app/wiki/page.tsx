@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import { buildMetadata, getPageMetadata } from "@/lib/utils";
-import SideBarMenu from "./sidebar/SideBarMenu";
+import { SideBarMenu } from "./sidebar/SideBarMenu";
 import data from "./content/WikiContent";
-import RenderSection from "./content/RenderSection";
-import Aside from "@/components/shared/Aside";
-import PageHeader from "@/components/shared/PageHeader";
+import { RenderSection } from "./content/RenderSection";
+import { Aside } from "@/components/shared/Aside";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
 
 export const metadata: Metadata = buildMetadata(getPageMetadata("wiki"));
 
-const WikiPage = () => {
+export default function WikiPage() {
   return (
     <div className="container flex flex-1 items-stretch justify-between mx-auto lg:mx-0">
       <Aside position="left" visibilityFrom="lg">
@@ -29,6 +29,4 @@ const WikiPage = () => {
       <BackToTopBtn />
     </div>
   );
-};
-
-export default WikiPage;
+}

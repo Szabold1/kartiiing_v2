@@ -1,7 +1,7 @@
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GlobalProvider } from "@/providers/GlobalProvider";
-import Navbar from "@/components/nav/Navbar";
+import { Navbar } from "@/components/nav/Navbar";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/nav/Footer";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";

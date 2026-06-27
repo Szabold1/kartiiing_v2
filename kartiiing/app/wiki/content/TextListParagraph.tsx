@@ -4,7 +4,7 @@ type Props = {
   value: string[];
 };
 
-const TextListParagraph = ({ value }: Props) => {
+export function TextListParagraph({ value }: Props) {
   const borderStyle = "border-dashed border-gray-500";
 
   return (
@@ -29,6 +29,4 @@ const TextListParagraph = ({ value }: Props) => {
       })}
     </ul>
   );
-};
-
-export default TextListParagraph;
+}

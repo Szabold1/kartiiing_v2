@@ -1,14 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import DesktopNav from "@/components/nav/desktop/DesktopNav";
-import MobileNav from "@/components/nav/mobile/MobileNav";
-import ThemeBtn from "@/components/nav/ThemeBtn";
-import HomeLink from "@/components/nav/HomeLink";
+import { DesktopNav } from "@/components/nav/desktop/DesktopNav";
+import { MobileNav } from "@/components/nav/mobile/MobileNav";
+import { ThemeBtn } from "@/components/nav/ThemeBtn";
+import { HomeLink } from "@/components/nav/HomeLink";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 // import LoginBtn from "@/components/nav/LoginBtn";
 
-const Navbar = () => {
+export function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -31,6 +31,4 @@ const Navbar = () => {
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import PageHeader from "@/components/shared/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import {
   Select,
   SelectContent,

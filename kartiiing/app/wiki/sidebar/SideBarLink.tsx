@@ -6,7 +6,7 @@ type Props = {
   subsection?: boolean;
 };
 
-const SideBarLink = ({ href, children }: Props) => {
+export function SideBarLink({ href, children }: Props) {
   return (
     <Link
       href={href}
@@ -15,6 +15,4 @@ const SideBarLink = ({ href, children }: Props) => {
       {children}
     </Link>
   );
-};
-
-export default SideBarLink;
+}

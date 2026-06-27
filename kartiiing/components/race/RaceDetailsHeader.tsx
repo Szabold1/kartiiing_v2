@@ -1,6 +1,6 @@
 "use client";
 
-import PageHeader from "@/components/shared/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { GoBackBtn } from "@/components/shared/btns/GoBackBtn";
 import { RaceActions } from "@/components/race/RaceActions";
 import { cn, lightDarkGlassHover } from "@/lib/utils";

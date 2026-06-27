@@ -1,11 +1,11 @@
 import { Section } from "@/lib/types/WikiTypes";
-import RenderParagraph from "./RenderParagraph";
+import { RenderParagraph } from "./RenderParagraph";
 
 type Props = {
   section: Section;
 }
 
-const RenderSection = ({ section }: Props) => {
+export function RenderSection({ section }: Props) {
   return (
     <section className="mt-12.5 scroll-mt-20" id={section.id}>
       <span className="block mb-4 pb-4 border-b border-dashed border-red-600">
@@ -18,6 +18,4 @@ const RenderSection = ({ section }: Props) => {
       ))}
     </section>
   );
-};
-
-export default RenderSection;
+}

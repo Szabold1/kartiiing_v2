@@ -7,12 +7,12 @@ type Props = {
   className?: string;
 };
 
-const Aside = ({
+export function Aside({
   children,
   position,
   visibilityFrom,
   className = "",
-}: Props) => {
+}: Props) {
   const borderClass = position === "left" ? "border-r" : "border-l";
   const visibilityClass = visibilityFrom === "lg" ? "lg:block" : "xl:block";
 
@@ -28,6 +28,4 @@ const Aside = ({
       {children}
     </aside>
   );
-};
-
-export default Aside;
+}

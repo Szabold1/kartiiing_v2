@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/shared/Loader";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
 
-const ThemeBtn = () => {
+export function ThemeBtn() {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -51,6 +51,4 @@ const ThemeBtn = () => {
       )}
     </Button>
   );
-};
-
-export default ThemeBtn;
+}

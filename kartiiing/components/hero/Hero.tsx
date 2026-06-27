@@ -1,15 +1,15 @@
 "use client";
 
-import HeroLink from "@/components/hero/HeroLink";
-import Copyright from "@/components/shared/Copyright";
-import BrandLogo from "@/components/shared/BrandLogo";
+import { HeroLink } from "@/components/hero/HeroLink";
+import { Copyright } from "@/components/shared/Copyright";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { useCurrentYear } from "@/providers/GlobalProvider";
 
 interface Props {
   subtitle: string;
 }
 
-export default function Hero({ subtitle }: Props) {
+export function Hero({ subtitle }: Props) {
   const currentYear = useCurrentYear();
 
   // Shared content component

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cn, lightDarkGlassActive, lightDarkGlassOnlyHover } from "@/lib/utils";
-import FastestLapCard from "@/components/circuit/FastestLapCard";
+import { FastestLapCard } from "@/components/circuit/FastestLapCard";
 import type { IFastestLap } from "@kartiiing/shared";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-export default function FastestLapsList({
+export function FastestLapsList({
   fastestLaps,
   className = "",
 }: Props) {

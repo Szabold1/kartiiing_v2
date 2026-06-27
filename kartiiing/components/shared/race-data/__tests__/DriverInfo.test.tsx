@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { buildCountry } from "@/test/fixtures";
-import DriverInfo from "../DriverInfo";
+import { DriverInfo } from "../DriverInfo";
 
 const country = buildCountry({ name: "Italy", code: "IT" });
 const DRIVER_NAME = "John Doe";

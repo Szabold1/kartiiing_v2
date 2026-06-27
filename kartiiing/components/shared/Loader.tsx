@@ -1,6 +1,6 @@
 import { LoaderIcon } from "lucide-react";
 
-export default function Loader({ size = 24 }: { size?: number }) {
+export function Loader({ size = 24 }: { size?: number }) {
   return (
     <div className="flex justify-center items-center py-10">
       <LoaderIcon

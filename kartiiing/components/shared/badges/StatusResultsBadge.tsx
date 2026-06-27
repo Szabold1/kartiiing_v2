@@ -27,7 +27,7 @@ type Props = {
   heightValue?: string;
 };
 
-export default function StatusResultsBadge({
+export function StatusResultsBadge({
   race,
   className = "",
   heightValue = "10",

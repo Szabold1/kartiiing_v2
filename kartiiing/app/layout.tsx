@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GlobalProvider } from "@/providers/GlobalProvider";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/nav/Footer";
-import ScrollToTop from "@/components/shared/ScrollToTop";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { Roboto } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 

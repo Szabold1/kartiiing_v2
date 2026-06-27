@@ -14,7 +14,7 @@ interface Props<T extends string> {
   className?: string;
 }
 
-export default function GridViewToggle<T extends string>({
+export function GridViewToggle<T extends string>({
   viewMode,
   setViewMode,
   options,

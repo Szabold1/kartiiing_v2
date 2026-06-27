@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import MetricTile from "../MetricTile";
+import { MetricTile } from "../MetricTile";
 
 describe("MetricTile", () => {
   it("renders icon, value, and title", () => {

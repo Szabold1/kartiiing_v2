@@ -1,6 +1,6 @@
 import PageHeader from "@/components/shared/PageHeader";
 import PageWrapper from "@/components/shared/PageWrapper";
-import CircuitsClient from "./circuits-client";
+import { CircuitsClient } from "./circuits-client";
 import {
   getCircuits,
   getCircuitsMetadata,

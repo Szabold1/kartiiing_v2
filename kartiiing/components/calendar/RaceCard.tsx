@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
-import EngineCategory from "@/components/shared/race-data/EngineCategory";
-import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
+import { EngineCategory } from "@/components/shared/race-data/EngineCategory";
+import { StatusResultsBadge } from "@/components/shared/badges/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
-import RaceDate from "@/components/shared/race-data/RaceDate";
-import RaceLocation from "@/components/shared/race-data/RaceLocation";
+import { RaceDate } from "@/components/shared/race-data/RaceDate";
+import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
 import {
   cn,
   getRaceUrl,
@@ -16,7 +16,7 @@ type Props = {
   variant?: "card" | "row";
 };
 
-export default function RaceCard({ race, variant = "card" }: Props) {
+export function RaceCard({ race, variant = "card" }: Props) {
   const router = useRouter();
   const { id, date, circuit, categories } = race;
   const hasResults = race.links?.results && race.links.results.length > 0;

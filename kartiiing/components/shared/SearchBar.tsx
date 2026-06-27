@@ -10,7 +10,7 @@ type Props = {
   placeholder?: string;
 };
 
-export default function SearchBar({
+export function SearchBar({
   searchQuery,
   setSearchQuery,
   placeholder = "Search...",

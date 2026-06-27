@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import GoBackBtn from "../GoBackBtn";
+import { GoBackBtn } from "../GoBackBtn";
 
 const BACK_LABEL = "Go back";
 

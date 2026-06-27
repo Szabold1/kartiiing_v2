@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import ErrorState from "../ErrorState";
+import { ErrorState } from "../ErrorState";
 
 describe("ErrorState", () => {
   it("renders the message text", () => {

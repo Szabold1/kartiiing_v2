@@ -18,7 +18,7 @@ type Props = {
   engineType?: string;
 };
 
-export default function EngineStyledSelect({
+export function EngineStyledSelect({
   label,
   options,
   value,

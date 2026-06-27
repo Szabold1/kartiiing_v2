@@ -3,10 +3,10 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { IFastestLap } from "@kartiiing/shared";
 import { formatDate, cn, lightDarkGlassBase } from "@/lib/utils";
-import CategoryBadge from "@/components/shared/badges/CategoryBadge";
-import Badge from "@/components/shared/badges/Badge";
-import DriverInfo from "@/components/shared/race-data/DriverInfo";
-import LapTime from "@/components/shared/race-data/LapTime";
+import { CategoryBadge } from "@/components/shared/badges/CategoryBadge";
+import { Badge } from "@/components/shared/badges/Badge";
+import { DriverInfo } from "@/components/shared/race-data/DriverInfo";
+import { LapTime } from "@/components/shared/race-data/LapTime";
 
 type Props = {
   lap: IFastestLap;
@@ -16,7 +16,7 @@ type Props = {
   className?: string;
 };
 
-export default function FastestLapCard({
+export function FastestLapCard({
   lap,
   variant = "expandable",
   isExpanded = false,

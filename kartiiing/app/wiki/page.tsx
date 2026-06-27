@@ -5,7 +5,7 @@ import data from "./content/WikiContent";
 import RenderSection from "./content/RenderSection";
 import Aside from "@/components/shared/Aside";
 import PageHeader from "@/components/shared/PageHeader";
-import BackToTopBtn from "@/components/shared/btns/BackToTopBtn";
+import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
 
 export const metadata: Metadata = buildMetadata(getPageMetadata("wiki"));
 

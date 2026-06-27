@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import Loader from "../Loader";
+import { Loader } from "../Loader";
 
 describe("Loader", () => {
   it("renders a spinner with animate-spin class", () => {

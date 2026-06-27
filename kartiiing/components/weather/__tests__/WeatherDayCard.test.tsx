@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { IWeatherDataDay } from "@kartiiing/shared";
 import { formatDate } from "@/lib/utils";
-import WeatherDayCard from "../WeatherDayCard";
+import { WeatherDayCard } from "../WeatherDayCard";
 
 const day: IWeatherDataDay = {
   date: "2025-06-04",

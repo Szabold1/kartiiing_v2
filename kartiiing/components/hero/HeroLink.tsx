@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-export default function HeroLink({
+export function HeroLink({
   href,
   children,
   variant = "light",

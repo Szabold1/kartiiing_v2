@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import RaceActionBtn from "../RaceActionBtn";
+import { RaceActionBtn } from "../RaceActionBtn";
 
 describe("RaceActionBtn", () => {
   it("renders default button text", () => {

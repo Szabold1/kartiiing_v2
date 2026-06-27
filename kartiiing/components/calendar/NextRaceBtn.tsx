@@ -8,7 +8,7 @@ type Props = {
   races: IRaceEvent[];
 };
 
-export default function NextRaceBtn({ races }: Props) {
+export function NextRaceBtn({ races }: Props) {
   const [label, setLabel] = useState("Next race");
   const liveRaces = races.filter((r) => r.status === RaceStatus.LIVE);
   const nextRaces = races.filter((r) => r.status === RaceStatus.UPNEXT);

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import SectionTitle from "../SectionTitle";
+import { SectionTitle } from "../SectionTitle";
 
 const defaultTitle = "Test Title";
 

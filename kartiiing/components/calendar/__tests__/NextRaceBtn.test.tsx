@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { RaceStatus } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
-import NextRaceBtn from "../NextRaceBtn";
+import { NextRaceBtn } from "../NextRaceBtn";
 
 describe("NextRaceBtn", () => {
   it("renders 'Next race' when no live or upcoming races", () => {

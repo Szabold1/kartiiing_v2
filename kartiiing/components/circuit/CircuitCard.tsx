@@ -1,7 +1,7 @@
 import { ICircuit } from "@kartiiing/shared";
-import CircuitActionLinks from "@/components/circuit/CircuitActionLinks";
-import CircuitInfoContent from "@/components/circuit/CircuitInfoContent";
-import RaceLocation from "@/components/shared/race-data/RaceLocation";
+import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
+import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
+import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
 import { getCircuitLengthDisplay } from "@/lib/utils/circuitUtils";
 
@@ -10,7 +10,7 @@ type Props = {
   variant?: "card" | "row";
 };
 
-export default function CircuitCard({ circuit, variant = "card" }: Props) {
+export function CircuitCard({ circuit, variant = "card" }: Props) {
   if (variant === "row") {
     return (
       <article

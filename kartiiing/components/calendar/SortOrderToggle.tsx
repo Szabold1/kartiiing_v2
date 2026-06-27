@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-export default function SortOrderToggle({
+export function SortOrderToggle({
   sortOrder,
   onToggle,
   className = "",

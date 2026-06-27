@@ -9,7 +9,7 @@ interface Props {
   showBackButton?: boolean;
 }
 
-export default function WorkInProgress({
+export function WorkInProgress({
   title = "Work in Progress",
   message = "This page is currently under construction. Check back soon!",
   showBackButton = true,

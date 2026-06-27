@@ -9,7 +9,7 @@ type Props = {
   className?: string;
 };
 
-export default function DriverInfo({
+export function DriverInfo({
   name,
   country,
   showFlag = true,

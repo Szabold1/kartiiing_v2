@@ -16,7 +16,7 @@ type Props = {
   years: (number | string)[];
 };
 
-export default function CalendarHeader({
+export function CalendarHeader({
   description,
   selectedYear,
   setSelectedYear,

@@ -1,6 +1,6 @@
 import { Globe, MapPin } from "lucide-react";
 import { ICircuit } from "@kartiiing/shared";
-import CircuitActionLink from "@/components/circuit/CircuitActionLink";
+import { CircuitActionLink } from "@/components/circuit/CircuitActionLink";
 import { getGoogleMapsUrl } from "@/lib/utils";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-export default function CircuitActionLinks({ circuit, className }: Props) {
+export function CircuitActionLinks({ circuit, className }: Props) {
   const googleMapsUrl = getGoogleMapsUrl(circuit.coordinates);
 
   return (

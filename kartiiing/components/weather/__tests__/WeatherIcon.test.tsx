@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import WeatherIcon from "../WeatherIcon";
+import { WeatherIcon } from "../WeatherIcon";
 
 describe("WeatherIcon", () => {
   it("renders a container with grayGlassBase classes", () => {

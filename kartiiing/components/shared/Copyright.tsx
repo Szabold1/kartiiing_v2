@@ -13,7 +13,7 @@ interface Props {
   ariaHidden?: boolean;
 }
 
-export default function Copyright({
+export function Copyright({
   year = 2022,
   text = "FIA Karting World Championship",
   links = [

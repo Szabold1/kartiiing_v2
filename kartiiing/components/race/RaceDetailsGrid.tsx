@@ -2,10 +2,13 @@
 
 import { IRaceEventDetail } from "@kartiiing/shared";
 import dynamic from "next/dynamic";
-import Loader from "@/components/shared/Loader";
+import { Loader } from "@/components/shared/Loader";
 
 const RaceDetailsMasonry = dynamic(
-  () => import("@/components/race/RaceDetailsMasonry"),
+  () =>
+    import("@/components/race/RaceDetailsMasonry").then(
+      (mod) => mod.RaceDetailsMasonry,
+    ),
   {
     ssr: false,
     loading: () => <Loader />,
@@ -16,6 +19,6 @@ type Props = {
   race: IRaceEventDetail;
 };
 
-export default function RaceDetailsGrid({ race }: Props) {
+export function RaceDetailsGrid({ race }: Props) {
   return <RaceDetailsMasonry race={race} />;
 }

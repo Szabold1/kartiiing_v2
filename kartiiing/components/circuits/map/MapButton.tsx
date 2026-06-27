@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-export default function MapButton({ onClick, className = "" }: Props) {
+export function MapButton({ onClick, className = "" }: Props) {
   return (
     <Button
       variant="outline"

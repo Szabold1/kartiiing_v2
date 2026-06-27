@@ -1,6 +1,6 @@
 import { ICircuit } from "@kartiiing/shared";
-import CircuitActionLinks from "@/components/circuit/CircuitActionLinks";
-import RaceLocation from "@/components/shared/race-data/RaceLocation";
+import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
+import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
 import { getCircuitLengthDisplay } from "@/lib/utils/circuitUtils";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   showActions?: boolean;
 };
 
-export default function CircuitInfoContent({
+export function CircuitInfoContent({
   circuit,
   showActions = true,
 }: Props) {

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import CategoryBadge from "@/components/shared/badges/CategoryBadge";
+import { CategoryBadge } from "@/components/shared/badges/CategoryBadge";
 
 type Props = {
   engineCategoryPairs: Record<string, string[]>;
@@ -13,7 +13,7 @@ type Badge = {
   engineType: string;
 };
 
-export default function EngineCategory({
+export function EngineCategory({
   engineCategoryPairs,
   className = "",
   showAll = false,

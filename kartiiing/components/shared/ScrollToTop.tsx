@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-export default function ScrollToTop() {
+export function ScrollToTop() {
   const pathname = usePathname();
   const prevPathnameRef = useRef<string | undefined>(undefined);
   const isPopStateRef = useRef(false);

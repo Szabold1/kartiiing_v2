@@ -196,7 +196,7 @@ export class RaceEventSeeder {
             raceEvent,
           );
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(`❌ Error processing event:`, error);
         throw error;
       }
@@ -347,10 +347,11 @@ export class RaceEventSeeder {
       // Add category to the many-to-many relationship
       raceEvent.categories.push(category);
       await raceEventRepository.save(raceEvent);
-    } catch (error: any) {
-      console.error(`Error adding category to race event: ${error}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`Error adding category to race event: ${message}`);
       throw new Error(
-        `Failed to add category '${categoryName}' to race event: ${error}`,
+        `Failed to add category '${categoryName}' to race event: ${message}`,
       );
     }
   }
@@ -380,7 +381,7 @@ export class RaceEventSeeder {
           url: resultLink.url,
         });
         if (result != null) count++;
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(
           `❌ Error adding result link for event ${raceEvent.id}:`,
           error,
@@ -434,7 +435,7 @@ export class RaceEventSeeder {
           raceEvent,
         });
         if (result != null) count++;
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(
           `❌ Error adding fastest lap for event ${raceEvent.id}:`,
           error,

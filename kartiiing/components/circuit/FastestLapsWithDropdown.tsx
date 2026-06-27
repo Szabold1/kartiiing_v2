@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { IFastestLap } from "@kartiiing/shared";
-import FastestLapCard from "@/components/circuit/FastestLapCard";
-import EngineStyledSelect from "@/components/circuit/EngineStyledSelect";
+import { FastestLapCard } from "@/components/circuit/FastestLapCard";
+import { EngineStyledSelect } from "@/components/circuit/EngineStyledSelect";
 import { getFastestLap } from "@/lib/utils/raceUtils";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ type Props = {
   preferredEngineTypes?: string[];
 };
 
-export default function FastestLapsWithDropdown({
+export function FastestLapsWithDropdown({
   fastestLaps,
   className = "",
   showYears = false,

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import EngineCategory from "../EngineCategory";
+import { EngineCategory } from "../EngineCategory";
 
 const ENGINE_CATEGORY_PAIRS: Record<string, string[]> = {
   KZ: ["KZ", "KZ2"],

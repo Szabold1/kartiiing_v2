@@ -8,7 +8,7 @@ interface Props {
   visibleOffset?: number;
 }
 
-export default function BackToTopBtn({ visibleOffset = 300 }: Props) {
+export function BackToTopBtn({ visibleOffset = 300 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

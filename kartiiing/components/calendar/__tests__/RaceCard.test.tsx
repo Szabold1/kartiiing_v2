@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { RaceStatus } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
-import RaceCard from "../RaceCard";
+import { RaceCard } from "../RaceCard";
 
 const RACE_TITLE = "Test Race 2025";
 const RACE_DATE_STRING = "01 - 04 Jun";

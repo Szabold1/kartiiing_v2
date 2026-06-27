@@ -7,12 +7,12 @@ type Props = {
   actionLayout?: "horizontal" | "vertical";
 };
 
-const PageHeader = ({
+export function PageHeader({
   title,
   description,
   headerAction,
   actionLayout = "horizontal",
-}: Props) => {
+}: Props) {
   const isVertical = actionLayout === "vertical";
 
   return (
@@ -24,6 +24,4 @@ const PageHeader = ({
       {description && <p className="text-muted-foreground">{description}</p>}
     </header>
   );
-};
-
-export default PageHeader;
+}

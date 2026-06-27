@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import type { MapRef } from "react-map-gl/mapbox";
-import MapZoomControl from "../MapZoomControl";
+import { MapZoomControl } from "../MapZoomControl";
 
 const ZOOM_IN_LABEL = "Zoom in";
 const ZOOM_OUT_LABEL = "Zoom out";

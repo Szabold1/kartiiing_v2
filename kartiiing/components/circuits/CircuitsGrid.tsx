@@ -1,6 +1,6 @@
-import CircuitCard from "@/components/circuit/CircuitCard";
-import Loader from "@/components/shared/Loader";
-import ErrorState from "@/components/shared/ErrorState";
+import { CircuitCard } from "@/components/circuit/CircuitCard";
+import { Loader } from "@/components/shared/Loader";
+import { ErrorState } from "@/components/shared/ErrorState";
 import { ICircuit } from "@kartiiing/shared";
 import { CircuitsViewMode } from "@/lib/constants/circuits";
 import { useCircuitsStore } from "@/lib/stores/circuitsStore";
@@ -18,7 +18,7 @@ type Props = {
   loadingMore?: boolean;
 };
 
-export default function CircuitsGrid({
+export function CircuitsGrid({
   circuits,
   loading,
   sectionWidth,

@@ -5,7 +5,7 @@ import { ICircuit } from "@kartiiing/shared";
 import { Button } from "@/components/ui/button";
 import { cn, noBlurGlassBase } from "@/lib/utils";
 import { X } from "lucide-react";
-import CircuitInfoContent from "@/components/circuit/CircuitInfoContent";
+import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
 
 type Props = {
   circuit: ICircuit;
@@ -14,7 +14,7 @@ type Props = {
 
 const noBlurGlassHover = `${noBlurGlassBase} hover:shadow hover:border-gray-400 hover:bg-gray-100 dark:hover:border-gray-400 transition`;
 
-export default function CircuitMapPopup({ circuit, onClose }: Props) {
+export function CircuitMapPopup({ circuit, onClose }: Props) {
   return (
     <Marker
       longitude={circuit.coordinates.longitude}

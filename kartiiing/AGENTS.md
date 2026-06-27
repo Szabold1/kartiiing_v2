@@ -56,6 +56,18 @@ export function CircuitCard() { ... }
 
 If a component handles more than one concern, extract sub-components, hooks, or utility functions. A single component should have one clear responsibility.
 
+### Prefer `function` Declarations Over Arrow Functions
+
+Always use `function` declarations for React components, not `const` arrow functions. Function declarations work naturally with TypeScript generics and provide clearer stack traces.
+
+```typescript
+// ❌ Bad
+export const CircuitCard = ({ circuit }: Props) => { ... }
+
+// ✅ Good
+export function CircuitCard({ circuit }: Props) { ... }
+```
+
 ### Use `type` for Component Props
 
 Always use `type` for component props, not `interface`. This keeps props declarations consistent across the codebase.

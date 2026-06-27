@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDownUp, ArrowUpDown } from "lucide-react";
-import { lightDarkGlassHover } from "@/lib/utils";
+import { cn, lightDarkGlassHover } from "@/lib/utils";
 import { RaceEventSortOptions } from "@kartiiing/shared";
 
-interface Props {
+type Props = {
   sortOrder: RaceEventSortOptions;
   onToggle: () => void;
   className?: string;
 }
 
-export default function SortOrderToggle({
+export function SortOrderToggle({
   sortOrder,
   onToggle,
   className = "",
@@ -20,7 +20,7 @@ export default function SortOrderToggle({
       aria-label={`Sort by date ${
         sortOrder === RaceEventSortOptions.ASC ? "ascending" : "descending"
       }`}
-      className={`w-10.5 h-10.5 rounded-lg ${lightDarkGlassHover} ${className}`}
+      className={cn("w-10.5 h-10.5 rounded-lg", lightDarkGlassHover, className)}
       onClick={onToggle}
       title={`Sort by date ${
         sortOrder === RaceEventSortOptions.ASC ? "ascending" : "descending"

@@ -76,6 +76,7 @@ export function useInfiniteScroll<T>({
     setPage(1);
     setHasMore(initialData.meta.hasNextPage);
     setLoadingMore(false);
+    // resetDeps intentionally controls when reset re-creates; adding initialData would break the pattern
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, resetDeps);
 

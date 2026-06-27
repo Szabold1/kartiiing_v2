@@ -5,9 +5,9 @@ import { ICircuit, ICircuitCoordinate, ICoordinates } from "@kartiiing/shared";
 import { useTheme } from "next-themes";
 import mapboxgl from "mapbox-gl";
 import Map, { Marker, MapRef } from "react-map-gl/mapbox";
-import CircuitMapPopup from "./CircuitMapPopup";
-import MapZoomControl from "./MapZoomControl";
-import MapNoResults from "./MapNoResults";
+import { CircuitMapPopup } from "./CircuitMapPopup";
+import { MapZoomControl } from "./MapZoomControl";
+import { MapNoResults } from "./MapNoResults";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -36,7 +36,7 @@ type Props = {
   initialZoom?: number;
 };
 
-export default function CircuitsMap({
+export function CircuitsMap({
   coordinates,
   selectedCircuit,
   onCircuitSelect,
@@ -122,6 +122,7 @@ export default function CircuitsMap({
   // Close popup when coordinates change (search filters)
   useEffect(() => {
     onPopupClose();
+    // omitting onPopupClose to avoid closing on every parent re-render; only close when coordinates change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 

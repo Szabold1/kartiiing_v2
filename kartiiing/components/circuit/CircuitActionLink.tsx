@@ -6,7 +6,7 @@ type Props = {
   icon: React.ReactNode;
 };
 
-export default function CircuitActionLink({ href, title, icon }: Props) {
+export function CircuitActionLink({ href, title, icon }: Props) {
   if (!href) return null;
 
   return (

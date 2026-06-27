@@ -3,21 +3,22 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   href: string;
   match?: "exact" | "startsWith";
   matchPath?: string;
 }
 
-const DesktopNavLink = ({
+export function DesktopNavLink({
   children,
   href,
   match = "exact",
   matchPath,
-}: Props) => {
+}: Props) {
   const pathname = usePathname();
 
   let isActive = false;
@@ -31,14 +32,13 @@ const DesktopNavLink = ({
     <NavigationMenuItem>
       <NavigationMenuLink
         asChild
-        className={`tracking-wide ${
-          isActive ? "text-green-600 dark:text-green-500" : ""
-        }`}
+        className={cn(
+          "tracking-wide",
+          isActive && "text-green-600 dark:text-green-500",
+        )}
       >
         <Link href={href}>{children}</Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
-};
-
-export default DesktopNavLink;
+}

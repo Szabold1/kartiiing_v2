@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { RaceEventSortOptions } from "@kartiiing/shared";
-import SortOrderToggle from "../SortOrderToggle";
+import { SortOrderToggle } from "../SortOrderToggle";
 
 describe("SortOrderToggle", () => {
   it("displays ascending icon when sort order is ASC", () => {

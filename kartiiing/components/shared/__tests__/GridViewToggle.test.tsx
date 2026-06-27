@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Grid, List } from "lucide-react";
 import { CircuitsViewMode } from "@/lib/constants/circuits";
-import GridViewToggle from "../GridViewToggle";
+import { GridViewToggle } from "../GridViewToggle";
 
 const OPTIONS = [
   {

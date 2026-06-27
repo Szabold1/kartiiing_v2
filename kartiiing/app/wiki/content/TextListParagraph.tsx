@@ -1,8 +1,10 @@
-interface Props {
-  value: string[];
-}
+import { cn } from "@/lib/utils";
 
-const TextListParagraph = ({ value }: Props) => {
+type Props = {
+  value: string[];
+};
+
+export function TextListParagraph({ value }: Props) {
   const borderStyle = "border-dashed border-gray-500";
 
   return (
@@ -12,8 +14,13 @@ const TextListParagraph = ({ value }: Props) => {
         const description = descriptionParts.join(" – ");
 
         return (
-          <li className={`mt-4.5 border-l ${borderStyle}`} key={index}>
-            <p className={`px-2 mb-0.5 pb-0.5 font-medium inline-block border-b ${borderStyle}`}>
+          <li className={cn("mt-4.5 border-l", borderStyle)} key={index}>
+            <p
+              className={cn(
+                "px-2 mb-0.5 pb-0.5 font-medium inline-block border-b",
+                borderStyle,
+              )}
+            >
               {title}
             </p>
             <p className="pl-2">{description}</p>
@@ -22,6 +29,4 @@ const TextListParagraph = ({ value }: Props) => {
       })}
     </ul>
   );
-};
-
-export default TextListParagraph;
+}

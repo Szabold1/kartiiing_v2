@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-export default function Badge({ children, className }: Props) {
+export function Badge({ children, className }: Props) {
   return (
     <span className={cn(badgeBase, grayGlassBase, className)}>{children}</span>
   );

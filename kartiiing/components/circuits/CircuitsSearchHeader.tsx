@@ -1,6 +1,6 @@
 "use client";
 
-import SearchBar from "@/components/shared/SearchBar";
+import { SearchBar } from "@/components/shared/SearchBar";
 
 type Props = {
   searchQuery: string;
@@ -9,7 +9,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function CircuitsSearchHeader({
+export function CircuitsSearchHeader({
   searchQuery,
   setSearchQuery,
   totalResults,

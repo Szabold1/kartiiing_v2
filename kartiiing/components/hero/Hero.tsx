@@ -1,15 +1,16 @@
 "use client";
 
-import HeroLink from "@/components/hero/HeroLink";
-import Copyright from "@/components/shared/Copyright";
-import BrandLogo from "@/components/shared/BrandLogo";
+import { cn } from "@/lib/utils";
+import { HeroLink } from "@/components/hero/HeroLink";
+import { Copyright } from "@/components/shared/Copyright";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { useCurrentYear } from "@/providers/GlobalProvider";
 
-interface Props {
+type Props = {
   subtitle: string;
-}
+};
 
-export default function Hero({ subtitle }: Props) {
+export function Hero({ subtitle }: Props) {
   const currentYear = useCurrentYear();
 
   // Shared content component
@@ -17,23 +18,26 @@ export default function Hero({ subtitle }: Props) {
     return (
       <div className="text-center max-w-2xl">
         <h1
-          className={`font-extrabold mb-4 tracking-wide leading-13 ${
-            isMobile ? "text-[2.5rem] mb-5" : "text-[2.4rem]"
-          }`}
+          className={cn(
+            "font-extrabold mb-4 tracking-wide leading-13",
+            isMobile ? "text-[2.5rem] mb-5" : "text-[2.4rem]",
+          )}
         >
           Welcome to <BrandLogo className="uppercase" />
         </h1>
         <p
-          className={`text-lg md:text-xl leading-relaxed ${
-            isMobile ? "mb-13" : "mb-7"
-          }`}
+          className={cn(
+            "text-lg md:text-xl leading-relaxed",
+            isMobile ? "mb-13" : "mb-7",
+          )}
         >
           {subtitle}
         </p>
         <div
-          className={`flex justify-center flex-wrap gap-2 ${
-            isMobile ? "" : "sm:gap-3.5 mb-13.5"
-          }`}
+          className={cn(
+            "flex justify-center flex-wrap gap-2",
+            !isMobile && "sm:gap-3.5 mb-13.5",
+          )}
         >
           <HeroLink href="/circuits" variant="light">
             Explore Circuits

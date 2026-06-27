@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { Construction } from "lucide-react";
 
-interface Props {
+type Props = {
   title?: string;
   message?: string;
   showBackButton?: boolean;
 }
 
-export default function WorkInProgress({
+export function WorkInProgress({
   title = "Work in Progress",
   message = "This page is currently under construction. Check back soon!",
   showBackButton = true,

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import PageHeader from "../PageHeader";
+import { PageHeader } from "../PageHeader";
 
 const defaultTitle = "Test Title";
 const defaultDescription = "2025 karting season schedule";
@@ -15,7 +15,9 @@ describe("PageHeader", () => {
   });
 
   it("renders the description when provided", () => {
-    render(<PageHeader title={defaultTitle} description={defaultDescription} />);
+    render(
+      <PageHeader title={defaultTitle} description={defaultDescription} />,
+    );
 
     expect(screen.getByText(defaultDescription)).toBeInTheDocument();
   });

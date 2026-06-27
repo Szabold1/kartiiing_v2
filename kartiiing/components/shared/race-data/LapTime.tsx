@@ -5,7 +5,7 @@ type Props = {
   className?: string;
 };
 
-export default function LapTime({ time, className }: Props) {
+export function LapTime({ time, className }: Props) {
   return (
     <span className={cn("font-mono font-semibold text-lg", className)}>
       {formatLapTime(time)}

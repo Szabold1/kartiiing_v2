@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { badgeBase, ENGINE_COLORS, grayGlassBase } from "@/lib/utils";
-import CategoryBadge from "../CategoryBadge";
+import { CategoryBadge } from "../CategoryBadge";
 
 const LABELS = {
   kz2Masters: "KZ2 Masters",

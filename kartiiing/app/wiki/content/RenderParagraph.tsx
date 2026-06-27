@@ -1,15 +1,15 @@
 import { Paragraph } from "@/lib/types/WikiTypes";
-import TextParagraph from "./TextParagraph";
-import TextListParagraph from "./TextListParagraph";
-import ImageParagraph from "./ImageParagraph";
-import SubSectionParagraph from "./SubSectionParagraph";
+import { TextParagraph } from "./TextParagraph";
+import { TextListParagraph } from "./TextListParagraph";
+import { ImageParagraph } from "./ImageParagraph";
+import { SubSectionParagraph } from "./SubSectionParagraph";
 
-interface Props {
+type Props = {
   paragraph: Paragraph;
   level?: number;
 }
 
-const RenderParagraph = ({ paragraph, level = 1 }: Props) => {
+export function RenderParagraph({ paragraph, level = 1 }: Props) {
   switch (paragraph.type) {
     case "text":
       return <TextParagraph value={paragraph.value} />;
@@ -35,6 +35,4 @@ const RenderParagraph = ({ paragraph, level = 1 }: Props) => {
     default:
       return null;
   }
-};
-
-export default RenderParagraph;
+}

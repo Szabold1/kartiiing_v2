@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { getRaceEventById } from "@/lib/api";
-import RaceDetails from "@/components/race/RaceDetails";
-import ErrorState from "@/components/shared/ErrorState";
+import { RaceDetails } from "@/components/race/RaceDetails";
+import { ErrorState } from "@/components/shared/ErrorState";
 import { getRaceUrl, SITE_URL } from "@/lib/utils";
 
-interface Props {
+type Props = {
   params: Promise<{
     slug: string;
     id: string;

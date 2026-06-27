@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-export default function MapZoomControl({ mapRef, className }: Props) {
+export function MapZoomControl({ mapRef, className }: Props) {
   const handleZoomIn = () => {
     mapRef.current?.getMap()?.zoomIn({ duration: 300 });
   };

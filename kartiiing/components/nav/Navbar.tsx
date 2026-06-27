@@ -1,23 +1,25 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import DesktopNav from "@/components/nav/desktop/DesktopNav";
-import MobileNav from "@/components/nav/mobile/MobileNav";
-import ThemeBtn from "@/components/nav/ThemeBtn";
-import HomeLink from "@/components/nav/HomeLink";
-import { lightDarkGlassBase } from "@/lib/utils";
+import { DesktopNav } from "@/components/nav/desktop/DesktopNav";
+import { MobileNav } from "@/components/nav/mobile/MobileNav";
+import { ThemeBtn } from "@/components/nav/ThemeBtn";
+import { HomeLink } from "@/components/nav/HomeLink";
+import { cn, lightDarkGlassBase } from "@/lib/utils";
 // import LoginBtn from "@/components/nav/LoginBtn";
 
-const Navbar = () => {
+export function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
   return (
     <header className="bg-transparent sticky top-0 z-50 flex justify-center">
       <div
-        className={`flex items-center justify-between gap-6 w-full md:w-fit m-1.5 mb-0 p-1.5 rounded-2xl ${lightDarkGlassBase} ${
-          isHomePage ? " sm:text-gray-50" : ""
-        }`}
+        className={cn(
+          "flex items-center justify-between gap-6 w-full md:w-fit m-1.5 mb-0 p-1.5 rounded-2xl",
+          lightDarkGlassBase,
+          isHomePage && "sm:text-gray-50",
+        )}
       >
         <HomeLink />
         <DesktopNav />
@@ -29,6 +31,4 @@ const Navbar = () => {
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

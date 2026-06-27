@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Hero from "@/components/hero/Hero";
+import { Hero } from "@/components/hero/Hero";
 import { buildMetadata, getPageMetadata } from "@/lib/utils";
 
 const pageMetadata = getPageMetadata("home");

@@ -11,7 +11,7 @@ type Props = {
   isClickable?: boolean;
 };
 
-export default function RaceLocation({
+export function RaceLocation({
   circuit,
   showFlag = true,
   version = "locationName",

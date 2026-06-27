@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { buildCircuitDetail } from "@/test/fixtures";
-import CircuitInfoContent from "../CircuitInfoContent";
+import { CircuitInfoContent } from "../CircuitInfoContent";
 
 const VISIT_LINK_LABEL = "Visit circuit website";
 const MAPS_LINK_LABEL = "Open in Google Maps";

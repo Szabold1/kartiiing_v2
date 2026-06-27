@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-export default function MapNoResults({ className = "" }: Props) {
+export function MapNoResults({ className = "" }: Props) {
   return (
     <div
       className={cn(

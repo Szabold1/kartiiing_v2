@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { flagIconBase, getGoogleMapsUrl } from "@/lib/utils";
 import { buildCircuit, buildCircuitDetail } from "@/test/fixtures";
-import RaceLocation from "../RaceLocation";
+import { RaceLocation } from "../RaceLocation";
 
 const CIRCUITS = {
   base: buildCircuit(),

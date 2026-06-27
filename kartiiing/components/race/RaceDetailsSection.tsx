@@ -1,4 +1,4 @@
-import SectionTitle from "@/components/shared/SectionTitle";
+import { SectionTitle } from "@/components/shared/SectionTitle";
 import { cn, lightDarkGlassBase } from "@/lib/utils";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-export default function RaceDetailsSection({
+export function RaceDetailsSection({
   title,
   children,
   className = "",

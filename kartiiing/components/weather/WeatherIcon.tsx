@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-export default function WeatherIcon({ condition, className = "" }: Props) {
+export function WeatherIcon({ condition, className = "" }: Props) {
   const { icon: Icon, className: iconColor } = useMemo(
     () => getWeatherVisual(condition),
     [condition],

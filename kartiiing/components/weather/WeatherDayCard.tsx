@@ -3,8 +3,8 @@
 import { ChevronDown, ChevronUp, Umbrella, Wind } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
 import { formatValue } from "@/lib/utils/weatherUtils";
-import MetricTile from "@/components/shared/MetricTile";
-import WeatherIcon from "@/components/weather/WeatherIcon";
+import { MetricTile } from "@/components/shared/MetricTile";
+import { WeatherIcon } from "@/components/weather/WeatherIcon";
 import type { IWeatherDataDay } from "@kartiiing/shared";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   className?: string;
 };
 
-export default function WeatherDayCard({
+export function WeatherDayCard({
   day,
   isExpanded,
   onToggle,

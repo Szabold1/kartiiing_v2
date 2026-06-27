@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ICircuitDetail, IRaceEventDetail } from "@kartiiing/shared";
-import FastestLapsWithDropdown from "./FastestLapsWithDropdown";
-import CircuitInfoContent from "./CircuitInfoContent";
+import { FastestLapsWithDropdown } from "./FastestLapsWithDropdown";
+import { CircuitInfoContent } from "./CircuitInfoContent";
 
 type Props = {
   circuit: ICircuitDetail;
@@ -22,7 +22,7 @@ function getMapImageUrl(circuit: ICircuitDetail) {
   return `${baseUrl}/${coordinates},${zoomLevel}/${dimensions}@2x?${queryParams.toString()}`;
 }
 
-export default function CircuitInfo({ circuit, race }: Props) {
+export function CircuitInfo({ circuit, race }: Props) {
   const mapImageUrl = getMapImageUrl(circuit);
   const preferredEngineTypes = race ? Object.keys(race.categories) : [];
 

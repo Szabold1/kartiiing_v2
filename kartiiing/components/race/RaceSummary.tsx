@@ -1,16 +1,16 @@
 import { IRaceEvent } from "@kartiiing/shared";
-import EngineCategory from "@/components/shared/race-data/EngineCategory";
-import SectionTitle from "@/components/shared/SectionTitle";
-import RaceLocation from "@/components/shared/race-data/RaceLocation";
-import RaceDate from "@/components/shared/race-data/RaceDate";
+import { EngineCategory } from "@/components/shared/race-data/EngineCategory";
+import { SectionTitle } from "@/components/shared/SectionTitle";
+import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
+import { RaceDate } from "@/components/shared/race-data/RaceDate";
 import { cn } from "@/lib/utils";
 
-interface Props {
+type Props = {
   race: IRaceEvent;
   className?: string;
 }
 
-export default function RaceSummary({ race, className = "" }: Props) {
+export function RaceSummary({ race, className = "" }: Props) {
   const { date, circuit, categories } = race;
 
   return (

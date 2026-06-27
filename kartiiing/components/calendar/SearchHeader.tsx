@@ -1,4 +1,4 @@
-import SearchBar from "@/components/shared/SearchBar";
+import { SearchBar } from "@/components/shared/SearchBar";
 import { IRaceEvent } from "@kartiiing/shared";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function SearchHeader({
+export function SearchHeader({
   searchQuery,
   setSearchQuery,
   races,

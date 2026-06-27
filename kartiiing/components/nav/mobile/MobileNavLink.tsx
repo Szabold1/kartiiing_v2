@@ -1,22 +1,22 @@
-import { greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
+import { cn, greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
   href: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   match?: "exact" | "startsWith";
   matchPath?: string;
-}
+};
 
-const MobileNavLink = ({
+export function MobileNavLink({
   children,
   href,
   setOpen,
   match = "exact",
   matchPath,
-}: Props) => {
+}: Props) {
   const pathname = usePathname();
 
   let isActive = false;
@@ -29,13 +29,14 @@ const MobileNavLink = ({
   return (
     <Link
       href={href}
-      className={`font-medium text-[0.93rem] rounded-xl p-3 w-full text-center uppercase tracking-wide ${lightDarkGlassHover}
-        ${isActive ? `${greenGlassHover}` : ""}`}
+      className={cn(
+        "font-medium text-[0.93rem] rounded-xl p-3 w-full text-center uppercase tracking-wide",
+        lightDarkGlassHover,
+        isActive && greenGlassHover,
+      )}
       onClick={() => setOpen(false)}
     >
       {children}
     </Link>
   );
-};
-
-export default MobileNavLink;
+}

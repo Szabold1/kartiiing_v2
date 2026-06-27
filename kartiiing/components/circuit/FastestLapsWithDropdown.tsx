@@ -59,6 +59,7 @@ export function FastestLapsWithDropdown({
     if (initialEngineType && initialEngineType !== selectedEngineType) {
       setSelectedEngineType(initialEngineType);
     }
+    // omitting selectedEngineType to avoid loop — this effect only syncs when initialEngineType changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialEngineType]);
 

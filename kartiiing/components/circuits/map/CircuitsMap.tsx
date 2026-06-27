@@ -122,6 +122,7 @@ export function CircuitsMap({
   // Close popup when coordinates change (search filters)
   useEffect(() => {
     onPopupClose();
+    // omitting onPopupClose to avoid closing on every parent re-render; only close when coordinates change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import PageHeader from "@/components/shared/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import {
   Select,
   SelectContent,
@@ -16,7 +16,7 @@ type Props = {
   years: (number | string)[];
 };
 
-export default function CalendarHeader({
+export function CalendarHeader({
   description,
   selectedYear,
   setSelectedYear,

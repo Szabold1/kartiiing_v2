@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import StatusResultsBadge from "../StatusResultsBadge";
+import { StatusResultsBadge } from "../StatusResultsBadge";
 import {
   IResultsLink,
   RaceStatus,

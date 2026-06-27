@@ -1,11 +1,13 @@
-import PageHeader from "@/components/shared/PageHeader";
-import PageWrapper from "@/components/shared/PageWrapper";
-import CircuitsClient from "./circuits-client";
+import { PageHeader } from "@/components/shared/PageHeader";
+import { PageWrapper } from "@/components/shared/PageWrapper";
+import { CircuitsClient } from "./circuits-client";
 import {
   getCircuits,
   getCircuitsMetadata,
   getCircuitCoordinates,
 } from "@/lib/api";
+
+export const dynamic = "force-dynamic";
 
 export default async function CircuitsPage() {
   const initialData = await getCircuits({ page: 1, limit: 20 });

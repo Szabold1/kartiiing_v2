@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { badgeBase, grayGlassBase } from "@/lib/utils";
-import Badge from "../Badge";
+import { Badge } from "../Badge";
 
 describe("Badge", () => {
   it("renders children", () => {

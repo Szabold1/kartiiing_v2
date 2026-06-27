@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { buildRace } from "@/test/fixtures";
 import { CalendarViewMode } from "@/lib/constants/calendar";
-import RacesGrid from "../RacesGrid";
+import { RacesGrid } from "../RacesGrid";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn() }),

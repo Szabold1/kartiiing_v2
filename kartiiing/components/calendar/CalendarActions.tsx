@@ -1,6 +1,6 @@
-import GridViewToggle from "@/components/shared/GridViewToggle";
-import SortOrderToggle from "./SortOrderToggle";
-import NextRaceBtn from "./NextRaceBtn";
+import { GridViewToggle } from "@/components/shared/GridViewToggle";
+import { SortOrderToggle } from "./SortOrderToggle";
+import { NextRaceBtn } from "./NextRaceBtn";
 import { Grid, List } from "lucide-react";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
@@ -17,7 +17,7 @@ type Props = {
   small?: boolean;
 };
 
-export default function CalendarActions({
+export function CalendarActions({
   sortOrder,
   onSortChange,
   races,

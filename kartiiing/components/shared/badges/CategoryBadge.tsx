@@ -1,5 +1,5 @@
 import { cn, getColorsForEngine } from "@/lib/utils";
-import Badge from "@/components/shared/badges/Badge";
+import { Badge } from "@/components/shared/badges/Badge";
 
 type Props = {
   label: string;
@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-export default function CategoryBadge({
+export function CategoryBadge({
   label,
   engineType,
   className = "",

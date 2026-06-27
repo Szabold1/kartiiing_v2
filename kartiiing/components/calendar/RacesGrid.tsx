@@ -1,5 +1,5 @@
-import RaceCard from "@/components/calendar/RaceCard";
-import Loader from "@/components/shared/Loader";
+import { RaceCard } from "@/components/calendar/RaceCard";
+import { Loader } from "@/components/shared/Loader";
 import { IRaceEvent } from "@kartiiing/shared";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import {
@@ -9,7 +9,7 @@ import {
   gridViewContainerBase,
 } from "@/lib/utils";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
-import ErrorState from "@/components/shared/ErrorState";
+import { ErrorState } from "@/components/shared/ErrorState";
 
 type Props = {
   races: IRaceEvent[];
@@ -42,7 +42,7 @@ function groupRacesByYear(
   }));
 }
 
-export default function RacesGrid({
+export function RacesGrid({
   races,
   loading,
   sectionWidth,

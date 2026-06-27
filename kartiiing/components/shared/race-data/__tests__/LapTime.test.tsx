@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import LapTime from "../LapTime";
+import { LapTime } from "../LapTime";
 
 describe("LapTime", () => {
   it("renders formatted lap time as monospace", () => {

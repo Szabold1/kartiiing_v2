@@ -3,20 +3,18 @@
 import { Marker } from "react-map-gl/mapbox";
 import { ICircuit } from "@kartiiing/shared";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, noBlurGlassBase } from "@/lib/utils";
 import { X } from "lucide-react";
-import CircuitInfoContent from "@/components/circuit/CircuitInfoContent";
+import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
 
 type Props = {
   circuit: ICircuit;
   onClose: () => void;
 };
 
-const noBlurGlassBase =
-  "border shadow-2xs border-gray-200 dark:border-gray-700 bg-accent dark:bg-accent";
 const noBlurGlassHover = `${noBlurGlassBase} hover:shadow hover:border-gray-400 hover:bg-gray-100 dark:hover:border-gray-400 transition`;
 
-export default function CircuitMapPopup({ circuit, onClose }: Props) {
+export function CircuitMapPopup({ circuit, onClose }: Props) {
   return (
     <Marker
       longitude={circuit.coordinates.longitude}

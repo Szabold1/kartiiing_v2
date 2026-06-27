@@ -3,11 +3,13 @@ import {
   getRaceEvents,
   getCalendarMetadata,
 } from "@/lib/api";
-import CalendarClient from "./calendar-client";
+import { CalendarClient } from "./calendar-client";
 import { RaceEventSortOptions } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
-interface Props {
+export const dynamic = "force-dynamic";
+
+type Props = {
   params: Promise<{
     year: string;
   }>;

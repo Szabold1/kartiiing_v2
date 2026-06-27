@@ -1,8 +1,8 @@
 "use client";
 
-import { openLinkInNewTab } from "@/lib/utils";
+import { cn, openLinkInNewTab } from "@/lib/utils";
 
-interface Props {
+type Props = {
   year?: number;
   text?: string;
   links?: Array<{
@@ -11,9 +11,9 @@ interface Props {
   }>;
   className?: string;
   ariaHidden?: boolean;
-}
+};
 
-export default function Copyright({
+export function Copyright({
   year = 2022,
   text = "FIA Karting World Championship",
   links = [
@@ -25,7 +25,7 @@ export default function Copyright({
 }: Props) {
   return (
     <div
-      className={`text-center text-xs text-gray-300/80 ${className}`}
+      className={cn("text-center text-xs text-gray-300/80", className)}
       aria-hidden={ariaHidden}
     >
       <p>

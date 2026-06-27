@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-const PageWrapper = forwardRef<HTMLDivElement, Props>(
+export const PageWrapper = forwardRef<HTMLDivElement, Props>(
   ({ children, className = "" }, ref) => {
     return (
       <div
@@ -25,5 +25,3 @@ const PageWrapper = forwardRef<HTMLDivElement, Props>(
 );
 
 PageWrapper.displayName = "PageWrapper";
-
-export default PageWrapper;

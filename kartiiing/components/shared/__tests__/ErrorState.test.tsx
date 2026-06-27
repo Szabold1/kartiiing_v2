@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import ErrorState from "../ErrorState";
+import { ErrorState } from "../ErrorState";
 
 describe("ErrorState", () => {
   it("renders the message text", () => {
@@ -10,9 +10,9 @@ describe("ErrorState", () => {
   });
 
   it("does not render a title when title is not provided", () => {
-    const { container } = render(<ErrorState message="Something went wrong" />);
+    render(<ErrorState message="Something went wrong" />);
 
-    expect(container.querySelector("h1")).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 1 })).not.toBeInTheDocument();
   });
 
   it("renders a title when provided", () => {

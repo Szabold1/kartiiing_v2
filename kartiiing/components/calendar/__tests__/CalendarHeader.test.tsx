@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import CalendarHeader from "../CalendarHeader";
+import { CalendarHeader } from "../CalendarHeader";
 
 describe("CalendarHeader", () => {
   const years = [2024, 2025, "all"];

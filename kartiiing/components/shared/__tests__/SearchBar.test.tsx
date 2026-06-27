@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { useState } from "react";
-import SearchBar from "../SearchBar";
+import { SearchBar } from "../SearchBar";
 
 const placeholder = "Search...";
 const searchTerm = "kz2";

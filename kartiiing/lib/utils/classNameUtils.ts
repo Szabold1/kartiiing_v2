@@ -46,6 +46,9 @@ export const liveContainerHover = `${liveContainerBase} hover:border-red-500/70 
 export const badgeBase =
   "text-xs px-2 py-1.5 rounded-lg uppercase font-medium flex items-center justify-center";
 
+export const noBlurGlassBase =
+  "border shadow-2xs border-gray-200 dark:border-gray-700 bg-accent dark:bg-accent";
+
 export const flagIconBase =
   "max-w-5 h-3.5 rounded-[0.15rem] object-cover shadow";
 

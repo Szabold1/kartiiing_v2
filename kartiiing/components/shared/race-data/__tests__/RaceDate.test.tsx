@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { buildRaceEventDate } from "@/test/fixtures";
 import { getRelativeText, toDay } from "@/lib/utils";
-import RaceDate from "../RaceDate";
+import { RaceDate } from "../RaceDate";
 
 const DATES = {
   sameDay: buildRaceEventDate({ start: "2025-06-01", end: "2025-06-01" }),

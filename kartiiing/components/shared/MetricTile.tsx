@@ -9,7 +9,7 @@ type Props = {
   show?: boolean;
 };
 
-export default function MetricTile({
+export function MetricTile({
   icon,
   value,
   title,

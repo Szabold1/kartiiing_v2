@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import CircuitsActions from "../CircuitsActions";
+import { CircuitsActions } from "../CircuitsActions";
 import * as circuitsStore from "@/lib/stores/circuitsStore";
 import { CircuitsViewMode } from "@/lib/constants/circuits";
 
@@ -15,7 +15,7 @@ vi.mock("@/lib/stores/circuitsStore", () => ({
 }));
 
 vi.mock("@/components/circuits/map/CircuitsMapModal", () => ({
-  default: function MockModal({
+  CircuitsMapModal: function MockModal({
     isOpen,
     onClose,
   }: {

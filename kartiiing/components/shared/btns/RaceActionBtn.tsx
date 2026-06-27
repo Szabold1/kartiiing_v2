@@ -7,7 +7,7 @@ type Props = {
   ariaLabel?: string;
 };
 
-export default function RaceActionBtn({
+export function RaceActionBtn({
   onClick,
   className = "",
   children = "Live Action",

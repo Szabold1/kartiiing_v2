@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback } from "react";
 import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
 import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
 import { isCompactSection } from "@/lib/constants/layout";
-import CircuitsSearchHeader from "@/components/circuits/CircuitsSearchHeader";
-import CircuitsActions from "@/components/circuits/CircuitsActions";
-import CircuitsGrid from "@/components/circuits/CircuitsGrid";
-import BackToTopBtn from "@/components/shared/btns/BackToTopBtn";
+import { CircuitsSearchHeader } from "@/components/circuits/CircuitsSearchHeader";
+import { CircuitsActions } from "@/components/circuits/CircuitsActions";
+import { CircuitsGrid } from "@/components/circuits/CircuitsGrid";
+import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
 import { getCircuits } from "@/lib/api";
 import {
   ICircuit,
@@ -15,14 +15,14 @@ import {
   IPaginatedResponse,
 } from "@kartiiing/shared";
 
-interface Props {
+type Props = {
   initialData: IPaginatedResponse<ICircuit>;
   coordinates: ICircuitCoordinate[];
 }
 
 const PAGE_SIZE = 20;
 
-export default function CircuitsClient({ initialData, coordinates }: Props) {
+export function CircuitsClient({ initialData, coordinates }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const { sectionRef, sectionWidth } = useSectionWidth();

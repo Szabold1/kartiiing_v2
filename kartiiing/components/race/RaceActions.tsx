@@ -1,6 +1,6 @@
 "use client";
 
-import RaceActionBtn from "@/components/shared/btns/RaceActionBtn";
+import { RaceActionBtn } from "@/components/shared/btns/RaceActionBtn";
 import { Timer, TvMinimalPlay } from "lucide-react";
 import { RaceStatus, IRaceEvent } from "@kartiiing/shared";
 import { grayGlassHover, redGlassHover } from "@/lib/utils";
@@ -9,7 +9,7 @@ type Props = {
   race: IRaceEvent;
 };
 
-export default function RaceActions({ race }: Props) {
+export function RaceActions({ race }: Props) {
   const isLive = race.status === RaceStatus.LIVE;
   const isFinished = race.status === RaceStatus.FINISHED;
 

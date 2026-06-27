@@ -1,7 +1,7 @@
 import Link from "next/link";
-import BrandLogo from "@/components/shared/BrandLogo";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 
-const HomeLink = () => {
+export function HomeLink() {
   return (
     <Link
       href="/"
@@ -10,6 +10,4 @@ const HomeLink = () => {
       <BrandLogo />
     </Link>
   );
-};
-
-export default HomeLink;
+}

@@ -9,7 +9,7 @@ type Props = {
   showRelative?: boolean;
 };
 
-export default function RaceDate({
+export function RaceDate({
   date,
   className = "",
   withYear = false,

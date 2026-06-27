@@ -2,7 +2,7 @@ import {
   NavigationMenu,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import DesktopNavLink from "@/components/nav/desktop/DesktopNavLink";
+import { DesktopNavLink } from "@/components/nav/desktop/DesktopNavLink";
 import { NavLink } from "@/lib/types/NavTypes";
 
 const navLinks: NavLink[] = [
@@ -16,7 +16,7 @@ const navLinks: NavLink[] = [
   { label: "Wiki", href: "/wiki", match: "exact" },
 ];
 
-const DesktopNav = () => {
+export function DesktopNav() {
   return (
     <NavigationMenu className="mr-1.5">
       <NavigationMenuList className="hidden md:flex gap-2 mx-auto font-semibold">
@@ -33,6 +33,4 @@ const DesktopNav = () => {
       </NavigationMenuList>
     </NavigationMenu>
   );
-};
-
-export default DesktopNav;
+}

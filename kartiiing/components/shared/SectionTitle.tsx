@@ -7,7 +7,7 @@ type Props = {
   headerNb?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
-export default function SectionTitle({
+export function SectionTitle({
   children,
   className = "",
   headerNb = 3,

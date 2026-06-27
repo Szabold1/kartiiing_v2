@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RaceEventSortOptions, RaceStatus } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
 import { CalendarViewMode } from "@/lib/constants/calendar";
-import CalendarActions from "../CalendarActions";
+import { CalendarActions } from "../CalendarActions";
 
 const mockSetViewMode = vi.fn();
 

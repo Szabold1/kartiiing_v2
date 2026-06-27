@@ -1,9 +1,9 @@
-import SideBarLink from "./SideBarLink";
-import SideBarSubSection from "./SideBarSubSection";
+import { SideBarLink } from "./SideBarLink";
+import { SideBarSubSection } from "./SideBarSubSection";
 import data from "../content/WikiContent";
 import { Section, SubSection } from "@/lib/types/WikiTypes";
 
-const SideBarMenu = () => {
+export function SideBarMenu() {
   const renderLinks = (sections: Section[] | SubSection[]) => {
     return sections.map((section, index) => {
       if (!section.id) return null;
@@ -32,6 +32,4 @@ const SideBarMenu = () => {
       {renderLinks(data.sections as Section[])}
     </div>
   );
-};
-
-export default SideBarMenu;
+}

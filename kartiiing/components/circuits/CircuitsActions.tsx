@@ -1,7 +1,7 @@
 import { useState } from "react";
-import GridViewToggle from "@/components/shared/GridViewToggle";
-import MapButton from "@/components/circuits/map/MapButton";
-import CircuitsMapModal from "@/components/circuits/map/CircuitsMapModal";
+import { GridViewToggle } from "@/components/shared/GridViewToggle";
+import { MapButton } from "@/components/circuits/map/MapButton";
+import { CircuitsMapModal } from "@/components/circuits/map/CircuitsMapModal";
 import { Grid, List } from "lucide-react";
 import { CircuitsViewMode } from "@/lib/constants/circuits";
 import { useCircuitsStore } from "@/lib/stores/circuitsStore";
@@ -12,7 +12,7 @@ type Props = {
   small?: boolean;
 };
 
-export default function CircuitsActions({ coordinates, small = false }: Props) {
+export function CircuitsActions({ coordinates, small = false }: Props) {
   const { viewMode, setViewMode } = useCircuitsStore();
   const [showMapModal, setShowMapModal] = useState(false);
 

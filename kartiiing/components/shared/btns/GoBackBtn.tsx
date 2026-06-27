@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-export default function GoBackBtn({ className }: Props) {
+export function GoBackBtn({ className }: Props) {
   const router = useRouter();
 
   const handleNavigation = () => {

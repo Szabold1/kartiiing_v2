@@ -18,7 +18,7 @@ export function useCurrentYear() {
   return useContext(GlobalContext).currentYear;
 }
 
-interface Props {
+type Props = {
   value: GlobalContextValue;
   children: React.ReactNode;
 }

@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-interface Props {
+type Props = {
   src: string;
   alt: string;
   caption?: string;
 }
 
-const ImageParagraph = ({ src, alt, caption }: Props) => {
+export function ImageParagraph({ src, alt, caption }: Props) {
   return (
     <figure className="mt-5">
       <Image
@@ -23,6 +23,4 @@ const ImageParagraph = ({ src, alt, caption }: Props) => {
       )}
     </figure>
   );
-};
-
-export default ImageParagraph;
+}

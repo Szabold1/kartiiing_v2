@@ -1,17 +1,17 @@
 "use client";
 
-import PageHeader from "@/components/shared/PageHeader";
-import GoBackBtn from "@/components/shared/btns/GoBackBtn";
-import RaceActions from "@/components/race/RaceActions";
+import { PageHeader } from "@/components/shared/PageHeader";
+import { GoBackBtn } from "@/components/shared/btns/GoBackBtn";
+import { RaceActions } from "@/components/race/RaceActions";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
-import StatusResultsBadge from "@/components/shared/badges/StatusResultsBadge";
+import { StatusResultsBadge } from "@/components/shared/badges/StatusResultsBadge";
 import { IRaceEventDetail } from "@kartiiing/shared";
 
 type Props = {
   race: IRaceEventDetail;
 };
 
-export default function RaceDetailsHeader({ race }: Props) {
+export function RaceDetailsHeader({ race }: Props) {
   const resultsLinks = race.links?.results || [];
 
   const headerAction = (

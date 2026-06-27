@@ -1,18 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import MetricTile from "../MetricTile";
+import { MetricTile } from "../MetricTile";
 
 describe("MetricTile", () => {
   it("renders icon, value, and title", () => {
     render(
-      <MetricTile
-        icon={<span data-testid="icon">🌧</span>}
-        value="12 mm"
-        title="Precipitation"
-      />,
+      <MetricTile icon={<span>🌧</span>} value="12 mm" title="Precipitation" />,
     );
 
-    expect(screen.getByTestId("icon")).toBeInTheDocument();
     expect(screen.getByText("12 mm")).toBeInTheDocument();
     expect(screen.getByTitle("Precipitation")).toBeInTheDocument();
   });

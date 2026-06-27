@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import MapButton from "../MapButton";
+import { MapButton } from "../MapButton";
 
 const OPEN_MAP_LABEL = "Open map view";
 

@@ -2,11 +2,11 @@
 
 import { Masonry } from "masonic";
 import { ReactNode, useMemo } from "react";
-import RaceSummary from "@/components/race/RaceSummary";
-import WeatherDayList from "@/components/weather/WeatherDayList";
-import CircuitInfo from "@/components/circuit/CircuitInfo";
-import RaceDetailsSection from "@/components/race/RaceDetailsSection";
-import FastestLapsList from "@/components/circuit/FastestLapsList";
+import { RaceSummary } from "@/components/race/RaceSummary";
+import { WeatherDayList } from "@/components/weather/WeatherDayList";
+import { CircuitInfo } from "@/components/circuit/CircuitInfo";
+import { RaceDetailsSection } from "@/components/race/RaceDetailsSection";
+import { FastestLapsList } from "@/components/circuit/FastestLapsList";
 import { IRaceEventDetail } from "@kartiiing/shared";
 
 type SectionItem = {
@@ -75,7 +75,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
   return items;
 }
 
-export default function RaceDetailsMasonry({ race }: Props) {
+export function RaceDetailsMasonry({ race }: Props) {
   const minSectionWidth = 330;
   const sectionGap = 32;
 

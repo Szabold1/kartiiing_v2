@@ -7,8 +7,8 @@ import { useFocusTrap } from "@/lib/hooks/useFocusTrap";
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ICircuit, ICircuitCoordinate } from "@kartiiing/shared";
-import SearchBar from "@/components/shared/SearchBar";
-import CircuitsMap from "@/components/circuits/map/CircuitsMap";
+import { SearchBar } from "@/components/shared/SearchBar";
+import { CircuitsMap } from "@/components/circuits/map/CircuitsMap";
 import {
   cn,
   lightDarkGlassBase,
@@ -26,7 +26,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function CircuitsMapModal({
+export function CircuitsMapModal({
   coordinates,
   isOpen,
   onClose,

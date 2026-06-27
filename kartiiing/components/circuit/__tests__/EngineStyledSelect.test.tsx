@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import EngineStyledSelect from "../EngineStyledSelect";
+import { EngineStyledSelect } from "../EngineStyledSelect";
 
 describe("EngineStyledSelect", () => {
   const options = ["KZ", "KZ2", "OK"];

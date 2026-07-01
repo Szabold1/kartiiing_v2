@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/shared/PageHeader";
 import {
   Select,
@@ -8,22 +9,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RaceEventSortOptions } from "@kartiiing/shared";
 
 type Props = {
   description: string;
   selectedYear: number | string;
-  setSelectedYear: (year: number | string) => void;
   years: (number | string)[];
 };
 
-export function CalendarHeader({
-  description,
-  selectedYear,
-  setSelectedYear,
-  years,
-}: Props) {
+export function CalendarHeader({ description, selectedYear, years }: Props) {
+  const router = useRouter();
+
   const formatYearDisplay = (year: number | string) => {
     return year === "all" ? "All Years" : year;
+  };
+
+  const handleYearChange = (newYear: string) => {
+    const yearString = newYear.toString();
+    if (yearString === selectedYear.toString()) return;
+
+    const currentUrl = new URL(window.location.href);
+    const sortParam =
+      currentUrl.searchParams.get("sort") || RaceEventSortOptions.ASC;
+    router.push(`/calendar/${yearString}?sort=${sortParam}`);
   };
 
   return (
@@ -33,7 +41,7 @@ export function CalendarHeader({
       headerAction={
         <Select
           value={selectedYear.toString()}
-          onValueChange={(val: string) => setSelectedYear(val)}
+          onValueChange={handleYearChange}
         >
           <SelectTrigger
             className="w-29 h-10.5! cursor-pointer font-semibold text-[1rem]"

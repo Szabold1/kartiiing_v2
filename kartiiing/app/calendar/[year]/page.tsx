@@ -4,6 +4,8 @@ import {
   getCalendarMetadata,
 } from "@/lib/api";
 import { CalendarClient } from "./calendar-client";
+import { CalendarHeader } from "@/components/calendar/CalendarHeader";
+import { PageWrapper } from "@/components/shared/PageWrapper";
 import { RaceEventSortOptions } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
@@ -16,7 +18,7 @@ type Props = {
   searchParams: Promise<{
     sort?: string;
   }>;
-}
+};
 
 /**
  * Generate metadata for the calendar page
@@ -64,6 +66,8 @@ export default async function CalendarPage({ params, searchParams }: Props) {
   const racesRes = await getRaceEvents({
     year: year,
     sort: sortOrder,
+    page: 1,
+    limit: 20,
   });
   const availableYears = await getAvailableYears();
   const years = ["all", ...availableYears] as (string | number)[];
@@ -77,12 +81,17 @@ export default async function CalendarPage({ params, searchParams }: Props) {
   }
 
   return (
-    <CalendarClient
-      initialRaces={racesRes.data}
-      year={year}
-      initialSort={sortOrder}
-      years={years}
-      description={description}
-    />
+    <PageWrapper>
+      <CalendarHeader
+        description={description}
+        selectedYear={year}
+        years={years}
+      />
+      <CalendarClient
+        initialData={racesRes}
+        year={year}
+        initialSort={sortOrder}
+      />
+    </PageWrapper>
   );
 }

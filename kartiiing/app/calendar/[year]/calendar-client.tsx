@@ -1,132 +1,122 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
-import { isCompactSection } from "@/lib/constants/layout";
-import { useRouter } from "next/navigation";
-import { PageWrapper } from "@/components/shared/PageWrapper";
-import { CalendarHeader } from "@/components/calendar/CalendarHeader";
-import { SearchHeader } from "@/components/calendar/SearchHeader";
+import { LIST_VIEW_BREAKPOINT } from "@/lib/constants/layout";
+import { SearchHeader } from "@/components/shared/SearchHeader";
 import { CalendarActions } from "@/components/calendar/CalendarActions";
 import { RacesGrid } from "@/components/calendar/RacesGrid";
 import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
-import { IRaceEvent, RaceEventSortOptions } from "@kartiiing/shared";
+import {
+  IRaceEvent,
+  RaceEventSortOptions,
+  IPaginatedResponse,
+} from "@kartiiing/shared";
 import { getRaceEvents } from "@/lib/api";
+import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
 
 type Props = {
-  initialRaces: IRaceEvent[];
+  initialData: IPaginatedResponse<IRaceEvent>;
   year: string;
   initialSort: RaceEventSortOptions;
-  years: (number | string)[];
-  description: string;
-}
+};
 
-export function CalendarClient({
-  initialRaces,
-  year,
-  initialSort,
-  years,
-  description,
-}: Props) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [races, setRaces] = useState<IRaceEvent[]>(initialRaces);
-  const [selectedYear, setSelectedYear] = useState<number | string>(year);
-  const [sortOrder, setSortOrder] = useState<RaceEventSortOptions>(
+const PAGE_SIZE = 20;
+
+export function CalendarClient({ initialData, year, initialSort }: Props) {
+  const normalizedInitialSort =
     initialSort === RaceEventSortOptions.DESC
       ? RaceEventSortOptions.DESC
-      : RaceEventSortOptions.ASC,
+      : RaceEventSortOptions.ASC;
+  const [loading, setLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState<RaceEventSortOptions>(
+    normalizedInitialSort,
   );
   const [searchQuery, setSearchQuery] = useState("");
   const { sectionRef, sectionWidth } = useSectionWidth();
 
-  useEffect(() => {
-    setRaces(initialRaces);
-    setSelectedYear(year);
-  }, [initialRaces, year]);
+  const fetchRaces = useCallback(
+    (page: number, limit: number) =>
+      getRaceEvents({
+        year: year === "all" ? undefined : year.toString(),
+        sort: sortOrder,
+        search: searchQuery.trim() || undefined,
+        page,
+        limit,
+      }),
+    [year, sortOrder, searchQuery],
+  );
 
-  // Handle search by calling API with search parameter
+  const {
+    data: displayedRaces,
+    totalCount,
+    hasMore,
+    loadingMore,
+    sentinelRef,
+    reset,
+    replaceData,
+  } = useInfiniteScroll<IRaceEvent>({
+    fetchFn: fetchRaces,
+    initialData,
+    pageSize: PAGE_SIZE,
+    resetDeps: [searchQuery, sortOrder, year],
+  });
+
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setRaces(initialRaces);
+    if (!searchQuery.trim() && sortOrder === normalizedInitialSort) {
+      reset();
       return;
     }
 
-    const performSearch = async () => {
+    const performFetch = async () => {
       setLoading(true);
       try {
-        const response = await getRaceEvents({
-          year: selectedYear === "all" ? undefined : selectedYear.toString(),
-          sort: sortOrder,
-          search: searchQuery.trim(),
-        });
-        setRaces(response.data);
+        const response = await fetchRaces(1, PAGE_SIZE);
+        replaceData(
+          response.data,
+          response.meta.totalItems,
+          response.meta.hasNextPage,
+        );
       } catch (error) {
-        console.error("Error searching races:", error);
-        setRaces([]);
+        console.error("Error fetching races:", error);
+        replaceData([], 0, false);
       } finally {
         setLoading(false);
       }
     };
 
-    const debounceTimer = setTimeout(performSearch, 300);
+    const debounceTimer = setTimeout(performFetch, 300);
     return () => clearTimeout(debounceTimer);
-  }, [searchQuery, initialRaces, sortOrder, selectedYear]);
-
-  // Handle year change by navigating to new route
-  const handleYearChange = (newYear: string | number) => {
-    const yearString = newYear.toString();
-    if (yearString !== selectedYear.toString()) {
-      setLoading(true);
-      router.push(
-        `/calendar/${yearString}?sort=${
-          sortOrder === RaceEventSortOptions.DESC ? "desc" : "asc"
-        }`,
-      );
-    }
-  };
+  }, [
+    searchQuery,
+    sortOrder,
+    fetchRaces,
+    reset,
+    replaceData,
+    initialData,
+    normalizedInitialSort,
+  ]);
 
   // Handle sort order change by navigating to new URL
-  const handleSortChange = () => {
+  const handleSortChange = useCallback(() => {
     const newSortOrder =
       sortOrder === RaceEventSortOptions.ASC
         ? RaceEventSortOptions.DESC
         : RaceEventSortOptions.ASC;
+
     const sortParam =
       newSortOrder === RaceEventSortOptions.DESC ? "desc" : "asc";
+
     setSortOrder(newSortOrder);
 
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set("sort", sortParam);
-    router.replace(currentUrl.pathname + currentUrl.search);
-  };
-
-  // Fetch races from API when sortOrder changes (but not year, as that's handled by navigation)
-  useEffect(() => {
-    if (
-      sortOrder ===
-      (initialSort === RaceEventSortOptions.DESC
-        ? RaceEventSortOptions.DESC
-        : RaceEventSortOptions.ASC)
-    )
-      return;
-
-    setLoading(true);
-    const fetchRaces = async () => {
-      try {
-        const response = await getRaceEvents({
-          year: selectedYear === "all" ? undefined : selectedYear.toString(),
-          sort: sortOrder,
-        });
-        setRaces(response.data);
-      } catch (error) {
-        console.error("Error loading races:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRaces();
-  }, [sortOrder, selectedYear, initialSort]);
+    window.history.replaceState(
+      window.history.state,
+      "",
+      currentUrl.pathname + currentUrl.search,
+    );
+  }, [sortOrder]);
 
   // Render calendar actions (view toggle, sort toggle, next race button)
   function renderCalendarActions(small = false) {
@@ -134,43 +124,43 @@ export function CalendarClient({
       <CalendarActions
         sortOrder={sortOrder}
         onSortChange={handleSortChange}
-        races={races}
+        races={displayedRaces}
         small={small}
       />
     );
   }
 
+  const showGridToggle = sectionWidth >= LIST_VIEW_BREAKPOINT;
+  const showSentinel = hasMore && !loading;
+
   return (
     <>
-      <PageWrapper ref={sectionRef}>
-        <CalendarHeader
-          description={description}
-          selectedYear={selectedYear}
-          setSelectedYear={handleYearChange}
-          years={years}
-        />
-
+      <div ref={sectionRef}>
         <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
           <SearchHeader
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            races={races}
+            totalResults={totalCount}
+            placeholder="Search... (e.g. kz2 summer)"
           >
-            {isCompactSection(sectionWidth) && renderCalendarActions(true)}
+            {!showGridToggle && renderCalendarActions(true)}
           </SearchHeader>
 
-          {!isCompactSection(sectionWidth) && renderCalendarActions()}
+          {showGridToggle && renderCalendarActions()}
         </div>
 
         <div className="my-4 py-4 border-t border-dashed">
           <RacesGrid
-            races={races}
+            races={displayedRaces}
             loading={loading}
             sectionWidth={sectionWidth}
-            isAllYearsView={selectedYear === "all"}
+            loadingMore={loadingMore}
+            isAllYearsView={year === "all"}
           />
+
+          {showSentinel && <div ref={sentinelRef} className="h-2 w-full" />}
         </div>
-      </PageWrapper>
+      </div>
 
       <BackToTopBtn />
     </>

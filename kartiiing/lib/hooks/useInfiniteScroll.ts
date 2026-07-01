@@ -27,7 +27,7 @@ interface UseInfiniteScrollResult<T> {
   hasMore: boolean;
   /** Whether a page fetch is currently in progress. */
   loadingMore: boolean;
-  /** Ref to attach to a sentinel element at the bottom of the list. */
+  /** Ref object to attach to a sentinel element at the bottom of the list. */
   sentinelRef: React.RefObject<HTMLDivElement | null>;
   /** Reset to the initial state (e.g. after search or filter change). */
   reset: () => void;
@@ -51,6 +51,10 @@ export function useInfiniteScroll<T>({
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialData.meta.hasNextPage);
   const [loadingMore, setLoadingMore] = useState(false);
+  // Counter incremented on every data replacement to force observer re-attachment.
+  // Fixes the case where a search re-renders the sentinel DOM node but hasMore
+  // stays true, so the observer never re-wires to the new element.
+  const [sentinelKey, setSentinelKey] = useState(0);
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   // Track the current page so the observer closure always has the latest value
@@ -69,17 +73,23 @@ export function useInfiniteScroll<T>({
   const pageSizeRef = useRef(pageSize);
   pageSizeRef.current = pageSize;
 
-  // Reset to initial state whenever resetDeps change
+  // Callback to revert to the initial server-rendered data.
+  // Re-created whenever resetDeps change; the consumer must call it
+  // explicitly (e.g. in a useEffect when all filters are cleared).
   const reset = useCallback(() => {
     setData(initialData.data);
     setTotalCount(initialData.meta.totalItems);
     setPage(1);
     setHasMore(initialData.meta.hasNextPage);
     setLoadingMore(false);
+    setSentinelKey((prev) => prev + 1);
     // resetDeps intentionally controls when reset re-creates; adding initialData would break the pattern
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, resetDeps);
 
+  // Replace accumulated data with fresh results from a client-side
+  // search or filter. Call this in a useEffect when search/sort changes
+  // to swap in new data while preserving infinite scroll for subsequent pages.
   const replaceData = useCallback(
     (newData: T[], total: number, hasMorePages: boolean) => {
       setData(newData);
@@ -87,19 +97,25 @@ export function useInfiniteScroll<T>({
       setPage(1);
       setHasMore(hasMorePages);
       setLoadingMore(false);
+      setSentinelKey((prev) => prev + 1);
     },
     [],
   );
 
-  // Infinite scroll: load more when sentinel enters viewport
+  // Infinite scroll: load more when sentinel enters viewport.
+  // Depends on hasMore (to disconnect when no more pages) and sentinelKey
+  // (to re-attach after data replacement even when hasMore stays true).
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+
         if (
-          entries[0].isIntersecting &&
+          entry.isIntersecting &&
           hasMoreRef.current &&
           !loadingMoreRef.current
         ) {
@@ -129,7 +145,7 @@ export function useInfiniteScroll<T>({
 
     observer.observe(sentinel);
     return () => observer.disconnect();
-  }, []); // Only mount observer once; refs keep it up-to-date
+  }, [hasMore, sentinelKey]);
 
   return {
     data,

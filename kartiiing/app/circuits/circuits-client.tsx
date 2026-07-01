@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
 import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
-import { isCompactSection } from "@/lib/constants/layout";
-import { CircuitsSearchHeader } from "@/components/circuits/CircuitsSearchHeader";
+import { LIST_VIEW_BREAKPOINT } from "@/lib/constants/layout";
+import { SearchHeader } from "@/components/shared/SearchHeader";
 import { CircuitsActions } from "@/components/circuits/CircuitsActions";
 import { CircuitsGrid } from "@/components/circuits/CircuitsGrid";
 import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
@@ -18,7 +18,7 @@ import {
 type Props = {
   initialData: IPaginatedResponse<ICircuit>;
   coordinates: ICircuitCoordinate[];
-}
+};
 
 const PAGE_SIZE = 20;
 
@@ -40,8 +40,10 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
   const {
     data: displayedCircuits,
     totalCount,
+    hasMore,
     loadingMore,
     sentinelRef,
+    reset,
     replaceData,
   } = useInfiniteScroll<ICircuit>({
     fetchFn: fetchCircuits,
@@ -53,11 +55,7 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
   // Server-side search: replace accumulated data with search results
   useEffect(() => {
     if (!searchQuery.trim()) {
-      replaceData(
-        initialData.data,
-        initialData.meta.totalItems,
-        initialData.meta.hasNextPage,
-      );
+      reset();
       return;
     }
 
@@ -84,7 +82,7 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
 
     const debounceTimer = setTimeout(performSearch, 300);
     return () => clearTimeout(debounceTimer);
-  }, [searchQuery, initialData, replaceData]);
+  }, [searchQuery, initialData, reset, replaceData]);
 
   const handleSearchQueryChange = useCallback((query: string) => {
     setSearchQuery(query);
@@ -94,19 +92,23 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
     return <CircuitsActions coordinates={coordinates} small={small} />;
   }
 
+  const showGridToggle = sectionWidth >= LIST_VIEW_BREAKPOINT;
+  const showSentinel = hasMore && !loading;
+
   return (
     <>
       <div ref={sectionRef}>
         <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
-          <CircuitsSearchHeader
+          <SearchHeader
             searchQuery={searchQuery}
             setSearchQuery={handleSearchQueryChange}
             totalResults={totalCount}
+            placeholder="Search... (e.g. Italy)"
           >
-            {isCompactSection(sectionWidth) && renderCircuitsActions(true)}
-          </CircuitsSearchHeader>
+            {!showGridToggle && renderCircuitsActions(true)}
+          </SearchHeader>
 
-          {!isCompactSection(sectionWidth) && renderCircuitsActions()}
+          {showGridToggle && renderCircuitsActions()}
         </div>
 
         <div className="my-4 py-4 border-t border-dashed">
@@ -116,7 +118,8 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
             sectionWidth={sectionWidth}
             loadingMore={loadingMore}
           />
-          <div ref={sentinelRef} className="h-2 w-full" />
+
+          {showSentinel && <div ref={sentinelRef} className="h-2 w-full" />}
         </div>
       </div>
 

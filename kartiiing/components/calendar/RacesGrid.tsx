@@ -15,6 +15,7 @@ type Props = {
   races: IRaceEvent[];
   loading: boolean;
   sectionWidth: number;
+  loadingMore?: boolean;
   isAllYearsView?: boolean;
 };
 
@@ -46,6 +47,7 @@ export function RacesGrid({
   races,
   loading,
   sectionWidth,
+  loadingMore = false,
   isAllYearsView = false,
 }: Props) {
   const viewMode = useCalendarStore((state) => state.viewMode);
@@ -87,6 +89,8 @@ export function RacesGrid({
           </div>
         </div>
       ))}
+
+      {loadingMore && <Loader />}
     </div>
   );
 }

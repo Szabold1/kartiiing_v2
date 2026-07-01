@@ -1,7 +1,2 @@
-/** Pixel width below which the section is considered "compact" (matches Tailwind's `md:` breakpoint). */
-export const SECTION_COMPACT_BREAKPOINT = 768;
-
-/** Returns true when the given pixel width is in the compact range. */
-export function isCompactSection(width: number): boolean {
-  return width < SECTION_COMPACT_BREAKPOINT;
-}
+/** Pixel width below which the list view layout is not applied. */
+export const LIST_VIEW_BREAKPOINT = 850;

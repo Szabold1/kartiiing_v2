@@ -1,17 +1,18 @@
 import { SearchBar } from "@/components/shared/SearchBar";
-import { IRaceEvent } from "@kartiiing/shared";
 
 type Props = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  races: IRaceEvent[];
+  totalResults: number;
+  placeholder?: string;
   children?: React.ReactNode;
 };
 
 export function SearchHeader({
   searchQuery,
   setSearchQuery,
-  races,
+  totalResults,
+  placeholder = "Search...",
   children,
 }: Props) {
   return (
@@ -19,14 +20,14 @@ export function SearchHeader({
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        placeholder="Search... (e.g. kz2 summer)"
+        placeholder={placeholder}
       />
 
       <div className="text-sm text-muted-foreground pl-1.5 flex items-center w-full justify-between">
         <span className="mr-1.5">
-          {races.length === 0
+          {totalResults === 0
             ? "No results"
-            : `${races.length} ${races.length === 1 ? "result" : "results"}`}
+            : `${totalResults} ${totalResults === 1 ? "result" : "results"}`}
         </span>
 
         {children}

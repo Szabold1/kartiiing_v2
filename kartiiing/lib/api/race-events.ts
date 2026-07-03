@@ -1,5 +1,5 @@
 import {
-  RaceEventSortOptions,
+  CalendarOrderPreset,
   IRaceEvent,
   IRaceEventDetail,
   IRaceEventMinimal,
@@ -46,25 +46,22 @@ export async function getCalendarMetadata(year: string): Promise<ISeoData> {
  */
 export async function getRaceEvents(options?: {
   year?: string;
-  sort?: RaceEventSortOptions;
+  preset?: CalendarOrderPreset;
   search?: string;
   limit?: number;
   page?: number;
 }): Promise<IPaginatedResponse<IRaceEvent>> {
-  const {
-    year,
-    sort = RaceEventSortOptions.ASC,
-    search,
-    limit = 100,
-    page = 1,
-  } = options || {};
+  const { year, preset, search, limit = 100, page = 1 } = options || {};
 
   if (year && year !== "all" && isNaN(parseInt(year))) {
     throw new Error("Invalid year parameter");
   }
 
   const yearPath = year && year !== "all" ? `/${year}` : "";
-  let url = `${getApiBase()}/race-events${yearPath}?sort=${sort}&limit=${limit}&page=${page}`;
+  let url = `${getApiBase()}/race-events${yearPath}?limit=${limit}&page=${page}`;
+  if (preset) {
+    url += `&preset=${preset}`;
+  }
   if (search) {
     url += `&search=${encodeURIComponent(search)}`;
   }

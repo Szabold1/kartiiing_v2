@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
-  RaceEventSortOptions,
   IRaceEvent,
   IRaceEventDetail,
   IPaginatedResponse,
@@ -108,10 +107,10 @@ export class RaceEventsService {
     year?: number,
   ): Promise<IPaginatedResponse<IRaceEvent>> {
     const {
-      sort = RaceEventSortOptions.ASC,
       page = 1,
       limit = 20,
       search,
+      preset,
       includeStatus = true,
     } = query;
 
@@ -119,9 +118,9 @@ export class RaceEventsService {
     const pageSize = +limit;
     const skip = (pageNumber - 1) * pageSize;
 
-    const allEvents = await this.raceEventPersistence.findAllEventsWithSorting(
-      sort,
+    const allEvents = await this.raceEventPersistence.findAllEventsFiltered(
       year,
+      preset,
     );
 
     // Apply search filtering at the application level

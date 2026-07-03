@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RaceEventSortOptions } from "@kartiiing/shared";
 
 type Props = {
   description: string;
@@ -28,10 +27,7 @@ export function CalendarHeader({ description, selectedYear, years }: Props) {
     const yearString = newYear.toString();
     if (yearString === selectedYear.toString()) return;
 
-    const currentUrl = new URL(window.location.href);
-    const sortParam =
-      currentUrl.searchParams.get("sort") || RaceEventSortOptions.ASC;
-    router.push(`/calendar/${yearString}?sort=${sortParam}`);
+    router.push(`/calendar/${yearString}`);
   };
 
   return (

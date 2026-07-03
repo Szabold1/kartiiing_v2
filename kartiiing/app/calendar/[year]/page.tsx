@@ -6,7 +6,7 @@ import {
 import { CalendarClient } from "./calendar-client";
 import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { PageWrapper } from "@/components/shared/PageWrapper";
-import { RaceEventSortOptions } from "@kartiiing/shared";
+import { CalendarOrderPreset } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -14,9 +14,6 @@ export const dynamic = "force-dynamic";
 type Props = {
   params: Promise<{
     year: string;
-  }>;
-  searchParams: Promise<{
-    sort?: string;
   }>;
 };
 
@@ -58,14 +55,13 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default async function CalendarPage({ params, searchParams }: Props) {
+export default async function CalendarPage({ params }: Props) {
   const { year } = await params;
-  const { sort } = await searchParams;
 
-  const sortOrder = (sort as RaceEventSortOptions) || RaceEventSortOptions.ASC;
+  const initialPreset = CalendarOrderPreset.ALL_ASC;
   const racesRes = await getRaceEvents({
     year: year,
-    sort: sortOrder,
+    preset: initialPreset,
     page: 1,
     limit: 20,
   });
@@ -90,7 +86,7 @@ export default async function CalendarPage({ params, searchParams }: Props) {
       <CalendarClient
         initialData={racesRes}
         year={year}
-        initialSort={sortOrder}
+        initialSort={initialPreset}
       />
     </PageWrapper>
   );

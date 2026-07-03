@@ -1,34 +1,48 @@
+import { ArrowDown, ArrowUp, Grid, List } from "lucide-react";
 import { GridViewToggle } from "@/components/shared/GridViewToggle";
-import { SortOrderToggle } from "./SortOrderToggle";
-import { NextRaceBtn } from "./NextRaceBtn";
-import { Grid, List } from "lucide-react";
+import {
+  OrderDropdown,
+  type OrderPreset,
+} from "@/components/shared/OrderDropdown";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { useCalendarStore } from "@/lib/stores/calendarStore";
-import {
-  IRaceEvent,
-  RaceEventSortOptions,
-  RaceStatus,
-} from "@kartiiing/shared";
+import { CalendarOrderPreset } from "@kartiiing/shared";
+
+const CALENDAR_PRESETS: readonly OrderPreset<CalendarOrderPreset>[] = [
+  {
+    value: CalendarOrderPreset.ALL_ASC,
+    label: "Date",
+    icon: ArrowUp,
+  },
+  {
+    value: CalendarOrderPreset.ALL_DESC,
+    label: "Date",
+    icon: ArrowDown,
+  },
+  {
+    value: CalendarOrderPreset.UPCOMING,
+    label: "Upcoming",
+    icon: ArrowUp,
+  },
+  {
+    value: CalendarOrderPreset.FINISHED,
+    label: "Finished",
+    icon: ArrowDown,
+  },
+] as const;
 
 type Props = {
-  sortOrder: RaceEventSortOptions;
-  onSortChange: () => void;
-  races: IRaceEvent[];
+  preset: CalendarOrderPreset;
+  onPresetChange: (preset: CalendarOrderPreset) => void;
   small?: boolean;
 };
 
 export function CalendarActions({
-  sortOrder,
-  onSortChange,
-  races,
+  preset,
+  onPresetChange,
   small = false,
 }: Props) {
   const { viewMode, setViewMode } = useCalendarStore();
-
-  // Calculate from races
-  const hasLiveOrUpNext = races.some(
-    (r) => r.status === RaceStatus.LIVE || r.status === RaceStatus.UPNEXT,
-  );
 
   const options = [
     {
@@ -45,10 +59,12 @@ export function CalendarActions({
 
   const alwaysDisplay = () => {
     return (
-      <>
-        <SortOrderToggle sortOrder={sortOrder} onToggle={onSortChange} />
-        {hasLiveOrUpNext && <NextRaceBtn races={races} />}
-      </>
+      <OrderDropdown
+        value={preset}
+        onChange={onPresetChange}
+        presets={CALENDAR_PRESETS}
+        className="text-foreground"
+      />
     );
   };
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { RaceEventSortOptions } from '@kartiiing/shared';
+import { CalendarOrderPreset } from '@kartiiing/shared';
 import { RaceEvent } from '../entities/raceEvent.entity';
 
 @Injectable()
@@ -46,17 +46,22 @@ export class RaceEventPersistence {
   }
 
   /**
-   * Find all race events with sorting and optional year filter.
+   * Find all race events with optional year/preset filters.
    * Returns the full unfiltered, unpaginated list.
    */
-  async findAllEventsWithSorting(
-    sort: RaceEventSortOptions,
+  async findAllEventsFiltered(
     year?: number,
+    preset?: CalendarOrderPreset,
   ): Promise<RaceEvent[]> {
     const qb = this.createListQueryBuilder();
-    this.addSorting(qb, sort);
+    this.addSorting(qb, preset);
     if (year) {
       qb.andWhere('EXTRACT(YEAR FROM raceEvent.dateStart) = :year', { year });
+    }
+    if (preset === CalendarOrderPreset.UPCOMING) {
+      qb.andWhere('raceEvent.dateEnd >= :now', { now: new Date() });
+    } else if (preset === CalendarOrderPreset.FINISHED) {
+      qb.andWhere('raceEvent.dateEnd < :now', { now: new Date() });
     }
     return qb.getMany();
   }
@@ -178,9 +183,13 @@ export class RaceEventPersistence {
    */
   private addSorting(
     qb: SelectQueryBuilder<RaceEvent>,
-    sort: RaceEventSortOptions,
+    preset?: CalendarOrderPreset,
   ): void {
-    const direction = sort === RaceEventSortOptions.DESC ? 'DESC' : 'ASC';
+    const direction =
+      preset === CalendarOrderPreset.ALL_DESC ||
+      preset === CalendarOrderPreset.FINISHED
+        ? 'DESC'
+        : 'ASC';
     qb.orderBy('raceEvent.dateStart', direction).addOrderBy(
       'raceEvent.dateEnd',
       direction,

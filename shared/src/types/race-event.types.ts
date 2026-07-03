@@ -3,11 +3,6 @@ import { IFastestLap } from "./fastest-lap.types";
 import { ISeoData } from "./seo.types";
 import { IWeatherDataDay } from "./weather.types";
 
-export enum RaceEventSortOptions {
-  ASC = "asc",
-  DESC = "desc",
-}
-
 export interface IRaceEventDateMinimal {
   start: string;
   end: string;
@@ -51,6 +46,13 @@ export interface IRaceEvent extends IRaceEventMinimal {
   links?: {
     results?: IResultsLink[];
   };
+}
+
+export enum CalendarOrderPreset {
+  ALL_ASC = "all_asc",
+  ALL_DESC = "all_desc",
+  UPCOMING = "upcoming",
+  FINISHED = "finished",
 }
 
 export interface IRaceEventDetail extends IRaceEvent {

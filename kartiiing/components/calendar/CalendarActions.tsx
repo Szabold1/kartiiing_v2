@@ -22,10 +22,12 @@ const CALENDAR_PRESETS: readonly OrderPreset<CalendarOrderPreset>[] = [
   {
     value: CalendarOrderPreset.UPCOMING,
     label: "Upcoming",
+    icon: ArrowUp,
   },
   {
     value: CalendarOrderPreset.FINISHED,
     label: "Finished",
+    icon: ArrowDown,
   },
 ] as const;
 
@@ -61,7 +63,7 @@ export function CalendarActions({
         value={preset}
         onChange={onPresetChange}
         presets={CALENDAR_PRESETS}
-        className="w-28.5 text-foreground"
+        className="text-foreground"
       />
     );
   };

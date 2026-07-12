@@ -2,47 +2,13 @@ import { useState } from "react";
 import { GridViewToggle } from "@/components/shared/GridViewToggle";
 import { MapButton } from "@/components/circuits/map/MapButton";
 import { CircuitsMapModal } from "@/components/circuits/map/CircuitsMapModal";
+import { OrderDropdown } from "@/components/shared/OrderDropdown";
 import {
-  OrderDropdown,
-  type OrderPreset,
-} from "@/components/shared/OrderDropdown";
-import { Grid, List, ArrowUp, ArrowDown } from "lucide-react";
-import { CircuitsViewMode } from "@/lib/constants/circuits";
+  CIRCUIT_PRESETS,
+  CIRCUITS_VIEW_OPTIONS,
+} from "@/lib/constants/circuits";
 import { useCircuitsStore } from "@/lib/stores/circuitsStore";
 import { ICircuitCoordinate, CircuitsOrderPreset } from "@kartiiing/shared";
-
-const CIRCUIT_PRESETS: readonly OrderPreset<CircuitsOrderPreset>[] = [
-  {
-    value: CircuitsOrderPreset.LOCATION_ASC,
-    label: "Location name",
-    icon: ArrowUp,
-  },
-  {
-    value: CircuitsOrderPreset.LOCATION_DESC,
-    label: "Location name",
-    icon: ArrowDown,
-  },
-  {
-    value: CircuitsOrderPreset.LENGTH_ASC,
-    label: "Length",
-    icon: ArrowUp,
-  },
-  {
-    value: CircuitsOrderPreset.LENGTH_DESC,
-    label: "Length",
-    icon: ArrowDown,
-  },
-  {
-    value: CircuitsOrderPreset.DISTANCE_ASC,
-    label: "Distance",
-    icon: ArrowUp,
-  },
-  {
-    value: CircuitsOrderPreset.DISTANCE_DESC,
-    label: "Distance",
-    icon: ArrowDown,
-  },
-] as const;
 
 type Props = {
   coordinates: ICircuitCoordinate[];
@@ -61,19 +27,6 @@ export function CircuitsActions({
 }: Props) {
   const { viewMode, setViewMode } = useCircuitsStore();
   const [showMapModal, setShowMapModal] = useState(false);
-
-  const options = [
-    {
-      value: CircuitsViewMode.GRID,
-      icon: <Grid className="size-4" />,
-      label: "Grid view",
-    },
-    {
-      value: CircuitsViewMode.LIST,
-      icon: <List className="size-4" />,
-      label: "List view",
-    },
-  ];
 
   const availablePresets = locationUnavailable
     ? CIRCUIT_PRESETS.filter(
@@ -117,7 +70,7 @@ export function CircuitsActions({
       <GridViewToggle
         viewMode={viewMode}
         setViewMode={setViewMode}
-        options={options}
+        options={CIRCUITS_VIEW_OPTIONS}
       />
       {alwaysDisplay()}
     </div>

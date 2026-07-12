@@ -107,15 +107,7 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
 
     const debounceTimer = setTimeout(performFetch, 300);
     return () => clearTimeout(debounceTimer);
-  }, [
-    searchQuery,
-    preset,
-    userLocation,
-    fetchCircuits,
-    reset,
-    replaceData,
-    initialData,
-  ]);
+  }, [searchQuery, preset, userLocation, fetchCircuits, reset, replaceData]);
 
   const handleSearchQueryChange = useCallback((query: string) => {
     setSearchQuery(query);
@@ -123,12 +115,12 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
 
   const handlePresetChange = useCallback(
     (newPreset: CircuitsOrderPreset) => {
-      if (locationUnavailable && DISTANCE_PRESETS.includes(newPreset)) {
+      if (!userLocation && DISTANCE_PRESETS.includes(newPreset)) {
         return;
       }
       setPreset(newPreset);
     },
-    [locationUnavailable],
+    [userLocation],
   );
 
   function renderCircuitsActions(small = false) {

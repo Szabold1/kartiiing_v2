@@ -22,7 +22,7 @@ function process(data: unknown) {
 
 ### Formatting
 
-All code is formatted with Prettier (via ESLint). Do not add `// eslint-disable` or `// prettier-ignore` comments to silence rules — if a rule is genuinely wrong for this project, disable it in `eslint.config.mjs` with a comment explaining why.
+All code is formatted with Prettier (via ESLint). Do not add `// eslint-disable` or `// prettier-ignore` comments to silence rules — if a rule is genuinely wrong for this project, disable it in `eslint.config.mjs` with a comment explaining why. The exception is suppressing React Hook dependency warnings in `useEffect` — you may use `// eslint-disable-next-line react-hooks/exhaustive-deps` with a comment explaining **why** the dependency is intentionally omitted.
 
 ---
 

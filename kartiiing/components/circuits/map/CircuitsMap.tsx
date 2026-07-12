@@ -6,28 +6,16 @@ import { useTheme } from "next-themes";
 import mapboxgl from "mapbox-gl";
 import Map, { Marker, MapRef } from "react-map-gl/mapbox";
 import { CircuitMapPopup } from "./CircuitMapPopup";
+import { MapCenterButton } from "./MapCenterButton";
 import { MapZoomControl } from "./MapZoomControl";
 import { MapNoResults } from "./MapNoResults";
-import { cn, lightDarkGlassBase } from "@/lib/utils";
+import { cn, flyToCenter, lightDarkGlassBase } from "@/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
-
-function flyToCenter(
-  map: mapboxgl.Map,
-  center: ICoordinates | null,
-  zoom: number,
-): void {
-  if (!center) return;
-  map.flyTo({
-    center: [center.longitude, center.latitude],
-    zoom,
-    duration: 1500,
-    essential: true,
-  });
-}
 
 type Props = {
   coordinates: ICircuitCoordinate[];
   selectedCircuit: ICircuit | null;
+  userLocation: ICoordinates | null;
 
   onCircuitSelect: (id: number) => void;
   onPopupClose: () => void;
@@ -39,6 +27,7 @@ type Props = {
 export function CircuitsMap({
   coordinates,
   selectedCircuit,
+  userLocation,
   onCircuitSelect,
   onPopupClose,
   className = "",
@@ -151,10 +140,10 @@ export function CircuitsMap({
         mapLib={import("mapbox-gl")}
         tabIndex={-1}
       >
-        <MapZoomControl
-          mapRef={mapRef}
-          className="absolute top-17 right-4 z-10"
-        />
+        <div className="absolute top-17 right-4 z-10 flex flex-col gap-1.5">
+          <MapZoomControl mapRef={mapRef} />
+          <MapCenterButton mapRef={mapRef} userLocation={userLocation} />
+        </div>
 
         {hasCoordinates &&
           coordinates.map((coord) => (
@@ -178,6 +167,21 @@ export function CircuitsMap({
 
         {selectedCircuit && (
           <CircuitMapPopup circuit={selectedCircuit} onClose={onPopupClose} />
+        )}
+
+        {userLocation && (
+          <Marker
+            longitude={userLocation.longitude}
+            latitude={userLocation.latitude}
+            anchor="center"
+          >
+            <div className="relative group cursor-pointer">
+              {/* Pulsing ring */}
+              <span className="absolute inset-0 rounded-full bg-blue-400/30 animate-ping" />
+              {/* Outer dot */}
+              <span className="block w-5 h-5 rounded-full bg-blue-500 border-2 border-white shadow-md" />
+            </div>
+          </Marker>
         )}
 
         {!hasCoordinates && <MapNoResults />}

@@ -1,17 +1,16 @@
 import { ICircuit } from "@kartiiing/shared";
 import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
 import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
-import { getCircuitLengthDisplay } from "@/lib/utils/circuitUtils";
+import { CircuitMetric } from "@/components/shared/badges/CircuitMetricBadge";
 
 type Props = {
   circuit: ICircuit;
   showActions?: boolean;
 };
 
-export function CircuitInfoContent({
-  circuit,
-  showActions = true,
-}: Props) {
+export function CircuitInfoContent({ circuit, showActions = true }: Props) {
+  const showDistance = circuit.distance != null;
+
   return (
     <div className="flex justify-between items-center flex-1">
       <div className="flex flex-col min-w-0 flex-1">
@@ -22,9 +21,11 @@ export function CircuitInfoContent({
         <h3 className="font-semibold tracking-tight truncate">
           {circuit.name}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {getCircuitLengthDisplay(circuit)}
-        </p>
+        {showDistance ? (
+          <CircuitMetric value={circuit.distance!} type="distance" />
+        ) : (
+          <CircuitMetric value={circuit.length} type="length" />
+        )}
       </div>
       {showActions && (
         <CircuitActionLinks

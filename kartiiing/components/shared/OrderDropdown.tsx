@@ -39,10 +39,8 @@ export function OrderDropdown<T extends string>({
   return (
     <Select value={value} onValueChange={(v) => onChange(v as T)}>
       <SelectTrigger
-        className={cn(
-          "h-10.5! cursor-pointer text-sm font-medium",
-          className,
-        )}
+        className={cn("h-10.5! cursor-pointer text-sm font-medium", className)}
+        suppressHydrationWarning
       >
         <SelectValue>
           <span className="flex items-center gap-1.5">

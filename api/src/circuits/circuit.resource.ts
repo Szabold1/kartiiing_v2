@@ -4,7 +4,7 @@ import { Circuit } from '../entities/circuit.entity';
 /**
  * Maps a Circuit entity to the ICircuit DTO.
  */
-export function toICircuit(entity: Circuit): ICircuit {
+export function toICircuit(entity: Circuit & { distance?: number }): ICircuit {
   return {
     id: entity.id,
     name: entity.name,
@@ -25,6 +25,7 @@ export function toICircuit(entity: Circuit): ICircuit {
       name: l.name || undefined,
       length: l.length,
     })),
+    distance: entity.distance ?? undefined,
   };
 }
 

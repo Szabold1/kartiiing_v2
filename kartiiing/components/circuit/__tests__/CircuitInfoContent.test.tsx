@@ -1,12 +1,27 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 import { buildCircuitDetail } from "@/test/fixtures";
 import { CircuitInfoContent } from "../CircuitInfoContent";
+
+vi.mock("@/lib/stores/userLocationStore", () => ({
+  useUserLocationStore: vi.fn(),
+}));
+
+import { useUserLocationStore } from "@/lib/stores/userLocationStore";
 
 const VISIT_LINK_LABEL = "Visit circuit website";
 const MAPS_LINK_LABEL = "Open in Google Maps";
 
 describe("CircuitInfoContent", () => {
+  beforeEach(() => {
+    vi.mocked(useUserLocationStore).mockImplementation((selector: unknown) => {
+      if (typeof selector === "function") {
+        return selector({ locationName: undefined });
+      }
+      return undefined;
+    });
+  });
+
   const circuit = buildCircuitDetail({
     name: "Test Circuit",
     length: 1200,
@@ -22,7 +37,7 @@ describe("CircuitInfoContent", () => {
   it("renders circuit length", () => {
     render(<CircuitInfoContent circuit={circuit} />);
 
-    expect(screen.getByText(/1200 meters/)).toBeInTheDocument();
+    expect(screen.getByText("1200 m")).toBeInTheDocument();
   });
 
   it("renders location name via RaceLocation", () => {
@@ -57,10 +72,28 @@ describe("CircuitInfoContent", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 
-  it("renders 'Unknown length' when circuit length is 0 and no layouts exist", () => {
+  it("renders distance instead of length when circuit.distance is available", () => {
+    const withDistance = buildCircuitDetail({
+      length: 1200,
+      distance: 5.3,
+    });
+    render(<CircuitInfoContent circuit={withDistance} />);
+
+    expect(screen.getByText("5 km")).toBeInTheDocument();
+    expect(screen.queryByText("1200 m")).not.toBeInTheDocument();
+  });
+
+  it("renders length when circuit.distance is null", () => {
+    render(<CircuitInfoContent circuit={circuit} />);
+
+    expect(screen.getByText("1200 m")).toBeInTheDocument();
+  });
+
+  it("does not render a metric when circuit length is 0", () => {
     const zeroLength = buildCircuitDetail({ length: 0, layouts: [] });
     render(<CircuitInfoContent circuit={zeroLength} />);
 
-    expect(screen.getByText(/Unknown length/)).toBeInTheDocument();
+    expect(screen.queryByText(/\d+ m/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/\d+ km/)).not.toBeInTheDocument();
   });
 });

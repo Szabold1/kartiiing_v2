@@ -20,10 +20,8 @@ export class CircuitsService {
     const pageSize = query.limit ?? 20;
     const skip = (pageNumber - 1) * pageSize;
 
-    const qb = this.persistence.createFilteredCircuitQuery(query);
-
-    const totalItems = await qb.getCount();
-    const circuits = await qb.skip(skip).take(pageSize).getMany();
+    const { entities: circuits, totalCount: totalItems } =
+      await this.persistence.findCircuits(query, skip, pageSize);
 
     const totalPages = Math.ceil(totalItems / pageSize);
 

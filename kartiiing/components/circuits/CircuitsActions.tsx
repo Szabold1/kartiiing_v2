@@ -2,32 +2,39 @@ import { useState } from "react";
 import { GridViewToggle } from "@/components/shared/GridViewToggle";
 import { MapButton } from "@/components/circuits/map/MapButton";
 import { CircuitsMapModal } from "@/components/circuits/map/CircuitsMapModal";
-import { Grid, List } from "lucide-react";
-import { CircuitsViewMode } from "@/lib/constants/circuits";
+import { OrderDropdown } from "@/components/shared/OrderDropdown";
+import {
+  CIRCUIT_PRESETS,
+  CIRCUITS_VIEW_OPTIONS,
+} from "@/lib/constants/circuits";
 import { useCircuitsStore } from "@/lib/stores/circuitsStore";
-import { ICircuitCoordinate } from "@kartiiing/shared";
+import { ICircuitCoordinate, CircuitsOrderPreset } from "@kartiiing/shared";
 
 type Props = {
   coordinates: ICircuitCoordinate[];
+  preset: CircuitsOrderPreset;
+  onPresetChange: (preset: CircuitsOrderPreset) => void;
+  locationUnavailable?: boolean;
   small?: boolean;
 };
 
-export function CircuitsActions({ coordinates, small = false }: Props) {
+export function CircuitsActions({
+  coordinates,
+  preset,
+  onPresetChange,
+  locationUnavailable = false,
+  small = false,
+}: Props) {
   const { viewMode, setViewMode } = useCircuitsStore();
   const [showMapModal, setShowMapModal] = useState(false);
 
-  const options = [
-    {
-      value: CircuitsViewMode.GRID,
-      icon: <Grid className="size-4" />,
-      label: "Grid view",
-    },
-    {
-      value: CircuitsViewMode.LIST,
-      icon: <List className="size-4" />,
-      label: "List view",
-    },
-  ];
+  const availablePresets = locationUnavailable
+    ? CIRCUIT_PRESETS.filter(
+        (p) =>
+          p.value !== CircuitsOrderPreset.DISTANCE_ASC &&
+          p.value !== CircuitsOrderPreset.DISTANCE_DESC,
+      )
+    : CIRCUIT_PRESETS;
 
   const button = (
     <>
@@ -40,8 +47,22 @@ export function CircuitsActions({ coordinates, small = false }: Props) {
     </>
   );
 
+  const alwaysDisplay = () => {
+    return (
+      <>
+        {button}
+        <OrderDropdown
+          value={preset}
+          onChange={onPresetChange}
+          presets={availablePresets}
+          className="text-foreground"
+        />
+      </>
+    );
+  };
+
   if (small) {
-    return <div className="flex items-center gap-2">{button}</div>;
+    return <div className="flex items-center gap-2">{alwaysDisplay()}</div>;
   }
 
   return (
@@ -49,9 +70,9 @@ export function CircuitsActions({ coordinates, small = false }: Props) {
       <GridViewToggle
         viewMode={viewMode}
         setViewMode={setViewMode}
-        options={options}
+        options={CIRCUITS_VIEW_OPTIONS}
       />
-      {button}
+      {alwaysDisplay()}
     </div>
   );
 }

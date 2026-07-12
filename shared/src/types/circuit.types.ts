@@ -22,6 +22,7 @@ export interface ICircuit {
   coordinates: ICoordinates;
   country: ICountry;
   layouts?: ICircuitLayout[];
+  distance?: number;
 }
 
 export interface ICircuitDetail extends ICircuit {
@@ -31,4 +32,13 @@ export interface ICircuitDetail extends ICircuit {
 export interface ICircuitCoordinate {
   id: number;
   coordinates: ICoordinates;
+}
+
+export enum CircuitsOrderPreset {
+  LOCATION_ASC = "location_asc",
+  LOCATION_DESC = "location_desc",
+  LENGTH_ASC = "length_asc",
+  LENGTH_DESC = "length_desc",
+  DISTANCE_ASC = "distance_asc",
+  DISTANCE_DESC = "distance_desc",
 }

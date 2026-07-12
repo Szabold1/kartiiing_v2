@@ -3,25 +3,39 @@ import {
   ICircuitCoordinate,
   IPaginatedResponse,
   ISeoData,
+  CircuitsOrderPreset,
 } from "@kartiiing/shared";
 import { getApiBase } from "./base";
 
 const MS_DAY = 1000 * 60 * 60 * 24;
 
 /**
- * Fetch circuits with pagination and optional search
+ * Fetch circuits with pagination, optional search, and ordering
  */
 export async function getCircuits(options?: {
   page?: number;
   limit?: number;
   search?: string;
+  preset?: CircuitsOrderPreset;
+  latitude?: number;
+  longitude?: number;
 }): Promise<IPaginatedResponse<ICircuit>> {
-  const { page = 1, limit = 20, search } = options || {};
+  const {
+    page = 1,
+    limit = 20,
+    search,
+    preset,
+    latitude,
+    longitude,
+  } = options || {};
 
   const params = new URLSearchParams();
   params.set("page", page.toString());
   params.set("limit", limit.toString());
   if (search) params.set("search", search);
+  if (preset) params.set("preset", preset);
+  if (latitude != null) params.set("userLatitude", latitude.toString());
+  if (longitude != null) params.set("userLongitude", longitude.toString());
 
   const url = `${getApiBase()}/circuits?${params.toString()}`;
   const res = await fetch(url, { next: { revalidate: MS_DAY } });

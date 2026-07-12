@@ -2,6 +2,7 @@ export interface UserLocation {
   longitude: number;
   latitude: number;
   source: "gps" | "ip";
+  locationName?: string;
 }
 
 /**
@@ -41,10 +42,15 @@ export async function getLocationFromIP(): Promise<UserLocation | null> {
     if (!res.ok) return null;
     const data = await res.json();
     if (data.latitude != null && data.longitude != null) {
+      const locationName =
+        data.cityName && data.countryName
+          ? `${data.cityName}, ${data.countryName}`
+          : data.countryName || undefined;
       return {
         longitude: data.longitude,
         latitude: data.latitude,
         source: "ip",
+        locationName,
       };
     }
     return null;

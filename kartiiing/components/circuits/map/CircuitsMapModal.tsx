@@ -9,14 +9,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ICircuit, ICircuitCoordinate } from "@kartiiing/shared";
 import { SearchBar } from "@/components/shared/SearchBar";
 import { CircuitsMap } from "@/components/circuits/map/CircuitsMap";
-import {
-  cn,
-  lightDarkGlassBase,
-  getLocationFromGPS,
-  getLocationFromIP,
-  lightDarkGlassHover,
-  UserLocation,
-} from "@/lib/utils";
+import { useShallow } from "zustand/shallow";
+import { useUserLocationStore } from "@/lib/stores/userLocationStore";
+import { cn, lightDarkGlassBase, lightDarkGlassHover } from "@/lib/utils";
+import { calculateDistance } from "@/lib/utils/locationUtils";
 import { Button } from "@/components/ui/button";
 import { getCircuitById, getCircuitCoordinates } from "@/lib/api";
 
@@ -26,35 +22,19 @@ type Props = {
   onClose: () => void;
 };
 
-export function CircuitsMapModal({
-  coordinates,
-  isOpen,
-  onClose,
-}: Props) {
+export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [selectedCircuit, setSelectedCircuit] = useState<ICircuit | null>(null);
   const [filteredCoords, setFilteredCoords] =
     useState<ICircuitCoordinate[]>(coordinates);
   const circuitCache = useRef<Map<number, ICircuit>>(new Map());
 
-  // Fetch user location on open — IP resolves instantly (no prompt),
-  // GPS upgrades the location later if the user allows it.
-  useEffect(() => {
-    if (!isOpen) return;
-    let cancelled = false;
-    (async () => {
-      const ipLoc = await getLocationFromIP();
-      if (ipLoc && !cancelled) setUserLocation(ipLoc);
-
-      const gpsLoc = await getLocationFromGPS();
-      if (gpsLoc && !cancelled) setUserLocation(gpsLoc);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [isOpen]);
-
+  const { userLocation, locationSource } = useUserLocationStore(
+    useShallow((s) => ({
+      userLocation: s.userLocation,
+      locationSource: s.locationSource,
+    })),
+  );
   // Close on Escape key
   useEscapeKey(isOpen, onClose);
   // Prevent body scroll when modal is open
@@ -79,6 +59,22 @@ export function CircuitsMapModal({
     }
   }, [searchQuery, coordinates]);
 
+  // Reset search state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchQuery("");
+      setFilteredCoords(coordinates);
+      setSelectedCircuit(null);
+    }
+  }, [isOpen, coordinates]);
+
+  // Sync filteredCoords when coordinates prop changes
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredCoords(coordinates);
+    }
+  }, [coordinates, searchQuery]);
+
   // Fetch filtered coordinates from the API when search query changes
   useEffect(() => {
     if (!isOpen) return;
@@ -88,22 +84,31 @@ export function CircuitsMapModal({
   }, [performSearch, isOpen]);
 
   // Handle circuit selection on map — fetch full data if not cached
-  const handleCircuitSelect = useCallback(async (id: number) => {
-    // Check cache first
-    const cached = circuitCache.current.get(id);
-    if (cached) {
-      setSelectedCircuit(cached);
-      return;
-    }
+  const handleCircuitSelect = useCallback(
+    async (id: number) => {
+      // Check cache first
+      const cached = circuitCache.current.get(id);
+      if (cached) {
+        setSelectedCircuit(cached);
+        return;
+      }
 
-    try {
-      const circuit = await getCircuitById(id);
-      circuitCache.current.set(id, circuit);
-      setSelectedCircuit(circuit);
-    } catch (error) {
-      console.error("Error fetching circuit for popup:", error);
-    }
-  }, []);
+      try {
+        const circuit = await getCircuitById(id);
+        const circuitWithDistance: ICircuit = { ...circuit };
+        if (userLocation) {
+          circuitWithDistance.distance = Math.round(
+            calculateDistance(userLocation, circuit.coordinates),
+          );
+        }
+        circuitCache.current.set(id, circuitWithDistance);
+        setSelectedCircuit(circuitWithDistance);
+      } catch (error) {
+        console.error("Error fetching circuit for popup:", error);
+      }
+    },
+    [userLocation],
+  );
 
   const handlePopupClose = useCallback(() => {
     setSelectedCircuit(null);
@@ -141,11 +146,12 @@ export function CircuitsMapModal({
               <CircuitsMap
                 coordinates={filteredCoords}
                 selectedCircuit={selectedCircuit}
+                userLocation={userLocation}
                 onCircuitSelect={handleCircuitSelect}
                 onPopupClose={handlePopupClose}
                 className="!min-h-0 !rounded-none !border-0 !shadow-none"
                 initialCenter={userLocation}
-                initialZoom={userLocation?.source === "gps" ? 6 : 4}
+                initialZoom={locationSource === "gps" ? 6 : 4}
               />
 
               {/* Floating search bar */}

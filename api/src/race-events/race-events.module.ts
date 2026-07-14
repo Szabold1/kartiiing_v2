@@ -3,12 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RaceEventsController } from './race-events.controller';
 import { RaceEventsService } from './race-events.service';
 import { RaceEventPersistence } from './race-events.persistence';
+import { RaceEventSearchService } from './helpers/race-event-search.service';
 import { RaceEvent } from '../entities/raceEvent.entity';
 import { WeatherModule } from '../weather/weather.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RaceEvent]), WeatherModule],
   controllers: [RaceEventsController],
-  providers: [RaceEventsService, RaceEventPersistence],
+  providers: [RaceEventsService, RaceEventPersistence, RaceEventSearchService],
 })
 export class RaceEventsModule {}

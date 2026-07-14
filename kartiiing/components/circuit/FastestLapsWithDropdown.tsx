@@ -151,7 +151,7 @@ export function FastestLapsWithDropdown({
 
   return (
     <section className={cn("space-y-2.5", className)}>
-      <div className="flex items-center gap-1.5 flex-wrap">
+      <div className="flex items-center gap-1.5 flex-wrap font-medium">
         <EngineStyledSelect
           label="Engine Type"
           options={engineTypeOptions}

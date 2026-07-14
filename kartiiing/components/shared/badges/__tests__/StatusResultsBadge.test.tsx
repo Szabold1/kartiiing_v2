@@ -1,11 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { StatusResultsBadge } from "../StatusResultsBadge";
-import {
-  IResultsLink,
-  RaceStatus,
-  type IRaceEvent,
-} from "@kartiiing/shared";
+import { IResultsLink, RaceStatus, type IRaceEvent } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
 
 const raceBase: IRaceEvent = buildRace();
@@ -45,16 +41,15 @@ describe("StatusResultsBadge", () => {
     expect(screen.getByText(RaceStatus.UPCOMING)).toBeInTheDocument();
   });
 
-  it("renders a single results link as an anchor", () => {
+  it("renders a single results link as a button", () => {
     const race = {
       ...raceBase,
       links: { results: RESULTS_LINKS.single },
     };
     render(<StatusResultsBadge race={race} />);
 
-    const link = screen.getByRole("link");
-    expect(link).toHaveAttribute("href", RESULTS_LINKS.single[0].url);
-    expect(link).toHaveAttribute("target", "_blank");
+    const button = screen.getByRole("button", { name: "Results" });
+    expect(button).toBeInTheDocument();
   });
 
   it("renders a dropdown trigger when multiple result links are provided", () => {
@@ -91,7 +86,7 @@ describe("StatusResultsBadge", () => {
     expect(badge).toHaveStyle({ height: "2rem" }); // 8 * 0.25 = 2
   });
 
-  it("applies height to the anchor when a single result link is shown", () => {
+  it("applies height to the button when a single result link is shown", () => {
     const race: IRaceEvent = {
       ...raceBase,
       status: undefined,
@@ -99,8 +94,8 @@ describe("StatusResultsBadge", () => {
     };
     render(<StatusResultsBadge race={race} heightValue="12" />);
 
-    const link = screen.getByRole("link");
-    expect(link).toHaveStyle({ height: "3rem" }); // 12 * 0.25 = 3
+    const button = screen.getByRole("button", { name: "Results" });
+    expect(button).toHaveStyle({ height: "3rem" }); // 12 * 0.25 = 3
   });
 
   it("applies height to the select trigger when multiple result links are shown", () => {

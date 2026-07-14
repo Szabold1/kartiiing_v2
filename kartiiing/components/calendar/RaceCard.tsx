@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { EngineCategory } from "@/components/shared/race-data/EngineCategory";
 import { StatusResultsBadge } from "@/components/shared/badges/StatusResultsBadge";
 import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
@@ -14,111 +14,106 @@ import {
 type Props = {
   race: IRaceEvent;
   variant?: "card" | "row";
+  headingLevel?: "h2" | "h3";
 };
 
-export function RaceCard({ race, variant = "card" }: Props) {
-  const router = useRouter();
+export function RaceCard({
+  race,
+  variant = "card",
+  headingLevel = "h3",
+}: Props) {
   const { id, date, circuit, categories } = race;
   const hasResults = race.links?.results && race.links.results.length > 0;
   const addDatePadding = variant === "row" && !race.status && !hasResults;
+  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
+  const href = getRaceUrl(race);
   const ariaLabel = `View details for ${race.title} at ${circuit?.locationName} - ${date.end}`;
-
-  const handleRaceClick = () => {
-    router.push(getRaceUrl(race));
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleRaceClick();
-    }
-  };
 
   if (variant === "row") {
     return (
-      <article
-        onClick={handleRaceClick}
-        className={cn(
-          "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-2xl",
-          lightDarkGlassHover,
-          race.status === RaceStatus.LIVE
-            ? liveContainerHover
-            : "border-transparent dark:border-transparent dark:bg-transparent shadow-none",
-        )}
-        id={`${id}`}
-        role="button"
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        aria-label={ariaLabel}
-      >
-        <div className="flex-1 flex items-center gap-4">
-          {race.status || hasResults ? (
-            <span
+      <article id={`${id}`}>
+        <Link
+          href={href}
+          aria-label={ariaLabel}
+          className={cn(
+            "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-2xl",
+            lightDarkGlassHover,
+            race.status === RaceStatus.LIVE
+              ? liveContainerHover
+              : "border-transparent dark:border-transparent dark:bg-transparent shadow-none",
+          )}
+        >
+          <div className="flex-1 flex items-center gap-4">
+            {race.status || hasResults ? (
+              <span
+                className={cn(
+                  addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]",
+                )}
+              >
+                <StatusResultsBadge
+                  race={race}
+                  className="px-3 rounded-lg"
+                  heightValue="9.5"
+                />
+              </span>
+            ) : null}
+            <RaceDate
+              date={date}
               className={cn(
-                addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]",
+                "text-sm text-muted-foreground min-w-[7rem] tracking-tight",
+                addDatePadding && "pl-2",
               )}
-            >
-              <StatusResultsBadge
-                race={race}
-                className="px-3 rounded-lg"
-                heightValue="9.5"
-              />
-            </span>
-          ) : null}
-          <RaceDate
-            date={date}
-            className={cn(
-              "text-sm text-muted-foreground min-w-[7rem] tracking-tight",
-              addDatePadding && "pl-2",
-            )}
-          />
-          <RaceLocation
-            circuit={circuit}
-            className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
-          />
-          <div className="font-semibold truncate flex-1">{race.title}</div>
-          <EngineCategory
-            engineCategoryPairs={categories}
-            className="ml-auto"
-            badgeClassName="px-2.5 py-2 xl:px-3"
-          />
-        </div>
+            />
+            <RaceLocation
+              circuit={circuit}
+              className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
+            />
+            <HeadingTag className="font-semibold truncate flex-1">
+              {race.title}
+            </HeadingTag>
+            <EngineCategory
+              engineCategoryPairs={categories}
+              className="ml-auto"
+              badgeClassName="px-2.5 py-2 xl:px-3"
+            />
+          </div>
+        </Link>
       </article>
     );
   }
 
   return (
-    <article
-      onClick={handleRaceClick}
-      className={cn(
-        "relative p-3.5 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
-        lightDarkGlassHover,
-        race.status === RaceStatus.LIVE && liveContainerHover,
-      )}
-      id={`${id}`}
-      role="button"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      aria-label={ariaLabel}
-    >
-      {race.status || hasResults ? (
-        <div className="absolute -top-0.5 -right-0.5">
-          <StatusResultsBadge
-            race={race}
-            className="pl-4 pr-3.5 rounded-bl-2xl"
-          />
-        </div>
-      ) : null}
-      <RaceDate
-        date={date}
-        className="leading-tight tracking-tighter text-muted-foreground"
-      />
-      <RaceLocation
-        circuit={circuit}
-        className="text-muted-foreground text-sm mt-1.5 font-medium"
-      />
-      <h3 className="font-semibold tracking-tight flex-1">{race.title}</h3>
-      <EngineCategory engineCategoryPairs={categories} className="mt-2" />
+    <article id={`${id}`}>
+      <Link
+        href={href}
+        aria-label={ariaLabel}
+        className={cn(
+          "relative p-3.5 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
+          lightDarkGlassHover,
+          race.status === RaceStatus.LIVE && liveContainerHover,
+        )}
+      >
+        {race.status || hasResults ? (
+          <div className="absolute -top-0.5 -right-0.5">
+            <StatusResultsBadge
+              race={race}
+              className="pl-4 pr-3.5 rounded-bl-2xl"
+            />
+          </div>
+        ) : null}
+        <RaceDate
+          date={date}
+          className="leading-tight tracking-tighter text-muted-foreground"
+        />
+        <RaceLocation
+          circuit={circuit}
+          className="text-muted-foreground text-sm mt-1.5 font-medium"
+        />
+        <HeadingTag className="font-semibold tracking-tight flex-1">
+          {race.title}
+        </HeadingTag>
+        <EngineCategory engineCategoryPairs={categories} className="mt-2" />
+      </Link>
     </article>
   );
 }

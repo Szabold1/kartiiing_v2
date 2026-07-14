@@ -6,10 +6,16 @@ import { CircuitMetric } from "@/components/shared/badges/CircuitMetricBadge";
 type Props = {
   circuit: ICircuit;
   showActions?: boolean;
+  headingLevel?: "h2" | "h3";
 };
 
-export function CircuitInfoContent({ circuit, showActions = true }: Props) {
+export function CircuitInfoContent({
+  circuit,
+  showActions = true,
+  headingLevel = "h3",
+}: Props) {
   const showDistance = circuit.distance != null;
+  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
 
   return (
     <div className="flex justify-between items-center flex-1">
@@ -18,9 +24,9 @@ export function CircuitInfoContent({ circuit, showActions = true }: Props) {
           circuit={circuit}
           className="text-muted-foreground text-sm font-medium"
         />
-        <h3 className="font-semibold tracking-tight truncate">
+        <HeadingTag className="font-semibold tracking-tight truncate">
           {circuit.name}
-        </h3>
+        </HeadingTag>
         {showDistance ? (
           <CircuitMetric value={circuit.distance!} type="distance" />
         ) : (

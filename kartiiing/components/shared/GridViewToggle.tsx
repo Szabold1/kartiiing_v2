@@ -10,7 +10,7 @@ interface Option<T extends string> {
 type Props<T extends string> = {
   viewMode: T;
   setViewMode: (mode: T) => void;
-  options: Option<T>[];
+  options: readonly Option<T>[];
   className?: string;
 };
 

@@ -50,6 +50,7 @@ export function CircuitsGrid({
             key={circuit.id}
             circuit={circuit}
             variant={showListView ? "row" : "card"}
+            headingLevel="h2"
           />
         ))}
 

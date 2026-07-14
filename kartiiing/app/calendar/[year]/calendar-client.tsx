@@ -9,7 +9,7 @@ import { RacesGrid } from "@/components/calendar/RacesGrid";
 import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
 import {
   IRaceEvent,
-  RaceEventSortOptions,
+  CalendarOrderPreset,
   IPaginatedResponse,
 } from "@kartiiing/shared";
 import { getRaceEvents } from "@/lib/api";
@@ -18,20 +18,14 @@ import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
 type Props = {
   initialData: IPaginatedResponse<IRaceEvent>;
   year: string;
-  initialSort: RaceEventSortOptions;
+  initialSort: CalendarOrderPreset;
 };
 
 const PAGE_SIZE = 20;
 
 export function CalendarClient({ initialData, year, initialSort }: Props) {
-  const normalizedInitialSort =
-    initialSort === RaceEventSortOptions.DESC
-      ? RaceEventSortOptions.DESC
-      : RaceEventSortOptions.ASC;
   const [loading, setLoading] = useState(false);
-  const [sortOrder, setSortOrder] = useState<RaceEventSortOptions>(
-    normalizedInitialSort,
-  );
+  const [preset, setPreset] = useState<CalendarOrderPreset>(initialSort);
   const [searchQuery, setSearchQuery] = useState("");
   const { sectionRef, sectionWidth } = useSectionWidth();
 
@@ -39,12 +33,12 @@ export function CalendarClient({ initialData, year, initialSort }: Props) {
     (page: number, limit: number) =>
       getRaceEvents({
         year: year === "all" ? undefined : year.toString(),
-        sort: sortOrder,
+        preset,
         search: searchQuery.trim() || undefined,
         page,
         limit,
       }),
-    [year, sortOrder, searchQuery],
+    [year, preset, searchQuery],
   );
 
   const {
@@ -59,11 +53,11 @@ export function CalendarClient({ initialData, year, initialSort }: Props) {
     fetchFn: fetchRaces,
     initialData,
     pageSize: PAGE_SIZE,
-    resetDeps: [searchQuery, sortOrder, year],
+    resetDeps: [searchQuery, preset, year],
   });
 
   useEffect(() => {
-    if (!searchQuery.trim() && sortOrder === normalizedInitialSort) {
+    if (!searchQuery.trim() && preset === initialSort) {
       reset();
       return;
     }
@@ -89,42 +83,19 @@ export function CalendarClient({ initialData, year, initialSort }: Props) {
     return () => clearTimeout(debounceTimer);
   }, [
     searchQuery,
-    sortOrder,
+    preset,
     fetchRaces,
     reset,
     replaceData,
     initialData,
-    normalizedInitialSort,
+    initialSort,
   ]);
 
-  // Handle sort order change by navigating to new URL
-  const handleSortChange = useCallback(() => {
-    const newSortOrder =
-      sortOrder === RaceEventSortOptions.ASC
-        ? RaceEventSortOptions.DESC
-        : RaceEventSortOptions.ASC;
-
-    const sortParam =
-      newSortOrder === RaceEventSortOptions.DESC ? "desc" : "asc";
-
-    setSortOrder(newSortOrder);
-
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set("sort", sortParam);
-    window.history.replaceState(
-      window.history.state,
-      "",
-      currentUrl.pathname + currentUrl.search,
-    );
-  }, [sortOrder]);
-
-  // Render calendar actions (view toggle, sort toggle, next race button)
   function renderCalendarActions(small = false) {
     return (
       <CalendarActions
-        sortOrder={sortOrder}
-        onSortChange={handleSortChange}
-        races={displayedRaces}
+        preset={preset}
+        onPresetChange={setPreset}
         small={small}
       />
     );

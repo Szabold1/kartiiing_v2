@@ -22,7 +22,7 @@ function process(data: unknown) {
 
 ### Formatting
 
-All code is formatted with Prettier (via ESLint). Do not add `// eslint-disable` or `// prettier-ignore` comments to silence rules — if a rule is genuinely wrong for this project, disable it in `eslint.config.mjs` with a comment explaining why.
+All code is formatted with Prettier (via ESLint). Do not add `// eslint-disable` or `// prettier-ignore` comments to silence rules — if a rule is genuinely wrong for this project, disable it in `eslint.config.mjs` with a comment explaining why. The exception is suppressing React Hook dependency warnings in `useEffect` — you may use `// eslint-disable-next-line react-hooks/exhaustive-deps` with a comment explaining **why** the dependency is intentionally omitted.
 
 ---
 
@@ -101,6 +101,34 @@ lib/stores/
 - Export the hook as a named export
 - Keep selectors typed
 - Mock stores at the module boundary in tests with `vi.mock`
+
+### Use `useShallow` When Accessing Multiple Values
+
+When a component selects more than one value from a Zustand store, wrap the selector with `useShallow` from `zustand/shallow` to avoid unnecessary re-renders. This performs a shallow comparison of the returned object to decide if the component should re-render.
+
+```typescript
+// ❌ Bad — multiple individual selectors cause separate subscriptions
+const userLocation = useUserLocationStore((s) => s.userLocation);
+const locationUnavailable = useUserLocationStore((s) => s.locationUnavailable);
+const initializeLocation = useUserLocationStore((s) => s.initialize);
+
+// ✅ Good — single subscription with shallow equality check
+import { useShallow } from "zustand/shallow";
+
+const { userLocation, locationUnavailable, initializeLocation } =
+  useUserLocationStore(
+    useShallow((s) => ({
+      userLocation: s.userLocation,
+      locationUnavailable: s.locationUnavailable,
+      initializeLocation: s.initialize,
+    })),
+  );
+```
+
+- Import `useShallow` from `zustand/shallow` (not `zustand/react`)
+- Use it as the second argument to the store hook: `useStore(useShallow(selector))`
+- Single-value selectors (e.g., `useStore((s) => s.userLocation)`) don't need `useShallow` — they use referential equality by default
+- When mocking stores in tests, mock the store hook itself (`vi.mock`) rather than `useShallow`
 
 ---
 

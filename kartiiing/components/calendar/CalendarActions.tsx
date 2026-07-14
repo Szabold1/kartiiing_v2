@@ -1,54 +1,33 @@
 import { GridViewToggle } from "@/components/shared/GridViewToggle";
-import { SortOrderToggle } from "./SortOrderToggle";
-import { NextRaceBtn } from "./NextRaceBtn";
-import { Grid, List } from "lucide-react";
-import { CalendarViewMode } from "@/lib/constants/calendar";
-import { useCalendarStore } from "@/lib/stores/calendarStore";
+import { OrderDropdown } from "@/components/shared/OrderDropdown";
 import {
-  IRaceEvent,
-  RaceEventSortOptions,
-  RaceStatus,
-} from "@kartiiing/shared";
+  CALENDAR_PRESETS,
+  CALENDAR_VIEW_OPTIONS,
+} from "@/lib/constants/calendar";
+import { useCalendarStore } from "@/lib/stores/calendarStore";
+import { CalendarOrderPreset } from "@kartiiing/shared";
 
 type Props = {
-  sortOrder: RaceEventSortOptions;
-  onSortChange: () => void;
-  races: IRaceEvent[];
+  preset: CalendarOrderPreset;
+  onPresetChange: (preset: CalendarOrderPreset) => void;
   small?: boolean;
 };
 
 export function CalendarActions({
-  sortOrder,
-  onSortChange,
-  races,
+  preset,
+  onPresetChange,
   small = false,
 }: Props) {
   const { viewMode, setViewMode } = useCalendarStore();
 
-  // Calculate from races
-  const hasLiveOrUpNext = races.some(
-    (r) => r.status === RaceStatus.LIVE || r.status === RaceStatus.UPNEXT,
-  );
-
-  const options = [
-    {
-      value: CalendarViewMode.GRID,
-      icon: <Grid className="size-4" />,
-      label: "Grid view",
-    },
-    {
-      value: CalendarViewMode.LIST,
-      icon: <List className="size-4" />,
-      label: "List view",
-    },
-  ];
-
   const alwaysDisplay = () => {
     return (
-      <>
-        <SortOrderToggle sortOrder={sortOrder} onToggle={onSortChange} />
-        {hasLiveOrUpNext && <NextRaceBtn races={races} />}
-      </>
+      <OrderDropdown
+        value={preset}
+        onChange={onPresetChange}
+        presets={CALENDAR_PRESETS}
+        className="text-foreground"
+      />
     );
   };
 
@@ -61,7 +40,7 @@ export function CalendarActions({
       <GridViewToggle
         viewMode={viewMode}
         setViewMode={setViewMode}
-        options={options}
+        options={CALENDAR_VIEW_OPTIONS}
       />
       {alwaysDisplay()}
     </div>

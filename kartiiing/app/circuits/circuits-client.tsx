@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useShallow } from "zustand/shallow";
 import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
 import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
+import { useUserLocationStore } from "@/lib/stores/userLocationStore";
 import { LIST_VIEW_BREAKPOINT } from "@/lib/constants/layout";
 import { SearchHeader } from "@/components/shared/SearchHeader";
 import { CircuitsActions } from "@/components/circuits/CircuitsActions";
@@ -13,6 +15,7 @@ import {
   ICircuit,
   ICircuitCoordinate,
   IPaginatedResponse,
+  CircuitsOrderPreset,
 } from "@kartiiing/shared";
 
 type Props = {
@@ -22,10 +25,33 @@ type Props = {
 
 const PAGE_SIZE = 20;
 
+const DISTANCE_PRESETS = [
+  CircuitsOrderPreset.DISTANCE_ASC,
+  CircuitsOrderPreset.DISTANCE_DESC,
+];
+
 export function CircuitsClient({ initialData, coordinates }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [preset, setPreset] = useState<CircuitsOrderPreset>(
+    CircuitsOrderPreset.LOCATION_ASC,
+  );
+
+  const { userLocation, locationUnavailable, initializeLocation } =
+    useUserLocationStore(
+      useShallow((s) => ({
+        userLocation: s.userLocation,
+        locationUnavailable: s.locationUnavailable,
+        initializeLocation: s.initialize,
+      })),
+    );
+
   const { sectionRef, sectionWidth } = useSectionWidth();
+
+  // Resolve user location once on mount for distance presets
+  useEffect(() => {
+    initializeLocation();
+  }, [initializeLocation]);
 
   const fetchCircuits = useCallback(
     (page: number, limit: number) =>
@@ -33,8 +59,11 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
         page,
         limit,
         search: searchQuery.trim() || undefined,
+        preset,
+        latitude: userLocation?.latitude,
+        longitude: userLocation?.longitude,
       }),
-    [searchQuery],
+    [searchQuery, preset, userLocation],
   );
 
   const {
@@ -49,47 +78,61 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
     fetchFn: fetchCircuits,
     initialData,
     pageSize: PAGE_SIZE,
-    resetDeps: [searchQuery],
+    resetDeps: [searchQuery, preset, userLocation],
   });
 
-  // Server-side search: replace accumulated data with search results
+  // Server-side search and preset changes: replace accumulated data
   useEffect(() => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() && preset === CircuitsOrderPreset.LOCATION_ASC) {
       reset();
       return;
     }
 
-    const performSearch = async () => {
+    const performFetch = async () => {
       setLoading(true);
       try {
-        const response = await getCircuits({
-          page: 1,
-          limit: PAGE_SIZE,
-          search: searchQuery.trim(),
-        });
+        const response = await fetchCircuits(1, PAGE_SIZE);
         replaceData(
           response.data,
           response.meta.totalItems,
           response.meta.hasNextPage,
         );
       } catch (error) {
-        console.error("Error searching circuits:", error);
+        console.error("Error fetching circuits:", error);
         replaceData([], 0, false);
       } finally {
         setLoading(false);
       }
     };
 
-    const debounceTimer = setTimeout(performSearch, 300);
+    const debounceTimer = setTimeout(performFetch, 300);
     return () => clearTimeout(debounceTimer);
-  }, [searchQuery, initialData, reset, replaceData]);
+  }, [searchQuery, preset, userLocation, fetchCircuits, reset, replaceData]);
 
   const handleSearchQueryChange = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
 
+  const handlePresetChange = useCallback(
+    (newPreset: CircuitsOrderPreset) => {
+      if (!userLocation && DISTANCE_PRESETS.includes(newPreset)) {
+        return;
+      }
+      setPreset(newPreset);
+    },
+    [userLocation],
+  );
+
   function renderCircuitsActions(small = false) {
-    return <CircuitsActions coordinates={coordinates} small={small} />;
+    return (
+      <CircuitsActions
+        coordinates={coordinates}
+        preset={preset}
+        onPresetChange={handlePresetChange}
+        locationUnavailable={locationUnavailable}
+        small={small}
+      />
+    );
   }
 
   const showGridToggle = sectionWidth >= LIST_VIEW_BREAKPOINT;

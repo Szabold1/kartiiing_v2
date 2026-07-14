@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { RaceEventSortOptions, RaceStatus } from "@kartiiing/shared";
-import { buildRace } from "@/test/fixtures";
+import { CalendarOrderPreset } from "@kartiiing/shared";
 import { CalendarViewMode } from "@/lib/constants/calendar";
 import { CalendarActions } from "../CalendarActions";
 
@@ -19,55 +18,22 @@ describe("CalendarActions", () => {
     mockSetViewMode.mockClear();
   });
 
-  it("renders sort toggle always", () => {
+  it("renders SortDropdown", () => {
     render(
       <CalendarActions
-        sortOrder={RaceEventSortOptions.ASC}
-        onSortChange={vi.fn()}
-        races={[buildRace()]}
+        preset={CalendarOrderPreset.ALL_ASC}
+        onPresetChange={vi.fn()}
       />,
     );
 
-    expect(
-      screen.getByRole("button", { name: /ascending/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("renders NextRaceBtn when live or upcoming races exist", () => {
-    const races = [buildRace({ status: RaceStatus.LIVE })];
-    render(
-      <CalendarActions
-        sortOrder={RaceEventSortOptions.ASC}
-        onSortChange={vi.fn()}
-        races={races}
-      />,
-    );
-
-    expect(
-      screen.getByRole("button", { name: /race now/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("does not render NextRaceBtn when no live or upcoming races", () => {
-    render(
-      <CalendarActions
-        sortOrder={RaceEventSortOptions.ASC}
-        onSortChange={vi.fn()}
-        races={[buildRace()]}
-      />,
-    );
-
-    expect(
-      screen.queryByRole("button", { name: /next race|race now/i }),
-    ).not.toBeInTheDocument();
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
   });
 
   it("renders GridListViewToggle in normal mode", () => {
     render(
       <CalendarActions
-        sortOrder={RaceEventSortOptions.ASC}
-        onSortChange={vi.fn()}
-        races={[buildRace()]}
+        preset={CalendarOrderPreset.ALL_ASC}
+        onPresetChange={vi.fn()}
       />,
     );
 
@@ -79,9 +45,8 @@ describe("CalendarActions", () => {
   it("does not render GridListViewToggle in small mode", () => {
     render(
       <CalendarActions
-        sortOrder={RaceEventSortOptions.ASC}
-        onSortChange={vi.fn()}
-        races={[buildRace()]}
+        preset={CalendarOrderPreset.ALL_ASC}
+        onPresetChange={vi.fn()}
         small
       />,
     );

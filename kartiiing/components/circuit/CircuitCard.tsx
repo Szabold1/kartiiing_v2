@@ -2,16 +2,25 @@ import { ICircuit } from "@kartiiing/shared";
 import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
 import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
 import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
+import { CircuitMetric } from "@/components/shared/badges/CircuitMetricBadge";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
-import { getCircuitLengthDisplay } from "@/lib/utils/circuitUtils";
 
 type Props = {
   circuit: ICircuit;
   variant?: "card" | "row";
+  headingLevel?: "h2" | "h3";
 };
 
-export function CircuitCard({ circuit, variant = "card" }: Props) {
+export function CircuitCard({
+  circuit,
+  variant = "card",
+  headingLevel = "h3",
+}: Props) {
+  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
+
   if (variant === "row") {
+    const showDistance = circuit.distance != null;
+
     return (
       <article
         className={cn(
@@ -25,10 +34,14 @@ export function CircuitCard({ circuit, variant = "card" }: Props) {
             circuit={circuit}
             className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
           />
-          <h3 className="font-semibold truncate flex-1">{circuit.name}</h3>
-          <span className="text-sm text-muted-foreground min-w-[5rem]">
-            {getCircuitLengthDisplay(circuit)}
-          </span>
+          <HeadingTag className="font-semibold truncate flex-1">
+            {circuit.name}
+          </HeadingTag>
+          {showDistance ? (
+            <CircuitMetric value={circuit.distance!} type="distance" />
+          ) : (
+            <CircuitMetric value={circuit.length} type="length" />
+          )}
           <CircuitActionLinks
             circuit={circuit}
             className="flex gap-1.5 min-w-[5.5rem] justify-end"
@@ -45,7 +58,7 @@ export function CircuitCard({ circuit, variant = "card" }: Props) {
         lightDarkGlassHover,
       )}
     >
-      <CircuitInfoContent circuit={circuit} />
+      <CircuitInfoContent circuit={circuit} headingLevel={headingLevel} />
     </article>
   );
 }

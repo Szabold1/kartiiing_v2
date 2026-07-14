@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { badgeBase, ENGINE_COLORS, grayGlassBase } from "@/lib/utils";
+import { EngineColorVariant } from "@/lib/constants/categories";
+import { badgeBase, getColorsForEngine, GLASS_REGISTRY } from "@/lib/utils";
 import { CategoryBadge } from "../CategoryBadge";
 
 const LABELS = {
@@ -36,7 +37,7 @@ describe("CategoryBadge", () => {
     render(<CategoryBadge label={LABELS.kz} engineType={ENGINES.kz} />);
 
     expect(screen.getByText(LABELS.kz)).toHaveClass(
-      ...ENGINE_COLORS[ENGINES.kz].split(" "),
+      ...getColorsForEngine(ENGINES.kz, EngineColorVariant.BASE).split(" "),
     );
   });
 
@@ -46,7 +47,7 @@ describe("CategoryBadge", () => {
     );
 
     expect(screen.getByText(LABELS.kz)).toHaveClass(
-      ...ENGINE_COLORS[ENGINES.kz].split(" "),
+      ...getColorsForEngine(ENGINES.kz, EngineColorVariant.BASE).split(" "),
     );
   });
 
@@ -56,7 +57,7 @@ describe("CategoryBadge", () => {
     );
 
     expect(screen.getByText(LABELS.custom)).toHaveClass(
-      ...grayGlassBase.split(" "),
+      ...GLASS_REGISTRY.gray.base.split(" "),
     );
   });
 
@@ -71,7 +72,7 @@ describe("CategoryBadge", () => {
 
     expect(screen.getByText(LABELS.rotax)).toHaveClass(
       "tracking-wide",
-      ...ENGINE_COLORS[ENGINES.rotax].split(" "),
+      ...getColorsForEngine(ENGINES.rotax, EngineColorVariant.BASE).split(" "),
     );
   });
 });

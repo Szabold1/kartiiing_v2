@@ -4,11 +4,18 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import { CircuitsActions } from "../CircuitsActions";
 import * as circuitsStore from "@/lib/stores/circuitsStore";
 import { CircuitsViewMode } from "@/lib/constants/circuits";
+import { CircuitsOrderPreset, ICircuitCoordinate } from "@kartiiing/shared";
 
 const GRID_VIEW_LABEL = "Grid view";
 const LIST_VIEW_LABEL = "List view";
 const OPEN_MAP_LABEL = "Open map view";
 const CLOSE_MAP_LABEL = "Close map";
+
+const DEFAULT_PROPS = {
+  coordinates: [] as ICircuitCoordinate[],
+  preset: CircuitsOrderPreset.LOCATION_ASC,
+  onPresetChange: vi.fn(),
+};
 
 vi.mock("@/lib/stores/circuitsStore", () => ({
   useCircuitsStore: vi.fn(),
@@ -39,7 +46,7 @@ describe("CircuitsActions", () => {
   });
 
   it("renders the MapButton", () => {
-    render(<CircuitsActions coordinates={[]} />);
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
       screen.getByRole("button", { name: OPEN_MAP_LABEL }),
@@ -47,7 +54,7 @@ describe("CircuitsActions", () => {
   });
 
   it("renders GridViewToggle options by default", () => {
-    render(<CircuitsActions coordinates={[]} />);
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
       screen.getByRole("button", { name: GRID_VIEW_LABEL }),
@@ -58,7 +65,7 @@ describe("CircuitsActions", () => {
   });
 
   it("does not render GridViewToggle in small mode", () => {
-    render(<CircuitsActions coordinates={[]} small />);
+    render(<CircuitsActions {...DEFAULT_PROPS} small />);
 
     expect(
       screen.queryByRole("button", { name: GRID_VIEW_LABEL }),
@@ -70,7 +77,7 @@ describe("CircuitsActions", () => {
 
   it("opens the map modal when MapButton is clicked", async () => {
     const user = userEvent.setup();
-    render(<CircuitsActions coordinates={[]} />);
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
       screen.queryByRole("button", { name: CLOSE_MAP_LABEL }),
@@ -85,7 +92,7 @@ describe("CircuitsActions", () => {
 
   it("closes the map modal when close button is clicked", async () => {
     const user = userEvent.setup();
-    render(<CircuitsActions coordinates={[]} />);
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     await user.click(screen.getByRole("button", { name: OPEN_MAP_LABEL }));
     expect(
@@ -106,10 +113,100 @@ describe("CircuitsActions", () => {
     });
     const user = userEvent.setup();
 
-    render(<CircuitsActions coordinates={[]} />);
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     await user.click(screen.getByRole("button", { name: LIST_VIEW_LABEL }));
 
     expect(setViewMode).toHaveBeenCalledWith(CircuitsViewMode.LIST);
+  });
+
+  it("renders the OrderDropdown", () => {
+    render(<CircuitsActions {...DEFAULT_PROPS} />);
+
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
+  });
+
+  it("renders OrderDropdown with the current preset label", () => {
+    render(
+      <CircuitsActions
+        {...DEFAULT_PROPS}
+        preset={CircuitsOrderPreset.LOCATION_ASC}
+      />,
+    );
+
+    const combobox = screen.getByRole("combobox");
+    expect(combobox).toHaveTextContent("Location name");
+  });
+
+  it("calls onPresetChange when a new preset is selected", async () => {
+    // Suppress known Radix UI / JSDOM incompatibilities
+    const originalHasPointerCapture = Element.prototype.hasPointerCapture;
+    const originalScrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.hasPointerCapture = vi.fn();
+    Element.prototype.scrollIntoView = vi.fn();
+
+    const onPresetChange = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <CircuitsActions {...DEFAULT_PROPS} onPresetChange={onPresetChange} />,
+    );
+
+    const combobox = screen.getByRole("combobox");
+    await user.click(combobox);
+
+    const options = await screen.findAllByRole("option");
+    // Length appears twice (ASC/DESC). Click the first one.
+    const lengthOption = options.find((o) => o.textContent?.includes("Length"));
+    expect(lengthOption).toBeDefined();
+    await user.click(lengthOption!);
+
+    expect(onPresetChange).toHaveBeenCalledWith(CircuitsOrderPreset.LENGTH_ASC);
+
+    Element.prototype.hasPointerCapture = originalHasPointerCapture;
+    Element.prototype.scrollIntoView = originalScrollIntoView;
+  });
+
+  it("filters out distance presets from the dropdown when location is unavailable", async () => {
+    // Suppress known Radix UI / JSDOM incompatibilities
+    const originalHasPointerCapture = Element.prototype.hasPointerCapture;
+    const originalScrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.hasPointerCapture = vi.fn();
+    Element.prototype.scrollIntoView = vi.fn();
+
+    const user = userEvent.setup();
+    render(<CircuitsActions {...DEFAULT_PROPS} locationUnavailable />);
+
+    await user.click(screen.getByRole("combobox"));
+
+    const options = await screen.findAllByRole("option");
+    const optionLabels = options.map((o) => o.textContent?.trim());
+
+    expect(optionLabels).not.toContain("Distance");
+    expect(optionLabels.filter((l) => l?.startsWith("Length"))).toHaveLength(2);
+
+    Element.prototype.hasPointerCapture = originalHasPointerCapture;
+    Element.prototype.scrollIntoView = originalScrollIntoView;
+  });
+
+  it("shows distance presets in the dropdown when location is available", async () => {
+    // Suppress known Radix UI / JSDOM incompatibilities
+    const originalHasPointerCapture = Element.prototype.hasPointerCapture;
+    const originalScrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.hasPointerCapture = vi.fn();
+    Element.prototype.scrollIntoView = vi.fn();
+
+    const user = userEvent.setup();
+    render(<CircuitsActions {...DEFAULT_PROPS} locationUnavailable={false} />);
+
+    await user.click(screen.getByRole("combobox"));
+
+    const options = await screen.findAllByRole("option");
+    const optionLabels = options.map((o) => o.textContent?.trim());
+
+    expect(optionLabels.filter((l) => l === "Distance")).toHaveLength(2);
+
+    Element.prototype.hasPointerCapture = originalHasPointerCapture;
+    Element.prototype.scrollIntoView = originalScrollIntoView;
   });
 });

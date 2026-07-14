@@ -50,17 +50,17 @@ export function StatusResultsBadge({
 
     if (resultLinks.length === 1) {
       return (
-        <a
-          href={resultLinks[0].url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            openLinkInNewTab(resultLinks[0].url);
+          }}
           className={resultsClasses}
           style={{ height: calculatedHeight }}
           title="View results"
         >
           Results <ExternalLink className="w-3 h-3 mx-0.5" />
-        </a>
+        </button>
       );
     }
 
@@ -68,6 +68,7 @@ export function StatusResultsBadge({
       <Select value="" onValueChange={(url) => openLinkInNewTab(url)}>
         <SelectTrigger
           onClick={(e) => e.stopPropagation()}
+          aria-label="Results"
           className={cn(
             "cursor-pointer rounded-none !text-gray-600 dark:!text-gray-400 transition",
             resultsClasses,

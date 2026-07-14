@@ -1,21 +1,31 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import { RaceStatus } from "@kartiiing/shared";
 import { buildRace } from "@/test/fixtures";
 import { RaceCard } from "../RaceCard";
 
 const RACE_TITLE = "Test Race 2025";
 const RACE_DATE_STRING = "01 - 04 Jun";
-const push = vi.fn();
+const RACE_HREF = "/race/test-race-2025/1";
 
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push }),
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
 }));
 
 describe("RaceCard", () => {
   beforeEach(() => {
-    push.mockClear();
+    vi.clearAllMocks();
   });
 
   const race = buildRace({
@@ -40,38 +50,18 @@ describe("RaceCard", () => {
     expect(screen.getByText(race.circuit.locationName)).toBeInTheDocument();
   });
 
-  it("calls router.push with the correct URL on click", async () => {
-    const user = userEvent.setup();
+  it("renders a link with the correct href", () => {
     render(<RaceCard race={race} />);
 
-    await user.click(screen.getByRole("button"));
-
-    expect(push).toHaveBeenCalledWith(`/race/${race.slug}/${race.id}`);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", RACE_HREF);
   });
 
-  it("supports keyboard navigation with Enter", async () => {
-    const user = userEvent.setup();
-    render(<RaceCard race={race} />);
-
-    await user.type(screen.getByRole("button"), "{Enter}");
-
-    expect(push).toHaveBeenCalledWith(`/race/${race.slug}/${race.id}`);
-  });
-
-  it("supports keyboard navigation with Space", async () => {
-    const user = userEvent.setup();
-    render(<RaceCard race={race} />);
-
-    await user.type(screen.getByRole("button"), " ");
-
-    expect(push).toHaveBeenCalledWith(`/race/${race.slug}/${race.id}`);
-  });
-
-  it("sets correct aria-label", () => {
+  it("sets correct aria-label on the link", () => {
     render(<RaceCard race={race} />);
 
     expect(
-      screen.getByRole("button", {
+      screen.getByRole("link", {
         name: `View details for ${race.title} at ${race.circuit.locationName} - ${race.date.end}`,
       }),
     ).toBeInTheDocument();
@@ -81,8 +71,8 @@ describe("RaceCard", () => {
     const liveRace = buildRace({ status: RaceStatus.LIVE });
     render(<RaceCard race={liveRace} />);
 
-    const article = screen.getByRole("button");
-    expect(article).toHaveClass("bg-red-100/50");
+    const link = screen.getByRole("link");
+    expect(link).toHaveClass("bg-red-100/50");
   });
 
   it("renders StatusResultsBadge when race has a status", () => {
@@ -98,7 +88,9 @@ describe("RaceCard", () => {
     });
     render(<RaceCard race={raceWithResults} />);
 
-    expect(screen.getByRole("link")).toBeInTheDocument();
+    // The badge renders a button (not a link) to avoid nested <a> tags
+    const button = screen.getByRole("button", { name: "Results" });
+    expect(button).toBeInTheDocument();
   });
 
   // --- row variant ---
@@ -110,10 +102,28 @@ describe("RaceCard", () => {
     expect(screen.getByText(RACE_DATE_STRING)).toBeInTheDocument();
   });
 
-  it("applies row-specific classes in list view", () => {
+  it("applies row-specific styling in list view", () => {
     render(<RaceCard race={race} variant="row" />);
 
-    const article = screen.getByRole("button");
-    expect(article).toHaveClass("flex");
+    const link = screen.getByRole("link");
+    expect(link).toHaveClass("flex");
+  });
+
+  // --- heading levels ---
+
+  it("renders the race title as an h2 heading when headingLevel is h2", () => {
+    render(<RaceCard race={race} headingLevel="h2" />);
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: RACE_TITLE }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the race title with h3 by default", () => {
+    render(<RaceCard race={race} />);
+
+    expect(
+      screen.getByRole("heading", { level: 3, name: RACE_TITLE }),
+    ).toBeInTheDocument();
   });
 });

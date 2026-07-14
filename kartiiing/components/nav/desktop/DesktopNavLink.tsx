@@ -3,7 +3,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { cn, navLinkActive } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   href: string;
   match?: "exact" | "startsWith";
   matchPath?: string;
-}
+};
 
 export function DesktopNavLink({
   children,
@@ -32,10 +32,7 @@ export function DesktopNavLink({
     <NavigationMenuItem>
       <NavigationMenuLink
         asChild
-        className={cn(
-          "tracking-wide",
-          isActive && "text-green-600 dark:text-green-500",
-        )}
+        className={cn("tracking-wide", isActive && navLinkActive)}
       >
         <Link href={href}>{children}</Link>
       </NavigationMenuLink>

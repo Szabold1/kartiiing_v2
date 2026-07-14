@@ -64,6 +64,7 @@ export function RacesGrid({
 
   const racesByYear = groupRacesByYear(races);
   const showYearHeaders = isAllYearsView || racesByYear.length > 1;
+  const headingLevel = showYearHeaders ? ("h3" as const) : ("h2" as const);
 
   return (
     <div className="space-y-8">
@@ -84,6 +85,7 @@ export function RacesGrid({
                 key={race.id}
                 race={race}
                 variant={showListView ? "row" : "card"}
+                headingLevel={headingLevel}
               />
             ))}
           </div>

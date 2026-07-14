@@ -8,9 +8,16 @@ import { cn, lightDarkGlassHover } from "@/lib/utils";
 type Props = {
   circuit: ICircuit;
   variant?: "card" | "row";
+  headingLevel?: "h2" | "h3";
 };
 
-export function CircuitCard({ circuit, variant = "card" }: Props) {
+export function CircuitCard({
+  circuit,
+  variant = "card",
+  headingLevel = "h3",
+}: Props) {
+  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
+
   if (variant === "row") {
     const showDistance = circuit.distance != null;
 
@@ -27,7 +34,9 @@ export function CircuitCard({ circuit, variant = "card" }: Props) {
             circuit={circuit}
             className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
           />
-          <h3 className="font-semibold truncate flex-1">{circuit.name}</h3>
+          <HeadingTag className="font-semibold truncate flex-1">
+            {circuit.name}
+          </HeadingTag>
           {showDistance ? (
             <CircuitMetric value={circuit.distance!} type="distance" />
           ) : (
@@ -49,7 +58,7 @@ export function CircuitCard({ circuit, variant = "card" }: Props) {
         lightDarkGlassHover,
       )}
     >
-      <CircuitInfoContent circuit={circuit} />
+      <CircuitInfoContent circuit={circuit} headingLevel={headingLevel} />
     </article>
   );
 }

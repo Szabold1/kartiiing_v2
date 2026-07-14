@@ -41,6 +41,7 @@ export function OrderDropdown<T extends string>({
       <SelectTrigger
         className={cn("h-10.5! cursor-pointer text-sm font-medium", className)}
         suppressHydrationWarning
+        aria-label="Sort order"
       >
         <SelectValue>
           <span className="flex items-center gap-1.5">

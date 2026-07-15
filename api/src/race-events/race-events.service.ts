@@ -8,6 +8,7 @@ import {
   IWeatherDataDay,
   IRaceEventDateMinimal,
   RaceStatus,
+  emptyPaginatedResponse,
 } from '@kartiiing/shared';
 import {
   toIRaceEvent,
@@ -134,9 +135,7 @@ export class RaceEventsService {
     const paginatedEvents = filteredEvents.slice(skip, skip + pageSize);
 
     if (paginatedEvents.length === 0) {
-      throw new NotFoundException(
-        year ? `No race events found for year ${year}` : `No race events found`,
-      );
+      return emptyPaginatedResponse<IRaceEvent>(pageNumber, pageSize);
     }
 
     const data = this.transformEvents(paginatedEvents, includeStatus);

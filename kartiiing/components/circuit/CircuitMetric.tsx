@@ -1,6 +1,7 @@
 import { Ruler, Route } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUserLocationStore } from "@/lib/stores/userLocationStore";
+import type { ICircuitLayout } from "@kartiiing/shared";
 
 type MetricType = "length" | "distance";
 
@@ -8,6 +9,7 @@ type Props = {
   value: number;
   type: MetricType;
   className?: string;
+  layouts?: ICircuitLayout[];
 };
 
 const ICON_MAP: Record<MetricType, typeof Ruler> = {
@@ -24,14 +26,29 @@ function getTooltip(type: MetricType, locationName?: string): string {
   return "Circuit length";
 }
 
-function formatValue(value: number, type: MetricType): string {
+function formatValue(
+  value: number,
+  type: MetricType,
+  layouts?: ICircuitLayout[],
+): string {
   if (type === "distance") {
     return Math.round(value) + " km";
   }
+
+  if (layouts && layouts.length > 1) {
+    const lengths = layouts.map((l) => l.length);
+    const min = Math.min(...lengths);
+    const max = Math.max(...lengths);
+
+    if (min !== max) {
+      return `${min} - ${max} m`;
+    }
+  }
+
   return `${value} m`;
 }
 
-export function CircuitMetric({ value, type, className }: Props) {
+export function CircuitMetric({ value, type, className, layouts }: Props) {
   const locationName = useUserLocationStore((state) => state.locationName);
 
   if (value == null || value <= 0) return null;
@@ -47,7 +64,7 @@ export function CircuitMetric({ value, type, className }: Props) {
       )}
     >
       <Icon size={14} />
-      {formatValue(value, type)}
+      {formatValue(value, type, layouts)}
     </span>
   );
 

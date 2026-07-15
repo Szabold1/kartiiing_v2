@@ -12,6 +12,15 @@ import { useUserLocationStore } from "@/lib/stores/userLocationStore";
 const VISIT_LINK_LABEL = "Visit circuit website";
 const MAPS_LINK_LABEL = "Open in Google Maps";
 
+const MULTI_LAYOUT_CIRCUIT = buildCircuitDetail({
+  name: "Test Circuit",
+  length: 1200,
+  layouts: [
+    { id: 1, name: "Short", length: 855 },
+    { id: 2, name: "Full", length: 1200 },
+  ],
+});
+
 describe("CircuitInfoContent", () => {
   beforeEach(() => {
     vi.mocked(useUserLocationStore).mockImplementation((selector: unknown) => {
@@ -95,5 +104,23 @@ describe("CircuitInfoContent", () => {
 
     expect(screen.queryByText(/\d+ m/)).not.toBeInTheDocument();
     expect(screen.queryByText(/\d+ km/)).not.toBeInTheDocument();
+  });
+
+  it("renders a range when circuit has multiple layouts by default", () => {
+    render(<CircuitInfoContent circuit={MULTI_LAYOUT_CIRCUIT} />);
+
+    expect(screen.getByText("855 - 1200 m")).toBeInTheDocument();
+  });
+
+  it("renders a single value when showLayoutRange is false", () => {
+    render(
+      <CircuitInfoContent
+        circuit={MULTI_LAYOUT_CIRCUIT}
+        showLayoutRange={false}
+      />,
+    );
+
+    expect(screen.getByText("1200 m")).toBeInTheDocument();
+    expect(screen.queryByText("855 - 1200 m")).not.toBeInTheDocument();
   });
 });

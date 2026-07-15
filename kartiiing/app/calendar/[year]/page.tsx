@@ -6,7 +6,8 @@ import {
 import { CalendarClient } from "./calendar-client";
 import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { PageWrapper } from "@/components/shared/PageWrapper";
-import { CalendarOrderPreset } from "@kartiiing/shared";
+import { CalendarOrderPreset, emptyPaginatedResponse } from "@kartiiing/shared";
+import type { IRaceEvent } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -59,13 +60,31 @@ export default async function CalendarPage({ params }: Props) {
   const { year } = await params;
 
   const initialPreset = CalendarOrderPreset.ALL_ASC;
-  const racesRes = await getRaceEvents({
-    year: year,
-    preset: initialPreset,
-    page: 1,
-    limit: 20,
-  });
-  const availableYears = await getAvailableYears();
+
+  let racesRes: Awaited<ReturnType<typeof getRaceEvents>>;
+  let serverError: string | undefined;
+  try {
+    racesRes = await getRaceEvents({
+      year: year,
+      preset: initialPreset,
+      page: 1,
+      limit: 20,
+    });
+  } catch (error) {
+    console.error("Error fetching race events:", error);
+    racesRes = emptyPaginatedResponse<IRaceEvent>(1, 20);
+    serverError =
+      "Failed to load races. Check your internet connection and try again.";
+  }
+
+  const currentYear = new Date().getFullYear();
+  let availableYears: number[];
+  try {
+    availableYears = await getAvailableYears();
+  } catch (error) {
+    console.error("Error fetching available years:", error);
+    availableYears = [currentYear];
+  }
   const years = ["all", ...availableYears] as (string | number)[];
 
   let description = "Race calendar - view upcoming and past events.";
@@ -87,6 +106,7 @@ export default async function CalendarPage({ params }: Props) {
         initialData={racesRes}
         year={year}
         initialSort={initialPreset}
+        serverError={serverError}
       />
     </PageWrapper>
   );

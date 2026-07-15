@@ -1,18 +1,20 @@
 import { ICircuit } from "@kartiiing/shared";
 import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
 import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
-import { CircuitMetric } from "@/components/shared/badges/CircuitMetricBadge";
+import { CircuitMetric } from "./CircuitMetric";
 
 type Props = {
   circuit: ICircuit;
   showActions?: boolean;
   headingLevel?: "h2" | "h3";
+  showLayoutRange?: boolean;
 };
 
 export function CircuitInfoContent({
   circuit,
   showActions = true,
   headingLevel = "h3",
+  showLayoutRange = true,
 }: Props) {
   const showDistance = circuit.distance != null;
   const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
@@ -30,7 +32,11 @@ export function CircuitInfoContent({
         {showDistance ? (
           <CircuitMetric value={circuit.distance!} type="distance" />
         ) : (
-          <CircuitMetric value={circuit.length} type="length" />
+          <CircuitMetric
+            value={circuit.length}
+            type="length"
+            layouts={showLayoutRange ? circuit.layouts : undefined}
+          />
         )}
       </div>
       {showActions && (

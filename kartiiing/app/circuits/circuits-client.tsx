@@ -10,6 +10,7 @@ import { SearchHeader } from "@/components/shared/SearchHeader";
 import { CircuitsActions } from "@/components/circuits/CircuitsActions";
 import { CircuitsGrid } from "@/components/circuits/CircuitsGrid";
 import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
+import { ErrorState } from "@/components/shared/ErrorState";
 import { getCircuits } from "@/lib/api";
 import {
   ICircuit,
@@ -21,6 +22,7 @@ import {
 type Props = {
   initialData: IPaginatedResponse<ICircuit>;
   coordinates: ICircuitCoordinate[];
+  serverError?: string;
 };
 
 const PAGE_SIZE = 20;
@@ -30,9 +32,14 @@ const DISTANCE_PRESETS = [
   CircuitsOrderPreset.DISTANCE_DESC,
 ];
 
-export function CircuitsClient({ initialData, coordinates }: Props) {
+export function CircuitsClient({
+  initialData,
+  coordinates,
+  serverError,
+}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [clientError, setClientError] = useState<string | null>(null);
   const [preset, setPreset] = useState<CircuitsOrderPreset>(
     CircuitsOrderPreset.LOCATION_ASC,
   );
@@ -83,6 +90,8 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
 
   // Server-side search and preset changes: replace accumulated data
   useEffect(() => {
+    setClientError(null);
+
     if (!searchQuery.trim() && preset === CircuitsOrderPreset.LOCATION_ASC) {
       reset();
       return;
@@ -99,7 +108,9 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
         );
       } catch (error) {
         console.error("Error fetching circuits:", error);
-        replaceData([], 0, false);
+        setClientError(
+          "Failed to load circuits. Check your internet connection and try again.",
+        );
       } finally {
         setLoading(false);
       }
@@ -155,12 +166,19 @@ export function CircuitsClient({ initialData, coordinates }: Props) {
         </div>
 
         <div className="my-4 py-4 border-t border-dashed">
-          <CircuitsGrid
-            circuits={displayedCircuits}
-            loading={loading}
-            sectionWidth={sectionWidth}
-            loadingMore={loadingMore}
-          />
+          {serverError || clientError ? (
+            <ErrorState
+              title="Something went wrong"
+              message={serverError || clientError || ""}
+            />
+          ) : (
+            <CircuitsGrid
+              circuits={displayedCircuits}
+              loading={loading}
+              sectionWidth={sectionWidth}
+              loadingMore={loadingMore}
+            />
+          )}
 
           {showSentinel && <div ref={sentinelRef} className="h-2 w-full" />}
         </div>

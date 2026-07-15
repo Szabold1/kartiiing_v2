@@ -39,7 +39,7 @@ export function CircuitInfo({ circuit, race }: Props) {
       </div>
 
       <div className="p-3.5">
-        <CircuitInfoContent circuit={circuit} />
+        <CircuitInfoContent circuit={circuit} showLayoutRange={false} />
         {circuit.circuitFastestLaps &&
           circuit.circuitFastestLaps.length > 0 && (
             <div className="mt-3 pt-4 border-t border-gray-300 dark:border-gray-700">

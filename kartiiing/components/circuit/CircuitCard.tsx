@@ -2,7 +2,7 @@ import { ICircuit } from "@kartiiing/shared";
 import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
 import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
 import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
-import { CircuitMetric } from "@/components/shared/badges/CircuitMetricBadge";
+import { CircuitMetric } from "@/components/circuit/CircuitMetric";
 import { cn, lightDarkGlassHover } from "@/lib/utils";
 
 type Props = {
@@ -40,7 +40,11 @@ export function CircuitCard({
           {showDistance ? (
             <CircuitMetric value={circuit.distance!} type="distance" />
           ) : (
-            <CircuitMetric value={circuit.length} type="length" />
+            <CircuitMetric
+              value={circuit.length}
+              type="length"
+              layouts={circuit.layouts}
+            />
           )}
           <CircuitActionLinks
             circuit={circuit}

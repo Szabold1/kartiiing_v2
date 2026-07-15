@@ -6,13 +6,13 @@ import {
   IPaginatedResponse,
   ISeoData,
 } from "@kartiiing/shared";
-import { getApiBase } from "./base";
+import { getApiBase, fetchWithTimeout } from "./base";
 
 /**
  * Fetch available years that have race events
  */
 export async function getAvailableYears(): Promise<number[]> {
-  const res = await fetch(`${getApiBase()}/race-events/years`);
+  const res = await fetchWithTimeout(`${getApiBase()}/race-events/years`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch available years: ${res.status}`);
@@ -32,7 +32,7 @@ export async function getCalendarMetadata(year: string): Promise<ISeoData> {
       ? `${getApiBase()}/race-events/calendar-metadata`
       : `${getApiBase()}/race-events/calendar-metadata/${year}`;
 
-  const res = await fetch(endpoint);
+  const res = await fetchWithTimeout(endpoint);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch calendar metadata: ${res.status}`);
@@ -66,7 +66,7 @@ export async function getRaceEvents(options?: {
     url += `&search=${encodeURIComponent(search)}`;
   }
 
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
   if (!res.ok) {
     throw new Error(`Failed to fetch races: ${res.status}`);
   }
@@ -79,7 +79,7 @@ export async function getRaceEvents(options?: {
  */
 export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
   const url = `${getApiBase()}/race-events/by-id/${id}`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch race event: ${res.status}`);
@@ -94,7 +94,7 @@ export async function getRaceEventById(id: number): Promise<IRaceEventDetail> {
  */
 export async function getMinimalRaceEvents(): Promise<IRaceEventMinimal[]> {
   const url = `${getApiBase()}/race-events/minimal`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch minimal race events: ${res.status}`);

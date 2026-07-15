@@ -6,6 +6,8 @@ import {
   getCircuitsMetadata,
   getCircuitCoordinates,
 } from "@/lib/api";
+import { emptyPaginatedResponse } from "@kartiiing/shared";
+import type { ICircuit, ICircuitCoordinate } from "@kartiiing/shared";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -42,8 +44,25 @@ export async function generateMetadata() {
 }
 
 export default async function CircuitsPage() {
-  const initialData = await getCircuits({ page: 1, limit: 20 });
-  const coordinates = await getCircuitCoordinates();
+  let initialData: Awaited<ReturnType<typeof getCircuits>>;
+  let coordinates: ICircuitCoordinate[];
+  let serverError: string | undefined;
+
+  try {
+    initialData = await getCircuits({ page: 1, limit: 20 });
+  } catch (error) {
+    console.error("Error fetching circuits:", error);
+    initialData = emptyPaginatedResponse<ICircuit>(1, 20);
+    serverError =
+      "Failed to load circuits. Check your internet connection and try again.";
+  }
+
+  try {
+    coordinates = await getCircuitCoordinates();
+  } catch (error) {
+    console.error("Error fetching circuit coordinates:", error);
+    coordinates = [];
+  }
 
   let description = `Explore our database of ${initialData.meta.totalItems} karting circuits.`;
 
@@ -57,7 +76,11 @@ export default async function CircuitsPage() {
   return (
     <PageWrapper>
       <PageHeader title="Circuits" description={description} />
-      <CircuitsClient initialData={initialData} coordinates={coordinates} />
+      <CircuitsClient
+        initialData={initialData}
+        coordinates={coordinates}
+        serverError={serverError}
+      />
     </PageWrapper>
   );
 }

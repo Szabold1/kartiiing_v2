@@ -5,7 +5,7 @@ import {
   ISeoData,
   CircuitsOrderPreset,
 } from "@kartiiing/shared";
-import { getApiBase } from "./base";
+import { getApiBase, fetchWithTimeout } from "./base";
 
 const MS_DAY = 1000 * 60 * 60 * 24;
 
@@ -38,7 +38,7 @@ export async function getCircuits(options?: {
   if (longitude != null) params.set("userLongitude", longitude.toString());
 
   const url = `${getApiBase()}/circuits?${params.toString()}`;
-  const res = await fetch(url, { next: { revalidate: MS_DAY } });
+  const res = await fetchWithTimeout(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuits: ${res.status}`);
@@ -58,7 +58,7 @@ export async function getCircuitCoordinates(
 
   const queryString = params.toString();
   const url = `${getApiBase()}/circuits/coordinates${queryString ? `?${queryString}` : ""}`;
-  const res = await fetch(url, { next: { revalidate: MS_DAY } });
+  const res = await fetchWithTimeout(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuit coordinates: ${res.status}`);
@@ -72,7 +72,7 @@ export async function getCircuitCoordinates(
  */
 export async function getCircuitById(id: number): Promise<ICircuit> {
   const url = `${getApiBase()}/circuits/${id}`;
-  const res = await fetch(url, { next: { revalidate: MS_DAY } });
+  const res = await fetchWithTimeout(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuit ${id}: ${res.status}`);
@@ -86,7 +86,7 @@ export async function getCircuitById(id: number): Promise<ICircuit> {
  */
 export async function getCircuitsMetadata(): Promise<ISeoData> {
   const url = `${getApiBase()}/circuits/metadata`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch circuits metadata: ${res.status}`);

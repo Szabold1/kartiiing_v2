@@ -11,7 +11,8 @@
     "format:run": "prettier --write .",
     "lint": "pnpm -r --filter './shared' lint && pnpm -r --parallel --stream --filter kartiiing --filter api lint",
     "typecheck": "pnpm -r --filter './shared' typecheck && pnpm -r --parallel --stream --filter kartiiing --filter api typecheck",
-    "test": "pnpm -r --sequential --filter kartiiing --filter api test"
+    "test": "pnpm -r --sequential --filter kartiiing --filter api test",
+    "ci:check": "bash scripts/ci-check.sh"
   },
   "devEngines": {
     "packageManager": {

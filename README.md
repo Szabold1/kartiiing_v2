@@ -39,15 +39,10 @@ pnpm install
 docker compose up -d
 ```
 
-Create a local env file at `api/.env`:
+Create local env files based on the example files:
 
-```
-DB_HOST=localhost
-DB_PORT=55432
-DB_USERNAME=kartiiing_user
-DB_PASSWORD=kartiiing_password
-DB_NAME=kartiiing_db
-```
+- `api/.env` (copy from `api/.env.example`)
+- `kartiiing/.env.local` (copy from `kartiiing/.env.example`)
 
 Run database migrations and seeds:
 

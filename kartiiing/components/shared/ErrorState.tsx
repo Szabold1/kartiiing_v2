@@ -6,8 +6,8 @@ type Props = {
 export function ErrorState({ message, title }: Props) {
   return (
     <div className="mx-auto px-4 py-8">
-      {title && <h1 className="text-2xl font-bold text-center">{title}</h1>}
-      <div className="text-center mt-4">
+      {title && <h1 className="text-center text-2xl font-bold">{title}</h1>}
+      <div className="mt-4 text-center">
         <p className="text-muted-foreground">{message}</p>
       </div>
     </div>

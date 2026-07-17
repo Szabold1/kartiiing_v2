@@ -1,21 +1,21 @@
-import { ISeoData } from "@kartiiing/shared";
-import { Metadata } from "next";
+import { ISeoData } from '@kartiiing/shared';
+import { Metadata } from 'next';
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://kartiiing.com";
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://kartiiing.com';
 // TODO: Add a default OG image to the public folder
 // const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 export const pageMetadata: Record<string, ISeoData> = {
   home: {
-    title: "Kart Racing Guide - Kartiiing",
+    title: 'Kart Racing Guide - Kartiiing',
     description:
-      "Your ultimate guide to the world of kart racing. Discover championships, circuits, drivers, and everything you need to know about karting.",
+      'Your ultimate guide to the world of kart racing. Discover championships, circuits, drivers, and everything you need to know about karting.',
     keywords:
-      "karting, kart racing, go-kart racing, karting circuits, karting championships, kart races",
+      'karting, kart racing, go-kart racing, karting circuits, karting championships, kart races',
     openGraph: {
       url: SITE_URL,
-      type: "website",
+      type: 'website',
       // image: DEFAULT_OG_IMAGE,
     },
     // twitter: {
@@ -23,14 +23,14 @@ export const pageMetadata: Record<string, ISeoData> = {
     // },
   },
   wiki: {
-    title: "Wiki - Kartiiing",
+    title: 'Wiki - Kartiiing',
     description:
-      "Learn about kart racing, terminology, famous drivers, and everything related to the sport. The basic knowledge hub for karting enthusiasts.",
+      'Learn about kart racing, terminology, famous drivers, and everything related to the sport. The basic knowledge hub for karting enthusiasts.',
     keywords:
-      "karting guide, kart racing terminology, racing drivers, karting tips, racing knowledge, kart racing history",
+      'karting guide, kart racing terminology, racing drivers, karting tips, racing knowledge, kart racing history',
     openGraph: {
       url: `${SITE_URL}/wiki`,
-      type: "website",
+      type: 'website',
       // image: DEFAULT_OG_IMAGE,
     },
     // twitter: {
@@ -79,7 +79,7 @@ export function buildMetadata(seoData: ISeoData): Metadata {
       title: seoData.title,
       description: seoData.description,
       url: seoData.openGraph?.url,
-      type: seoData.openGraph?.type || "website",
+      type: seoData.openGraph?.type || 'website',
       images: seoData.openGraph?.image
         ? [
             {
@@ -92,7 +92,7 @@ export function buildMetadata(seoData: ISeoData): Metadata {
         : undefined,
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: seoData.title,
       description: seoData.description,
       images: seoData.twitter?.image ? [seoData.twitter.image] : undefined,

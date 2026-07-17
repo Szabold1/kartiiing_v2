@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { IPaginatedResponse } from "@kartiiing/shared";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { IPaginatedResponse } from '@kartiiing/shared';
 
 interface UseInfiniteScrollOptions<T> {
   /** Function that fetches a page of data. Receives page number (1-based) and page size. */
@@ -133,7 +133,7 @@ export function useInfiniteScroll<T>({
               setPage(nextPage);
               setHasMore(response.meta.hasNextPage);
             } catch (error) {
-              console.error("Error loading more items:", error);
+              console.error('Error loading more items:', error);
             } finally {
               setLoadingMore(false);
             }

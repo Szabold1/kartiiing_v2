@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 /**
  * Fires a callback when the Escape key is pressed, while enabled.
@@ -11,12 +11,12 @@ export function useEscapeKey(enabled: boolean, callback: () => void) {
     if (!enabled) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         callback();
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [enabled, callback]);
 }

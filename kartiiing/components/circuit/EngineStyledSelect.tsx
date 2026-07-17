@@ -1,12 +1,12 @@
-import { EngineColorVariant } from "@/lib/constants/categories";
-import { cn, getColorsForEngine } from "@/lib/utils";
+import { EngineColorVariant } from '@/lib/constants/categories';
+import { cn, getColorsForEngine } from '@/lib/utils';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 type Props = {
   label: string;
@@ -25,7 +25,7 @@ export function EngineStyledSelect({
   onValueChange,
   isOpen,
   onOpenChange,
-  engineType = "",
+  engineType = '',
 }: Props) {
   if (options.length === 0) {
     return null;
@@ -40,7 +40,7 @@ export function EngineStyledSelect({
     >
       <SelectTrigger
         className={cn(
-          "!h-9.5 cursor-pointer transition",
+          '!h-9.5 cursor-pointer transition',
           getColorsForEngine(engineType, EngineColorVariant.FULL),
         )}
         aria-label={`Select ${label}`}
@@ -55,7 +55,7 @@ export function EngineStyledSelect({
             value={option}
             className={cn(
               getColorsForEngine(engineType, EngineColorVariant.HOVER),
-              "cursor-pointer transition h-10",
+              'h-10 cursor-pointer transition',
             )}
           >
             {option}

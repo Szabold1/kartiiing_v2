@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Marker } from "react-map-gl/mapbox";
-import { ICircuit } from "@kartiiing/shared";
-import { Button } from "@/components/ui/button";
-import { cn, noBlurGlassBase } from "@/lib/utils";
-import { X } from "lucide-react";
-import { CircuitInfoContent } from "@/components/circuit/CircuitInfoContent";
+import { Marker } from 'react-map-gl/mapbox';
+import { ICircuit } from '@kartiiing/shared';
+import { Button } from '@/components/ui/button';
+import { cn, noBlurGlassBase } from '@/lib/utils';
+import { X } from 'lucide-react';
+import { CircuitInfoContent } from '@/components/circuit/CircuitInfoContent';
 
 type Props = {
   circuit: ICircuit;
@@ -21,11 +21,11 @@ export function CircuitMapPopup({ circuit, onClose }: Props) {
       latitude={circuit.coordinates.latitude}
       anchor="bottom"
     >
-      <div className="relative overflow-visible -translate-y-3 text-[1rem]">
+      <div className="relative -translate-y-3 overflow-visible text-[1rem]">
         {/* Card */}
         <article
           className={cn(
-            "p-4 flex flex-col overflow-hidden rounded-2xl w-full cursor-pointer max-w-[18rem]",
+            'flex w-full max-w-[18rem] cursor-pointer flex-col overflow-hidden rounded-2xl p-4',
             noBlurGlassHover,
           )}
         >
@@ -33,10 +33,10 @@ export function CircuitMapPopup({ circuit, onClose }: Props) {
         </article>
 
         {/* Arrow pointing down to the marker */}
-        <div className="flex justify-center -mt-px">
+        <div className="-mt-px flex justify-center">
           <div
             className={cn(
-              "w-3 h-3 rotate-45 translate-y-[-5px]",
+              'h-3 w-3 translate-y-[-5px] rotate-45',
               noBlurGlassBase,
             )}
           />
@@ -51,7 +51,7 @@ export function CircuitMapPopup({ circuit, onClose }: Props) {
           }}
           aria-label="Close popup"
           className={cn(
-            "absolute -top-3 -right-3 size-8 z-10 rounded-full",
+            'absolute -top-3 -right-3 z-10 size-8 rounded-full',
             noBlurGlassHover,
           )}
         >

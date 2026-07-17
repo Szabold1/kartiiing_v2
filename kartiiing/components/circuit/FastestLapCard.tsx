@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { IFastestLap } from "@kartiiing/shared";
-import { formatDate, cn, lightDarkGlassBase } from "@/lib/utils";
-import { CategoryBadge } from "@/components/shared/badges/CategoryBadge";
-import { Badge } from "@/components/shared/badges/Badge";
-import { DriverInfo } from "@/components/shared/race-data/DriverInfo";
-import { LapTime } from "@/components/shared/race-data/LapTime";
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { IFastestLap } from '@kartiiing/shared';
+import { formatDate, cn, lightDarkGlassBase } from '@/lib/utils';
+import { CategoryBadge } from '@/components/shared/badges/CategoryBadge';
+import { Badge } from '@/components/shared/badges/Badge';
+import { DriverInfo } from '@/components/shared/race-data/DriverInfo';
+import { LapTime } from '@/components/shared/race-data/LapTime';
 
 type Props = {
   lap: IFastestLap;
-  variant?: "expandable" | "compact";
+  variant?: 'expandable' | 'compact';
   isExpanded?: boolean; // Only used when variant="expandable"
   onToggle?: () => void; // Only used when variant="expandable"
   className?: string;
@@ -18,21 +18,21 @@ type Props = {
 
 export function FastestLapCard({
   lap,
-  variant = "expandable",
+  variant = 'expandable',
   isExpanded = false,
   onToggle,
   className,
 }: Props) {
-  if (variant === "compact") {
+  if (variant === 'compact') {
     return (
       <article
         className={cn(
-          "flex flex-col gap-2.5 p-2.5 rounded-2xl",
+          'flex flex-col gap-2.5 rounded-2xl p-2.5',
           lightDarkGlassBase,
           className,
         )}
       >
-        <div className="flex gap-1.5 justify-between">
+        <div className="flex justify-between gap-1.5">
           {lap.eventTitle ? (
             <Badge>{lap.eventTitle}</Badge>
           ) : (
@@ -48,26 +48,26 @@ export function FastestLapCard({
     );
   }
 
-  const chevronClasses = cn("h-4 w-4 shrink-0 text-muted-foreground/40");
+  const chevronClasses = cn('text-muted-foreground/40 h-4 w-4 shrink-0');
 
   return (
     <article>
       <div
         className={cn(
-          "flex flex-col gap-2.5 p-2.5 rounded-2xl cursor-pointer transition",
+          'flex cursor-pointer flex-col gap-2.5 rounded-2xl p-2.5 transition',
           className,
         )}
         onClick={onToggle}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+          if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             onToggle?.();
           }
         }}
         aria-expanded={isExpanded}
-        aria-label={`${lap.category} – ${lap.lapTime}ms. ${isExpanded ? "Hide" : "Show"} details`}
+        aria-label={`${lap.category} – ${lap.lapTime}ms. ${isExpanded ? 'Hide' : 'Show'} details`}
       >
         {/* Header row: category badge + date badge + lap time + chevron */}
         <div className="flex items-center gap-1.5">

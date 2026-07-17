@@ -1,4 +1,4 @@
-import { format, parseISO, addDays, isSameDay } from "date-fns";
+import { format, parseISO, addDays, isSameDay } from 'date-fns';
 
 /**
  * Converts a date input (string or Date) to a Date object representing the start of that day (00:00:00).
@@ -6,7 +6,7 @@ import { format, parseISO, addDays, isSameDay } from "date-fns";
  * @returns A Date object set to the start of the given day.
  */
 export function toDay(dateInput: string | Date): Date {
-  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
@@ -21,7 +21,7 @@ export function formatDate(
   withYear: boolean = true,
 ): string {
   try {
-    return format(new Date(dateString), withYear ? "d MMM yyyy" : "d MMM");
+    return format(new Date(dateString), withYear ? 'd MMM yyyy' : 'd MMM');
   } catch {
     return dateString;
   }
@@ -36,8 +36,8 @@ export function safeParseDate(
 ): Date | undefined {
   if (
     !dateString ||
-    typeof dateString !== "string" ||
-    dateString.trim() === ""
+    typeof dateString !== 'string' ||
+    dateString.trim() === ''
   ) {
     return fallback;
   }

@@ -1,4 +1,4 @@
-import { cn, formatLapTime } from "@/lib/utils";
+import { cn, formatLapTime } from '@/lib/utils';
 
 type Props = {
   time: number;
@@ -7,7 +7,7 @@ type Props = {
 
 export function LapTime({ time, className }: Props) {
   return (
-    <span className={cn("font-mono font-semibold text-lg", className)}>
+    <span className={cn('font-mono text-lg font-semibold', className)}>
       {formatLapTime(time)}
     </span>
   );

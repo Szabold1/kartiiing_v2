@@ -1,9 +1,9 @@
-import { Ruler, Route } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useUserLocationStore } from "@/lib/stores/userLocationStore";
-import type { ICircuitLayout } from "@kartiiing/shared";
+import { Ruler, Route } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useUserLocationStore } from '@/lib/stores/userLocationStore';
+import type { ICircuitLayout } from '@kartiiing/shared';
 
-type MetricType = "length" | "distance";
+type MetricType = 'length' | 'distance';
 
 type Props = {
   value: number;
@@ -18,12 +18,12 @@ const ICON_MAP: Record<MetricType, typeof Ruler> = {
 };
 
 function getTooltip(type: MetricType, locationName?: string): string {
-  if (type === "distance") {
+  if (type === 'distance') {
     return locationName
       ? `Approximate straight-line distance from ${locationName}`
-      : "Approximate straight-line distance from your location";
+      : 'Approximate straight-line distance from your location';
   }
-  return "Circuit length";
+  return 'Circuit length';
 }
 
 function formatValue(
@@ -31,8 +31,8 @@ function formatValue(
   type: MetricType,
   layouts?: ICircuitLayout[],
 ): string {
-  if (type === "distance") {
-    return Math.round(value) + " km";
+  if (type === 'distance') {
+    return Math.round(value) + ' km';
   }
 
   if (layouts && layouts.length > 1) {
@@ -59,7 +59,7 @@ export function CircuitMetric({ value, type, className, layouts }: Props) {
   const content = (
     <span
       className={cn(
-        "text-sm text-muted-foreground flex items-center gap-1.5",
+        'text-muted-foreground flex items-center gap-1.5 text-sm',
         className,
       )}
     >
@@ -68,7 +68,7 @@ export function CircuitMetric({ value, type, className, layouts }: Props) {
     </span>
   );
 
-  if (type === "distance") {
+  if (type === 'distance') {
     return <span title={tooltip}>{content}</span>;
   }
 

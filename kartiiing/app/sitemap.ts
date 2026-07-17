@@ -1,30 +1,30 @@
-import { MetadataRoute } from "next";
-import { getMinimalRaceEvents, getAvailableYears } from "@/lib/api";
-import { getRaceUrl } from "@/lib/utils/raceUtils";
-import { safeParseDate } from "@/lib/utils";
+import { MetadataRoute } from 'next';
+import { getMinimalRaceEvents, getAvailableYears } from '@/lib/api';
+import { getRaceUrl } from '@/lib/utils/raceUtils';
+import { safeParseDate } from '@/lib/utils';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://kartiiing.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kartiiing.com';
 
 // Static pages
 const staticPages: MetadataRoute.Sitemap = [
   {
     url: BASE_URL,
-    changeFrequency: "yearly",
+    changeFrequency: 'yearly',
     priority: 1,
   },
   {
     url: `${BASE_URL}/calendar/all`,
-    changeFrequency: "weekly",
+    changeFrequency: 'weekly',
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/circuits`,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/wiki`,
-    changeFrequency: "yearly",
+    changeFrequency: 'yearly',
     priority: 0.7,
   },
 ];
@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const isPastYear = year < currentYear;
       return {
         url: `${BASE_URL}/calendar/${year}`,
-        changeFrequency: isPastYear ? "yearly" : "weekly",
+        changeFrequency: isPastYear ? 'yearly' : 'weekly',
         priority: 0.8,
       };
     });
@@ -55,14 +55,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return {
         url: `${BASE_URL}${getRaceUrl(race)}`,
         lastModified: safeParseDate(race.updatedAt || race.date?.end),
-        changeFrequency: isPast ? "yearly" : "weekly",
+        changeFrequency: isPast ? 'yearly' : 'weekly',
         priority: isPast ? 0.6 : 0.7,
       };
     });
 
     return [...staticPages, ...calendarPages, ...racePages];
   } catch (error) {
-    console.error("Error generating sitemap:", error);
+    console.error('Error generating sitemap:', error);
     return staticPages;
   }
 }

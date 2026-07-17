@@ -1,15 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { CircuitsActions } from "../CircuitsActions";
-import * as circuitsStore from "@/lib/stores/circuitsStore";
-import { CircuitsViewMode } from "@/lib/constants/circuits";
-import { CircuitsOrderPreset, ICircuitCoordinate } from "@kartiiing/shared";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { CircuitsActions } from '../CircuitsActions';
+import * as circuitsStore from '@/lib/stores/circuitsStore';
+import { CircuitsViewMode } from '@/lib/constants/circuits';
+import { CircuitsOrderPreset, ICircuitCoordinate } from '@kartiiing/shared';
 
-const GRID_VIEW_LABEL = "Grid view";
-const LIST_VIEW_LABEL = "List view";
-const OPEN_MAP_LABEL = "Open map view";
-const CLOSE_MAP_LABEL = "Close map";
+const GRID_VIEW_LABEL = 'Grid view';
+const LIST_VIEW_LABEL = 'List view';
+const OPEN_MAP_LABEL = 'Open map view';
+const CLOSE_MAP_LABEL = 'Close map';
 
 const DEFAULT_PROPS = {
   coordinates: [] as ICircuitCoordinate[],
@@ -17,11 +17,11 @@ const DEFAULT_PROPS = {
   onPresetChange: vi.fn(),
 };
 
-vi.mock("@/lib/stores/circuitsStore", () => ({
+vi.mock('@/lib/stores/circuitsStore', () => ({
   useCircuitsStore: vi.fn(),
 }));
 
-vi.mock("@/components/circuits/map/CircuitsMapModal", () => ({
+vi.mock('@/components/circuits/map/CircuitsMapModal', () => ({
   CircuitsMapModal: function MockModal({
     isOpen,
     onClose,
@@ -37,7 +37,7 @@ vi.mock("@/components/circuits/map/CircuitsMapModal", () => ({
   },
 }));
 
-describe("CircuitsActions", () => {
+describe('CircuitsActions', () => {
   beforeEach(() => {
     vi.mocked(circuitsStore.useCircuitsStore).mockReturnValue({
       viewMode: CircuitsViewMode.GRID,
@@ -45,67 +45,67 @@ describe("CircuitsActions", () => {
     });
   });
 
-  it("renders the MapButton", () => {
+  it('renders the MapButton', () => {
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
-      screen.getByRole("button", { name: OPEN_MAP_LABEL }),
+      screen.getByRole('button', { name: OPEN_MAP_LABEL }),
     ).toBeInTheDocument();
   });
 
-  it("renders GridViewToggle options by default", () => {
+  it('renders GridViewToggle options by default', () => {
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
-      screen.getByRole("button", { name: GRID_VIEW_LABEL }),
+      screen.getByRole('button', { name: GRID_VIEW_LABEL }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: LIST_VIEW_LABEL }),
+      screen.getByRole('button', { name: LIST_VIEW_LABEL }),
     ).toBeInTheDocument();
   });
 
-  it("does not render GridViewToggle in small mode", () => {
+  it('does not render GridViewToggle in small mode', () => {
     render(<CircuitsActions {...DEFAULT_PROPS} small />);
 
     expect(
-      screen.queryByRole("button", { name: GRID_VIEW_LABEL }),
+      screen.queryByRole('button', { name: GRID_VIEW_LABEL }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: LIST_VIEW_LABEL }),
+      screen.queryByRole('button', { name: LIST_VIEW_LABEL }),
     ).not.toBeInTheDocument();
   });
 
-  it("opens the map modal when MapButton is clicked", async () => {
+  it('opens the map modal when MapButton is clicked', async () => {
     const user = userEvent.setup();
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
     expect(
-      screen.queryByRole("button", { name: CLOSE_MAP_LABEL }),
+      screen.queryByRole('button', { name: CLOSE_MAP_LABEL }),
     ).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: OPEN_MAP_LABEL }));
+    await user.click(screen.getByRole('button', { name: OPEN_MAP_LABEL }));
 
     expect(
-      screen.getByRole("button", { name: CLOSE_MAP_LABEL }),
+      screen.getByRole('button', { name: CLOSE_MAP_LABEL }),
     ).toBeInTheDocument();
   });
 
-  it("closes the map modal when close button is clicked", async () => {
+  it('closes the map modal when close button is clicked', async () => {
     const user = userEvent.setup();
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
-    await user.click(screen.getByRole("button", { name: OPEN_MAP_LABEL }));
+    await user.click(screen.getByRole('button', { name: OPEN_MAP_LABEL }));
     expect(
-      screen.getByRole("button", { name: CLOSE_MAP_LABEL }),
+      screen.getByRole('button', { name: CLOSE_MAP_LABEL }),
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: CLOSE_MAP_LABEL }));
+    await user.click(screen.getByRole('button', { name: CLOSE_MAP_LABEL }));
     expect(
-      screen.queryByRole("button", { name: CLOSE_MAP_LABEL }),
+      screen.queryByRole('button', { name: CLOSE_MAP_LABEL }),
     ).not.toBeInTheDocument();
   });
 
-  it("calls setViewMode when a view mode is toggled", async () => {
+  it('calls setViewMode when a view mode is toggled', async () => {
     const setViewMode = vi.fn();
     vi.mocked(circuitsStore.useCircuitsStore).mockReturnValue({
       viewMode: CircuitsViewMode.GRID,
@@ -115,18 +115,18 @@ describe("CircuitsActions", () => {
 
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
-    await user.click(screen.getByRole("button", { name: LIST_VIEW_LABEL }));
+    await user.click(screen.getByRole('button', { name: LIST_VIEW_LABEL }));
 
     expect(setViewMode).toHaveBeenCalledWith(CircuitsViewMode.LIST);
   });
 
-  it("renders the OrderDropdown", () => {
+  it('renders the OrderDropdown', () => {
     render(<CircuitsActions {...DEFAULT_PROPS} />);
 
-    expect(screen.getByRole("combobox")).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
 
-  it("renders OrderDropdown with the current preset label", () => {
+  it('renders OrderDropdown with the current preset label', () => {
     render(
       <CircuitsActions
         {...DEFAULT_PROPS}
@@ -134,11 +134,11 @@ describe("CircuitsActions", () => {
       />,
     );
 
-    const combobox = screen.getByRole("combobox");
-    expect(combobox).toHaveTextContent("Location name");
+    const combobox = screen.getByRole('combobox');
+    expect(combobox).toHaveTextContent('Location name');
   });
 
-  it("calls onPresetChange when a new preset is selected", async () => {
+  it('calls onPresetChange when a new preset is selected', async () => {
     // Suppress known Radix UI / JSDOM incompatibilities
     const originalHasPointerCapture = Element.prototype.hasPointerCapture;
     const originalScrollIntoView = Element.prototype.scrollIntoView;
@@ -152,12 +152,12 @@ describe("CircuitsActions", () => {
       <CircuitsActions {...DEFAULT_PROPS} onPresetChange={onPresetChange} />,
     );
 
-    const combobox = screen.getByRole("combobox");
+    const combobox = screen.getByRole('combobox');
     await user.click(combobox);
 
-    const options = await screen.findAllByRole("option");
+    const options = await screen.findAllByRole('option');
     // Length appears twice (ASC/DESC). Click the first one.
-    const lengthOption = options.find((o) => o.textContent?.includes("Length"));
+    const lengthOption = options.find((o) => o.textContent?.includes('Length'));
     expect(lengthOption).toBeDefined();
     await user.click(lengthOption!);
 
@@ -167,7 +167,7 @@ describe("CircuitsActions", () => {
     Element.prototype.scrollIntoView = originalScrollIntoView;
   });
 
-  it("filters out distance presets from the dropdown when location is unavailable", async () => {
+  it('filters out distance presets from the dropdown when location is unavailable', async () => {
     // Suppress known Radix UI / JSDOM incompatibilities
     const originalHasPointerCapture = Element.prototype.hasPointerCapture;
     const originalScrollIntoView = Element.prototype.scrollIntoView;
@@ -177,19 +177,19 @@ describe("CircuitsActions", () => {
     const user = userEvent.setup();
     render(<CircuitsActions {...DEFAULT_PROPS} locationUnavailable />);
 
-    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole('combobox'));
 
-    const options = await screen.findAllByRole("option");
+    const options = await screen.findAllByRole('option');
     const optionLabels = options.map((o) => o.textContent?.trim());
 
-    expect(optionLabels).not.toContain("Distance");
-    expect(optionLabels.filter((l) => l?.startsWith("Length"))).toHaveLength(2);
+    expect(optionLabels).not.toContain('Distance');
+    expect(optionLabels.filter((l) => l?.startsWith('Length'))).toHaveLength(2);
 
     Element.prototype.hasPointerCapture = originalHasPointerCapture;
     Element.prototype.scrollIntoView = originalScrollIntoView;
   });
 
-  it("shows distance presets in the dropdown when location is available", async () => {
+  it('shows distance presets in the dropdown when location is available', async () => {
     // Suppress known Radix UI / JSDOM incompatibilities
     const originalHasPointerCapture = Element.prototype.hasPointerCapture;
     const originalScrollIntoView = Element.prototype.scrollIntoView;
@@ -199,12 +199,12 @@ describe("CircuitsActions", () => {
     const user = userEvent.setup();
     render(<CircuitsActions {...DEFAULT_PROPS} locationUnavailable={false} />);
 
-    await user.click(screen.getByRole("combobox"));
+    await user.click(screen.getByRole('combobox'));
 
-    const options = await screen.findAllByRole("option");
+    const options = await screen.findAllByRole('option');
     const optionLabels = options.map((o) => o.textContent?.trim());
 
-    expect(optionLabels.filter((l) => l === "Distance")).toHaveLength(2);
+    expect(optionLabels.filter((l) => l === 'Distance')).toHaveLength(2);
 
     Element.prototype.hasPointerCapture = originalHasPointerCapture;
     Element.prototype.scrollIntoView = originalScrollIntoView;

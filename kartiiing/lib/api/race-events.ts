@@ -5,8 +5,8 @@ import {
   IRaceEventMinimal,
   IPaginatedResponse,
   ISeoData,
-} from "@kartiiing/shared";
-import { getApiBase, fetchWithTimeout } from "./base";
+} from '@kartiiing/shared';
+import { getApiBase, fetchWithTimeout } from './base';
 
 /**
  * Fetch available years that have race events
@@ -28,7 +28,7 @@ export async function getAvailableYears(): Promise<number[]> {
  */
 export async function getCalendarMetadata(year: string): Promise<ISeoData> {
   const endpoint =
-    year === "all"
+    year === 'all'
       ? `${getApiBase()}/race-events/calendar-metadata`
       : `${getApiBase()}/race-events/calendar-metadata/${year}`;
 
@@ -53,11 +53,11 @@ export async function getRaceEvents(options?: {
 }): Promise<IPaginatedResponse<IRaceEvent>> {
   const { year, preset, search, limit = 100, page = 1 } = options || {};
 
-  if (year && year !== "all" && isNaN(parseInt(year))) {
-    throw new Error("Invalid year parameter");
+  if (year && year !== 'all' && isNaN(parseInt(year))) {
+    throw new Error('Invalid year parameter');
   }
 
-  const yearPath = year && year !== "all" ? `/${year}` : "";
+  const yearPath = year && year !== 'all' ? `/${year}` : '';
   let url = `${getApiBase()}/race-events${yearPath}?limit=${limit}&page=${page}`;
   if (preset) {
     url += `&preset=${preset}`;

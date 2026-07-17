@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 type Props = {
   className?: string;
@@ -20,9 +20,9 @@ export function GoBackBtn({ className }: Props) {
       type="button"
       aria-label="Go back"
       onClick={handleNavigation}
-      className={cn("w-10.5 h-10.5 rounded-lg p-2 cursor-pointer", className)}
+      className={cn('h-10.5 w-10.5 cursor-pointer rounded-lg p-2', className)}
     >
-      <ArrowLeft className="w-full h-full" />
+      <ArrowLeft className="h-full w-full" />
     </button>
   );
 }

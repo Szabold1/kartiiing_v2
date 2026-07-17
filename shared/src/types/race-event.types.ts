@@ -1,7 +1,7 @@
-import { ICircuit, ICircuitDetail } from "./circuit.types";
-import { IFastestLap } from "./fastest-lap.types";
-import { ISeoData } from "./seo.types";
-import { IWeatherDataDay } from "./weather.types";
+import { ICircuit, ICircuitDetail } from './circuit.types';
+import { IFastestLap } from './fastest-lap.types';
+import { ISeoData } from './seo.types';
+import { IWeatherDataDay } from './weather.types';
 
 export interface IRaceEventDateMinimal {
   start: string;
@@ -19,10 +19,10 @@ export interface IChampionship {
 }
 
 export enum RaceStatus {
-  LIVE = "Live",
-  UPNEXT = "Up Next",
-  UPCOMING = "Upcoming",
-  FINISHED = "Finished",
+  LIVE = 'Live',
+  UPNEXT = 'Up Next',
+  UPCOMING = 'Upcoming',
+  FINISHED = 'Finished',
 }
 
 export interface IResultsLink {
@@ -49,10 +49,10 @@ export interface IRaceEvent extends IRaceEventMinimal {
 }
 
 export enum CalendarOrderPreset {
-  ALL_ASC = "all_asc",
-  ALL_DESC = "all_desc",
-  UPCOMING = "upcoming",
-  FINISHED = "finished",
+  ALL_ASC = 'all_asc',
+  ALL_DESC = 'all_desc',
+  UPCOMING = 'upcoming',
+  FINISHED = 'finished',
 }
 
 export interface IRaceEventDetail extends IRaceEvent {

@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { GridViewToggle } from "@/components/shared/GridViewToggle";
-import { MapButton } from "@/components/circuits/map/MapButton";
-import { CircuitsMapModal } from "@/components/circuits/map/CircuitsMapModal";
-import { OrderDropdown } from "@/components/shared/OrderDropdown";
+import { useState } from 'react';
+import { GridViewToggle } from '@/components/shared/GridViewToggle';
+import { MapButton } from '@/components/circuits/map/MapButton';
+import { CircuitsMapModal } from '@/components/circuits/map/CircuitsMapModal';
+import { OrderDropdown } from '@/components/shared/OrderDropdown';
 import {
   CIRCUIT_PRESETS,
   CIRCUITS_VIEW_OPTIONS,
-} from "@/lib/constants/circuits";
-import { useCircuitsStore } from "@/lib/stores/circuitsStore";
-import { ICircuitCoordinate, CircuitsOrderPreset } from "@kartiiing/shared";
+} from '@/lib/constants/circuits';
+import { useCircuitsStore } from '@/lib/stores/circuitsStore';
+import { ICircuitCoordinate, CircuitsOrderPreset } from '@kartiiing/shared';
 
 type Props = {
   coordinates: ICircuitCoordinate[];

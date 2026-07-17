@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { cn, openLinkInNewTab } from "@/lib/utils";
+import { cn, openLinkInNewTab } from '@/lib/utils';
 
 type Props = {
   year?: number;
@@ -15,30 +15,30 @@ type Props = {
 
 export function Copyright({
   year = 2022,
-  text = "FIA Karting World Championship",
+  text = 'FIA Karting World Championship',
   links = [
-    { label: "FIA Karting", url: "https://www.fiakarting.com" },
-    { label: "KSP", url: "https://kspreportages.com/?lang=en" },
+    { label: 'FIA Karting', url: 'https://www.fiakarting.com' },
+    { label: 'KSP', url: 'https://kspreportages.com/?lang=en' },
   ],
-  className = "",
+  className = '',
   ariaHidden = false,
 }: Props) {
   return (
     <div
-      className={cn("text-center text-xs text-gray-300/80", className)}
+      className={cn('text-center text-xs text-gray-300/80', className)}
       aria-hidden={ariaHidden}
     >
       <p>
-        {year} {text} (Photo © {year}{" "}
+        {year} {text} (Photo © {year}{' '}
         {links.map((link, index) => (
           <span key={link.label}>
             <span
-              className="hover:text-gray-100 hover:underline transition-colors cursor-pointer"
+              className="cursor-pointer transition-colors hover:text-gray-100 hover:underline"
               onClick={() => openLinkInNewTab(link.url)}
             >
               {link.label}
             </span>
-            {index < links.length - 1 && " / "}
+            {index < links.length - 1 && ' / '}
           </span>
         ))}
         )

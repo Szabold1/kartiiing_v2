@@ -1,4 +1,4 @@
-import { cn, grayGlassHover } from "@/lib/utils";
+import { cn, grayGlassHover } from '@/lib/utils';
 
 type Props = {
   href?: string | null;
@@ -16,7 +16,7 @@ export function CircuitActionLink({ href, title, icon }: Props) {
       rel="noopener noreferrer"
       className={cn(
         grayGlassHover,
-        "flex w-10 h-10 items-center justify-center rounded-lg",
+        'flex h-10 w-10 items-center justify-center rounded-lg',
       )}
       title={title}
       onClick={(e) => e.stopPropagation()}

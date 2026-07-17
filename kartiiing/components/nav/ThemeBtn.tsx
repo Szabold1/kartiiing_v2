@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Loader } from "@/components/shared/Loader";
-import { cn, lightDarkGlassHover } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Loader } from '@/components/shared/Loader';
+import { cn, lightDarkGlassHover } from '@/lib/utils';
 
 export function ThemeBtn() {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const toggleBtnStyles = cn("w-10.5 h-10.5 rounded-lg", lightDarkGlassHover);
+  const toggleBtnStyles = cn('h-10.5 w-10.5 rounded-lg', lightDarkGlassHover);
 
   useEffect(() => {
     setMounted(true);
@@ -19,7 +19,7 @@ export function ThemeBtn() {
 
   const handleThemeToggle = () => {
     if (!resolvedTheme) return;
-    setTheme(resolvedTheme === "light" ? "dark" : "light");
+    setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
   };
 
   if (!mounted) {
@@ -44,7 +44,7 @@ export function ThemeBtn() {
       id="theme-btn"
       className={toggleBtnStyles}
     >
-      {resolvedTheme === "dark" ? (
+      {resolvedTheme === 'dark' ? (
         <SunIcon className="size-4.5" />
       ) : (
         <MoonIcon className="size-4.5" />

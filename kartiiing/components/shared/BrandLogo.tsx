@@ -1,8 +1,8 @@
 type Props = {
   className?: string;
-}
+};
 
-export function BrandLogo({ className = "" }: Props) {
+export function BrandLogo({ className = '' }: Props) {
   return (
     <span className={className}>
       Kart

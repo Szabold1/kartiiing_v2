@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Masonry } from "masonic";
-import { ReactNode, useMemo } from "react";
-import { RaceSummary } from "@/components/race/RaceSummary";
-import { WeatherDayList } from "@/components/weather/WeatherDayList";
-import { CircuitInfo } from "@/components/circuit/CircuitInfo";
-import { RaceDetailsSection } from "@/components/race/RaceDetailsSection";
-import { FastestLapsList } from "@/components/circuit/FastestLapsList";
-import { IRaceEventDetail } from "@kartiiing/shared";
+import { Masonry } from 'masonic';
+import { ReactNode, useMemo } from 'react';
+import { RaceSummary } from '@/components/race/RaceSummary';
+import { WeatherDayList } from '@/components/weather/WeatherDayList';
+import { CircuitInfo } from '@/components/circuit/CircuitInfo';
+import { RaceDetailsSection } from '@/components/race/RaceDetailsSection';
+import { FastestLapsList } from '@/components/circuit/FastestLapsList';
+import { IRaceEventDetail } from '@kartiiing/shared';
 
 type SectionItem = {
   id: string;
@@ -24,7 +24,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
 
   const items: SectionItem[] = [
     {
-      id: "summary",
+      id: 'summary',
       content: (
         <RaceDetailsSection title="Summary" className="p-4.5">
           <RaceSummary race={race} />
@@ -34,7 +34,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
     ...(weatherDays.length > 0
       ? [
           {
-            id: "weather",
+            id: 'weather',
             content: (
               <RaceDetailsSection title="Weather" className="p-2">
                 <WeatherDayList days={weatherDays} />
@@ -44,14 +44,14 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
         ]
       : []),
     {
-      id: "circuit",
+      id: 'circuit',
       content: (
         <RaceDetailsSection
           title={`Circuit Info${
             race.circuit.circuitFastestLaps &&
             race.circuit.circuitFastestLaps.length > 0
-              ? " & Lap Records"
-              : ""
+              ? ' & Lap Records'
+              : ''
           }`}
           className="p-0"
         >
@@ -62,7 +62,7 @@ function getSectionsForRace(race: IRaceEventDetail): SectionItem[] {
     ...(fastestLaps.length > 0
       ? [
           {
-            id: "event-fastest-laps",
+            id: 'event-fastest-laps',
             content: (
               <RaceDetailsSection title="Event Fastest Laps" className="p-2">
                 <FastestLapsList fastestLaps={fastestLaps} />

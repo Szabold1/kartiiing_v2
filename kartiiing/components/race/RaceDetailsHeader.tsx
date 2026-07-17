@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { PageHeader } from "@/components/shared/PageHeader";
-import { GoBackBtn } from "@/components/shared/btns/GoBackBtn";
-import { RaceActions } from "@/components/race/RaceActions";
-import { cn, lightDarkGlassHover } from "@/lib/utils";
-import { StatusResultsBadge } from "@/components/shared/badges/StatusResultsBadge";
-import { IRaceEventDetail } from "@kartiiing/shared";
+import { PageHeader } from '@/components/shared/PageHeader';
+import { GoBackBtn } from '@/components/shared/btns/GoBackBtn';
+import { RaceActions } from '@/components/race/RaceActions';
+import { cn, lightDarkGlassHover } from '@/lib/utils';
+import { StatusResultsBadge } from '@/components/shared/badges/StatusResultsBadge';
+import { IRaceEventDetail } from '@kartiiing/shared';
 
 type Props = {
   race: IRaceEventDetail;
@@ -16,12 +16,12 @@ export function RaceDetailsHeader({ race }: Props) {
 
   const headerAction = (
     <div className="flex items-center gap-1.5">
-      <GoBackBtn className={cn(lightDarkGlassHover, "mr-2")} />
+      <GoBackBtn className={cn(lightDarkGlassHover, 'mr-2')} />
       {(race.status || resultsLinks.length > 0) && (
         <>
           <StatusResultsBadge
             race={race}
-            className="p-3.5 rounded-lg"
+            className="rounded-lg p-3.5"
             heightValue="10.5"
           />
           <RaceActions race={race} />
@@ -32,7 +32,7 @@ export function RaceDetailsHeader({ race }: Props) {
 
   return (
     <PageHeader
-      title={race.title || ""}
+      title={race.title || ''}
       headerAction={headerAction}
       actionLayout="vertical"
     />

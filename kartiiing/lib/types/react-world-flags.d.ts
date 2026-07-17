@@ -1,5 +1,5 @@
-declare module "react-world-flags" {
-  import * as React from "react";
+declare module 'react-world-flags' {
+  import * as React from 'react';
 
   interface FlagProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     code: string;

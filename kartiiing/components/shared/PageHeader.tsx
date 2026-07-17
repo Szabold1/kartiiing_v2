@@ -1,23 +1,23 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type Props = {
   title: string;
   description?: string;
   headerAction?: React.ReactNode;
-  actionLayout?: "horizontal" | "vertical";
+  actionLayout?: 'horizontal' | 'vertical';
 };
 
 export function PageHeader({
   title,
   description,
   headerAction,
-  actionLayout = "horizontal",
+  actionLayout = 'horizontal',
 }: Props) {
-  const isVertical = actionLayout === "vertical";
+  const isVertical = actionLayout === 'vertical';
 
   return (
-    <header className="space-y-2 my-10 sm:mt-[2.7rem] sm:mb-[3rem]">
-      <div className={cn("flex gap-4", isVertical && "flex-col")}>
+    <header className="my-10 space-y-2 sm:mt-[2.7rem] sm:mb-[3rem]">
+      <div className={cn('flex gap-4', isVertical && 'flex-col')}>
         <h1 className="text-4xl font-bold">{title}</h1>
         {headerAction}
       </div>

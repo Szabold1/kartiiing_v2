@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { cn, lightDarkGlassActive, lightDarkGlassOnlyHover } from "@/lib/utils";
-import { WeatherDayCard } from "@/components/weather/WeatherDayCard";
-import type { IWeatherDataDay } from "@kartiiing/shared";
+import { useState } from 'react';
+import { cn, lightDarkGlassActive, lightDarkGlassOnlyHover } from '@/lib/utils';
+import { WeatherDayCard } from '@/components/weather/WeatherDayCard';
+import type { IWeatherDataDay } from '@kartiiing/shared';
 
 type Props = {
   days: IWeatherDataDay[];
   className?: string;
 };
 
-export function WeatherDayList({ days, className = "" }: Props) {
+export function WeatherDayList({ days, className = '' }: Props) {
   const [expandedDays, setExpandedDays] = useState<Record<string, boolean>>(
     () => {
       return days.length > 0 ? { [days[days.length - 1].date]: true } : {};
@@ -24,7 +24,7 @@ export function WeatherDayList({ days, className = "" }: Props) {
   };
 
   return (
-    <div className={cn("space-y-1", className)}>
+    <div className={cn('space-y-1', className)}>
       {days.map((day) => (
         <WeatherDayCard
           key={day.date}
@@ -32,7 +32,7 @@ export function WeatherDayList({ days, className = "" }: Props) {
           isExpanded={expandedDays[day.date] === true}
           onToggle={() => toggleDay(day.date)}
           className={cn(
-            "border border-transparent",
+            'border border-transparent',
             lightDarkGlassOnlyHover,
             expandedDays[day.date] && lightDarkGlassActive,
           )}

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState } from 'react';
 
 export function useSectionWidth() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -12,8 +12,8 @@ export function useSectionWidth() {
       if (sectionRef.current) setSectionWidth(sectionRef.current.offsetWidth);
     }
     updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
   return { sectionRef, sectionWidth };

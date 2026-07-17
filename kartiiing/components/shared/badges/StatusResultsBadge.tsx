@@ -5,22 +5,22 @@ import {
   redGlassBase,
   grayGlassHover,
   emeraldGlassBase,
-} from "@/lib/utils";
+} from '@/lib/utils';
 import {
   IRaceEvent,
   RaceStatus,
   IResultsLink,
   IRaceEventDetail,
-} from "@kartiiing/shared";
+} from '@kartiiing/shared';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { ExternalLink } from "lucide-react";
-import { useMemo } from "react";
+} from '@/components/ui/select';
+import { ExternalLink } from 'lucide-react';
+import { useMemo } from 'react';
 
 type Props = {
   race: IRaceEvent | IRaceEventDetail;
@@ -30,8 +30,8 @@ type Props = {
 
 export function StatusResultsBadge({
   race,
-  className = "",
-  heightValue = "10",
+  className = '',
+  heightValue = '10',
 }: Props) {
   const resultLinks = race.links?.results || [];
   const status = race.status;
@@ -42,7 +42,7 @@ export function StatusResultsBadge({
   );
 
   const baseClasses =
-    "relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium";
+    'relative text-xs tracking-wider uppercase overflow-hidden inline-flex items-center gap-1.5 font-medium';
 
   // If results are available, show results link instead of status
   if (resultLinks.length > 0) {
@@ -59,7 +59,7 @@ export function StatusResultsBadge({
           style={{ height: calculatedHeight }}
           title="View results"
         >
-          Results <ExternalLink className="w-3 h-3 mx-0.5" />
+          Results <ExternalLink className="mx-0.5 h-3 w-3" />
         </button>
       );
     }
@@ -70,7 +70,7 @@ export function StatusResultsBadge({
           onClick={(e) => e.stopPropagation()}
           aria-label="Results"
           className={cn(
-            "cursor-pointer rounded-none !text-gray-600 dark:!text-gray-400 transition",
+            'cursor-pointer rounded-none !text-gray-600 transition dark:!text-gray-400',
             resultsClasses,
           )}
           style={{ height: calculatedHeight }}
@@ -86,7 +86,7 @@ export function StatusResultsBadge({
             <SelectItem
               key={link.url}
               value={link.url}
-              className="cursor-pointer transition h-10"
+              className="h-10 cursor-pointer transition"
             >
               {link.category}
             </SelectItem>

@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
 export type OrderPreset<T extends string = string> = {
   value: T;
@@ -39,13 +39,13 @@ export function OrderDropdown<T extends string>({
   return (
     <Select value={value} onValueChange={(v) => onChange(v as T)}>
       <SelectTrigger
-        className={cn("h-10.5! cursor-pointer text-sm font-medium", className)}
+        className={cn('h-10.5! cursor-pointer text-sm font-medium', className)}
         suppressHydrationWarning
         aria-label="Sort order"
       >
         <SelectValue>
           <span className="flex items-center gap-1.5">
-            {Icon && <Icon className="w-3.5 h-3.5" />}
+            {Icon && <Icon className="h-3.5 w-3.5" />}
             {active?.label ?? value}
           </span>
         </SelectValue>
@@ -55,10 +55,10 @@ export function OrderDropdown<T extends string>({
           <SelectItem
             key={preset.value}
             value={preset.value}
-            className="cursor-pointer h-10"
+            className="h-10 cursor-pointer"
           >
             <span className="flex items-center gap-1.5">
-              {preset.icon && <preset.icon className="w-3.5 h-3.5" />}
+              {preset.icon && <preset.icon className="h-3.5 w-3.5" />}
               {preset.label}
             </span>
           </SelectItem>

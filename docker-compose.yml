@@ -8,11 +8,11 @@ services:
       POSTGRES_USER: kartiiing_user
       POSTGRES_PASSWORD: kartiiing_password
     ports:
-      - "55432:5432" # computer port : container port
+      - '55432:5432' # computer port : container port
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kartiiing_user -d kartiiing_db"]
+      test: ['CMD-SHELL', 'pg_isready -U kartiiing_user -d kartiiing_db']
       interval: 10s
       timeout: 5s
       retries: 5

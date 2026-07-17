@@ -4,8 +4,8 @@ import {
   differenceInYears,
   addYears,
   addMonths,
-} from "date-fns";
-import { toDay } from "@kartiiing/shared";
+} from 'date-fns';
+import { toDay } from '@kartiiing/shared';
 
 /**
  * Returns a human-readable relative text for the given start and end dates.
@@ -34,13 +34,13 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
     const parts = [];
 
     if (years > 0) {
-      parts.push(`${years} year${years === 1 ? "" : "s"}`);
+      parts.push(`${years} year${years === 1 ? '' : 's'}`);
     }
     if (months > 0) {
-      parts.push(`${months} month${months === 1 ? "" : "s"}`);
+      parts.push(`${months} month${months === 1 ? '' : 's'}`);
     }
     if (days > 0 || parts.length === 0) {
-      parts.push(`${days} day${days === 1 ? "" : "s"}`);
+      parts.push(`${days} day${days === 1 ? '' : 's'}`);
     }
 
     if (parts.length === 1) {
@@ -59,8 +59,8 @@ export function getRelativeText(startDate: Date, endDate: Date): string {
     const duration = getFormattedDuration(toDay(endDate), true);
     return `${duration} ago`;
   } else {
-    return "live now";
+    return 'live now';
   }
 }
 
-export { toDay, formatDate, safeParseDate } from "@kartiiing/shared";
+export { toDay, formatDate, safeParseDate } from '@kartiiing/shared';

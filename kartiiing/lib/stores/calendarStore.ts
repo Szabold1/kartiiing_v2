@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   CalendarViewMode,
   CALENDAR_VIEW_MODE_KEY,
-} from "@/lib/constants/calendar";
+} from '@/lib/constants/calendar';
 
 type CalendarStore = {
   viewMode: CalendarViewMode;

@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type Props = {
   children?: React.ReactNode;
-  position: "left" | "right";
-  visibilityFrom: "lg" | "xl";
+  position: 'left' | 'right';
+  visibilityFrom: 'lg' | 'xl';
   className?: string;
 };
 
@@ -11,15 +11,15 @@ export function Aside({
   children,
   position,
   visibilityFrom,
-  className = "",
+  className = '',
 }: Props) {
-  const borderClass = position === "left" ? "border-r" : "border-l";
-  const visibilityClass = visibilityFrom === "lg" ? "lg:block" : "xl:block";
+  const borderClass = position === 'left' ? 'border-r' : 'border-l';
+  const visibilityClass = visibilityFrom === 'lg' ? 'lg:block' : 'xl:block';
 
   return (
     <aside
       className={cn(
-        "w-3xs hidden py-3 z-30 shrink-0 border-dashed",
+        'z-30 hidden w-3xs shrink-0 border-dashed py-3',
         visibilityClass,
         borderClass,
         className,

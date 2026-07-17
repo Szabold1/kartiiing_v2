@@ -4,8 +4,8 @@ const FETCH_TIMEOUT_MS = 10_000;
  * Get the base URL for API requests
  */
 export function getApiBase(): string {
-  const base = process.env.NEXT_PUBLIC_API_URL || "/api";
-  return base.replace(/\/$/, "");
+  const base = process.env.NEXT_PUBLIC_API_URL || '/api';
+  return base.replace(/\/$/, '');
 }
 
 /**
@@ -27,7 +27,7 @@ export async function fetchWithTimeout(
     });
     return res;
   } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") {
+    if (error instanceof DOMException && error.name === 'AbortError') {
       throw new Error(`Request timed out after ${timeoutMs}ms`);
     }
     throw error;

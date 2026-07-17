@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { ICircuitDetail, IRaceEventDetail } from "@kartiiing/shared";
-import { FastestLapsWithDropdown } from "./FastestLapsWithDropdown";
-import { CircuitInfoContent } from "./CircuitInfoContent";
+import Image from 'next/image';
+import { ICircuitDetail, IRaceEventDetail } from '@kartiiing/shared';
+import { FastestLapsWithDropdown } from './FastestLapsWithDropdown';
+import { CircuitInfoContent } from './CircuitInfoContent';
 
 type Props = {
   circuit: ICircuitDetail;
@@ -11,12 +11,12 @@ type Props = {
 function getMapImageUrl(circuit: ICircuitDetail) {
   const baseUrl =
     process.env.NEXT_PUBLIC_MAPBOX_BASE_URL ||
-    "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static";
+    'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static';
   const coordinates = `${circuit.coordinates.longitude},${circuit.coordinates.latitude}`;
   const zoomLevel = 14.85;
-  const dimensions = "360x270";
+  const dimensions = '360x270';
   const queryParams = new URLSearchParams({
-    access_token: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "",
+    access_token: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '',
   });
 
   return `${baseUrl}/${coordinates},${zoomLevel}/${dimensions}@2x?${queryParams.toString()}`;
@@ -28,13 +28,13 @@ export function CircuitInfo({ circuit, race }: Props) {
 
   return (
     <>
-      <div className="relative h-48 w-full rounded-t-3xl overflow-hidden">
+      <div className="relative h-48 w-full overflow-hidden rounded-t-3xl">
         <Image
           src={mapImageUrl}
           alt={circuit.name}
           fill
           sizes="360px"
-          className="dark:brightness-85 transition-all duration-300 object-cover"
+          className="object-cover transition-all duration-300 dark:brightness-85"
         />
       </div>
 
@@ -42,7 +42,7 @@ export function CircuitInfo({ circuit, race }: Props) {
         <CircuitInfoContent circuit={circuit} showLayoutRange={false} />
         {circuit.circuitFastestLaps &&
           circuit.circuitFastestLaps.length > 0 && (
-            <div className="mt-3 pt-4 border-t border-gray-300 dark:border-gray-700">
+            <div className="mt-3 border-t border-gray-300 pt-4 dark:border-gray-700">
               <FastestLapsWithDropdown
                 fastestLaps={circuit.circuitFastestLaps}
                 preferredEngineTypes={preferredEngineTypes}

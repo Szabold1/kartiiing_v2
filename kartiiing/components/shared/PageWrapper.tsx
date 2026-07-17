@@ -1,5 +1,5 @@
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
 type Props = {
   children: React.ReactNode;
@@ -7,16 +7,16 @@ type Props = {
 };
 
 export const PageWrapper = forwardRef<HTMLDivElement, Props>(
-  ({ children, className = "" }, ref) => {
+  ({ children, className = '' }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "container flex flex-1 items-stretch justify-between mx-auto",
+          'container mx-auto flex flex-1 items-stretch justify-between',
           className,
         )}
       >
-        <section className="flex-1 mx-auto lg:px-8">
+        <section className="mx-auto flex-1 lg:px-8">
           <div className="sm:px-5 md:px-6 lg:px-2">{children}</div>
         </section>
       </div>
@@ -24,4 +24,4 @@ export const PageWrapper = forwardRef<HTMLDivElement, Props>(
   },
 );
 
-PageWrapper.displayName = "PageWrapper";
+PageWrapper.displayName = 'PageWrapper';

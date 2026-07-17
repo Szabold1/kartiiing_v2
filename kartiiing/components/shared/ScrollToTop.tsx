@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useLayoutEffect, useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useLayoutEffect, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function ScrollToTop() {
   const pathname = usePathname();
@@ -14,8 +14,8 @@ export function ScrollToTop() {
       isPopStateRef.current = true;
     };
 
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   useLayoutEffect(() => {
@@ -25,7 +25,7 @@ export function ScrollToTop() {
       prevPathnameRef.current !== pathname &&
       !isPopStateRef.current
     ) {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
 
     // Reset popstate flag after pathname change

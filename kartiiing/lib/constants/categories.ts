@@ -1,5 +1,5 @@
 export enum EngineColorVariant {
-  BASE = "base",
-  HOVER = "hover",
-  FULL = "full",
+  BASE = 'base',
+  HOVER = 'hover',
+  FULL = 'full',
 }

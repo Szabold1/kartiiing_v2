@@ -1,16 +1,16 @@
-import "./globals.css";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import { GlobalProvider } from "@/providers/GlobalProvider";
-import { Navbar } from "@/components/nav/Navbar";
-import { cn } from "@/lib/utils";
-import { Footer } from "@/components/nav/Footer";
-import { ScrollToTop } from "@/components/shared/ScrollToTop";
-import { Roboto } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import './globals.css';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { GlobalProvider } from '@/providers/GlobalProvider';
+import { Navbar } from '@/components/nav/Navbar';
+import { cn } from '@/lib/utils';
+import { Footer } from '@/components/nav/Footer';
+import { ScrollToTop } from '@/components/shared/ScrollToTop';
+import { Roboto } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 
 const roboto = Roboto({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-roboto",
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-roboto',
 });
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="flex-1 w-full px-3 lg:px-7 max-w-[90rem] mx-auto border-x border-dashed">
+            <main className="mx-auto w-full max-w-[90rem] flex-1 border-x border-dashed px-3 lg:px-7">
               {children}
             </main>
             <Footer year={currentYear} />

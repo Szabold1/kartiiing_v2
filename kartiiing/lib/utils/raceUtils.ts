@@ -1,4 +1,4 @@
-import { IRaceEventMinimal, IFastestLap } from "@kartiiing/shared";
+import { IRaceEventMinimal, IFastestLap } from '@kartiiing/shared';
 
 /**
  * Generate the URL for a race event page

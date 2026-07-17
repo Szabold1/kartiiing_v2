@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { cn, greenGlassHover } from "@/lib/utils";
+import { Button } from '@/components/ui/button';
+import { cn, greenGlassHover } from '@/lib/utils';
 
 type Props = {
   className?: string;
@@ -12,7 +12,7 @@ export function LoginBtn({ className }: Props) {
     <Button
       size="lg"
       className={cn(
-        "flex h-9 font-medium text-center uppercase tracking-wide",
+        'flex h-9 text-center font-medium tracking-wide uppercase',
         greenGlassHover,
         className,
       )}

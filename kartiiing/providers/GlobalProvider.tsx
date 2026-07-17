@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useContext } from "react";
+import { createContext, useContext } from 'react';
 
 interface GlobalContextValue {
   currentYear: number;
@@ -21,7 +21,7 @@ export function useCurrentYear() {
 type Props = {
   value: GlobalContextValue;
   children: React.ReactNode;
-}
+};
 
 export function GlobalProvider({ value, children }: Props) {
   return (

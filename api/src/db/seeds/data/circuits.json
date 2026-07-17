@@ -251,7 +251,7 @@
       "name": "Speedworld Pacfurth",
       "length": 1160,
       "websiteLink": "https://www.speedworld-kart.at",
-      "latitude": 48.032990,
+      "latitude": 48.03299,
       "longitude": 16.826995,
       "layouts": [
         {
@@ -291,7 +291,7 @@
       "name": "Circuit de Karting du Val d'Argenton",
       "length": 1280,
       "websiteLink": "https://pks-loisirs.fr",
-      "latitude": 47.008280,
+      "latitude": 47.00828,
       "longitude": -0.431826
     },
     {
@@ -299,7 +299,7 @@
       "name": "Le Mans Karting International",
       "length": 1384,
       "websiteLink": "https://www.lemans-karting.com",
-      "latitude": 47.942460,
+      "latitude": 47.94246,
       "longitude": 0.212419
     }
   ],

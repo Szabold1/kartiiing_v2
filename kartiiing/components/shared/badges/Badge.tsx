@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { cn, badgeBase, grayGlassBase } from "@/lib/utils";
+import type { ReactNode } from 'react';
+import { cn, badgeBase, grayGlassBase } from '@/lib/utils';
 
 type Props = {
   children: ReactNode;

@@ -1,10 +1,10 @@
-import { type Map as MapboxMap } from "mapbox-gl";
-import { ICoordinates } from "@kartiiing/shared";
+import { type Map as MapboxMap } from 'mapbox-gl';
+import { ICoordinates } from '@kartiiing/shared';
 
 export interface UserLocation {
   longitude: number;
   latitude: number;
-  source: "gps" | "ip";
+  source: 'gps' | 'ip';
   locationName?: string;
 }
 
@@ -13,7 +13,7 @@ export interface UserLocation {
  * Returns GPS-accurate coordinates or null if unavailable/denied.
  */
 export async function getLocationFromGPS(): Promise<UserLocation | null> {
-  if (typeof navigator === "undefined" || !navigator.geolocation) return null;
+  if (typeof navigator === 'undefined' || !navigator.geolocation) return null;
 
   try {
     const position = await new Promise<GeolocationPosition>(
@@ -27,7 +27,7 @@ export async function getLocationFromGPS(): Promise<UserLocation | null> {
     return {
       longitude: position.coords.longitude,
       latitude: position.coords.latitude,
-      source: "gps",
+      source: 'gps',
     };
   } catch {
     return null;
@@ -45,7 +45,7 @@ export async function getLocationFromGPS(): Promise<UserLocation | null> {
  */
 export async function getLocationFromIP(): Promise<UserLocation | null> {
   try {
-    const url = "https://free.freeipapi.com/api/json";
+    const url = 'https://free.freeipapi.com/api/json';
     const res = await fetch(url);
     if (!res.ok) {
       console.warn(
@@ -62,14 +62,14 @@ export async function getLocationFromIP(): Promise<UserLocation | null> {
       return {
         longitude: data.longitude,
         latitude: data.latitude,
-        source: "ip",
+        source: 'ip',
         locationName,
       };
     }
-    console.warn("IP geolocation failed: response lacked coordinates", data);
+    console.warn('IP geolocation failed: response lacked coordinates', data);
     return null;
   } catch (err) {
-    console.warn("IP geolocation failed with error:", err);
+    console.warn('IP geolocation failed with error:', err);
     return null;
   }
 }

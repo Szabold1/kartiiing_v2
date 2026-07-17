@@ -1,6 +1,6 @@
 export interface NavLink {
   label: string;
   href: string;
-  match: "exact" | "startsWith";
+  match: 'exact' | 'startsWith';
   matchPath?: string;
 }

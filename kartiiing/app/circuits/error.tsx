@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { ErrorState } from "@/components/shared/ErrorState";
+import { useEffect } from 'react';
+import { ErrorState } from '@/components/shared/ErrorState';
 
 type Props = {
   error: Error & { digest?: string };
@@ -9,7 +9,7 @@ type Props = {
 
 export default function CircuitsError({ error }: Props) {
   useEffect(() => {
-    console.error("Circuits page error:", error);
+    console.error('Circuits page error:', error);
   }, [error]);
 
   return (

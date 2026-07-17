@@ -1,12 +1,12 @@
-import Flag from "react-world-flags";
-import { ICircuit, ICircuitDetail } from "@kartiiing/shared";
-import { ExternalLink } from "lucide-react";
-import { cn, flagIconBase, getGoogleMapsUrl } from "@/lib/utils";
+import Flag from 'react-world-flags';
+import { ICircuit, ICircuitDetail } from '@kartiiing/shared';
+import { ExternalLink } from 'lucide-react';
+import { cn, flagIconBase, getGoogleMapsUrl } from '@/lib/utils';
 
 type Props = {
   circuit: ICircuit | ICircuitDetail;
   showFlag?: boolean;
-  version?: "locationName" | "circuitName";
+  version?: 'locationName' | 'circuitName';
   className?: string;
   isClickable?: boolean;
 };
@@ -14,15 +14,15 @@ type Props = {
 export function RaceLocation({
   circuit,
   showFlag = true,
-  version = "locationName",
-  className = "",
+  version = 'locationName',
+  className = '',
   isClickable = false,
 }: Props) {
   const mapUrl = getGoogleMapsUrl(circuit.coordinates);
 
   const baseClassName = cn(
-    "flex items-center gap-2 w-fit",
-    isClickable && "cursor-pointer hover:opacity-75 transition-opacity",
+    'flex w-fit items-center gap-2',
+    isClickable && 'cursor-pointer transition-opacity hover:opacity-75',
     className,
   );
 
@@ -37,12 +37,12 @@ export function RaceLocation({
         />
       )}
 
-      {version === "locationName" && circuit.locationName}
-      {version === "circuitName" &&
+      {version === 'locationName' && circuit.locationName}
+      {version === 'circuitName' &&
         (circuit.name ? circuit.name : circuit.locationName)}
 
       {isClickable && (
-        <ExternalLink className="w-3 h-3 opacity-75" aria-hidden="true" />
+        <ExternalLink className="h-3 w-3 opacity-75" aria-hidden="true" />
       )}
     </>
   );

@@ -5,7 +5,7 @@ type Props = {
 export function Footer({ year }: Props) {
   return (
     <footer className="border-t border-dashed">
-      <div className="border-x border-dashed p-4 lg:px-8 max-w-[90rem] mx-auto text-center w-full text-sm">
+      <div className="mx-auto w-full max-w-[90rem] border-x border-dashed p-4 text-center text-sm lg:px-8">
         © {year} Boldizsar Szabo
       </div>
     </footer>

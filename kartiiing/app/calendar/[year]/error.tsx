@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { ErrorState } from "@/components/shared/ErrorState";
+import { useEffect } from 'react';
+import { ErrorState } from '@/components/shared/ErrorState';
 
 type Props = {
   error: Error & { digest?: string };
@@ -9,7 +9,7 @@ type Props = {
 
 export default function CalendarError({ error }: Props) {
   useEffect(() => {
-    console.error("Calendar page error:", error);
+    console.error('Calendar page error:', error);
   }, [error]);
 
   return (

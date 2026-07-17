@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { cn, lightDarkGlassActive, lightDarkGlassOnlyHover } from "@/lib/utils";
-import { FastestLapCard } from "@/components/circuit/FastestLapCard";
-import type { IFastestLap } from "@kartiiing/shared";
+import { useState } from 'react';
+import { cn, lightDarkGlassActive, lightDarkGlassOnlyHover } from '@/lib/utils';
+import { FastestLapCard } from '@/components/circuit/FastestLapCard';
+import type { IFastestLap } from '@kartiiing/shared';
 
 type Props = {
   fastestLaps: IFastestLap[];
   className?: string;
 };
 
-export function FastestLapsList({ fastestLaps, className = "" }: Props) {
+export function FastestLapsList({ fastestLaps, className = '' }: Props) {
   const [expandedLaps, setExpandedLaps] = useState<Record<string, boolean>>(
     () => {
       if (!fastestLaps || fastestLaps.length === 0) return {};
@@ -30,7 +30,7 @@ export function FastestLapsList({ fastestLaps, className = "" }: Props) {
   };
 
   return (
-    <div className={cn("space-y-1", className)}>
+    <div className={cn('space-y-1', className)}>
       {fastestLaps.map((lap) => (
         <FastestLapCard
           key={lap.category}
@@ -38,7 +38,7 @@ export function FastestLapsList({ fastestLaps, className = "" }: Props) {
           isExpanded={expandedLaps[lap.category] === true}
           onToggle={() => toggleLap(lap.category)}
           className={cn(
-            "border border-transparent",
+            'border border-transparent',
             lightDarkGlassOnlyHover,
             expandedLaps[lap.category] && lightDarkGlassActive,
           )}

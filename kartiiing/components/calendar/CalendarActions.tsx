@@ -1,11 +1,11 @@
-import { GridViewToggle } from "@/components/shared/GridViewToggle";
-import { OrderDropdown } from "@/components/shared/OrderDropdown";
+import { GridViewToggle } from '@/components/shared/GridViewToggle';
+import { OrderDropdown } from '@/components/shared/OrderDropdown';
 import {
   CALENDAR_PRESETS,
   CALENDAR_VIEW_OPTIONS,
-} from "@/lib/constants/calendar";
-import { useCalendarStore } from "@/lib/stores/calendarStore";
-import { CalendarOrderPreset } from "@kartiiing/shared";
+} from '@/lib/constants/calendar';
+import { useCalendarStore } from '@/lib/stores/calendarStore';
+import { CalendarOrderPreset } from '@kartiiing/shared';
 
 type Props = {
   preset: CalendarOrderPreset;
@@ -36,7 +36,7 @@ export function CalendarActions({
   }
 
   return (
-    <div className="flex items-center gap-2 h-9.5">
+    <div className="flex h-9.5 items-center gap-2">
       <GridViewToggle
         viewMode={viewMode}
         setViewMode={setViewMode}

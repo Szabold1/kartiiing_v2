@@ -1,21 +1,21 @@
-import { Paragraph } from "@/lib/types/WikiTypes";
-import { TextParagraph } from "./TextParagraph";
-import { TextListParagraph } from "./TextListParagraph";
-import { ImageParagraph } from "./ImageParagraph";
-import { SubSectionParagraph } from "./SubSectionParagraph";
+import { Paragraph } from '@/lib/types/WikiTypes';
+import { TextParagraph } from './TextParagraph';
+import { TextListParagraph } from './TextListParagraph';
+import { ImageParagraph } from './ImageParagraph';
+import { SubSectionParagraph } from './SubSectionParagraph';
 
 type Props = {
   paragraph: Paragraph;
   level?: number;
-}
+};
 
 export function RenderParagraph({ paragraph, level = 1 }: Props) {
   switch (paragraph.type) {
-    case "text":
+    case 'text':
       return <TextParagraph value={paragraph.value} />;
-    case "text-list":
+    case 'text-list':
       return <TextListParagraph value={paragraph.value} />;
-    case "image":
+    case 'image':
       return (
         <ImageParagraph
           src={paragraph.src}
@@ -23,7 +23,7 @@ export function RenderParagraph({ paragraph, level = 1 }: Props) {
           caption={paragraph.caption}
         />
       );
-    case "sub-section":
+    case 'sub-section':
       return (
         <SubSectionParagraph
           title={paragraph.title}

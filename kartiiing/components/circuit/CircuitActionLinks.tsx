@@ -1,7 +1,7 @@
-import { Globe, MapPin } from "lucide-react";
-import { ICircuit } from "@kartiiing/shared";
-import { CircuitActionLink } from "@/components/circuit/CircuitActionLink";
-import { getGoogleMapsUrl } from "@/lib/utils";
+import { Globe, MapPin } from 'lucide-react';
+import { ICircuit } from '@kartiiing/shared';
+import { CircuitActionLink } from '@/components/circuit/CircuitActionLink';
+import { getGoogleMapsUrl } from '@/lib/utils';
 
 type Props = {
   circuit: ICircuit;
@@ -16,12 +16,12 @@ export function CircuitActionLinks({ circuit, className }: Props) {
       <CircuitActionLink
         href={circuit.website}
         title="Visit circuit website"
-        icon={<Globe className="w-5 h-5" />}
+        icon={<Globe className="h-5 w-5" />}
       />
       <CircuitActionLink
         href={googleMapsUrl}
         title="Open in Google Maps"
-        icon={<MapPin className="w-5 h-5" />}
+        icon={<MapPin className="h-5 w-5" />}
       />
     </div>
   );

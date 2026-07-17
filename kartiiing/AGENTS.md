@@ -113,7 +113,7 @@ const locationUnavailable = useUserLocationStore((s) => s.locationUnavailable);
 const initializeLocation = useUserLocationStore((s) => s.initialize);
 
 // ✅ Good — single subscription with shallow equality check
-import { useShallow } from "zustand/shallow";
+import { useShallow } from 'zustand/shallow';
 
 const { userLocation, locationUnavailable, initializeLocation } =
   useUserLocationStore(
@@ -151,7 +151,7 @@ export async function getCircuits(options?: {
   limit?: number;
 }): Promise<IPaginatedResponse<ICircuit>> {
   const params = new URLSearchParams();
-  if (options?.page) params.set("page", options.page.toString());
+  if (options?.page) params.set('page', options.page.toString());
 
   const url = `${getApiBase()}/circuits?${params.toString()}`;
   const res = await fetch(url, { next: { revalidate: MS_DAY } });
@@ -172,11 +172,11 @@ Never hardcode values that are defined as constants or enums in the application 
 
 ```typescript
 // ❌ Bad — fragile, no type checking
-viewMode: "grid";
-expect(setViewMode).toHaveBeenCalledWith("list");
+viewMode: 'grid';
+expect(setViewMode).toHaveBeenCalledWith('list');
 
 // ✅ Good — compile-time safety, single source of truth
-import { CircuitsViewMode } from "@/lib/constants/circuits";
+import { CircuitsViewMode } from '@/lib/constants/circuits';
 viewMode: CircuitsViewMode.GRID;
 expect(setViewMode).toHaveBeenCalledWith(CircuitsViewMode.LIST);
 ```
@@ -226,10 +226,10 @@ Use accessibility role queries as the default way to find elements. They reflect
 
 ```typescript
 // ❌ Bad — brittle, tied to implementation details
-screen.getByTestId("map-button");
+screen.getByTestId('map-button');
 
 // ✅ Good — tests the accessible interface
-screen.getByRole("button", { name: "Open map view" });
+screen.getByRole('button', { name: 'Open map view' });
 ```
 
 ### Use `queryByRole` + `.not.toBeInTheDocument()` for Absence
@@ -239,12 +239,12 @@ When asserting that something is **not** rendered, use `queryByRole` (returns `n
 ```typescript
 // ❌ Bad — will throw if element is missing, obscuring the assertion
 expect(
-  screen.getByRole("button", { name: "Close map" }),
+  screen.getByRole('button', { name: 'Close map' }),
 ).not.toBeInTheDocument();
 
 // ✅ Good — clear intent, no exception swallowing
 expect(
-  screen.queryByRole("button", { name: "Close map" }),
+  screen.queryByRole('button', { name: 'Close map' }),
 ).not.toBeInTheDocument();
 ```
 
@@ -253,7 +253,7 @@ expect(
 Replace external dependencies (stores, API clients, child components) at the import boundary rather than passing spies through props.
 
 ```typescript
-vi.mock("@/lib/stores/circuitsStore", () => ({
+vi.mock('@/lib/stores/circuitsStore', () => ({
   useCircuitsStore: vi.fn(),
 }));
 
@@ -272,8 +272,8 @@ Simulate clicks, typing, and other interactions through `@testing-library/user-e
 const user = userEvent.setup();
 
 // ✅ Reflects real user behavior (focus, keyboard, sequencing)
-await user.click(screen.getByRole("button", { name: "Open map view" }));
-await user.type(screen.getByRole("textbox"), "query");
+await user.click(screen.getByRole('button', { name: 'Open map view' }));
+await user.type(screen.getByRole('textbox'), 'query');
 ```
 
 Always mark interaction tests as `async` and `await` the interaction.
@@ -296,7 +296,7 @@ it("opens the map modal when MapButton is clicked", () => { ... })
 If every test in a suite needs the same mock configuration, put it in `beforeEach` so each test starts from a clean state.
 
 ```typescript
-describe("CircuitsActions", () => {
+describe('CircuitsActions', () => {
   beforeEach(() => {
     vi.mocked(circuitsStore.useCircuitsStore).mockReturnValue({
       viewMode: CircuitsViewMode.GRID,
@@ -305,7 +305,7 @@ describe("CircuitsActions", () => {
   });
 
   // Tests can override the mock when needed
-  it("calls setViewMode", async () => {
+  it('calls setViewMode', async () => {
     const setViewMode = vi.fn();
     vi.mocked(circuitsStore.useCircuitsStore).mockReturnValue({
       viewMode: CircuitsViewMode.GRID,
@@ -321,12 +321,12 @@ Name tests after what the user sees or what the component does, not how it's imp
 
 ```typescript
 // ❌ Bad — describes implementation
-it("calls useState setter");
-it("renders a div with flex class");
+it('calls useState setter');
+it('renders a div with flex class');
 
 // ✅ Good — describes behavior
-it("opens the map modal when MapButton is clicked");
-it("does not render GridViewToggle in small mode");
+it('opens the map modal when MapButton is clicked');
+it('does not render GridViewToggle in small mode');
 ```
 
 ---

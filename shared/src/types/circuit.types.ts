@@ -1,5 +1,5 @@
-import { ICountry } from "./country.types";
-import { IFastestLap } from "./fastest-lap.types";
+import { ICountry } from './country.types';
+import { IFastestLap } from './fastest-lap.types';
 
 export interface ICircuitLayout {
   id: number;
@@ -35,10 +35,10 @@ export interface ICircuitCoordinate {
 }
 
 export enum CircuitsOrderPreset {
-  LOCATION_ASC = "location_asc",
-  LOCATION_DESC = "location_desc",
-  LENGTH_ASC = "length_asc",
-  LENGTH_DESC = "length_desc",
-  DISTANCE_ASC = "distance_asc",
-  DISTANCE_DESC = "distance_desc",
+  LOCATION_ASC = 'location_asc',
+  LOCATION_DESC = 'location_desc',
+  LENGTH_ASC = 'length_asc',
+  LENGTH_DESC = 'length_desc',
+  DISTANCE_ASC = 'distance_asc',
+  DISTANCE_DESC = 'distance_desc',
 }

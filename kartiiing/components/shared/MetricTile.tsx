@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { cn, grayGlassBase } from "@/lib/utils";
+import type { ReactNode } from 'react';
+import { cn, grayGlassBase } from '@/lib/utils';
 
 type Props = {
   icon: ReactNode;
@@ -13,7 +13,7 @@ export function MetricTile({
   icon,
   value,
   title,
-  className = "",
+  className = '',
   show = true,
 }: Props) {
   if (!show) return null;
@@ -21,7 +21,7 @@ export function MetricTile({
     <div
       title={title}
       className={cn(
-        "rounded-lg py-1.5 px-2 flex items-center justify-center gap-1.5 min-w-max flex-1 whitespace-nowrap",
+        'flex min-w-max flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 whitespace-nowrap',
         grayGlassBase,
         className,
       )}

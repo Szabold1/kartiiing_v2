@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddRoundNumberPerChampionship1761380194141
-  implements MigrationInterface
-{
+export class AddRoundNumberPerChampionship1761380194141 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Drop the old many-to-many join table with both constraints
     await queryRunner.query(

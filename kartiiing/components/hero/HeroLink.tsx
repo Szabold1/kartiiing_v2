@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { cn, greenGlassHover, lightDarkGlassHover } from "@/lib/utils";
-import Link from "next/link";
-import { ReactNode } from "react";
+import { cn, greenGlassHover, lightDarkGlassHover } from '@/lib/utils';
+import Link from 'next/link';
+import { ReactNode } from 'react';
 
 type Props = {
   href: string;
   children: ReactNode;
-  variant?: "light" | "green";
+  variant?: 'light' | 'green';
   className?: string;
-}
+};
 
 export function HeroLink({
   href,
   children,
-  variant = "light",
-  className = "",
+  variant = 'light',
+  className = '',
 }: Props) {
   const baseStyles =
-    "px-4.5 sm:px-5.5 py-2.5 font-medium rounded-xl transition-colors";
+    'px-4.5 sm:px-5.5 py-2.5 font-medium rounded-xl transition-colors';
 
   const variants = {
     light: `${lightDarkGlassHover}`,

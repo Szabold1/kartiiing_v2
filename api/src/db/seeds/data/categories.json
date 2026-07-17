@@ -1,7 +1,5 @@
 {
-  "Mini 60": [
-    { "name": "Mini 60", "order": 1 }
-  ],
+  "Mini 60": [{ "name": "Mini 60", "order": 1 }],
   "OK": [
     { "name": "OK", "order": 11 },
     { "name": "OK-J", "order": 12 },
@@ -42,7 +40,5 @@
     { "name": "KZ2", "order": 62 },
     { "name": "KZ2-Masters", "order": 63 }
   ],
-  "Other": [
-    { "name": "All", "order": 71 }
-  ]
+  "Other": [{ "name": "All", "order": 71 }]
 }

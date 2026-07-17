@@ -1,4 +1,4 @@
-import { EngineColorVariant } from "@/lib/constants/categories";
+import { EngineColorVariant } from '@/lib/constants/categories';
 
 // ---------------------------------------------------------------------- //
 // --- No-border hover styles (bg + text hover for child elements ------- //
@@ -64,7 +64,7 @@ export const violetNoBorderHover = `
 // ---------------------------------------------- //
 // ----- Glass base styles ---------------------- //
 
-export const glassBase = "border shadow-2xs backdrop-blur-md";
+export const glassBase = 'border shadow-2xs backdrop-blur-md';
 
 export const redGlassBase = `
   ${glassBase} 
@@ -223,65 +223,67 @@ export const liveContainerHover = `
  * base glass style and input hover (subtle bg-only hover for
  * dropdown items inside already-colored parent containers).
  */
-export const GLASS_REGISTRY: Record<string, { base: string; noBorderHover: string }> =
-  {
-    teal: {
-      base: tealGlassBase,
-      noBorderHover: tealNoBorderHover,
-    },
-    blue: {
-      base: blueGlassBase,
-      noBorderHover: blueNoBorderHover,
-    },
-    sky: {
-      base: skyGlassBase,
-      noBorderHover: skyNoBorderHover,
-    },
-    purple: {
-      base: purpleGlassBase,
-      noBorderHover: purpleNoBorderHover,
-    },
-    orange: {
-      base: orangeGlassBase,
-      noBorderHover: orangeNoBorderHover,
-    },
-    amber: {
-      base: amberGlassBase,
-      noBorderHover: amberNoBorderHover,
-    },
-    lime: {
-      base: limeGlassBase,
-      noBorderHover: limeNoBorderHover,
-    },
-    gray: {
-      base: grayGlassBase,
-      noBorderHover: grayNoBorderHover,
-    },
-    red: {
-      base: redGlassBase,
-      noBorderHover: redNoBorderHover,
-    },
-    green: {
-      base: greenGlassBase,
-      noBorderHover: greenNoBorderHover,
-    },
-    cyan: {
-      base: cyanGlassBase,
-      noBorderHover: cyanNoBorderHover,
-    },
-    emerald: {
-      base: emeraldGlassBase,
-      noBorderHover: emeraldNoBorderHover,
-    },
-    pink: {
-      base: pinkGlassBase,
-      noBorderHover: pinkNoBorderHover,
-    },
-    violet: {
-      base: violetGlassBase,
-      noBorderHover: violetNoBorderHover,
-    },
-  };
+export const GLASS_REGISTRY: Record<
+  string,
+  { base: string; noBorderHover: string }
+> = {
+  teal: {
+    base: tealGlassBase,
+    noBorderHover: tealNoBorderHover,
+  },
+  blue: {
+    base: blueGlassBase,
+    noBorderHover: blueNoBorderHover,
+  },
+  sky: {
+    base: skyGlassBase,
+    noBorderHover: skyNoBorderHover,
+  },
+  purple: {
+    base: purpleGlassBase,
+    noBorderHover: purpleNoBorderHover,
+  },
+  orange: {
+    base: orangeGlassBase,
+    noBorderHover: orangeNoBorderHover,
+  },
+  amber: {
+    base: amberGlassBase,
+    noBorderHover: amberNoBorderHover,
+  },
+  lime: {
+    base: limeGlassBase,
+    noBorderHover: limeNoBorderHover,
+  },
+  gray: {
+    base: grayGlassBase,
+    noBorderHover: grayNoBorderHover,
+  },
+  red: {
+    base: redGlassBase,
+    noBorderHover: redNoBorderHover,
+  },
+  green: {
+    base: greenGlassBase,
+    noBorderHover: greenNoBorderHover,
+  },
+  cyan: {
+    base: cyanGlassBase,
+    noBorderHover: cyanNoBorderHover,
+  },
+  emerald: {
+    base: emeraldGlassBase,
+    noBorderHover: emeraldNoBorderHover,
+  },
+  pink: {
+    base: pinkGlassBase,
+    noBorderHover: pinkNoBorderHover,
+  },
+  violet: {
+    base: violetGlassBase,
+    noBorderHover: violetNoBorderHover,
+  },
+};
 
 /**
  * Default color-to-engine mapping. Each engine category is assigned
@@ -289,13 +291,13 @@ export const GLASS_REGISTRY: Record<string, { base: string; noBorderHover: strin
  * via {@link getColorsForEngine}'s {@link overrideColor} parameter.
  */
 export const ENGINE_DEFAULT_COLORS: Record<string, string> = {
-  "MINI 60": "teal",
-  OK: "blue",
-  ACADEMY: "sky",
-  KZ: "purple",
-  ROTAX: "orange",
-  IAME: "amber",
-  VORTEX: "lime",
+  'MINI 60': 'teal',
+  OK: 'blue',
+  ACADEMY: 'sky',
+  KZ: 'purple',
+  ROTAX: 'orange',
+  IAME: 'amber',
+  VORTEX: 'lime',
 };
 
 export function getColorsForEngine(
@@ -305,7 +307,7 @@ export function getColorsForEngine(
 ): string {
   const normalizedEngine = engineType.toUpperCase();
   const colorName =
-    overrideColor || ENGINE_DEFAULT_COLORS[normalizedEngine] || "gray";
+    overrideColor || ENGINE_DEFAULT_COLORS[normalizedEngine] || 'gray';
   const { base, noBorderHover } =
     GLASS_REGISTRY[colorName] || GLASS_REGISTRY.gray;
 
@@ -327,16 +329,16 @@ export function getColorsForEngine(
 export const listViewContainerClasses = `${lightDarkGlassBase} flex flex-col p-1.5 rounded-[1.3rem] dark:bg-neutral-900`;
 
 export const gridViewContainerBase =
-  "grid justify-center gap-5 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]";
+  'grid justify-center gap-5 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(16.9rem,1fr))]';
 
 export function getGridWidthClass(itemCount: number): string {
   switch (itemCount) {
     case 1:
-      return "max-w-[22rem]";
+      return 'max-w-[22rem]';
     case 2:
-      return "max-w-[calc(2*22rem_+_1.25rem)]";
+      return 'max-w-[calc(2*22rem_+_1.25rem)]';
     default:
-      return "max-w-full";
+      return 'max-w-full';
   }
 }
 

@@ -1,6 +1,6 @@
-import { ICountry } from "@kartiiing/shared";
-import Flag from "react-world-flags";
-import { cn, flagIconBase } from "@/lib/utils";
+import { ICountry } from '@kartiiing/shared';
+import Flag from 'react-world-flags';
+import { cn, flagIconBase } from '@/lib/utils';
 
 type Props = {
   name: string;
@@ -16,7 +16,7 @@ export function DriverInfo({
   className,
 }: Props) {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn('flex items-center gap-2', className)}>
       {showFlag && country && (
         <Flag
           code={country.code}

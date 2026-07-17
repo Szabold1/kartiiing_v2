@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, useMemo, useEffect } from "react";
-import { IFastestLap } from "@kartiiing/shared";
-import { FastestLapCard } from "@/components/circuit/FastestLapCard";
-import { EngineStyledSelect } from "@/components/circuit/EngineStyledSelect";
-import { getFastestLap } from "@/lib/utils/raceUtils";
-import { cn } from "@/lib/utils";
+import { useState, useMemo, useEffect } from 'react';
+import { IFastestLap } from '@kartiiing/shared';
+import { FastestLapCard } from '@/components/circuit/FastestLapCard';
+import { EngineStyledSelect } from '@/components/circuit/EngineStyledSelect';
+import { getFastestLap } from '@/lib/utils/raceUtils';
+import { cn } from '@/lib/utils';
 
 enum DropdownType {
-  Engine = "engine",
-  Category = "category",
-  Year = "year",
+  Engine = 'engine',
+  Category = 'category',
+  Year = 'year',
 }
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
 
 export function FastestLapsWithDropdown({
   fastestLaps,
-  className = "",
+  className = '',
   showYears = false,
   preferredEngineTypes = [],
 }: Props) {
@@ -45,13 +45,13 @@ export function FastestLapsWithDropdown({
       if (preferred) return preferred;
     }
 
-    return engineTypes[0] || "";
+    return engineTypes[0] || '';
   }, [fastestLaps, preferredEngineTypes]);
 
   const [selectedEngineType, setSelectedEngineType] =
     useState<string>(initialEngineType);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedYear, setSelectedYear] = useState<string>("All Time");
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<string>('All Time');
   const [openDropdown, setOpenDropdown] = useState<DropdownType | null>(null);
 
   // Sync selectedEngineType when initialEngineType changes (e.g., data loaded async)
@@ -69,7 +69,7 @@ export function FastestLapsWithDropdown({
       (lap) => lap.engineType === selectedEngineType,
     );
     if (laps.length === 0) {
-      setSelectedCategory("");
+      setSelectedCategory('');
       return;
     }
     const fastestLap = getFastestLap(laps);
@@ -79,7 +79,7 @@ export function FastestLapsWithDropdown({
   // Sync year when category changes
   useEffect(() => {
     if (showYears) {
-      setSelectedYear("All Time");
+      setSelectedYear('All Time');
     }
   }, [selectedCategory, showYears]);
 
@@ -87,7 +87,7 @@ export function FastestLapsWithDropdown({
   const selectedLap = useMemo(() => {
     if (!selectedEngineType || !selectedCategory) return null;
 
-    if (showYears && selectedYear && selectedYear !== "All Time") {
+    if (showYears && selectedYear && selectedYear !== 'All Time') {
       return (
         fastestLaps.find(
           (lap) =>
@@ -142,7 +142,7 @@ export function FastestLapsWithDropdown({
           .map((lap) => new Date(lap.date).getFullYear().toString()),
       ),
     ).sort((a, b) => parseInt(b) - parseInt(a));
-    return ["All Time", ...years];
+    return ['All Time', ...years];
   }, [fastestLaps, selectedEngineType, selectedCategory]);
 
   if (!fastestLaps || fastestLaps.length === 0) {
@@ -150,8 +150,8 @@ export function FastestLapsWithDropdown({
   }
 
   return (
-    <section className={cn("space-y-2.5", className)}>
-      <div className="flex items-center gap-1.5 flex-wrap font-medium">
+    <section className={cn('space-y-2.5', className)}>
+      <div className="flex flex-wrap items-center gap-1.5 font-medium">
         <EngineStyledSelect
           label="Engine Type"
           options={engineTypeOptions}

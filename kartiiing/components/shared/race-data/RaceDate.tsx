@@ -1,6 +1,6 @@
-import { format } from "date-fns";
-import { getRelativeText, toDay, cn } from "@/lib/utils";
-import { IRaceEventDate } from "@kartiiing/shared";
+import { format } from 'date-fns';
+import { getRelativeText, toDay, cn } from '@/lib/utils';
+import { IRaceEventDate } from '@kartiiing/shared';
 
 type Props = {
   date: IRaceEventDate;
@@ -11,13 +11,13 @@ type Props = {
 
 export function RaceDate({
   date,
-  className = "",
+  className = '',
   withYear = false,
   showRelative = false,
 }: Props) {
   if (!date.start && !date.end) {
     return (
-      <span className={cn("text-muted-foreground", className)}>Date TBA</span>
+      <span className={cn('text-muted-foreground', className)}>Date TBA</span>
     );
   }
 
@@ -31,31 +31,31 @@ export function RaceDate({
   return (
     <div
       className={cn(
-        "uppercase",
-        showRelative && "flex flex-wrap items-center gap-x-2",
+        'uppercase',
+        showRelative && 'flex flex-wrap items-center gap-x-2',
         className,
       )}
     >
       {isSameDay ? (
         // single day
-        <span>{format(startDate, withYear ? "dd MMM yyyy" : "dd MMM")}</span>
+        <span>{format(startDate, withYear ? 'dd MMM yyyy' : 'dd MMM')}</span>
       ) : isSameMonth ? (
         // same month, different days
         <span>
-          {format(startDate, "dd")} -{" "}
-          {format(endDate, withYear ? "dd MMM yyyy" : "dd MMM")}
+          {format(startDate, 'dd')} -{' '}
+          {format(endDate, withYear ? 'dd MMM yyyy' : 'dd MMM')}
         </span>
       ) : (
         // different months
         <span>
-          {format(startDate, withYear ? "dd MMM yyyy" : "dd MMM")} -{" "}
-          {format(endDate, withYear ? "dd MMM yyyy" : "dd MMM")}
+          {format(startDate, withYear ? 'dd MMM yyyy' : 'dd MMM')} -{' '}
+          {format(endDate, withYear ? 'dd MMM yyyy' : 'dd MMM')}
         </span>
       )}
 
       {showRelative && (
-        <span className="text-muted-foreground lowercase inline-flex">
-          {"(" + getRelativeText(startDate, endDate) + ")"}
+        <span className="text-muted-foreground inline-flex lowercase">
+          {'(' + getRelativeText(startDate, endDate) + ')'}
         </span>
       )}
     </div>

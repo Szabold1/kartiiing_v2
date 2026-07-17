@@ -66,7 +66,15 @@
         "locationName": "Dunajská Streda",
         "dateStart": "2015-03-29",
         "dateEnd": "2015-03-29",
-        "categoryNames": ["Micro", "Mini", "Junior", "Senior", "DD2", "DD2-Masters", "KZ2"],
+        "categoryNames": [
+          "Micro",
+          "Mini",
+          "Junior",
+          "Senior",
+          "DD2",
+          "DD2-Masters",
+          "KZ2"
+        ],
         "resultLinks": [
           {
             "url": "https://speedhive.mylaps.com/events/1118256",

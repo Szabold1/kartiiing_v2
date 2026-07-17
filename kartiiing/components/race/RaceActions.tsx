@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { RaceActionBtn } from "@/components/shared/btns/RaceActionBtn";
-import { Timer, TvMinimalPlay } from "lucide-react";
-import { RaceStatus, IRaceEvent } from "@kartiiing/shared";
-import { grayGlassHover, redGlassHover } from "@/lib/utils";
+import { RaceActionBtn } from '@/components/shared/btns/RaceActionBtn';
+import { Timer, TvMinimalPlay } from 'lucide-react';
+import { RaceStatus, IRaceEvent } from '@kartiiing/shared';
+import { grayGlassHover, redGlassHover } from '@/lib/utils';
 
 type Props = {
   race: IRaceEvent;
@@ -15,23 +15,23 @@ export function RaceActions({ race }: Props) {
 
   if (!isLive && !isFinished) return null;
 
-  const handleClick = (type: "timing" | "streaming") => {
+  const handleClick = (type: 'timing' | 'streaming') => {
     const year = race.date.year;
-    const livePrefix = isLive ? "live " : "";
+    const livePrefix = isLive ? 'live ' : '';
 
     const searchQuery = encodeURIComponent(
       `${year} ${race.title} ${race.circuit.locationName} ${livePrefix}${type}`,
     );
     const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
 
-    window.open(searchUrl, "_blank");
+    window.open(searchUrl, '_blank');
   };
 
   return (
     <>
       {isLive && (
         <RaceActionBtn
-          onClick={() => handleClick("timing")}
+          onClick={() => handleClick('timing')}
           className={redGlassHover}
           ariaLabel="Find live timing options"
         >
@@ -40,9 +40,9 @@ export function RaceActions({ race }: Props) {
       )}
 
       <RaceActionBtn
-        onClick={() => handleClick("streaming")}
+        onClick={() => handleClick('streaming')}
         className={isLive ? redGlassHover : grayGlassHover}
-        ariaLabel={`Find ${isLive ? "live " : ""}streaming options`}
+        ariaLabel={`Find ${isLive ? 'live ' : ''}streaming options`}
       >
         <TvMinimalPlay />
       </RaceActionBtn>

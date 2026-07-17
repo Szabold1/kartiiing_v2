@@ -1,20 +1,20 @@
-import { IRaceEvent } from "@kartiiing/shared";
-import { EngineCategory } from "@/components/shared/race-data/EngineCategory";
-import { SectionTitle } from "@/components/shared/SectionTitle";
-import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
-import { RaceDate } from "@/components/shared/race-data/RaceDate";
-import { cn } from "@/lib/utils";
+import { IRaceEvent } from '@kartiiing/shared';
+import { EngineCategory } from '@/components/shared/race-data/EngineCategory';
+import { SectionTitle } from '@/components/shared/SectionTitle';
+import { RaceLocation } from '@/components/shared/race-data/RaceLocation';
+import { RaceDate } from '@/components/shared/race-data/RaceDate';
+import { cn } from '@/lib/utils';
 
 type Props = {
   race: IRaceEvent;
   className?: string;
-}
+};
 
-export function RaceSummary({ race, className = "" }: Props) {
+export function RaceSummary({ race, className = '' }: Props) {
   const { date, circuit, categories } = race;
 
   return (
-    <div className={cn("space-y-3.5", className)}>
+    <div className={cn('space-y-3.5', className)}>
       <div>
         <SectionTitle>Date</SectionTitle>
         <RaceDate
@@ -36,7 +36,7 @@ export function RaceSummary({ race, className = "" }: Props) {
 
       <div>
         <SectionTitle>
-          Championship{race.championships.length > 1 && "s"}
+          Championship{race.championships.length > 1 && 's'}
         </SectionTitle>
         {race.championships.map((champ) => (
           <div key={champ.id} className="font-medium tracking-tight">
@@ -48,7 +48,7 @@ export function RaceSummary({ race, className = "" }: Props) {
       {Object.keys(categories).length > 0 && (
         <div>
           <SectionTitle>
-            Engine type{Object.keys(categories).length > 1 && "s"}
+            Engine type{Object.keys(categories).length > 1 && 's'}
           </SectionTitle>
           <EngineCategory engineCategoryPairs={categories} className="mt-1" />
         </div>

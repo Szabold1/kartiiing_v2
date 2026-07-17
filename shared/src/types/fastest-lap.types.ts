@@ -1,4 +1,4 @@
-import { ICountry } from "./country.types";
+import { ICountry } from './country.types';
 
 export interface IFastestLap {
   category: string;

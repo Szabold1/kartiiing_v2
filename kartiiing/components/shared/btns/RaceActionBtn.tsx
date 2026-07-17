@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type Props = {
   onClick: () => void;
@@ -9,15 +9,15 @@ type Props = {
 
 export function RaceActionBtn({
   onClick,
-  className = "",
-  children = "Live Action",
+  className = '',
+  children = 'Live Action',
   ariaLabel,
 }: Props) {
   return (
     <button
       onClick={onClick}
       className={cn(
-        "p-2 rounded-lg transition-colors duration-200 cursor-pointer w-10.5 h-10.5 flex items-center justify-center",
+        'flex h-10.5 w-10.5 cursor-pointer items-center justify-center rounded-lg p-2 transition-colors duration-200',
         className,
       )}
       aria-label={ariaLabel}

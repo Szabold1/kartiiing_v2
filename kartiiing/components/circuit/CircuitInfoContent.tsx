@@ -1,32 +1,32 @@
-import { ICircuit } from "@kartiiing/shared";
-import { CircuitActionLinks } from "@/components/circuit/CircuitActionLinks";
-import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
-import { CircuitMetric } from "./CircuitMetric";
+import { ICircuit } from '@kartiiing/shared';
+import { CircuitActionLinks } from '@/components/circuit/CircuitActionLinks';
+import { RaceLocation } from '@/components/shared/race-data/RaceLocation';
+import { CircuitMetric } from './CircuitMetric';
 
 type Props = {
   circuit: ICircuit;
   showActions?: boolean;
-  headingLevel?: "h2" | "h3";
+  headingLevel?: 'h2' | 'h3';
   showLayoutRange?: boolean;
 };
 
 export function CircuitInfoContent({
   circuit,
   showActions = true,
-  headingLevel = "h3",
+  headingLevel = 'h3',
   showLayoutRange = true,
 }: Props) {
   const showDistance = circuit.distance != null;
-  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
+  const HeadingTag = headingLevel === 'h2' ? 'h2' : 'h3';
 
   return (
-    <div className="flex justify-between items-center flex-1">
-      <div className="flex flex-col min-w-0 flex-1">
+    <div className="flex flex-1 items-center justify-between">
+      <div className="flex min-w-0 flex-1 flex-col">
         <RaceLocation
           circuit={circuit}
           className="text-muted-foreground text-sm font-medium"
         />
-        <HeadingTag className="font-semibold tracking-tight truncate">
+        <HeadingTag className="truncate font-semibold tracking-tight">
           {circuit.name}
         </HeadingTag>
         {showDistance ? (

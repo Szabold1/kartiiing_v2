@@ -1,15 +1,15 @@
-import { RaceCard } from "@/components/calendar/RaceCard";
-import { Loader } from "@/components/shared/Loader";
-import { IRaceEvent } from "@kartiiing/shared";
-import { CalendarViewMode } from "@/lib/constants/calendar";
+import { RaceCard } from '@/components/calendar/RaceCard';
+import { Loader } from '@/components/shared/Loader';
+import { IRaceEvent } from '@kartiiing/shared';
+import { CalendarViewMode } from '@/lib/constants/calendar';
 import {
   cn,
   getGridWidthClass,
   listViewContainerClasses,
   gridViewContainerBase,
-} from "@/lib/utils";
-import { useCalendarStore } from "@/lib/stores/calendarStore";
-import { ErrorState } from "@/components/shared/ErrorState";
+} from '@/lib/utils';
+import { useCalendarStore } from '@/lib/stores/calendarStore';
+import { ErrorState } from '@/components/shared/ErrorState';
 
 type Props = {
   races: IRaceEvent[];
@@ -64,14 +64,14 @@ export function RacesGrid({
 
   const racesByYear = groupRacesByYear(races);
   const showYearHeaders = isAllYearsView || racesByYear.length > 1;
-  const headingLevel = showYearHeaders ? ("h3" as const) : ("h2" as const);
+  const headingLevel = showYearHeaders ? ('h3' as const) : ('h2' as const);
 
   return (
     <div className="space-y-8">
       {racesByYear.map(({ year, races: yearRaces }) => (
         <div key={year}>
           {showYearHeaders && (
-            <h2 className="text-2xl font-bold mx-5 my-3">{year}</h2>
+            <h2 className="mx-5 my-3 text-2xl font-bold">{year}</h2>
           )}
           <div
             className={
@@ -84,7 +84,7 @@ export function RacesGrid({
               <RaceCard
                 key={race.id}
                 race={race}
-                variant={showListView ? "row" : "card"}
+                variant={showListView ? 'row' : 'card'}
                 headingLevel={headingLevel}
               />
             ))}

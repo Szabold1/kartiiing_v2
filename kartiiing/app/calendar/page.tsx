@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
-import { getAvailableYears } from "@/lib/api";
+import { redirect } from 'next/navigation';
+import { getAvailableYears } from '@/lib/api';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function CalendarPage() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +17,7 @@ export default async function CalendarPage() {
       }
     }
   } catch (error) {
-    console.error("Error fetching available years:", error);
+    console.error('Error fetching available years:', error);
     // Fall through with currentYear
   }
 

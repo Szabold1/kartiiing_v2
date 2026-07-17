@@ -1,6 +1,6 @@
-import { JSX } from "react";
-import { Paragraph } from "@/lib/types/WikiTypes";
-import { RenderParagraph } from "./RenderParagraph";
+import { JSX } from 'react';
+import { Paragraph } from '@/lib/types/WikiTypes';
+import { RenderParagraph } from './RenderParagraph';
 
 type Props = {
   title: string;
@@ -18,12 +18,12 @@ export function SubSectionParagraph({
   const HeadingTag = `h${level + 2}` as keyof JSX.IntrinsicElements;
   const headingStyles = `font-semibold pl-2 ${
     level === 1
-      ? "text-lg border-l-4 border-blue-500"
-      : "border-l-4 border-amber-400"
+      ? 'text-lg border-l-4 border-blue-500'
+      : 'border-l-4 border-amber-400'
   }`;
-  const subSectionStyles = `scroll-mt-20 ${level === 1 ? "mt-8" : "mt-7"}`;
+  const subSectionStyles = `scroll-mt-20 ${level === 1 ? 'mt-8' : 'mt-7'}`;
   const subSectionSpanStyles = `block border-b border-dashed ${
-    level === 1 ? "mb-3 pb-3 border-blue-500" : "mb-2 pb-2 border-amber-400"
+    level === 1 ? 'mb-3 pb-3 border-blue-500' : 'mb-2 pb-2 border-amber-400'
   }`;
 
   return (

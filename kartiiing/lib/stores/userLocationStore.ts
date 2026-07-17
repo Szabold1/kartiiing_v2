@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { ICoordinates } from "@kartiiing/shared";
+import { create } from 'zustand';
+import { ICoordinates } from '@kartiiing/shared';
 import {
   getLocationFromGPS,
   getLocationFromIP,
-} from "@/lib/utils/locationUtils";
+} from '@/lib/utils/locationUtils';
 
 type UserLocationStore = {
   /** Resolved coordinates, or null before initialization / if unavailable */
@@ -11,7 +11,7 @@ type UserLocationStore = {
   /** Human-readable location name from IP geolocation (e.g. "Paris, France") */
   locationName: string | undefined;
   /** Source of the resolved location (gps or ip), undefined if not resolved */
-  locationSource: "gps" | "ip" | undefined;
+  locationSource: 'gps' | 'ip' | undefined;
   /** True when both GPS and IP geolocation failed */
   locationUnavailable: boolean;
   /** Call once on mount to resolve the user's location. Idempotent. */
@@ -36,7 +36,7 @@ export const useUserLocationStore = create<UserLocationStore>((set, get) => ({
           latitude: gps.latitude,
           longitude: gps.longitude,
         },
-        locationSource: "gps",
+        locationSource: 'gps',
       });
       return;
     }
@@ -49,7 +49,7 @@ export const useUserLocationStore = create<UserLocationStore>((set, get) => ({
           longitude: ip.longitude,
         },
         locationName: ip.locationName,
-        locationSource: "ip",
+        locationSource: 'ip',
       });
       return;
     }

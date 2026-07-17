@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { cn, lightDarkGlassActive, lightDarkGlassBase } from "@/lib/utils";
+import { Button } from '@/components/ui/button';
+import { cn, lightDarkGlassActive, lightDarkGlassBase } from '@/lib/utils';
 
 interface Option<T extends string> {
   value: T;
@@ -18,12 +18,12 @@ export function GridViewToggle<T extends string>({
   viewMode,
   setViewMode,
   options,
-  className = "",
+  className = '',
 }: Props<T>) {
   return (
     <div
       className={cn(
-        "flex rounded-lg h-10.5 items-center justify-center p-[0.1rem]",
+        'flex h-10.5 items-center justify-center rounded-lg p-[0.1rem]',
         lightDarkGlassBase,
         className,
       )}
@@ -34,10 +34,10 @@ export function GridViewToggle<T extends string>({
           variant="outline"
           aria-label={opt.label}
           className={cn(
-            "w-[2.33rem] h-[2.33rem] border-transparent shadow-none dark:bg-transparent rounded-[0.55rem]",
+            'h-[2.33rem] w-[2.33rem] rounded-[0.55rem] border-transparent shadow-none dark:bg-transparent',
             viewMode === opt.value
               ? lightDarkGlassActive
-              : "opacity-60 hover:opacity-100",
+              : 'opacity-60 hover:opacity-100',
           )}
           onClick={() => setViewMode(opt.value)}
         >

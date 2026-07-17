@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   CircuitsViewMode,
   CIRCUITS_VIEW_MODE_KEY,
-} from "@/lib/constants/circuits";
+} from '@/lib/constants/circuits';
 
 type CircuitsStore = {
   viewMode: CircuitsViewMode;

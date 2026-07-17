@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { useShallow } from "zustand/shallow";
-import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
-import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
-import { useUserLocationStore } from "@/lib/stores/userLocationStore";
-import { LIST_VIEW_BREAKPOINT } from "@/lib/constants/layout";
-import { SearchHeader } from "@/components/shared/SearchHeader";
-import { CircuitsActions } from "@/components/circuits/CircuitsActions";
-import { CircuitsGrid } from "@/components/circuits/CircuitsGrid";
-import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
-import { ErrorState } from "@/components/shared/ErrorState";
-import { getCircuits } from "@/lib/api";
+import { useState, useEffect, useCallback } from 'react';
+import { useShallow } from 'zustand/shallow';
+import { useSectionWidth } from '@/lib/hooks/useSectionWidth';
+import { useInfiniteScroll } from '@/lib/hooks/useInfiniteScroll';
+import { useUserLocationStore } from '@/lib/stores/userLocationStore';
+import { LIST_VIEW_BREAKPOINT } from '@/lib/constants/layout';
+import { SearchHeader } from '@/components/shared/SearchHeader';
+import { CircuitsActions } from '@/components/circuits/CircuitsActions';
+import { CircuitsGrid } from '@/components/circuits/CircuitsGrid';
+import { BackToTopBtn } from '@/components/shared/btns/BackToTopBtn';
+import { ErrorState } from '@/components/shared/ErrorState';
+import { getCircuits } from '@/lib/api';
 import {
   ICircuit,
   ICircuitCoordinate,
   IPaginatedResponse,
   CircuitsOrderPreset,
-} from "@kartiiing/shared";
+} from '@kartiiing/shared';
 
 type Props = {
   initialData: IPaginatedResponse<ICircuit>;
@@ -37,7 +37,7 @@ export function CircuitsClient({
   coordinates,
   serverError,
 }: Props) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [clientError, setClientError] = useState<string | null>(null);
   const [preset, setPreset] = useState<CircuitsOrderPreset>(
@@ -107,9 +107,9 @@ export function CircuitsClient({
           response.meta.hasNextPage,
         );
       } catch (error) {
-        console.error("Error fetching circuits:", error);
+        console.error('Error fetching circuits:', error);
         setClientError(
-          "Failed to load circuits. Check your internet connection and try again.",
+          'Failed to load circuits. Check your internet connection and try again.',
         );
       } finally {
         setLoading(false);
@@ -152,7 +152,7 @@ export function CircuitsClient({
   return (
     <>
       <div ref={sectionRef}>
-        <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
+        <div className="mb-2 flex flex-col items-center gap-2 md:flex-row">
           <SearchHeader
             searchQuery={searchQuery}
             setSearchQuery={handleSearchQueryChange}
@@ -165,11 +165,11 @@ export function CircuitsClient({
           {showGridToggle && renderCircuitsActions()}
         </div>
 
-        <div className="my-4 py-4 border-t border-dashed">
+        <div className="my-4 border-t border-dashed py-4">
           {serverError || clientError ? (
             <ErrorState
               title="Something went wrong"
-              message={serverError || clientError || ""}
+              message={serverError || clientError || ''}
             />
           ) : (
             <CircuitsGrid

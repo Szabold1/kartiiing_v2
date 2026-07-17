@@ -1,12 +1,12 @@
 type ParagraphImage = {
-  type: "image";
+  type: 'image';
   src: string;
   alt: string;
   caption?: string;
 };
 
 type SubSection = {
-  type: "sub-section";
+  type: 'sub-section';
   id?: string;
   title: string;
   shortTitle?: string;
@@ -15,11 +15,11 @@ type SubSection = {
 
 type Paragraph =
   | {
-      type: "text";
+      type: 'text';
       value: string;
     }
   | {
-      type: "text-list";
+      type: 'text-list';
       value: string[];
     }
   | ParagraphImage

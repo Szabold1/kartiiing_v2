@@ -7,22 +7,22 @@ import {
   Sun,
   Wind,
   type LucideIcon,
-} from "lucide-react";
-import type { IWeatherCondition } from "@kartiiing/shared";
+} from 'lucide-react';
+import type { IWeatherCondition } from '@kartiiing/shared';
 
 /**
  * Maps Visual Crossing icon names to our internal representation. This allows us to decouple our UI from the specific icon naming of the API and also to handle cases where the API might not provide an icon but we can infer it from the condition name.
  */
 enum VisualCrossingIcon {
-  Snow = "snow",
-  Rain = "rain",
-  Fog = "fog",
-  Wind = "wind",
-  Cloudy = "cloudy",
-  PartlyCloudyDay = "partly-cloudy-day",
-  PartlyCloudyNight = "partly-cloudy-night",
-  ClearDay = "clear-day",
-  ClearNight = "clear-night",
+  Snow = 'snow',
+  Rain = 'rain',
+  Fog = 'fog',
+  Wind = 'wind',
+  Cloudy = 'cloudy',
+  PartlyCloudyDay = 'partly-cloudy-day',
+  PartlyCloudyNight = 'partly-cloudy-night',
+  ClearDay = 'clear-day',
+  ClearNight = 'clear-night',
 }
 
 type WeatherVisual = {
@@ -36,39 +36,39 @@ type WeatherVisual = {
 const WEATHER_VISUALS: Record<VisualCrossingIcon, WeatherVisual> = {
   [VisualCrossingIcon.ClearDay]: {
     icon: Sun,
-    className: "text-amber-500 dark:text-amber-400",
+    className: 'text-amber-500 dark:text-amber-400',
   },
   [VisualCrossingIcon.ClearNight]: {
     icon: Sun,
-    className: "text-amber-500 dark:text-amber-400",
+    className: 'text-amber-500 dark:text-amber-400',
   },
   [VisualCrossingIcon.PartlyCloudyDay]: {
     icon: CloudSun,
-    className: "text-amber-400 dark:text-amber-300",
+    className: 'text-amber-400 dark:text-amber-300',
   },
   [VisualCrossingIcon.PartlyCloudyNight]: {
     icon: CloudSun,
-    className: "text-amber-400 dark:text-amber-300",
+    className: 'text-amber-400 dark:text-amber-300',
   },
   [VisualCrossingIcon.Cloudy]: {
     icon: Cloud,
-    className: "text-slate-500 dark:text-slate-300",
+    className: 'text-slate-500 dark:text-slate-300',
   },
   [VisualCrossingIcon.Fog]: {
     icon: CloudFog,
-    className: "text-slate-400 dark:text-slate-300",
+    className: 'text-slate-400 dark:text-slate-300',
   },
   [VisualCrossingIcon.Wind]: {
     icon: Wind,
-    className: "text-cyan-500 dark:text-cyan-400",
+    className: 'text-cyan-500 dark:text-cyan-400',
   },
   [VisualCrossingIcon.Rain]: {
     icon: CloudRain,
-    className: "text-blue-500 dark:text-blue-400",
+    className: 'text-blue-500 dark:text-blue-400',
   },
   [VisualCrossingIcon.Snow]: {
     icon: CloudSnow,
-    className: "text-sky-300 dark:text-sky-200",
+    className: 'text-sky-300 dark:text-sky-200',
   },
 };
 
@@ -119,7 +119,7 @@ export function getWeatherVisual(
   if (!key) {
     return {
       icon: Cloud,
-      className: "text-slate-500 dark:text-slate-300",
+      className: 'text-slate-500 dark:text-slate-300',
     };
   }
 
@@ -131,7 +131,7 @@ export function getWeatherVisual(
  * If the value is a whole number, it will be displayed without decimal places. If it has a fractional part, it will be rounded to one decimal place. Optionally appends a unit string.
  */
 export function formatValue(value: number | undefined, unit?: string): string {
-  if (value == null || Number.isNaN(value)) return "-";
+  if (value == null || Number.isNaN(value)) return '-';
   const rounded = Math.round(value * 10) / 10;
   const display = Number.isInteger(rounded)
     ? `${rounded}`

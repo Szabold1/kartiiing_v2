@@ -1,15 +1,15 @@
-import { CircuitCard } from "@/components/circuit/CircuitCard";
-import { Loader } from "@/components/shared/Loader";
-import { ErrorState } from "@/components/shared/ErrorState";
-import { ICircuit } from "@kartiiing/shared";
-import { CircuitsViewMode } from "@/lib/constants/circuits";
-import { useCircuitsStore } from "@/lib/stores/circuitsStore";
+import { CircuitCard } from '@/components/circuit/CircuitCard';
+import { Loader } from '@/components/shared/Loader';
+import { ErrorState } from '@/components/shared/ErrorState';
+import { ICircuit } from '@kartiiing/shared';
+import { CircuitsViewMode } from '@/lib/constants/circuits';
+import { useCircuitsStore } from '@/lib/stores/circuitsStore';
 import {
   cn,
   getGridWidthClass,
   listViewContainerClasses,
   gridViewContainerBase,
-} from "@/lib/utils";
+} from '@/lib/utils';
 
 type Props = {
   circuits: ICircuit[];
@@ -49,7 +49,7 @@ export function CircuitsGrid({
           <CircuitCard
             key={circuit.id}
             circuit={circuit}
-            variant={showListView ? "row" : "card"}
+            variant={showListView ? 'row' : 'card'}
             headingLevel="h2"
           />
         ))}

@@ -1,58 +1,58 @@
-import Link from "next/link";
-import { EngineCategory } from "@/components/shared/race-data/EngineCategory";
-import { StatusResultsBadge } from "@/components/shared/badges/StatusResultsBadge";
-import { IRaceEvent, RaceStatus } from "@kartiiing/shared";
-import { RaceDate } from "@/components/shared/race-data/RaceDate";
-import { RaceLocation } from "@/components/shared/race-data/RaceLocation";
+import Link from 'next/link';
+import { EngineCategory } from '@/components/shared/race-data/EngineCategory';
+import { StatusResultsBadge } from '@/components/shared/badges/StatusResultsBadge';
+import { IRaceEvent, RaceStatus } from '@kartiiing/shared';
+import { RaceDate } from '@/components/shared/race-data/RaceDate';
+import { RaceLocation } from '@/components/shared/race-data/RaceLocation';
 import {
   cn,
   getRaceUrl,
   lightDarkGlassHover,
   liveContainerHover,
-} from "@/lib/utils";
+} from '@/lib/utils';
 
 type Props = {
   race: IRaceEvent;
-  variant?: "card" | "row";
-  headingLevel?: "h2" | "h3";
+  variant?: 'card' | 'row';
+  headingLevel?: 'h2' | 'h3';
 };
 
 export function RaceCard({
   race,
-  variant = "card",
-  headingLevel = "h3",
+  variant = 'card',
+  headingLevel = 'h3',
 }: Props) {
   const { id, date, circuit, categories } = race;
   const hasResults = race.links?.results && race.links.results.length > 0;
-  const addDatePadding = variant === "row" && !race.status && !hasResults;
-  const HeadingTag = headingLevel === "h2" ? "h2" : "h3";
+  const addDatePadding = variant === 'row' && !race.status && !hasResults;
+  const HeadingTag = headingLevel === 'h2' ? 'h2' : 'h3';
   const href = getRaceUrl(race);
   const ariaLabel = `View details for ${race.title} at ${circuit?.locationName} - ${date.end}`;
 
-  if (variant === "row") {
+  if (variant === 'row') {
     return (
       <article id={`${id}`}>
         <Link
           href={href}
           aria-label={ariaLabel}
           className={cn(
-            "min-h-[3.3rem] p-[0.4rem] flex cursor-pointer overflow-hidden rounded-2xl",
+            'flex min-h-[3.3rem] cursor-pointer overflow-hidden rounded-2xl p-[0.4rem]',
             lightDarkGlassHover,
             race.status === RaceStatus.LIVE
               ? liveContainerHover
-              : "border-transparent dark:border-transparent dark:bg-transparent shadow-none",
+              : 'border-transparent shadow-none dark:border-transparent dark:bg-transparent',
           )}
         >
-          <div className="flex-1 flex items-center gap-4">
+          <div className="flex flex-1 items-center gap-4">
             {race.status || hasResults ? (
               <span
                 className={cn(
-                  addDatePadding ? "min-w-[6.6rem]" : "min-w-[6.5rem]",
+                  addDatePadding ? 'min-w-[6.6rem]' : 'min-w-[6.5rem]',
                 )}
               >
                 <StatusResultsBadge
                   race={race}
-                  className="px-3 rounded-lg"
+                  className="rounded-lg px-3"
                   heightValue="9.5"
                 />
               </span>
@@ -60,15 +60,15 @@ export function RaceCard({
             <RaceDate
               date={date}
               className={cn(
-                "text-sm text-muted-foreground min-w-[7rem] tracking-tight",
-                addDatePadding && "pl-2",
+                'text-muted-foreground min-w-[7rem] text-sm tracking-tight',
+                addDatePadding && 'pl-2',
               )}
             />
             <RaceLocation
               circuit={circuit}
-              className="text-sm font-medium min-w-[8.5rem] max-w-[8.5rem] text-muted-foreground"
+              className="text-muted-foreground max-w-[8.5rem] min-w-[8.5rem] text-sm font-medium"
             />
-            <HeadingTag className="font-semibold truncate flex-1">
+            <HeadingTag className="flex-1 truncate font-semibold">
               {race.title}
             </HeadingTag>
             <EngineCategory
@@ -88,7 +88,7 @@ export function RaceCard({
         href={href}
         aria-label={ariaLabel}
         className={cn(
-          "relative p-3.5 flex flex-col md:max-w-md cursor-pointer overflow-hidden rounded-2xl w-full",
+          'relative flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl p-3.5 md:max-w-md',
           lightDarkGlassHover,
           race.status === RaceStatus.LIVE && liveContainerHover,
         )}
@@ -97,19 +97,19 @@ export function RaceCard({
           <div className="absolute -top-0.5 -right-0.5">
             <StatusResultsBadge
               race={race}
-              className="pl-4 pr-3.5 rounded-bl-2xl"
+              className="rounded-bl-2xl pr-3.5 pl-4"
             />
           </div>
         ) : null}
         <RaceDate
           date={date}
-          className="leading-tight tracking-tighter text-muted-foreground"
+          className="text-muted-foreground leading-tight tracking-tighter"
         />
         <RaceLocation
           circuit={circuit}
-          className="text-muted-foreground text-sm mt-1.5 font-medium"
+          className="text-muted-foreground mt-1.5 text-sm font-medium"
         />
-        <HeadingTag className="font-semibold tracking-tight flex-1">
+        <HeadingTag className="flex-1 font-semibold tracking-tight">
           {race.title}
         </HeadingTag>
         <EngineCategory engineCategoryPairs={categories} className="mt-2" />

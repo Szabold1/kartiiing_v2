@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback } from 'react';
 
 /**
  * Traps Tab / Shift+Tab focus within the provided element when enabled.
@@ -20,13 +20,13 @@ export function useFocusTrap(
     return Array.from(
       container.querySelectorAll<HTMLElement>(
         [
-          "a[href]",
-          "button:not([disabled])",
-          "textarea:not([disabled])",
-          "input:not([disabled])",
-          "select:not([disabled])",
+          'a[href]',
+          'button:not([disabled])',
+          'textarea:not([disabled])',
+          'input:not([disabled])',
+          'select:not([disabled])',
           '[tabindex]:not([tabindex="-1"])',
-        ].join(", "),
+        ].join(', '),
       ),
     );
   }, [containerRef]);
@@ -37,7 +37,7 @@ export function useFocusTrap(
     const previousFocus = document.activeElement as HTMLElement | null;
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key !== "Tab") return;
+      if (e.key !== 'Tab') return;
 
       const container = containerRef.current;
       if (!container) return;
@@ -66,10 +66,10 @@ export function useFocusTrap(
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
       previousFocus?.focus();
     };
-  }, [enabled, getFocusable]);
+  }, [enabled, containerRef, getFocusable]);
 }

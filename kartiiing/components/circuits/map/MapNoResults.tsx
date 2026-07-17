@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { cn, noBlurGlassBase } from "@/lib/utils";
+import { cn, noBlurGlassBase } from '@/lib/utils';
 
 type Props = {
   className?: string;
 };
 
-export function MapNoResults({ className = "" }: Props) {
+export function MapNoResults({ className = '' }: Props) {
   return (
     <div
       className={cn(
-        "absolute inset-0 z-10 flex items-center justify-center pointer-events-none",
+        'pointer-events-none absolute inset-0 z-10 flex items-center justify-center',
         className,
       )}
     >
-      <div className={cn("px-4 py-2 rounded-lg", noBlurGlassBase)}>
-        <p className="text-sm text-muted-foreground font-medium">
+      <div className={cn('rounded-lg px-4 py-2', noBlurGlassBase)}>
+        <p className="text-muted-foreground text-sm font-medium">
           No circuits match your search
         </p>
       </div>

@@ -1,5 +1,5 @@
-import { createElement } from "react";
-import { cn } from "@/lib/utils";
+import { createElement } from 'react';
+import { cn } from '@/lib/utils';
 
 type Props = {
   children: React.ReactNode;
@@ -9,14 +9,14 @@ type Props = {
 
 export function SectionTitle({
   children,
-  className = "",
+  className = '',
   headerNb = 3,
 }: Props) {
   const tag = `h${headerNb}` as const;
 
   return createElement(
     tag,
-    { className: cn("text-sm text-muted-foreground", className) },
+    { className: cn('text-muted-foreground text-sm', className) },
     children,
   );
 }

@@ -1,27 +1,27 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Sheet,
   SheetContentHamburgerMenu,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { MobileNavLink } from "@/components/nav/mobile/MobileNavLink";
-import { cn, lightDarkGlassBase, lightDarkGlassHover } from "@/lib/utils";
-import { NavLink } from "@/lib/types/NavTypes";
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
+import { MobileNavLink } from '@/components/nav/mobile/MobileNavLink';
+import { cn, lightDarkGlassBase, lightDarkGlassHover } from '@/lib/utils';
+import { NavLink } from '@/lib/types/NavTypes';
 // import LoginBtn from "@/components/nav/LoginBtn";
 
 const navLinks: NavLink[] = [
-  { label: "Home", href: "/", match: "exact" },
+  { label: 'Home', href: '/', match: 'exact' },
   {
-    label: "Calendar",
+    label: 'Calendar',
     href: `/calendar/${new Date().getFullYear()}`,
-    match: "startsWith",
-    matchPath: "/calendar/",
+    match: 'startsWith',
+    matchPath: '/calendar/',
   },
-  { label: "Circuits", href: "/circuits", match: "exact" },
-  { label: "Wiki", href: "/wiki", match: "exact" },
+  { label: 'Circuits', href: '/circuits', match: 'exact' },
+  { label: 'Wiki', href: '/wiki', match: 'exact' },
 ];
 
 export function MobileNav() {
@@ -35,8 +35,8 @@ export function MobileNav() {
           <Button
             variant="outline"
             size="icon"
-            aria-label={open ? "Close Menu" : "Open Menu"}
-            className={cn("w-10.5 h-10.5 rounded-lg", lightDarkGlassHover)}
+            aria-label={open ? 'Close Menu' : 'Open Menu'}
+            className={cn('h-10.5 w-10.5 rounded-lg', lightDarkGlassHover)}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </Button>
@@ -44,7 +44,7 @@ export function MobileNav() {
         <SheetContentHamburgerMenu
           side="right"
           className={cn(
-            "h-fit w-44 mt-17 mx-2 rounded-2xl",
+            'mx-2 mt-17 h-fit w-44 rounded-2xl',
             lightDarkGlassBase,
           )}
         >

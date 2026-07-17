@@ -4,8 +4,8 @@ import {
   IPaginatedResponse,
   ISeoData,
   CircuitsOrderPreset,
-} from "@kartiiing/shared";
-import { getApiBase, fetchWithTimeout } from "./base";
+} from '@kartiiing/shared';
+import { getApiBase, fetchWithTimeout } from './base';
 
 const MS_DAY = 1000 * 60 * 60 * 24;
 
@@ -30,12 +30,12 @@ export async function getCircuits(options?: {
   } = options || {};
 
   const params = new URLSearchParams();
-  params.set("page", page.toString());
-  params.set("limit", limit.toString());
-  if (search) params.set("search", search);
-  if (preset) params.set("preset", preset);
-  if (latitude != null) params.set("userLatitude", latitude.toString());
-  if (longitude != null) params.set("userLongitude", longitude.toString());
+  params.set('page', page.toString());
+  params.set('limit', limit.toString());
+  if (search) params.set('search', search);
+  if (preset) params.set('preset', preset);
+  if (latitude != null) params.set('userLatitude', latitude.toString());
+  if (longitude != null) params.set('userLongitude', longitude.toString());
 
   const url = `${getApiBase()}/circuits?${params.toString()}`;
   const res = await fetchWithTimeout(url, { next: { revalidate: MS_DAY } });
@@ -54,10 +54,10 @@ export async function getCircuitCoordinates(
   search?: string,
 ): Promise<ICircuitCoordinate[]> {
   const params = new URLSearchParams();
-  if (search) params.set("search", search);
+  if (search) params.set('search', search);
 
   const queryString = params.toString();
-  const url = `${getApiBase()}/circuits/coordinates${queryString ? `?${queryString}` : ""}`;
+  const url = `${getApiBase()}/circuits/coordinates${queryString ? `?${queryString}` : ''}`;
   const res = await fetchWithTimeout(url, { next: { revalidate: MS_DAY } });
 
   if (!res.ok) {

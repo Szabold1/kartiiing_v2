@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useCallback, useRef } from "react";
-import { useBodyScrollLock } from "@/lib/hooks/useBodyScrollLock";
-import { useEscapeKey } from "@/lib/hooks/useEscapeKey";
-import { useFocusTrap } from "@/lib/hooks/useFocusTrap";
-import { X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ICircuit, ICircuitCoordinate } from "@kartiiing/shared";
-import { SearchBar } from "@/components/shared/SearchBar";
-import { CircuitsMap } from "@/components/circuits/map/CircuitsMap";
-import { useShallow } from "zustand/shallow";
-import { useUserLocationStore } from "@/lib/stores/userLocationStore";
-import { cn, lightDarkGlassBase, lightDarkGlassHover } from "@/lib/utils";
-import { calculateDistance } from "@/lib/utils/locationUtils";
-import { Button } from "@/components/ui/button";
-import { getCircuitById, getCircuitCoordinates } from "@/lib/api";
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { useBodyScrollLock } from '@/lib/hooks/useBodyScrollLock';
+import { useEscapeKey } from '@/lib/hooks/useEscapeKey';
+import { useFocusTrap } from '@/lib/hooks/useFocusTrap';
+import { X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ICircuit, ICircuitCoordinate } from '@kartiiing/shared';
+import { SearchBar } from '@/components/shared/SearchBar';
+import { CircuitsMap } from '@/components/circuits/map/CircuitsMap';
+import { useShallow } from 'zustand/shallow';
+import { useUserLocationStore } from '@/lib/stores/userLocationStore';
+import { cn, lightDarkGlassBase, lightDarkGlassHover } from '@/lib/utils';
+import { calculateDistance } from '@/lib/utils/locationUtils';
+import { Button } from '@/components/ui/button';
+import { getCircuitById, getCircuitCoordinates } from '@/lib/api';
 
 type Props = {
   coordinates: ICircuitCoordinate[];
@@ -23,7 +23,7 @@ type Props = {
 };
 
 export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCircuit, setSelectedCircuit] = useState<ICircuit | null>(null);
   const [filteredCoords, setFilteredCoords] =
     useState<ICircuitCoordinate[]>(coordinates);
@@ -54,7 +54,7 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
       const result = await getCircuitCoordinates(trimmed);
       setFilteredCoords(result);
     } catch (err) {
-      console.error("Error fetching filtered coordinates:", err);
+      console.error('Error fetching filtered coordinates:', err);
       setFilteredCoords([]);
     }
   }, [searchQuery, coordinates]);
@@ -62,7 +62,7 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
   // Reset search state when modal closes
   useEffect(() => {
     if (!isOpen) {
-      setSearchQuery("");
+      setSearchQuery('');
       setFilteredCoords(coordinates);
       setSelectedCircuit(null);
     }
@@ -104,7 +104,7 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
         circuitCache.current.set(id, circuitWithDistance);
         setSelectedCircuit(circuitWithDistance);
       } catch (error) {
-        console.error("Error fetching circuit for popup:", error);
+        console.error('Error fetching circuit for popup:', error);
       }
     },
     [userLocation],
@@ -131,18 +131,18 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
           {/* Full-screen map modal */}
           <motion.div
             ref={modalRef}
-            className="fixed inset-2 sm:inset-4 z-[100] flex flex-col bg-background rounded-3xl overflow-hidden shadow-xl"
+            className="bg-background fixed inset-2 z-[100] flex flex-col overflow-hidden rounded-3xl shadow-xl sm:inset-4"
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 400,
               damping: 35,
               mass: 0.8,
             }}
           >
-            <div className="flex-1 relative">
+            <div className="relative flex-1">
               <CircuitsMap
                 coordinates={filteredCoords}
                 selectedCircuit={selectedCircuit}
@@ -151,14 +151,14 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
                 onPopupClose={handlePopupClose}
                 className="!min-h-0 !rounded-none !border-0 !shadow-none"
                 initialCenter={userLocation}
-                initialZoom={locationSource === "gps" ? 6 : 4}
+                initialZoom={locationSource === 'gps' ? 6 : 4}
               />
 
               {/* Floating search bar */}
-              <div className="pointer-events-none inset-x-0 z-10 flex absolute top-4 left-4">
+              <div className="pointer-events-none absolute inset-x-0 top-4 left-4 z-10 flex">
                 <div
                   className={cn(
-                    "pointer-events-auto flex items-center p-0 gap-3 rounded-lg",
+                    'pointer-events-auto flex items-center gap-3 rounded-lg p-0',
                     lightDarkGlassBase,
                   )}
                 >
@@ -174,13 +174,13 @@ export function CircuitsMapModal({ coordinates, isOpen, onClose }: Props) {
               <Button
                 onClick={onClose}
                 className={cn(
-                  "absolute top-4 right-4 h-10.5 w-10.5 sm:w-fit rounded-lg text-foreground/80",
+                  'text-foreground/80 absolute top-4 right-4 h-10.5 w-10.5 rounded-lg sm:w-fit',
                   lightDarkGlassHover,
                 )}
                 aria-label="Close map"
               >
-                <X className="w-5 h-5" />
-                <span className="hidden sm:inline text-sm font-medium">
+                <X className="h-5 w-5" />
+                <span className="hidden text-sm font-medium sm:inline">
                   Close
                 </span>
               </Button>

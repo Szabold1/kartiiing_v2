@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { ChevronUp } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import { ChevronUp } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type Props = {
   visibleOffset?: number;
@@ -19,14 +19,14 @@ export function BackToTopBtn({ visibleOffset = 300 }: Props) {
     };
 
     toggleVisibility();
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
   }, [visibleOffset]);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -40,11 +40,11 @@ export function BackToTopBtn({ visibleOffset = 300 }: Props) {
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
           className={cn(
-            "fixed bottom-5 right-5 z-40 p-3 cursor-pointer rounded-full",
-            "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1",
-            "border shadow backdrop-blur-md",
-            "border-gray-500/10 dark:border-gray-50/20 bg-accent-foreground/20",
-            "hover:shadow-md hover:border-gray-500/50 hover:dark:border-gray-50/50 transition",
+            'fixed right-5 bottom-5 z-40 cursor-pointer rounded-full p-3',
+            'focus:ring-primary focus:ring-2 focus:ring-offset-1 focus:outline-none',
+            'border shadow backdrop-blur-md',
+            'bg-accent-foreground/20 border-gray-500/10 dark:border-gray-50/20',
+            'transition hover:border-gray-500/50 hover:shadow-md hover:dark:border-gray-50/50',
           )}
           aria-label="Back to top"
         >

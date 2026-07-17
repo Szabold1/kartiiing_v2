@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { CategoryBadge } from "@/components/shared/badges/CategoryBadge";
+import { cn } from '@/lib/utils';
+import { CategoryBadge } from '@/components/shared/badges/CategoryBadge';
 
 type Props = {
   engineCategoryPairs: Record<string, string[]>;
@@ -15,9 +15,9 @@ type Badge = {
 
 export function EngineCategory({
   engineCategoryPairs,
-  className = "",
+  className = '',
   showAll = false,
-  badgeClassName = "",
+  badgeClassName = '',
 }: Props) {
   const badges: Badge[] = [];
 
@@ -32,7 +32,7 @@ export function EngineCategory({
   });
 
   return (
-    <div className={cn("flex gap-1.5 flex-wrap", className)}>
+    <div className={cn('flex flex-wrap gap-1.5', className)}>
       {badges.map(({ label, engineType }) => (
         <CategoryBadge
           key={`${engineType}-${label}`}

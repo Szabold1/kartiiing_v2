@@ -4,7 +4,7 @@ export interface ISeoData {
   keywords: string;
   openGraph?: {
     url?: string;
-    type?: "website" | "article";
+    type?: 'website' | 'article';
     image?: string;
   };
   twitter?: {

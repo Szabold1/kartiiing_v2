@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useEffect, useCallback, useState } from "react";
-import { useSectionWidth } from "@/lib/hooks/useSectionWidth";
-import { LIST_VIEW_BREAKPOINT } from "@/lib/constants/layout";
-import { SearchHeader } from "@/components/shared/SearchHeader";
-import { CalendarActions } from "@/components/calendar/CalendarActions";
-import { RacesGrid } from "@/components/calendar/RacesGrid";
-import { BackToTopBtn } from "@/components/shared/btns/BackToTopBtn";
-import { ErrorState } from "@/components/shared/ErrorState";
+import { useEffect, useCallback, useState } from 'react';
+import { useSectionWidth } from '@/lib/hooks/useSectionWidth';
+import { LIST_VIEW_BREAKPOINT } from '@/lib/constants/layout';
+import { SearchHeader } from '@/components/shared/SearchHeader';
+import { CalendarActions } from '@/components/calendar/CalendarActions';
+import { RacesGrid } from '@/components/calendar/RacesGrid';
+import { BackToTopBtn } from '@/components/shared/btns/BackToTopBtn';
+import { ErrorState } from '@/components/shared/ErrorState';
 import {
   IRaceEvent,
   CalendarOrderPreset,
   IPaginatedResponse,
-} from "@kartiiing/shared";
-import { getRaceEvents } from "@/lib/api";
-import { useInfiniteScroll } from "@/lib/hooks/useInfiniteScroll";
+} from '@kartiiing/shared';
+import { getRaceEvents } from '@/lib/api';
+import { useInfiniteScroll } from '@/lib/hooks/useInfiniteScroll';
 
 type Props = {
   initialData: IPaginatedResponse<IRaceEvent>;
@@ -33,14 +33,14 @@ export function CalendarClient({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [preset, setPreset] = useState<CalendarOrderPreset>(initialSort);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [clientError, setClientError] = useState<string | null>(null);
   const { sectionRef, sectionWidth } = useSectionWidth();
 
   const fetchRaces = useCallback(
     (page: number, limit: number) =>
       getRaceEvents({
-        year: year === "all" ? undefined : year.toString(),
+        year: year === 'all' ? undefined : year.toString(),
         preset,
         search: searchQuery.trim() || undefined,
         page,
@@ -82,9 +82,9 @@ export function CalendarClient({
           response.meta.hasNextPage,
         );
       } catch (error) {
-        console.error("Error fetching races:", error);
+        console.error('Error fetching races:', error);
         setClientError(
-          "Failed to load races. Check your internet connection and try again.",
+          'Failed to load races. Check your internet connection and try again.',
         );
       } finally {
         setLoading(false);
@@ -119,7 +119,7 @@ export function CalendarClient({
   return (
     <>
       <div ref={sectionRef}>
-        <div className="flex flex-col md:flex-row gap-2 mb-2 items-center">
+        <div className="mb-2 flex flex-col items-center gap-2 md:flex-row">
           <SearchHeader
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -132,11 +132,11 @@ export function CalendarClient({
           {showGridToggle && renderCalendarActions()}
         </div>
 
-        <div className="my-4 py-4 border-t border-dashed">
+        <div className="my-4 border-t border-dashed py-4">
           {serverError || clientError ? (
             <ErrorState
               title="Something went wrong"
-              message={serverError || clientError || ""}
+              message={serverError || clientError || ''}
             />
           ) : (
             <RacesGrid
@@ -144,7 +144,7 @@ export function CalendarClient({
               loading={loading}
               sectionWidth={sectionWidth}
               loadingMore={loadingMore}
-              isAllYearsView={year === "all"}
+              isAllYearsView={year === 'all'}
             />
           )}
 

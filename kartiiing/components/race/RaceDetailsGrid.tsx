@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { IRaceEventDetail } from "@kartiiing/shared";
-import dynamic from "next/dynamic";
-import { Loader } from "@/components/shared/Loader";
+import { IRaceEventDetail } from '@kartiiing/shared';
+import dynamic from 'next/dynamic';
+import { Loader } from '@/components/shared/Loader';
 
 const RaceDetailsMasonry = dynamic(
   () =>
-    import("@/components/race/RaceDetailsMasonry").then(
+    import('@/components/race/RaceDetailsMasonry').then(
       (mod) => mod.RaceDetailsMasonry,
     ),
   {

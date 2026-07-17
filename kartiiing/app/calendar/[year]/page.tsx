@@ -2,15 +2,15 @@ import {
   getAvailableYears,
   getRaceEvents,
   getCalendarMetadata,
-} from "@/lib/api";
-import { CalendarClient } from "./calendar-client";
-import { CalendarHeader } from "@/components/calendar/CalendarHeader";
-import { PageWrapper } from "@/components/shared/PageWrapper";
-import { CalendarOrderPreset, emptyPaginatedResponse } from "@kartiiing/shared";
-import type { IRaceEvent } from "@kartiiing/shared";
-import { SITE_URL } from "@/lib/utils";
+} from '@/lib/api';
+import { CalendarClient } from './calendar-client';
+import { CalendarHeader } from '@/components/calendar/CalendarHeader';
+import { PageWrapper } from '@/components/shared/PageWrapper';
+import { CalendarOrderPreset, emptyPaginatedResponse } from '@kartiiing/shared';
+import type { IRaceEvent } from '@kartiiing/shared';
+import { SITE_URL } from '@/lib/utils';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 type Props = {
   params: Promise<{
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props) {
       keywords: metadata.keywords,
       openGraph: {
         url: `${SITE_URL}/calendar/${year}`,
-        type: "website",
+        type: 'website',
         // image: metadata.openGraph?.image || DEFAULT_OG_IMAGE,
       },
       // twitter: {
@@ -41,16 +41,16 @@ export async function generateMetadata({ params }: Props) {
       // },
     };
   } catch (error) {
-    console.error("Error generating calendar metadata:", error);
+    console.error('Error generating calendar metadata:', error);
 
-    const yearDisplay = year === "all" ? "All Years" : year;
+    const yearDisplay = year === 'all' ? 'All Years' : year;
     return {
       title: `${yearDisplay} Calendar - Kartiiing`,
       description: `Karting race calendar for ${yearDisplay}. View upcoming and past events.`,
       keywords: `karting calendar, ${yearDisplay} karting calendar, races, events`,
       openGraph: {
         url: `${SITE_URL}/calendar/${year}`,
-        type: "website",
+        type: 'website',
       },
     };
   }
@@ -71,10 +71,10 @@ export default async function CalendarPage({ params }: Props) {
       limit: 20,
     });
   } catch (error) {
-    console.error("Error fetching race events:", error);
+    console.error('Error fetching race events:', error);
     racesRes = emptyPaginatedResponse<IRaceEvent>(1, 20);
     serverError =
-      "Failed to load races. Check your internet connection and try again.";
+      'Failed to load races. Check your internet connection and try again.';
   }
 
   const currentYear = new Date().getFullYear();
@@ -82,17 +82,17 @@ export default async function CalendarPage({ params }: Props) {
   try {
     availableYears = await getAvailableYears();
   } catch (error) {
-    console.error("Error fetching available years:", error);
+    console.error('Error fetching available years:', error);
     availableYears = [currentYear];
   }
-  const years = ["all", ...availableYears] as (string | number)[];
+  const years = ['all', ...availableYears] as (string | number)[];
 
-  let description = "Race calendar - view upcoming and past events.";
+  let description = 'Race calendar - view upcoming and past events.';
   try {
     const metadata = await getCalendarMetadata(year);
     description = metadata.description;
   } catch (error) {
-    console.error("Error fetching calendar metadata:", error);
+    console.error('Error fetching calendar metadata:', error);
   }
 
   return (

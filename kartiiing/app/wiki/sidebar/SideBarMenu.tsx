@@ -1,7 +1,7 @@
-import { SideBarLink } from "./SideBarLink";
-import { SideBarSubSection } from "./SideBarSubSection";
-import data from "../content/WikiContent";
-import { Section, SubSection } from "@/lib/types/WikiTypes";
+import { SideBarLink } from './SideBarLink';
+import { SideBarSubSection } from './SideBarSubSection';
+import data from '../content/WikiContent';
+import { Section, SubSection } from '@/lib/types/WikiTypes';
 
 export function SideBarMenu() {
   const renderLinks = (sections: Section[] | SubSection[]) => {
@@ -9,11 +9,11 @@ export function SideBarMenu() {
       if (!section.id) return null;
 
       const title =
-        "shortTitle" in section && section.shortTitle
+        'shortTitle' in section && section.shortTitle
           ? section.shortTitle
           : section.title;
       const subSections =
-        section.paragraphs?.filter((p) => p.type === "sub-section") || [];
+        section.paragraphs?.filter((p) => p.type === 'sub-section') || [];
 
       return (
         <div key={index}>
@@ -28,7 +28,7 @@ export function SideBarMenu() {
   };
 
   return (
-    <div className="flex flex-col gap-1 py-5 pr-7 lg:fixed top-18 w-3xs">
+    <div className="top-18 flex w-3xs flex-col gap-1 py-5 pr-7 lg:fixed">
       {renderLinks(data.sections as Section[])}
     </div>
   );

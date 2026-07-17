@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/PageHeader";
+import { useRouter } from 'next/navigation';
+import { PageHeader } from '@/components/shared/PageHeader';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 type Props = {
   description: string;
@@ -20,7 +20,7 @@ export function CalendarHeader({ description, selectedYear, years }: Props) {
   const router = useRouter();
 
   const formatYearDisplay = (year: number | string) => {
-    return year === "all" ? "All Years" : year;
+    return year === 'all' ? 'All Years' : year;
   };
 
   const handleYearChange = (newYear: string) => {
@@ -40,7 +40,7 @@ export function CalendarHeader({ description, selectedYear, years }: Props) {
           onValueChange={handleYearChange}
         >
           <SelectTrigger
-            className="w-29 h-10.5! cursor-pointer font-semibold text-[1rem]"
+            className="h-10.5! w-29 cursor-pointer text-[1rem] font-semibold"
             aria-label="Select year to view racing calendar"
             suppressHydrationWarning
           >
@@ -51,7 +51,7 @@ export function CalendarHeader({ description, selectedYear, years }: Props) {
               <SelectItem
                 key={year}
                 value={year.toString()}
-                className="cursor-pointer h-10"
+                className="h-10 cursor-pointer"
               >
                 {formatYearDisplay(year)}
               </SelectItem>

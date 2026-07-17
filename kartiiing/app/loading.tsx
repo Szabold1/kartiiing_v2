@@ -1,5 +1,5 @@
-import { PageWrapper } from "@/components/shared/PageWrapper";
-import { Loader } from "@/components/shared/Loader";
+import { PageWrapper } from '@/components/shared/PageWrapper';
+import { Loader } from '@/components/shared/Loader';
 
 export default function AppLoading() {
   return (

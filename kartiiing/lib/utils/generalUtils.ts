@@ -1,6 +1,6 @@
-import { ICoordinates } from "@kartiiing/shared";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { ICoordinates } from '@kartiiing/shared';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -15,7 +15,7 @@ export function formatLapTime(milliseconds: number): string {
   const totalSeconds = milliseconds / 1000;
   const minutes = Math.floor(totalSeconds / 60);
   const secs = (totalSeconds % 60).toFixed(3);
-  return `${minutes === 0 ? "" : `${minutes}:`}${secs.padStart(6, "0")}`;
+  return `${minutes === 0 ? '' : `${minutes}:`}${secs.padStart(6, '0')}`;
 }
 
 /**
@@ -23,7 +23,7 @@ export function formatLapTime(milliseconds: number): string {
  * @param url - The URL to be opened in a new tab.
  */
 export function openLinkInNewTab(url: string) {
-  window.open(url, "_blank", "noopener noreferrer");
+  window.open(url, '_blank', 'noopener noreferrer');
 }
 
 /**

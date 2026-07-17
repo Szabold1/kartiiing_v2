@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useRef, useEffect, useCallback } from "react";
-import { ICircuit, ICircuitCoordinate, ICoordinates } from "@kartiiing/shared";
-import { useTheme } from "next-themes";
-import mapboxgl from "mapbox-gl";
-import Map, { Marker, MapRef } from "react-map-gl/mapbox";
-import { CircuitMapPopup } from "./CircuitMapPopup";
-import { MapCenterButton } from "./MapCenterButton";
-import { MapZoomControl } from "./MapZoomControl";
-import { MapNoResults } from "./MapNoResults";
-import { cn, flyToCenter, lightDarkGlassBase } from "@/lib/utils";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { useRef, useEffect, useCallback } from 'react';
+import { ICircuit, ICircuitCoordinate, ICoordinates } from '@kartiiing/shared';
+import { useTheme } from 'next-themes';
+import mapboxgl from 'mapbox-gl';
+import Map, { Marker, MapRef, MarkerEvent } from 'react-map-gl/mapbox';
+import { CircuitMapPopup } from './CircuitMapPopup';
+import { MapCenterButton } from './MapCenterButton';
+import { MapZoomControl } from './MapZoomControl';
+import { MapNoResults } from './MapNoResults';
+import { cn, flyToCenter, lightDarkGlassBase } from '@/lib/utils';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 type Props = {
   coordinates: ICircuitCoordinate[];
@@ -30,7 +30,7 @@ export function CircuitsMap({
   userLocation,
   onCircuitSelect,
   onPopupClose,
-  className = "",
+  className = '',
   initialCenter = { longitude: 10.50584, latitude: 45.425175 }, // Lonato
   initialZoom = 4,
 }: Props) {
@@ -45,8 +45,8 @@ export function CircuitsMap({
   const applyLightPreset = useCallback(() => {
     const map = mapRef.current?.getMap();
     if (!map) return;
-    const preset = resolvedTheme === "dark" ? "night" : "day";
-    map.setConfigProperty("basemap", "lightPreset", preset);
+    const preset = resolvedTheme === 'dark' ? 'night' : 'day';
+    map.setConfigProperty('basemap', 'lightPreset', preset);
   }, [resolvedTheme]);
 
   // On load: apply light preset + position the map
@@ -115,12 +115,12 @@ export function CircuitsMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
-  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+  const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
 
   return (
     <div
       className={cn(
-        "relative w-full h-full min-h-[28rem] rounded-[1.3rem] overflow-hidden",
+        'relative h-full min-h-[28rem] w-full overflow-hidden rounded-[1.3rem]',
         lightDarkGlassBase,
         className,
       )}
@@ -132,13 +132,12 @@ export function CircuitsMap({
         onLoad={handleLoad}
         onClick={onPopupClose}
         style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
           inset: 0,
         }}
-        mapLib={import("mapbox-gl")}
-        tabIndex={-1}
+        mapLib={import('mapbox-gl')}
       >
         <div className="absolute top-17 right-4 z-10 flex flex-col gap-1.5">
           <MapZoomControl mapRef={mapRef} />
@@ -152,14 +151,14 @@ export function CircuitsMap({
               longitude={coord.coordinates.longitude}
               latitude={coord.coordinates.latitude}
               anchor="center"
-              onClick={(e: mapboxgl.MapMouseEvent) => {
+              onClick={(e: MarkerEvent<MouseEvent>) => {
                 e.originalEvent.stopPropagation();
                 onCircuitSelect(coord.id);
               }}
             >
               <div className="group cursor-pointer">
-                <div className="w-6 h-6 bg-foreground/80 dark:bg-foreground/70 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                  <div className="w-2.5 h-2.5 bg-background rounded-full" />
+                <div className="bg-foreground/80 dark:bg-foreground/70 flex h-6 w-6 items-center justify-center rounded-full shadow-md transition-transform group-hover:scale-110">
+                  <div className="bg-background h-2.5 w-2.5 rounded-full" />
                 </div>
               </div>
             </Marker>
@@ -175,11 +174,11 @@ export function CircuitsMap({
             latitude={userLocation.latitude}
             anchor="center"
           >
-            <div className="relative group cursor-pointer">
+            <div className="group relative cursor-pointer">
               {/* Pulsing ring */}
-              <span className="absolute inset-0 rounded-full bg-blue-400/30 animate-ping" />
+              <span className="absolute inset-0 animate-ping rounded-full bg-blue-400/30" />
               {/* Outer dot */}
-              <span className="block w-5 h-5 rounded-full bg-blue-500 border-2 border-white shadow-md" />
+              <span className="block h-5 w-5 rounded-full border-2 border-white bg-blue-500 shadow-md" />
             </div>
           </Marker>
         )}

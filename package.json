@@ -2,17 +2,35 @@
   "name": "kartiiing-monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "postinstall": "cd shared && npm run build"
+    "postinstall": "pnpm -r --filter './shared' build",
+    "dev": "pnpm -r --filter './shared' build && pnpm -r --parallel --stream --filter kartiiing --filter api dev",
+    "build": "pnpm -r --filter './shared' build && pnpm -r --parallel --stream --filter kartiiing --filter api build",
+    "format:check": "prettier --check .",
+    "format:run": "prettier --write .",
+    "lint": "pnpm -r --filter './shared' lint && pnpm -r --parallel --stream --filter kartiiing --filter api lint",
+    "typecheck": "pnpm -r --filter './shared' typecheck && pnpm -r --parallel --stream --filter kartiiing --filter api typecheck",
+    "test": "pnpm -r --sequential --filter kartiiing --filter api test"
   },
-  "workspaces": [
-    "shared",
-    "api",
-    "kartiiing"
-  ],
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.0.9",
+      "onFail": "download"
+    }
+  },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "tailwindcss-animate": "^1.0.7"
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "typescript-eslint": "^8.59.2"
   }
 }

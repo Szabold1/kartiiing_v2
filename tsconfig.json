@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "ES2023",
+    "types": ["node"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": [
+    "shared/tsconfig.json",
+    "api/tsconfig.json",
+    "kartiiing/tsconfig.json"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

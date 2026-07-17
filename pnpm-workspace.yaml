@@ -1,0 +1,8 @@
+packages:
+  - 'shared'
+  - 'api'
+  - 'kartiiing'
+
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
